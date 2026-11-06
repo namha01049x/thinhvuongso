@@ -799,15 +799,53 @@ html_content += f'''
           </div>
         </div>
 
+        <!-- Table of Contents (Muc luc tu dong) -->
+        <div id="modal-toc-box" class="hidden p-4 sm:p-5 rounded-2xl bg-nen-sau border border-kem/15 space-y-3">
+          <div class="flex items-center justify-between border-b border-kem/10 pb-2.5">
+            <div class="flex items-center gap-2 font-mono text-xs text-cam font-bold uppercase tracking-wider">
+              <svg class="w-4 h-4 text-cam" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h16"></path></svg>
+              <span>Mục lục nội dung</span>
+            </div>
+            <span id="modal-toc-count" class="font-mono text-[11px] text-yen"></span>
+          </div>
+          <nav id="modal-toc-content" class="space-y-1">
+          </nav>
+        </div>
+
         <!-- Main Body Content -->
         <div id="modal-article-body" class="article-body">
+        </div>
+
+        <!-- Social Share Box (Facebook & Copy Link) -->
+        <div class="py-8 my-6 border-y border-kem/15 text-center space-y-4">
+          <p class="text-sm sm:text-base font-semibold text-kem">
+            Nếu bạn thấy bài viết này có giá trị, hãy chia sẻ cho người cần nó!
+          </p>
+          <div class="flex items-center justify-center gap-3.5 flex-wrap">
+            <button 
+              type="button" 
+              onclick="window.shareCurrentArticleFacebook()" 
+              class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#C49A6C] hover:bg-[#B38859] text-[#141C25] font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all duration-200 active:scale-95"
+            >
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              <span>Facebook</span>
+            </button>
+            <button 
+              type="button" 
+              onclick="window.copyCurrentArticleLink()" 
+              class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#C49A6C] hover:bg-[#B38859] text-[#141C25] font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all duration-200 active:scale-95"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy link</span>
+            </button>
+          </div>
         </div>
 
         <!-- Author Profile Box Inside Reader -->
         <div class="pt-8 border-t border-kem/15">
           <div class="p-5 rounded-xl bg-nen-sau border border-kem/15 flex flex-col sm:flex-row items-center sm:items-start gap-4">
             <div class="w-16 h-16 rounded-full overflow-hidden shrink-0 border border-cam bg-xanh/40">
-              <img src="anh/mentor-vo-hoai-nam.webp" alt="Mentor Trần Nam Hà" class="w-full h-full object-cover" />
+              <img src="anh/mentor-vo-hoai-nam.webp" alt="Mentor Trần Nam Hà" onerror="this.onerror=null;this.src='anh/cd-bia-1.webp';" class="w-full h-full object-cover" />
             </div>
             <div class="space-y-1.5 text-center sm:text-left">
               <span class="font-mono text-[10px] text-cam uppercase tracking-wider block">Tác giả & Cố vấn</span>
@@ -833,6 +871,67 @@ html_content += f'''
             <a href="khuhoctap" class="btn-o !py-2 !px-4 text-xs font-mono">
               <span>Vào Khu Học Tập ↗</span>
             </a>
+          </div>
+        </div>
+
+        <!-- Related Articles Section (Bai viet lien quan) -->
+        <div class="pt-8 border-t border-kem/15 space-y-4">
+          <div class="flex items-center justify-between pb-2 border-b border-kem/10">
+            <div>
+              <span class="nhan text-cam border-cam/30 bg-cam/10 mb-1">Gợi ý đọc tiếp</span>
+              <h3 class="text-lg sm:text-xl font-bold text-kem">Bài viết liên quan & Đọc tiếp theo</h3>
+            </div>
+            <span class="text-xs text-yen font-mono">3 bài viết đề xuất</span>
+          </div>
+          <div id="modal-related-articles" class="space-y-3.5">
+          </div>
+        </div>
+
+        <!-- Comments & Discussion Section -->
+        <div id="modal-comments-section" class="pt-8 border-t border-kem/15 space-y-6">
+          <div class="flex items-center justify-between pb-2 border-b border-kem/10">
+            <div class="flex items-center gap-3">
+              <h3 class="text-lg sm:text-xl font-bold text-kem">Thảo luận về bài viết</h3>
+              <span id="modal-comments-count-badge" class="px-2.5 py-0.5 rounded-full bg-cam/20 border border-cam/40 text-cam text-xs font-mono font-semibold">
+                Bình luận
+              </span>
+            </div>
+            <span class="text-xs text-yen font-mono">Cộng đồng Thịnh Vượng Số</span>
+          </div>
+
+          <!-- Comment input form -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-nen-sau border border-kem/15 space-y-3.5">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-cam/20 border border-cam/40 flex items-center justify-center text-cam font-bold text-sm shrink-0">
+                <span>✍</span>
+              </div>
+              <input 
+                type="text" 
+                id="comment-author-input" 
+                placeholder="Họ và tên của bạn (hoặc để trống để làm Bạn đọc ẩn danh)..." 
+                class="flex-1 px-3.5 py-2 rounded-xl bg-abyssal border border-kem/15 text-xs sm:text-sm text-kem focus:border-cam focus:outline-none placeholder:text-yen/50" 
+              />
+            </div>
+            <textarea 
+              id="comment-text-input" 
+              rows="3" 
+              placeholder="Viết góc nhìn, bài học tâm đắc hoặc câu hỏi của bạn về bài viết này..." 
+              class="w-full px-3.5 py-2.5 rounded-xl bg-abyssal border border-kem/15 text-xs sm:text-sm text-kem focus:border-cam focus:outline-none placeholder:text-yen/50 resize-none"
+            ></textarea>
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-1">
+              <span class="text-[11px] text-yen/70 font-mono">Bình luận tuân thủ tinh thần xây dựng & triết lý Thịnh Vượng Số</span>
+              <button 
+                type="button" 
+                onclick="window.submitComment()" 
+                class="btn-p !py-2 !px-4 text-xs font-mono uppercase tracking-wider self-end sm:self-auto"
+              >
+                <span>Gửi bình luận →</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Comments List -->
+          <div id="modal-comments-list" class="space-y-3.5">
           </div>
         </div>
 
@@ -1088,6 +1187,15 @@ html_content += f'''
         }};
       }}
 
+      // 1. Auto-generate Table of Contents
+      generateTableOfContents(modalBody);
+
+      // 2. Render Related Articles
+      renderRelatedArticles(art.slug, art.category);
+
+      // 3. Render Comments
+      renderComments(art.slug, art.category);
+
       // Update Prev / Next buttons
       var prevBtn = document.getElementById('modal-prev-btn');
       var nextBtn = document.getElementById('modal-next-btn');
@@ -1111,45 +1219,260 @@ html_content += f'''
       }} catch (e) {{}}
     }};
 
-    window.closeArticle = function() {{
-      var modal = document.getElementById('article-reader-modal');
-      if (modal) modal.classList.add('hidden');
-      document.body.style.overflow = '';
+    // ==================== TABLE OF CONTENTS (MUC LUC TU DONG) ====================
+    function generateTableOfContents(modalBody) {{
+      var tocBox = document.getElementById('modal-toc-box');
+      var tocContent = document.getElementById('modal-toc-content');
+      var tocCount = document.getElementById('modal-toc-count');
+      if (!tocBox || !tocContent) return;
 
-      var pFill = document.getElementById('reading-progress-fill');
-      if (pFill) pFill.style.width = '0%';
-
-      try {{
-        window.history.pushState(null, '', 'chuyensan');
-      }} catch (e) {{}}
-    }};
-
-    window.navigateArticle = function(direction) {{
-      var newIdx = currentArticleIndex + direction;
-      if (newIdx >= 0 && newIdx < allArticles.length) {{
-        window.openArticle(allArticles[newIdx].slug);
-      }}
-    }};
-
-    function updateReadingProgress() {{
-      var el = document.getElementById('reader-modal-body');
-      var pFill = document.getElementById('reading-progress-fill');
-      if (!el || !pFill) return;
-      var total = el.scrollHeight - el.clientHeight;
-      if (total <= 0) {{
-        pFill.style.width = '0%';
+      var headings = modalBody.querySelectorAll('h2');
+      if (!headings || headings.length < 2) {{
+        tocBox.classList.add('hidden');
         return;
       }}
-      var pct = Math.min(100, Math.round((el.scrollTop / total) * 100));
-      pFill.style.width = pct + '%';
+
+      var html = '';
+      var validCount = 0;
+      for (var i = 0; i < headings.length; i++) {{
+        var h = headings[i];
+        var text = (h.textContent || '').trim();
+        if (!text) continue;
+        validCount++;
+        if (!h.id) {{
+          h.id = 'sec-heading-' + validCount;
+        }}
+        var numStr = (validCount < 10 ? '0' : '') + validCount;
+        html += '<a href="javascript:void(0)" onclick="window.scrollToArticleHeading(\'' + h.id + '\')" class="flex items-start gap-2.5 text-xs sm:text-sm text-yen hover:text-cam transition-colors py-1.5 px-2.5 rounded-lg hover:bg-kem/5 group">';
+        html += '<span class="font-mono text-cam/70 group-hover:text-cam font-bold shrink-0">' + numStr + '.</span>';
+        html += '<span class="leading-relaxed line-clamp-1 text-kem group-hover:text-cam font-medium">' + text + '</span>';
+        html += '</a>';
+      }}
+
+      if (validCount >= 2) {{
+        tocContent.innerHTML = html;
+        if (tocCount) tocCount.textContent = validCount + ' phần nội dung';
+        tocBox.classList.remove('hidden');
+      }} else {{
+        tocBox.classList.add('hidden');
+      }}
     }}
 
-    // Share article
+    window.scrollToArticleHeading = function(id) {{
+      var el = document.getElementById(id);
+      var container = document.getElementById('reader-modal-body');
+      if (el && container) {{
+        var topOffset = el.getBoundingClientRect().top - container.getBoundingClientRect().top + container.scrollTop - 75;
+        container.scrollTo({{ top: Math.max(0, topOffset), behavior: 'smooth' }});
+      }}
+    }};
+
+    // ==================== RELATED ARTICLES (BAI VIET LIEN QUAN) ====================
+    function renderRelatedArticles(currentSlug, currentCat) {{
+      var container = document.getElementById('modal-related-articles');
+      if (!container) return;
+
+      var others = allArticles.filter(function(a) {{ return a.slug !== currentSlug; }});
+      var sameCat = others.filter(function(a) {{ return a.category === currentCat; }});
+      var diffCat = others.filter(function(a) {{ return a.category !== currentCat; }});
+      var recommended = sameCat.concat(diffCat).slice(0, 3);
+
+      var html = '';
+      recommended.forEach(function(rel) {{
+        html += '<div onclick="window.openArticle(\'' + rel.slug + '\')" class="group p-3.5 sm:p-4 rounded-xl bg-nen-sau hover:bg-xanh/25 border border-kem/10 hover:border-cam/50 transition-all duration-300 cursor-pointer flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-4 shadow-md">';
+        html += '  <div class="flex-1 space-y-1.5">';
+        html += '    <div class="flex items-center gap-2 text-[10px] sm:text-xs font-mono text-yen">';
+        html += '      <span class="px-2 py-0.5 rounded bg-abyssal border border-kem/15 text-cam font-bold uppercase">' + rel.category + '</span>';
+        html += '      <span>·</span>';
+        html += '      <span>' + rel.read_time + '</span>';
+        html += '      <span>·</span>';
+        html += '      <span>' + rel.date + '</span>';
+        html += '    </div>';
+        html += '    <h4 class="text-sm sm:text-base font-bold text-kem group-hover:text-cam transition-colors line-clamp-2 leading-snug">';
+        html += '      ' + rel.title;
+        html += '    </h4>';
+        html += '    <p class="text-xs text-yen line-clamp-2 leading-relaxed">';
+        html += '      ' + rel.lead;
+        html += '    </p>';
+        html += '  </div>';
+        html += '  <div class="w-full sm:w-36 h-28 sm:h-24 rounded-lg overflow-hidden shrink-0 border border-kem/15 bg-abyssal">';
+        html += '    <img src="' + rel.image + '" alt="' + rel.title.replace(/"/g, '&quot;') + '" onerror="this.onerror=null;this.src=\'anh/cd-bia-1.webp\';" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />';
+        html += '  </div>';
+        html += '</div>';
+      }});
+
+      container.innerHTML = html;
+    }}
+
+    // ==================== COMMENTS & DISCUSSION (BINH LUAN) ====================
+    var defaultCommentsMap = {{
+      'Tài chính': [
+        {{ author: 'Lê Quang Cường', tag: 'Học viên Bứt Phá', time: '9 thg 5', text: 'Bài viết đúc kết rất sắc sảo! Lúc trước tôi chỉ mải kiếm thêm thu nhập mà quên mất việc vá lỗ rò rỉ dòng tiền. Áp dụng bảng tính của Mentor Trần Nam Hà giúp tôi thấy rõ từng con số.', likes: 14, liked: false }},
+        {{ author: 'Thu Hà', tag: 'Độc giả Chuyên San', time: '18 thg 5', text: 'Góc nhìn về việc thoát nợ bằng tâm thế bình an thật sự chạm đến mình. Cảm ơn Ban biên tập Thịnh Vượng Số!', likes: 9, liked: false }}
+      ],
+      'Kinh doanh': [
+        {{ author: 'Alex Trần', tag: 'Học viên Khóa 1', time: '22 thg 4', text: 'Chạm đúng điểm tắc nghẽn của rất nhiều anh em làm nghề tự do: cứ lấy sức mình đổi lấy tiền thì trần thu nhập luôn bị chặn đứng. Mô hình hệ thống hóa này rất giá trị!', likes: 18, liked: false }},
+        {{ author: 'Phạm Đức Huy', tag: 'Chủ doanh nghiệp SME', time: '2 thg 5', text: 'Đọc xong bài này tôi phải rà soát lại ngay quy trình ủy quyền và đòn bẩy công nghệ của xưởng. Rất thực chiến!', likes: 11, liked: false }}
+      ],
+      'Phát triển bản thân': [
+        {{ author: 'Nguyễn Văn Hưng', tag: 'Học viên Bứt Phá', time: '14 thg 6', text: 'Thói quen dừng lại 5 giây trước khi nhấc máy đã giúp tôi tránh được rất nhiều quyết định bốc đồng trong công việc và đối thoại gia đình.', likes: 21, liked: false }},
+        {{ author: 'Trần Minh Tuấn', tag: 'Thành viên Cộng đồng', time: '27 thg 6', text: 'Không gian sống sạch mùi ẩm mốc đúng là kéo theo sinh khí và sự tỉnh táo trong tâm trí. Cảm ơn Mentor Trần Nam Hà rất nhiều!', likes: 16, liked: false }}
+      ],
+      'Đầu tư': [
+        {{ author: 'Vũ Hoàng Long', tag: 'Nhà đầu tư cá nhân', time: '11 thg 5', text: 'Lời dặn về tài sản và tích lũy từng đồng tiền sạch qua năm tháng giúp mình kiềm chế lòng tham và tránh xa các cái bẫy làm giàu nhanh.', likes: 19, liked: false }},
+        {{ author: 'Đặng Thanh Nga', tag: 'Độc giả Chuyên San', time: '20 thg 5', text: 'Bản chất tích sản không phải là mua xong chờ bán kiếm lời, mà là giữ lấy cội rễ kinh tế gia đình. Rất thấm thía!', likes: 12, liked: false }}
+      ]
+    }};
+
+    function getArticleComments(slug, category) {{
+      var key = 'tvs_comments_' + slug;
+      var stored = localStorage.getItem(key);
+      if (stored) {{
+        try {{
+          return JSON.parse(stored);
+        }} catch (e) {{}}
+      }}
+      var seeds = defaultCommentsMap[category] || defaultCommentsMap['Tài chính'];
+      // Clone array
+      var initial = JSON.parse(JSON.stringify(seeds));
+      localStorage.setItem(key, JSON.stringify(initial));
+      return initial;
+    }}
+
+    function renderComments(slug, category) {{
+      var container = document.getElementById('modal-comments-list');
+      var badge = document.getElementById('modal-comments-count-badge');
+      if (!container) return;
+
+      var comments = getArticleComments(slug, category);
+      if (badge) {{
+        badge.textContent = comments.length + ' bình luận';
+      }}
+
+      if (comments.length === 0) {{
+        container.innerHTML = '<p class="text-xs text-yen/70 font-mono italic text-center py-4">Chưa có bình luận nào. Hãy là người đầu tiên chia sẻ góc nhìn!</p>';
+        return;
+      }}
+
+      var html = '';
+      for (var i = 0; i < comments.length; i++) {{
+        var c = comments[i];
+        var initial = (c.author || 'B').trim().charAt(0).toUpperCase();
+        var heartIcon = c.liked ? '❤️' : '🤍';
+        var heartColor = c.liked ? 'text-cam font-bold' : 'text-yen hover:text-cam';
+
+        html += '<div class="p-4 rounded-xl bg-nen-sau border border-kem/10 space-y-2.5 transition-all">';
+        html += '  <div class="flex items-center justify-between flex-wrap gap-2">';
+        html += '    <div class="flex items-center gap-2.5">';
+        html += '      <div class="w-8 h-8 rounded-full bg-xanh/60 border border-cam/40 flex items-center justify-center font-bold text-xs text-cam shrink-0">';
+        html += '        ' + initial;
+        html += '      </div>';
+        html += '      <div>';
+        html += '        <div class="flex items-center gap-2 flex-wrap">';
+        html += '          <strong class="text-xs sm:text-sm font-bold text-kem">' + c.author + '</strong>';
+        html += '          <span class="text-[10px] px-2 py-0.5 rounded bg-kem/10 text-yen font-mono">' + c.tag + '</span>';
+        html += '        </div>';
+        html += '        <span class="text-[10px] text-yen/60 font-mono">' + c.time + '</span>';
+        html += '      </div>';
+        html += '    </div>';
+        html += '    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-cam/15 border border-cam/30 text-cam text-[10px] font-mono font-medium">';
+        html += '      <span>♥</span> Liked by Mentor Trần Nam Hà';
+        html += '    </span>';
+        html += '  </div>';
+        html += '  <p class="text-xs sm:text-sm text-yen leading-relaxed pl-10">';
+        html += '    ' + c.text;
+        html += '  </p>';
+        html += '  <div class="flex items-center gap-4 pl-10 text-[11px] font-mono">';
+        html += '    <button type="button" onclick="window.toggleCommentLike(\'' + slug + '\', ' + i + ')" class="flex items-center gap-1.5 ' + heartColor + ' transition-colors cursor-pointer">';
+        html += '      <span>' + heartIcon + '</span>';
+        html += '      <span>LIKE (' + (c.likes || 0) + ')</span>';
+        html += '    </button>';
+        html += '    <button type="button" onclick="window.replyToComment(\'' + c.author.replace(/'/g, "\\'") + '\')" class="text-yen hover:text-cam transition-colors uppercase cursor-pointer">';
+        html += '      REPLY';
+        html += '    </button>';
+        html += '  </div>';
+        html += '</div>';
+      }}
+
+      container.innerHTML = html;
+    }}
+
+    window.submitComment = function() {{
+      if (currentArticleIndex < 0 || currentArticleIndex >= allArticles.length) return;
+      var art = allArticles[currentArticleIndex];
+      var nameInp = document.getElementById('comment-author-input');
+      var textInp = document.getElementById('comment-text-input');
+      if (!textInp) return;
+
+      var text = textInp.value.trim();
+      if (!text) {{
+        showToast('Vui lòng nhập nội dung bình luận trước khi gửi!');
+        textInp.focus();
+        return;
+      }}
+
+      var author = nameInp && nameInp.value.trim() ? nameInp.value.trim() : 'Bạn đọc Thịnh Vượng Số';
+      var key = 'tvs_comments_' + art.slug;
+      var comments = getArticleComments(art.slug, art.category);
+
+      var newComment = {{
+        author: author,
+        tag: 'Bạn đọc',
+        time: 'Vừa xong',
+        text: text,
+        likes: 1,
+        liked: true
+      }};
+
+      comments.unshift(newComment);
+      localStorage.setItem(key, JSON.stringify(comments));
+
+      textInp.value = '';
+      renderComments(art.slug, art.category);
+      showToast('Bình luận của bạn đã được đăng thành công!');
+    }};
+
+    window.toggleCommentLike = function(slug, idx) {{
+      var art = allArticles[currentArticleIndex];
+      if (!art) return;
+      var key = 'tvs_comments_' + slug;
+      var comments = getArticleComments(slug, art.category);
+      if (comments[idx]) {{
+        if (comments[idx].liked) {{
+          comments[idx].liked = false;
+          comments[idx].likes = Math.max(0, (comments[idx].likes || 1) - 1);
+        }} else {{
+          comments[idx].liked = true;
+          comments[idx].likes = (comments[idx].likes || 0) + 1;
+        }}
+        localStorage.setItem(key, JSON.stringify(comments));
+        renderComments(slug, art.category);
+      }}
+    }};
+
+    window.replyToComment = function(authorName) {{
+      var textInp = document.getElementById('comment-text-input');
+      if (textInp) {{
+        textInp.value = '@' + authorName + ': ';
+        textInp.focus();
+      }}
+    }};
+
+    // ==================== SOCIAL SHARE HANDLERS ====================
+    window.shareCurrentArticleFacebook = function() {{
+      if (currentArticleIndex >= 0 && currentArticleIndex < allArticles.length) {{
+        var art = allArticles[currentArticleIndex];
+        var url = 'https://namha01049x.github.io/thinhvuongso/chuyensan?bai=' + encodeURIComponent(art.slug);
+        var fbUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url);
+        window.open(fbUrl, '_blank', 'noopener,noreferrer,width=650,height=550');
+      }}
+    }};
+
     window.copyCurrentArticleLink = function() {{
       if (currentArticleIndex >= 0 && currentArticleIndex < allArticles.length) {{
         var art = allArticles[currentArticleIndex];
         var url = window.location.origin + window.location.pathname.replace(/\\/[^\\/]*$/, '/') + 'chuyensan?bai=' + art.slug;
-        copyTextToClipboard(url, 'Đã sao chép liên kết bài viết: ' + art.title);
+        copyTextToClipboard(url, 'Đã sao chép liên kết: ' + art.title);
       }}
     }};
 
