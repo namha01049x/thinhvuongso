@@ -995,9 +995,9 @@ export const CHUYEN_SAN_ARTICLES: ChuyenSanArticle[] = [
     readTime: '7 phút đọc',
     title: 'Vì sao nhiều người thu nhập tăng gấp đôi nhưng nỗi bất an tài chính vẫn giữ nguyên?',
     excerpt:
-      'Khi thu nhập tăng từ 15 triệu lên 40–50 triệu/tháng mà không có một cấu trúc giữ tiền và phân tầng tài sản, mức sống sẽ tự động nở ra lấp đầy phần chênh lệch đó.',
+      'Khi thu nhập tăng từ 15 triệu lên 40-50 triệu/tháng mà không có một cấu trúc giữ tiền và phân tầng tài sản, mức sống sẽ tự động nở ra lấp đầy phần chênh lệch đó.',
     keyTakeaway: 'Năng lực giữ tiền và phân bổ dòng tiền quan trọng không kém năng lực kiếm tiền.',
-    url: 'https://daothinhvuong.vn/chuyen-san',
+    url: 'chuyensan',
   },
   {
     id: 'tach-dong-tien-tu-doanh',
@@ -1007,7 +1007,7 @@ export const CHUYEN_SAN_ARTICLES: ChuyenSanArticle[] = [
     excerpt:
       'Trộn lẫn doanh thu bán hàng với chi tiêu gia đình khiến người làm chủ vừa ảo tưởng khi tiền về nhiều, vừa hoảng loạn khi đến kỳ nhập hàng và trả lương nhân sự.',
     keyTakeaway: 'Hãy trả lương cố định cho chính mình trước khi tính lợi nhuận của cửa hàng hay doanh nghiệp.',
-    url: 'https://daothinhvuong.vn/chuyen-san',
+    url: 'chuyensan',
   },
   {
     id: 'tich-san-khac-dau-co',
@@ -1017,7 +1017,7 @@ export const CHUYEN_SAN_ARTICLES: ChuyenSanArticle[] = [
     excerpt:
       'Tích sản không bắt đầu từ lúc bạn có hàng tỷ đồng, mà bắt đầu từ thói quen chuyển hóa đều đặn một phần thu nhập chủ động thành tài sản thực có giá trị tích lũy.',
     keyTakeaway: 'Kỷ luật đều đặn và bảo toàn vốn gốc luôn thắng sự nôn nóng tìm kiếm lợi nhuận đột biến.',
-    url: 'https://daothinhvuong.vn/chuyen-san',
+    url: 'chuyensan',
   },
 ];
 

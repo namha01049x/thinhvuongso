@@ -18,6 +18,10 @@
         window.location.replace('./khoahoc' + search + hash);
         return;
       }
+      if (path.indexOf('/chuyensan') !== -1) {
+        window.location.replace('./chuyensan' + search + hash);
+        return;
+      }
       window.location.replace('./' + search + hash);
     })();
   </script>

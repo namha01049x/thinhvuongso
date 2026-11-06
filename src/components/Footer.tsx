@@ -173,8 +173,8 @@ export const Footer: React.FC<FooterProps> = ({
                 </a>
               </li>
               <li>
-                <a href="#chuyen-san" className="hover:text-cam transition-colors">
-                  Chuyên san ĐTV
+                <a href="chuyensan" className="hover:text-cam transition-colors">
+                  Chuyên san Thịnh Vượng Số
                 </a>
               </li>
               <li>

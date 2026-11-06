@@ -291,9 +291,7 @@ export const MentorAndProofSection: React.FC = () => {
             </div>
 
             <a
-              href="https://daothinhvuong.vn/chuyen-san"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="chuyensan"
               className="btn-l text-xs text-cam"
             >
               <span>Xem toàn bộ Chuyên san</span>
