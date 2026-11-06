@@ -393,49 +393,60 @@
             <!-- Auth Container (Tab Toggle between Login and Register) -->
             <div id="student-auth-container" class="space-y-5">
               
-              <!-- Tab Switcher Header -->
-              <div class="flex items-center justify-between border-b border-kem/15 pb-3">
-                <div class="flex items-center gap-1.5 p-1 rounded-xl bg-abyssal/90 border border-kem/15">
+              <!-- Tab Switcher Header (To bản, nổi bật, 2 cột 50/50) -->
+              <div class="space-y-2">
+                <div class="grid grid-cols-2 gap-2 p-1.5 rounded-xl bg-abyssal/95 border-2 border-kem/20 shadow-inner">
                   <button 
                     type="button" 
                     id="tab-btn-login" 
                     onclick="window.switchAuthTab('login')" 
-                    class="px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition-all duration-200 bg-cam text-abyssal shadow-sm cursor-pointer"
+                    class="py-2.5 px-3 rounded-lg text-xs font-mono font-bold transition-all duration-200 bg-cam text-abyssal shadow-md cursor-pointer flex items-center justify-center gap-1.5"
                   >
-                    Đăng Nhập
+                    <span>🔑</span>
+                    <span>Đăng Nhập</span>
                   </button>
                   <button 
                     type="button" 
                     id="tab-btn-register" 
                     onclick="window.switchAuthTab('register')" 
-                    class="px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium text-yen hover:text-kem transition-all duration-200 cursor-pointer"
+                    class="py-2.5 px-3 rounded-lg text-xs font-mono font-semibold text-yen hover:text-kem transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 relative"
                   >
-                    Đăng Ký Mới
+                    <span>✨</span>
+                    <span>Đăng Ký Mới</span>
+                    <span class="w-2 h-2 rounded-full bg-cam animate-pulse"></span>
                   </button>
                 </div>
-                <span class="px-2 py-0.5 rounded bg-cam/15 border border-cam/30 text-cam font-mono text-[10px] font-semibold">Bảo mật SSL</span>
+                <div class="flex items-center justify-between px-1 text-[11px] font-mono text-yen">
+                  <span class="text-cam font-semibold">Cổng Học Viên Chính Thức</span>
+                  <span class="flex items-center gap-1 text-green-400">
+                    <span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>
+                    CSDL Hoạt Động 24/7
+                  </span>
+                </div>
               </div>
 
               <!-- Form ĐĂNG NHẬP -->
               <div id="student-login-box" class="space-y-4">
                 <div class="space-y-1">
                   <h2 class="text-lg sm:text-xl font-bold text-kem">Vào Khu Học Tập</h2>
-                  <p class="text-xs text-yen">Nhập số điện thoại đã đăng ký để mở khóa toàn bộ tài nguyên học tập.</p>
+                  <p class="text-xs text-yen leading-relaxed">
+                    Đăng nhập bằng <strong>Số điện thoại</strong>, <strong>Họ tên</strong> hoặc <strong>Email</strong> đã đăng ký để mở khóa toàn bộ tài nguyên học tập.
+                  </p>
                 </div>
 
                 <form id="portal-login-form" onsubmit="window.handleStudentLogin(event)" class="space-y-3.5">
                   <div>
                     <label for="student-identifier" class="block font-mono text-xs uppercase tracking-wider text-yen mb-1 font-medium">
-                      Số điện thoại học viên:
+                      Tài khoản học viên (SĐT / Họ tên / Email) *
                     </label>
                     <div class="relative">
                       <input 
-                        type="tel" 
+                        type="text" 
                         id="student-identifier" 
                         name="student_id" 
                         required 
-                        placeholder="VD: 0981501865"
-                        class="w-full px-3.5 py-2.5 rounded-xl bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none font-mono text-sm transition-colors"
+                        placeholder="Nhập SĐT (VD: 0981501865) hoặc Họ tên..."
+                        class="w-full px-3.5 py-2.5 rounded-xl bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none font-mono text-xs sm:text-sm transition-colors"
                       />
                     </div>
                   </div>
@@ -448,38 +459,58 @@
                       type="password" 
                       id="student-passcode" 
                       name="passcode" 
-                      placeholder="Để trống nếu đăng nhập nhanh lần đầu"
-                      class="w-full px-3.5 py-2.5 rounded-xl bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none font-mono text-sm transition-colors"
+                      placeholder="Nhập mã PIN hoặc để trống nếu truy cập nhanh"
+                      class="w-full px-3.5 py-2.5 rounded-xl bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none font-mono text-xs sm:text-sm transition-colors"
                     />
                   </div>
 
                   <div class="flex items-center justify-between text-xs text-yen pt-0.5">
                     <label class="flex items-center gap-2 cursor-pointer select-none">
                       <input type="checkbox" id="remember-me" checked class="rounded border-kem/30 text-cam focus:ring-cam accent-cam" />
-                      <span>Ghi nhớ phiên học</span>
+                      <span>Ghi nhớ phiên học vĩnh viễn</span>
                     </label>
                     <a href="https://zalo.me/0981501865" target="_blank" rel="noopener noreferrer" class="text-cam hover:underline">Quên mã học viên?</a>
                   </div>
 
                   <div class="pt-1 space-y-2.5">
-                    <button type="submit" id="btn-login-submit" class="btn-p w-full justify-center text-xs sm:text-sm !py-2.5 font-bold shadow-md">
+                    <button type="submit" id="btn-login-submit" class="btn-p w-full justify-center text-xs sm:text-sm !py-2.5 font-bold shadow-md cursor-pointer">
                       <span>Truy Cập Khu Học Tập ↗</span>
                     </button>
-                    <button type="button" onclick="window.enterDemoMode()" class="btn-o w-full justify-center text-xs !py-2 text-yen hover:text-cam">
+                    <button type="button" onclick="window.enterDemoMode()" class="btn-o w-full justify-center text-xs !py-2 text-yen hover:text-cam cursor-pointer">
                       <span>Khám phá thử Khu Học Tập (Demo Preview)</span>
                     </button>
                   </div>
                 </form>
+
+                <!-- Callout Banner Chuyển Đổi Sang Đăng Ký Mới Cực Kỳ Nổi Bật -->
+                <div class="p-3.5 rounded-xl bg-cam/10 border-2 border-cam/40 flex items-center justify-between gap-3 text-xs">
+                  <div>
+                    <p class="font-bold text-kem text-xs">Bạn chưa có tài khoản học viên?</p>
+                    <p class="text-yen text-[11px] mt-0.5">Đăng ký chỉ mất 30 giây để lưu vĩnh viễn tiến độ học tập và biểu mẫu.</p>
+                  </div>
+                  <button type="button" onclick="window.switchAuthTab('register')" class="shrink-0 px-3 py-1.5 rounded-lg bg-cam text-abyssal font-bold font-mono text-xs hover:bg-cam-dam transition-all shadow-md cursor-pointer">
+                    Đăng Ký Ngay →
+                  </button>
+                </div>
               </div>
 
               <!-- Form ĐĂNG KÝ HỌC VIÊN MỚI -->
               <div id="student-register-box" class="hidden space-y-4">
                 <div class="space-y-1">
-                  <h2 class="text-lg sm:text-xl font-bold text-kem">Đăng Ký Trở Thành Học Viên</h2>
-                  <p class="text-xs text-yen">Tạo hồ sơ học viên cá nhân để lưu giữ vĩnh viễn tiến độ học tập và biểu mẫu.</p>
+                  <div class="flex items-center justify-between">
+                    <h2 class="text-lg sm:text-xl font-bold text-kem flex items-center gap-2">
+                      <span class="text-cam">✨</span>
+                      <span>Đăng Ký Học Viên Mới</span>
+                    </h2>
+                    <span class="px-2 py-0.5 rounded bg-cam/20 border border-cam/40 text-cam font-mono text-[10px] font-bold">Lưu CSDL Vĩnh Viễn</span>
+                  </div>
+                  <p class="text-xs text-yen leading-relaxed">
+                    Khởi tạo hồ sơ học viên chính thức. Hệ thống tự động phát hiện và ngăn chặn trùng lặp Tên, SĐT, Email.
+                  </p>
                 </div>
 
                 <form id="portal-register-form" onsubmit="window.handleStudentRegister(event)" class="space-y-3">
+                  <!-- Bước 1: Họ tên -->
                   <div>
                     <label for="reg-name" class="block font-mono text-xs uppercase tracking-wider text-yen mb-1 font-medium">
                       Họ và tên học viên *
@@ -488,11 +519,13 @@
                       type="text" 
                       id="reg-name" 
                       required 
+                      oninput="window.validateNameLive(this.value)"
                       placeholder="Họ và tên của bạn (VD: Trần Văn Bình)"
                       class="w-full px-3.5 py-2.5 rounded-xl bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none text-xs sm:text-sm transition-colors"
                     />
                   </div>
 
+                  <!-- Bước 2: SĐT & Email -->
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label for="reg-phone" class="block font-mono text-xs uppercase tracking-wider text-yen mb-1 font-medium">
@@ -522,6 +555,7 @@
                     </div>
                   </div>
 
+                  <!-- Bước 3: Khóa học & PIN -->
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label for="reg-course" class="block font-mono text-xs uppercase tracking-wider text-yen mb-1 font-medium">
@@ -549,22 +583,25 @@
                     </div>
                   </div>
 
-                  <!-- Duplicate Error Alert Box (Bao do canh bao trung lap) -->
-                  <div id="reg-error-msg" class="hidden p-3 rounded-xl bg-red-950/90 border-2 border-red-500 text-red-200 text-xs leading-relaxed space-y-1">
+                  <!-- Duplicate Error Alert Box (Báo đỏ cảnh báo trùng lặp rực rỡ) -->
+                  <div id="reg-error-msg" class="hidden p-3.5 rounded-xl bg-red-950/95 border-2 border-red-500 text-red-200 text-xs leading-relaxed space-y-1 shadow-lg animate-pulse">
                     <div class="flex items-center gap-1.5 font-bold text-red-400">
-                      <span>⚠️</span>
-                      <span>PHÁT HIỆN THÔNG TIN TRÙNG LẶP:</span>
+                      <span class="text-base">⚠️</span>
+                      <span class="uppercase tracking-wider">PHÁT HIỆN THÔNG TIN TRÙNG LẶP TRONG CSDL:</span>
                     </div>
-                    <p id="reg-error-text" class="text-xs font-medium"></p>
+                    <p id="reg-error-text" class="text-xs font-medium pl-5"></p>
                   </div>
 
                   <div class="pt-1 space-y-2">
-                    <button type="submit" id="btn-register-submit" class="btn-p w-full justify-center text-xs sm:text-sm !py-2.5 font-bold shadow-md">
-                      <span>Hoàn Tất Đăng Ký & Vào Học Ngay ↗</span>
+                    <button type="submit" id="btn-register-submit" class="btn-p w-full justify-center text-xs sm:text-sm !py-2.5 font-bold shadow-md cursor-pointer">
+                      <span>Hoàn Tất Đăng Ký & Lưu Vào CSDL ↗</span>
                     </button>
-                    <p class="text-[11px] text-yen/80 text-center font-mono">
-                      Thông tin được mã hóa bảo mật theo Nghị định 13/2023/NĐ-CP
-                    </p>
+                    <div class="flex items-center justify-between text-xs text-yen pt-1">
+                      <button type="button" onclick="window.switchAuthTab('login')" class="text-cam hover:underline font-mono text-xs cursor-pointer">
+                        ← Đã có tài khoản? Quay lại Đăng Nhập
+                      </button>
+                      <span class="text-[11px] text-yen/80 font-mono">Bảo mật Nghị định 13/2023/NĐ-CP</span>
+                    </div>
                   </div>
                 </form>
               </div>
@@ -584,7 +621,7 @@
                   </div>
                 </div>
                 <span class="px-2 py-0.5 rounded bg-green-900/40 border border-green-500/50 text-green-300 font-mono text-[11px] font-semibold">
-                  Đã kích hoạt
+                  Đã kích hoạt CSDL
                 </span>
               </div>
 
@@ -608,7 +645,7 @@
                 </div>
                 <div class="flex justify-between items-center text-xs pt-1 border-t border-kem/10">
                   <span class="text-yen font-mono">Tiến độ bài học:</span>
-                  <span id="dash-student-progress-text" class="text-green-300 font-mono font-bold text-xs">0 / 6 Buổi Zoom (0%)</span>
+                  <span id="dash-student-progress-text" class="text-green-300 font-mono font-bold text-xs">0 / 3 Buổi Zoom (0%)</span>
                 </div>
               </div>
 
@@ -637,7 +674,36 @@
             <!-- Status Banner -->
             <div id="login-status-msg" class="hidden p-3.5 rounded-lg text-xs leading-relaxed transition-all"></div>
 
-            <div class="pt-4 border-t border-kem/15 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-yen">
+            <!-- Widget Quản Trị CSDL Học Viên (Live Database Inspector) -->
+            <div class="p-3.5 rounded-xl bg-abyssal/90 border border-kem/15 space-y-2.5">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-cam text-xs">💾</span>
+                  <span class="font-mono text-xs font-bold text-kem uppercase tracking-wider">Cơ Sở Dữ Liệu Học Viên Đã Lưu:</span>
+                </div>
+                <span id="db-total-count-badge" class="px-2 py-0.5 rounded bg-cam/20 border border-cam/40 text-cam font-mono text-[11px] font-bold">1 học viên</span>
+              </div>
+              <p class="text-[11px] text-yen leading-relaxed">
+                Dữ liệu được lưu trữ vĩnh viễn trên thiết bị. Bạn có thể kiểm tra danh sách, đối soát trùng lặp hoặc sao lưu file.
+              </p>
+              <div class="flex flex-wrap items-center gap-2 pt-0.5">
+                <button type="button" onclick="window.toggleDbInspector()" class="px-2.5 py-1 rounded bg-xanh/40 hover:bg-xanh/60 border border-kem/20 text-kem font-mono text-[11px] transition-colors cursor-pointer">
+                  <span id="btn-toggle-db-label">📋 Mở Danh Sách Học Viên CSDL</span>
+                </button>
+                <button type="button" onclick="window.exportStudentsDatabase()" class="px-2.5 py-1 rounded bg-cam/20 hover:bg-cam/30 border border-cam/40 text-cam font-mono text-[11px] transition-colors cursor-pointer">
+                  📥 Xuất File .JSON
+                </button>
+              </div>
+
+              <!-- Danh sách học viên bung ra khi bấm -->
+              <div id="db-inspector-container" class="hidden pt-2 border-t border-kem/10 space-y-2">
+                <div id="db-students-list" class="max-h-48 overflow-y-auto space-y-1.5 pr-1 text-[11px]">
+                  <!-- Rendered dynamically via renderDbInspector() -->
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-2 border-t border-kem/15 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-yen">
               <span>Bạn là người mới muốn tham gia?</span>
               <a href="khoahoc" class="text-cam font-semibold hover:underline flex items-center gap-1">
                 <span>Khám phá lộ trình thực chiến</span>
@@ -1462,8 +1528,12 @@
         loginBox.classList.add('hidden');
         regBox.classList.remove('hidden');
 
-        tabBtnReg.className = 'px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition-all duration-200 bg-cam text-abyssal shadow-sm cursor-pointer';
-        tabBtnLogin.className = 'px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium text-yen hover:text-kem transition-all duration-200 cursor-pointer';
+        if (tabBtnReg) {
+          tabBtnReg.className = 'py-2.5 px-3 rounded-lg text-xs font-mono font-bold transition-all duration-200 bg-cam text-abyssal shadow-md cursor-pointer flex items-center justify-center gap-1.5';
+        }
+        if (tabBtnLogin) {
+          tabBtnLogin.className = 'py-2.5 px-3 rounded-lg text-xs font-mono font-semibold text-yen hover:text-kem transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5';
+        }
 
         var regName = document.getElementById('reg-name');
         if (regName) regName.focus();
@@ -1471,11 +1541,48 @@
         regBox.classList.add('hidden');
         loginBox.classList.remove('hidden');
 
-        tabBtnLogin.className = 'px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition-all duration-200 bg-cam text-abyssal shadow-sm cursor-pointer';
-        tabBtnReg.className = 'px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium text-yen hover:text-kem transition-all duration-200 cursor-pointer';
+        if (tabBtnLogin) {
+          tabBtnLogin.className = 'py-2.5 px-3 rounded-lg text-xs font-mono font-bold transition-all duration-200 bg-cam text-abyssal shadow-md cursor-pointer flex items-center justify-center gap-1.5';
+        }
+        if (tabBtnReg) {
+          tabBtnReg.className = 'py-2.5 px-3 rounded-lg text-xs font-mono font-semibold text-yen hover:text-kem transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5';
+        }
 
         var idInput = document.getElementById('student-identifier');
         if (idInput) idInput.focus();
+      }
+    };
+
+    // Kiểm tra trùng lặp Họ Tên Realtime
+    window.validateNameLive = function(val) {
+      var name = (val || '').trim();
+      var input = document.getElementById('reg-name');
+      var errorBox = document.getElementById('reg-error-msg');
+      var errorText = document.getElementById('reg-error-text');
+
+      if (!name || name.length < 3) {
+        if (input) input.classList.remove('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
+        return true;
+      }
+
+      var db = getStudentsDatabase();
+      var duplicate = db.find(function(s) {
+        return s.name && s.name.trim().toLowerCase() === name.toLowerCase();
+      });
+
+      if (duplicate) {
+        if (input) input.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
+        if (errorBox && errorText) {
+          errorBox.classList.remove('hidden');
+          errorText.innerHTML = 'Họ và tên <strong>' + name + '</strong> đã trùng với học viên đã có trong CSDL (SĐT: ' + duplicate.phone + '). Vui lòng thêm từ phân biệt hoặc dùng SĐT khác!';
+        }
+        return false;
+      } else {
+        if (input) input.classList.remove('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
+        if (errorBox && !document.getElementById('reg-phone').classList.contains('border-red-500') && !document.getElementById('reg-email').classList.contains('border-red-500')) {
+          errorBox.classList.add('hidden');
+        }
+        return true;
       }
     };
 
@@ -1506,7 +1613,9 @@
         return false;
       } else {
         if (input) input.classList.remove('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
-        if (errorBox) errorBox.classList.add('hidden');
+        if (errorBox && !document.getElementById('reg-name').classList.contains('border-red-500') && !document.getElementById('reg-email').classList.contains('border-red-500')) {
+          errorBox.classList.add('hidden');
+        }
         return true;
       }
     };
@@ -1537,7 +1646,9 @@
         return false;
       } else {
         if (input) input.classList.remove('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
-        if (errorBox) errorBox.classList.add('hidden');
+        if (errorBox && !document.getElementById('reg-name').classList.contains('border-red-500') && !document.getElementById('reg-phone').classList.contains('border-red-500')) {
+          errorBox.classList.add('hidden');
+        }
         return true;
       }
     };
@@ -1578,15 +1689,27 @@
         return;
       }
 
-      // Kiểm tra trùng lặp trong CSDL
       var db = getStudentsDatabase();
 
-      // Trùng Số điện thoại
+      // Kiểm tra trùng Họ tên
+      var dupName = db.find(function(s) {
+        return s.name && s.name.trim().toLowerCase() === name.toLowerCase();
+      });
+      if (dupName) {
+        if (nameInp) nameInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/30');
+        if (errorBox && errorText) {
+          errorBox.classList.remove('hidden');
+          errorText.innerHTML = 'Họ và tên <strong>' + name + '</strong> đã trùng với học viên đã đăng ký trước đó (SĐT: ' + dupName.phone + '). Hệ thống phát hiện trùng lặp!';
+        }
+        nameInp.focus();
+        return;
+      }
+
+      // Kiểm tra trùng Số điện thoại
       var dupPhone = db.find(function(s) {
         var sPhone = (s.phone || s.id || '').replace(/[\s\-\.]/g, '').trim();
         return sPhone === phone;
       });
-
       if (dupPhone) {
         if (phoneInp) phoneInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/30');
         if (errorBox && errorText) {
@@ -1597,11 +1720,10 @@
         return;
       }
 
-      // Trùng Email
+      // Kiểm tra trùng Email
       var dupEmail = db.find(function(s) {
         return s.email && s.email.trim().toLowerCase() === email;
       });
-
       if (dupEmail) {
         if (emailInp) emailInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/30');
         if (errorBox && errorText) {
@@ -1612,13 +1734,13 @@
         return;
       }
 
-      // Tiến hành lưu học viên vào CSDL
+      // Lưu học viên vào CSDL
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<span>Đang khởi tạo hồ sơ học viên...</span>';
 
       setTimeout(function() {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<span>Hoàn Tất Đăng Ký & Vào Học Ngay ↗</span>';
+        submitBtn.innerHTML = '<span>Hoàn Tất Đăng Ký & Lưu Vào CSDL ↗</span>';
 
         var now = new Date();
         var formattedDate = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear() + ' ' + 
@@ -1642,9 +1764,10 @@
         saveStudentsDatabase(db);
         setActiveStudent(newStudent);
 
-        // Áp dụng lên giao diện
+        // Áp dụng lên giao diện & cập nhật CSDL Inspector
         applyStudentAuthState(newStudent);
         renderLessonProgressUI(newStudent.completedLessons);
+        renderDbInspector();
 
         var msg = document.getElementById('login-status-msg');
         if (msg) {
@@ -1671,10 +1794,10 @@
           if (target) target.scrollIntoView({ behavior: 'smooth' });
         }, 700);
 
-      }, 600);
+      }, 500);
     };
 
-    // ĐĂNG NHẬP HỌC VIÊN
+    // ĐĂNG NHẬP HỌC VIÊN (Hỗ trợ SĐT, Họ tên, Email)
     window.handleStudentLogin = function(e) {
       e.preventDefault();
       var idInp = document.getElementById('student-identifier');
@@ -1686,7 +1809,7 @@
       var cleanPhone = rawId.replace(/[\s\-\.]/g, '');
       var pin = pinInp ? pinInp.value.trim() : '';
 
-      if (!cleanPhone) return;
+      if (!rawId) return;
 
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<span>Đang truy xuất cơ sở dữ liệu...</span>';
@@ -1696,9 +1819,14 @@
         submitBtn.innerHTML = '<span>Truy Cập Khu Học Tập ↗</span>';
 
         var db = getStudentsDatabase();
+        // Tìm theo SĐT, Họ tên hoặc Email
         var student = db.find(function(s) {
           var sPhone = (s.phone || s.id || '').replace(/[\s\-\.]/g, '').trim();
-          return sPhone === cleanPhone || (s.name && s.name.toLowerCase() === rawId.toLowerCase());
+          var sName = (s.name || '').trim().toLowerCase();
+          var sEmail = (s.email || '').trim().toLowerCase();
+          var q = rawId.toLowerCase();
+
+          return sPhone === cleanPhone || sName === q || sEmail === q;
         });
 
         if (student) {
@@ -1706,6 +1834,7 @@
           setActiveStudent(student);
           applyStudentAuthState(student);
           renderLessonProgressUI(student.completedLessons || []);
+          renderDbInspector();
 
           if (msg) {
             msg.classList.remove('hidden', 'bg-red-900/40', 'text-red-200', 'border-red-500/50');
@@ -1713,17 +1842,17 @@
             msg.innerHTML = '<strong>Đăng nhập thành công!</strong> Chào mừng trở lại, học viên <strong>' + student.name + '</strong>. Đã khôi phục toàn bộ tiến độ học tập và khóa học [' + student.courseName + '] của bạn.';
           }
         } else {
-          // Chưa có trong database: tự động tạo hồ sơ hoặc cho phép truy cập
+          // Chưa có trong database: tự động tạo hồ sơ với định danh này để không làm gián đoạn
           var now = new Date();
           var formattedDate = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear() + ' ' + 
                               (now.getHours() < 10 ? '0' : '') + now.getHours() + ':' + 
                               (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
 
           var autoStudent = {
-            id: cleanPhone,
-            phone: cleanPhone,
-            name: 'Học viên ' + cleanPhone,
-            email: cleanPhone + '@thinhvuongso.vn',
+            id: cleanPhone || rawId,
+            phone: cleanPhone || rawId,
+            name: isNaN(rawId) ? rawId : ('Học viên ' + rawId),
+            email: (cleanPhone || 'hocvien') + '@thinhvuongso.vn',
             course: 'but-pha',
             courseName: 'Bứt Phá Tài Chính (Mentor Trần Nam Hà)',
             pin: pin,
@@ -1737,6 +1866,7 @@
           setActiveStudent(autoStudent);
           applyStudentAuthState(autoStudent);
           renderLessonProgressUI(autoStudent.completedLessons);
+          renderDbInspector();
 
           if (msg) {
             msg.classList.remove('hidden', 'bg-red-900/40', 'text-red-200', 'border-red-500/50');
@@ -1749,7 +1879,7 @@
           var target = document.getElementById('khoa-hoc');
           if (target) target.scrollIntoView({ behavior: 'smooth' });
         }, 600);
-      }, 500);
+      }, 400);
     };
 
     // Áp dụng trạng thái Học viên lên Dashboard
@@ -1800,7 +1930,6 @@
       var db = getStudentsDatabase();
 
       if (!activeStudent) {
-        // Nếu chưa đăng nhập, tự động tạo phiên học viên tạm
         activeStudent = {
           id: '0981501865',
           phone: '0981501865',
@@ -1842,9 +1971,10 @@
       saveStudentsDatabase(db);
       setActiveStudent(activeStudent);
 
-      // Cập nhật UI
+      // Cập nhật UI & CSDL Inspector
       renderLessonProgressUI(activeStudent.completedLessons);
       applyStudentAuthState(activeStudent);
+      renderDbInspector();
 
       // Thông báo nhẹ
       var msg = document.getElementById('login-status-msg');
@@ -1890,6 +2020,115 @@
       });
     }
 
+    // ==========================================
+    // TRÌNH THANH TRA CƠ SỞ DỮ LIỆU HỌC VIÊN (LIVE DB INSPECTOR)
+    // ==========================================
+    window.toggleDbInspector = function() {
+      var container = document.getElementById('db-inspector-container');
+      var label = document.getElementById('btn-toggle-db-label');
+      if (!container) return;
+
+      var isHidden = container.classList.contains('hidden');
+      if (isHidden) {
+        container.classList.remove('hidden');
+        if (label) label.textContent = '✖ Đóng Bảng CSDL';
+        renderDbInspector();
+      } else {
+        container.classList.add('hidden');
+        if (label) label.textContent = '📋 Mở Danh Sách Học Viên CSDL';
+      }
+    };
+
+    function renderDbInspector() {
+      var db = getStudentsDatabase();
+      var badge = document.getElementById('db-total-count-badge');
+      var listEl = document.getElementById('db-students-list');
+
+      if (badge) badge.textContent = db.length + ' học viên đã lưu';
+      if (!listEl) return;
+
+      if (db.length === 0) {
+        listEl.innerHTML = '<p class="text-yen text-xs italic p-2 text-center">Chưa có học viên nào trong CSDL.</p>';
+        return;
+      }
+
+      var active = getActiveStudent();
+      var activePhone = active ? (active.phone || active.id) : '';
+
+      var html = '';
+      db.forEach(function(s, idx) {
+        var isActive = (s.phone || s.id) === activePhone;
+        var completedCount = (s.completedLessons || []).length;
+
+        html += '<div class="p-2.5 rounded-lg ' + (isActive ? 'bg-cam/15 border border-cam/50' : 'bg-nen-sau/70 border border-kem/10') + ' flex flex-col sm:flex-row sm:items-center justify-between gap-2">';
+        html += '  <div class="space-y-0.5">';
+        html += '    <div class="flex items-center gap-2">';
+        html += '      <strong class="text-kem font-semibold">' + (idx + 1) + '. ' + s.name + '</strong>';
+        if (isActive) {
+          html += '    <span class="px-1.5 py-0.2 rounded bg-green-900/60 text-green-300 font-mono text-[9px] font-bold">Đang học</span>';
+        }
+        html += '    </div>';
+        html += '    <div class="text-[10px] text-yen font-mono flex flex-wrap gap-x-3 gap-y-0.5">';
+        html += '      <span>SĐT: <strong class="text-kem">' + s.phone + '</strong></span>';
+        html += '      <span>Email: ' + (s.email || 'N/A') + '</span>';
+        html += '      <span>Khóa: <span class="text-cam">' + (s.course || 'but-pha') + '</span></span>';
+        html += '      <span>Đã học: <strong class="text-green-300">' + completedCount + '/3 buổi</strong></span>';
+        html += '    </div>';
+        html += '  </div>';
+        html += '  <div class="flex items-center gap-1.5 shrink-0 pt-1 sm:pt-0">';
+        html += '    <button type="button" onclick="window.quickLoginStudent(\'' + s.phone + '\')" class="px-2 py-1 rounded bg-cam/20 hover:bg-cam/30 text-cam font-mono text-[10px] font-bold transition-colors cursor-pointer" title="Đăng nhập ngay vào hồ sơ học viên này">';
+        html += '      Đăng nhập ↗';
+        html += '    </button>';
+        if (db.length > 1) {
+          html += '    <button type="button" onclick="window.deleteStudentFromDb(\'' + s.phone + '\')" class="px-1.5 py-1 rounded bg-red-950/40 hover:bg-red-900/60 text-red-300 border border-red-500/30 font-mono text-[10px] transition-colors cursor-pointer" title="Xóa học viên khỏi CSDL">';
+          html += '      ✕';
+          html += '    </button>';
+        }
+        html += '  </div>';
+        html += '</div>';
+      });
+
+      listEl.innerHTML = html;
+    }
+
+    // Đăng nhập nhanh vào bất kỳ học viên nào từ danh sách CSDL để test
+    window.quickLoginStudent = function(phone) {
+      var db = getStudentsDatabase();
+      var student = db.find(function(s) {
+        return (s.phone || s.id) === phone;
+      });
+      if (student) {
+        setActiveStudent(student);
+        applyStudentAuthState(student);
+        renderLessonProgressUI(student.completedLessons || []);
+        renderDbInspector();
+
+        var msg = document.getElementById('login-status-msg');
+        if (msg) {
+          msg.classList.remove('hidden', 'bg-red-900/40', 'text-red-200', 'border-red-500/50');
+          msg.classList.add('bg-green-900/40', 'text-green-200', 'border', 'border-green-500/50');
+          msg.innerHTML = '<strong>Đã chuyển tài khoản:</strong> Hiện đang đăng nhập hồ sơ học viên <strong>' + student.name + '</strong> (SĐT: ' + student.phone + '). Đã đồng bộ tiến độ học tập!';
+        }
+      }
+    };
+
+    // Xóa học viên khỏi CSDL
+    window.deleteStudentFromDb = function(phone) {
+      if (!confirm('Bạn có chắc chắn muốn xóa học viên ' + phone + ' khỏi CSDL?')) return;
+      var db = getStudentsDatabase();
+      db = db.filter(function(s) { return (s.phone || s.id) !== phone; });
+      saveStudentsDatabase(db);
+
+      var active = getActiveStudent();
+      if (active && (active.phone || active.id) === phone) {
+        setActiveStudent(null);
+        applyStudentAuthState(null);
+        renderLessonProgressUI([]);
+      }
+
+      renderDbInspector();
+    };
+
     // Xuất cơ sở dữ liệu học viên (Export JSON)
     window.exportStudentsDatabase = function() {
       var db = getStudentsDatabase();
@@ -1922,6 +2161,7 @@
       setActiveStudent(demoStudent);
       applyStudentAuthState(demoStudent);
       renderLessonProgressUI(demoStudent.completedLessons);
+      renderDbInspector();
 
       var msg = document.getElementById('login-status-msg');
       if (msg) {
@@ -1941,6 +2181,7 @@
       setActiveStudent(null);
       applyStudentAuthState(null);
       renderLessonProgressUI([]);
+      renderDbInspector();
 
       var msg = document.getElementById('login-status-msg');
       if (msg) msg.classList.add('hidden');
@@ -2059,6 +2300,7 @@
 
       // Nạp CSDL học viên
       var db = getStudentsDatabase();
+      renderDbInspector();
 
       // Kiểm tra học viên đang đăng nhập và khôi phục 100% dữ liệu
       var currentStudent = getActiveStudent();
