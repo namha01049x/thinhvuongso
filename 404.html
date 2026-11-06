@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đang chuyển hướng · Thịnh Vượng Số</title>
+  <script>
+    (function() {
+      var path = window.location.pathname;
+      var search = window.location.search || '';
+      var hash = window.location.hash || '';
+
+      if (path.indexOf('/khuhoctap') !== -1) {
+        window.location.replace('./khuhoctap' + search + hash);
+        return;
+      }
+      if (path.indexOf('/khoahoc') !== -1) {
+        window.location.replace('./khoahoc' + search + hash);
+        return;
+      }
+      window.location.replace('./' + search + hash);
+    })();
+  </script>
+</head>
+<body style="background:#141C25; color:#EEE9DF; font-family:sans-serif; display:flex; align-items:center; justify-content:center; height:100vh; margin:0; text-align:center;">
+  <div>
+    <p style="font-size:18px; margin-bottom:12px;">Đang tải nội dung...</p>
+    <a href="./" style="color:#FFB162; text-decoration:none; font-weight:600;">← Quay về Trang chủ Thịnh Vượng Số</a>
+  </div>
+</body>
+</html>

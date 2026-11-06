@@ -6,9 +6,22 @@
   <title>Hệ Thống Khóa Học Thực Chiến · Thịnh Vượng Số | Mentor Trần Nam Hà</title>
   <meta name="description" content="Danh mục các khóa học tài chính thực chiến của Thịnh Vượng Số: Khai sáng tư duy, Bình Dân Học Vụ, Bứt Phá Tài Chính 6 tuần Zoom và Tinh Hoa Thịnh Vượng cùng Mentor Trần Nam Hà." />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-  <link rel="canonical" href="https://daothinhvuong.vn/khoahoc.html" />
+  <link rel="canonical" href="https://daothinhvuong.vn/khoahoc" />
   <meta name="theme-color" content="#1B2632" />
   <meta name="author" content="Công ty TNHH Thịnh Vượng Số · Trần Nam Hà · Phan Trọng Quỳnh" />
+
+  <!-- Clean URL: Tự động loại bỏ đuôi .html trên thanh địa chỉ trình duyệt -->
+  <script>
+    (function () {
+      if (window.location.pathname.endsWith('.html')) {
+        var cleanPath = window.location.pathname
+          .replace(/\/index\.html$/, '/')
+          .replace(/\.html$/, '');
+        if (!cleanPath) cleanPath = '/';
+        window.history.replaceState(null, '', cleanPath + window.location.search + window.location.hash);
+      }
+    })();
+  </script>
 
   <!-- Security & Privacy Meta Headers -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
@@ -21,7 +34,7 @@
   <meta property="og:site_name" content="Thịnh Vượng Số" />
   <meta property="og:title" content="Hệ Thống Khóa Học Thực Chiến · Thịnh Vượng Số | Mentor Trần Nam Hà" />
   <meta property="og:description" content="Khám phá các khóa học thực chiến từ Tầng 0 đến Tầng 4. Khóa trọng điểm: Bứt Phá Tài Chính 6 buổi Zoom trực tiếp cùng Mentor Trần Nam Hà." />
-  <meta property="og:url" content="https://daothinhvuong.vn/khoahoc.html" />
+  <meta property="og:url" content="https://daothinhvuong.vn/khoahoc" />
   <meta property="og:image" content="https://daothinhvuong.vn/anh/chia-se.jpg" />
 
   <!-- Favicon TVS -->
@@ -300,7 +313,7 @@
           <span id="nav-progress-badge" class="px-1.5 py-0.2 rounded bg-cam/20 text-cam text-[10px] font-mono font-bold">50%</span>
         </a>
         <a href="#noi-dung" class="text-yen hover:text-cam transition-colors">Giáo Trình 6 Buổi</a>
-        <a href="khuhoctap.html" class="text-yen hover:text-cam transition-colors">Khu Học Tập ↗</a>
+        <a href="khuhoctap" class="text-yen hover:text-cam transition-colors">Khu Học Tập ↗</a>
         <a href="#mentor" class="text-yen hover:text-cam transition-colors">Mentor</a>
       </nav>
 
@@ -334,7 +347,7 @@
       <a href="./" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">← Quay về Trang chủ Thịnh Vượng Số</a>
       <a href="#danh-muc" onclick="window.toggleCourseMobileNav()" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">Danh Mục Khóa Học & Bộ Lọc</a>
       <a href="#but-pha-tai-chinh" onclick="window.toggleCourseMobileNav()" class="block px-3 py-2 rounded bg-cam/20 text-cam text-xs font-semibold">Khóa Trọng Điểm: Bứt Phá Tài Chính ↗</a>
-      <a href="khuhoctap.html" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">Khu Học Tập · Cổng Học Viên ↗</a>
+      <a href="khuhoctap" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">Khu Học Tập · Cổng Học Viên ↗</a>
       <a href="#loi-ich" onclick="window.toggleCourseMobileNav()" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">5 Giá Trị Chuyển Hóa</a>
       <a href="#noi-dung" onclick="window.toggleCourseMobileNav()" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">Giáo Trình 6 Buổi Chi Tiết</a>
       <a href="#mentor" onclick="window.toggleCourseMobileNav()" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">Mentor Trần Nam Hà</a>
@@ -347,7 +360,7 @@
       <nav class="flex items-center gap-2 font-mono text-xs text-yen" aria-label="Breadcrumb">
         <a href="./" class="hover:text-cam transition-colors">Trang chủ TVS</a>
         <span class="text-kem/30">/</span>
-        <a href="khuhoctap.html" class="hover:text-cam transition-colors">Khu Học Tập</a>
+        <a href="khuhoctap" class="hover:text-cam transition-colors">Khu Học Tập</a>
         <span class="text-kem/30">/</span>
         <a href="#danh-muc" class="hover:text-cam transition-colors">Hệ Thống Khóa Học</a>
         <span class="text-kem/30">/</span>
@@ -1794,7 +1807,7 @@
         <button type="button" onclick="window.openCheckoutModal('Bứt Phá Tài Chính', '2.990.000 đ')" class="btn-p !py-3.5 !px-8 text-sm font-mono uppercase tracking-wider w-full sm:w-auto justify-center font-bold">
           <span>Đăng ký khóa học ngay (Ưu đãi 2.990.000 đ) ↗</span>
         </button>
-        <a href="khuhoctap.html" class="btn-o !py-3.5 !px-6 text-sm font-mono w-full sm:w-auto justify-center">
+        <a href="khuhoctap" class="btn-o !py-3.5 !px-6 text-sm font-mono w-full sm:w-auto justify-center">
           <span>Trải nghiệm Khu Học Tập ↗</span>
         </a>
       </div>
@@ -1829,7 +1842,7 @@
             <li><a href="#danh-muc" class="hover:text-cam">Tầng 1 · Bình Dân Học Vụ</a></li>
             <li><a href="#but-pha-tai-chinh" class="text-cam font-semibold hover:underline">Tầng 2 · Bứt Phá Tài Chính ↗</a></li>
             <li><a href="#danh-muc" class="hover:text-cam">Tầng 3 · Tinh Hoa 12 Tháng</a></li>
-            <li><a href="khuhoctap.html" class="hover:text-cam">Khu Học Tập Học Viên ↗</a></li>
+            <li><a href="khuhoctap" class="hover:text-cam">Khu Học Tập Học Viên ↗</a></li>
           </ul>
         </div>
 
@@ -1837,8 +1850,8 @@
           <p class="font-mono text-xs uppercase tracking-wider text-cam font-semibold">Tiện ích & Hệ sinh thái</p>
           <ul class="space-y-1.5 text-xs">
             <li><a href="./" class="hover:text-cam">Trang chủ Thịnh Vượng Số</a></li>
-            <li><a href="khuhoctap.html#ban-ghi-zoom" class="hover:text-cam">Kho bản ghi Zoom HD</a></li>
-            <li><a href="khuhoctap.html#bieu-mau" class="hover:text-cam">Tải biểu mẫu Excel TVS</a></li>
+            <li><a href="khuhoctap#ban-ghi-zoom" class="hover:text-cam">Kho bản ghi Zoom HD</a></li>
+            <li><a href="khuhoctap#bieu-mau" class="hover:text-cam">Tải biểu mẫu Excel TVS</a></li>
             <li><a href="javascript:void(0);" onclick="window.toggleSiteTheme()" class="hover:text-cam">Chuyển chế độ Sáng / Tối</a></li>
           </ul>
         </div>

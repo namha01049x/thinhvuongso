@@ -42,7 +42,7 @@ export const AcademyAndMethodSection: React.FC<AcademyAndMethodSectionProps> = (
               </h2>
               <p className="text-yen text-base sm:text-lg leading-relaxed">
                 Mỗi học viên tại Thịnh Vượng Số được cấp tài khoản riêng trên nền tảng{' '}
-                <a href="khuhoctap.html" className="text-cam font-semibold hover:underline">Khu Học Tập Thịnh Vượng Số</a> · nơi lưu
+                <a href="khuhoctap" className="text-cam font-semibold hover:underline">Khu Học Tập Thịnh Vượng Số</a> · nơi lưu
                 trữ toàn bộ bản ghi buổi học, kho biểu mẫu tài chính, bài tập thực hành trên
                 số thật và bảng theo dõi tiến độ cá nhân.
               </p>

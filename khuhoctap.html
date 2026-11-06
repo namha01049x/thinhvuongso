@@ -6,9 +6,22 @@
   <title>Cổng Học Viên & Khu Học Tập · Thịnh Vượng Số</title>
   <meta name="description" content="Khu học tập chính thức của Thịnh Vượng Số: truy cập kho bản ghi Zoom chất lượng cao, tải trọn bộ biểu mẫu kiểm kê dòng tiền, nộp bài tập thực hành trên số thật và rèn luyện cùng Mentor Trần Nam Hà." />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-  <link rel="canonical" href="https://daothinhvuong.vn/khuhoctap.html" />
+  <link rel="canonical" href="https://daothinhvuong.vn/khuhoctap" />
   <meta name="theme-color" content="#1B2632" />
   <meta name="author" content="Công ty TNHH Thịnh Vượng Số · Trần Nam Hà · Phan Trọng Quỳnh" />
+
+  <!-- Clean URL: Tự động loại bỏ đuôi .html trên thanh địa chỉ trình duyệt -->
+  <script>
+    (function () {
+      if (window.location.pathname.endsWith('.html')) {
+        var cleanPath = window.location.pathname
+          .replace(/\/index\.html$/, '/')
+          .replace(/\.html$/, '');
+        if (!cleanPath) cleanPath = '/';
+        window.history.replaceState(null, '', cleanPath + window.location.search + window.location.hash);
+      }
+    })();
+  </script>
 
   <!-- Security & Privacy Meta Headers -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
@@ -21,7 +34,7 @@
   <meta property="og:site_name" content="Thịnh Vượng Số" />
   <meta property="og:title" content="Cổng Học Viên & Khu Học Tập · Thịnh Vượng Số" />
   <meta property="og:description" content="Truy cập kho bản ghi Zoom, tải biểu mẫu kiểm kê dòng tiền, nộp bài tập số thật và đồng hành 12 tháng cùng Mentor Trần Nam Hà." />
-  <meta property="og:url" content="https://daothinhvuong.vn/khuhoctap.html" />
+  <meta property="og:url" content="https://daothinhvuong.vn/khuhoctap" />
   <meta property="og:image" content="https://daothinhvuong.vn/anh/chia-se.jpg" />
 
   <!-- Favicon TVS -->
@@ -270,7 +283,7 @@
       <!-- Desktop Nav -->
       <nav class="hidden lg:flex items-center gap-5 xl:gap-7 text-xs font-medium" aria-label="Điều hướng Khu Học Tập">
         <a href="./" class="text-yen hover:text-cam transition-colors">Trang chủ TVS</a>
-        <a href="khoahoc.html" class="text-cam font-semibold hover:underline">Hệ Thống Khóa Học ↗</a>
+        <a href="khoahoc" class="text-cam font-semibold hover:underline">Hệ Thống Khóa Học ↗</a>
         <a href="#khoa-hoc" class="text-yen hover:text-cam transition-colors">3 Tầng Khóa Học</a>
         <a href="#ban-ghi-zoom" class="text-yen hover:text-cam transition-colors">Kho Bản Ghi Zoom</a>
         <a href="#bieu-mau" class="text-yen hover:text-cam transition-colors">Biểu Mẫu Tài Chính</a>
@@ -306,7 +319,7 @@
     <!-- Mobile Drawer for khuhoctap.html -->
     <div id="kht-mobile-drawer" class="hidden lg:hidden bg-nen-sau border-b border-kem/15 p-4 space-y-2">
       <a href="./" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">← Quay về Trang chủ Thịnh Vượng Số</a>
-      <a href="khoahoc.html" class="block px-3 py-2 rounded bg-cam/20 text-cam text-xs font-semibold">Hệ Thống Khóa Học Thực Chiến ↗</a>
+      <a href="khoahoc" class="block px-3 py-2 rounded bg-cam/20 text-cam text-xs font-semibold">Hệ Thống Khóa Học Thực Chiến ↗</a>
       <a href="#khoa-hoc" onclick="window.toggleKhuHocTapMobileNav()" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">3 Tầng Khóa Học & Lộ Trình</a>
       <a href="#ban-ghi-zoom" onclick="window.toggleKhuHocTapMobileNav()" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">Kho Bản Ghi Zoom Bài Giảng</a>
       <a href="#bieu-mau" onclick="window.toggleKhuHocTapMobileNav()" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">Thư Viện Biểu Mẫu (.xlsx, .pdf)</a>
@@ -573,15 +586,15 @@
             </div>
             <div class="flex justify-between items-center text-[10px] text-yen/80 font-mono">
               <span id="kht-tasks-count">0/18 nhiệm vụ</span>
-              <a href="khoahoc.html?course=but-pha#tien-do-hoc-tap" class="text-cam hover:underline font-sans font-medium">Bảng theo dõi ↗</a>
+              <a href="khoahoc?course=but-pha#tien-do-hoc-tap" class="text-cam hover:underline font-sans font-medium">Bảng theo dõi ↗</a>
             </div>
           </div>
         </div>
         <div class="pt-4 space-y-2">
-          <a href="khoahoc.html?course=but-pha#but-pha-tai-chinh" class="btn-p w-full justify-center text-xs !py-2.5">
+          <a href="khoahoc?course=but-pha#but-pha-tai-chinh" class="btn-p w-full justify-center text-xs !py-2.5">
             <span>Vào lớp Bứt Phá Tài Chính ↗</span>
           </a>
-          <a href="khoahoc.html?course=but-pha#tien-do-hoc-tap" class="btn-o w-full justify-center text-xs !py-1.5 text-yen hover:text-cam">
+          <a href="khoahoc?course=but-pha#tien-do-hoc-tap" class="btn-o w-full justify-center text-xs !py-1.5 text-yen hover:text-cam">
             <span>📊 Xem Bảng Tiến Độ & Chứng Chỉ ↗</span>
           </a>
         </div>
@@ -1149,7 +1162,7 @@
     // Program Details Click
     window.viewProgramDetails = function(prog) {
       if (prog === 'but-pha') {
-        window.location.href = 'khoahoc.html?course=but-pha#but-pha-tai-chinh';
+        window.location.href = 'khoahoc?course=but-pha#but-pha-tai-chinh';
         return;
       }
       var target = document.getElementById('ban-ghi-zoom');

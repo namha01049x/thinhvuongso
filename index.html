@@ -21,6 +21,19 @@
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=()" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://daothinhvuong.vn https://butphataichinh.vn https://tinhhoathinhvuong.vn; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' https://daothinhvuong.vn data: blob:; media-src 'self' blob:; connect-src 'self' https://daothinhvuong.vn; object-src 'none'; base-uri 'self'; form-action 'self';" />
 
+  <!-- Clean URL: Tự động loại bỏ đuôi .html trên thanh địa chỉ trình duyệt -->
+  <script>
+    (function () {
+      if (window.location.pathname.endsWith('.html')) {
+        var cleanPath = window.location.pathname
+          .replace(/\/index\.html$/, '/')
+          .replace(/\.html$/, '');
+        if (!cleanPath) cleanPath = '/';
+        window.history.replaceState(null, '', cleanPath + window.location.search + window.location.hash);
+      }
+    })();
+  </script>
+
   <!-- Hreflang Quốc tế & Đa vùng (Agent 2) -->
   <link rel="alternate" hreflang="vi-VN" href="https://daothinhvuong.vn/" />
   <link rel="alternate" hreflang="vi" href="https://daothinhvuong.vn/" />
@@ -1458,7 +1471,7 @@
         ],
         "sameAs": [
           "https://zalo.me/0981501865",
-          "https://daothinhvuong.vn/khuhoctap.html",
+          "https://daothinhvuong.vn/khuhoctap",
           "https://butphataichinh.vn",
           "https://tinhhoathinhvuong.vn"
         ]
@@ -1643,7 +1656,7 @@
             "name": "Thịnh Vượng Số là gì và khác gì với các khóa học làm giàu hay phím hàng trên thị trường?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Thịnh Vượng Số là hệ sinh thái giáo dục và huấn luyện thực hành xoay quanh 4 trụ cột: Phát triển bản thân (Gốc), Tài chính cá nhân và gia đình, Tạo giá trị và Kinh doanh, Quản trị vốn và Đầu tư. Chúng tôi tuyệt đối không phím hàng, không hô hào làm giàu nhanh hay cam kết lợi nhuận ảo. Học viên làm bài tập trực tiếp trên con số thu, chi, nợ và tài sản thật của chính mình tại nền tảng Khu Học Tập Thịnh Vượng Số (khuhoctap.html)."
+              "text": "Thịnh Vượng Số là hệ sinh thái giáo dục và huấn luyện thực hành xoay quanh 4 trụ cột: Phát triển bản thân (Gốc), Tài chính cá nhân và gia đình, Tạo giá trị và Kinh doanh, Quản trị vốn và Đầu tư. Chúng tôi tuyệt đối không phím hàng, không hô hào làm giàu nhanh hay cam kết lợi nhuận ảo. Học viên làm bài tập trực tiếp trên con số thu, chi, nợ và tài sản thật của chính mình tại nền tảng Khu Học Tập Thịnh Vượng Số (khuhoctap)."
             }
           },
           {
@@ -1675,7 +1688,7 @@
             "name": "Học viên được hỗ trợ công cụ thực hành và xem lại bài giảng ở đâu?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Mỗi học viên chính thức tại Thịnh Vượng Số đều được cấp tài khoản riêng trên Cổng Khu Học Tập tại địa chỉ khuhoctap.html. Tại đây, học viên có thể xem lại toàn bộ bản ghi video Zoom phân mục theo từng chặng, tải về bộ biểu mẫu kiểm kê dòng tiền và bảng cân đối tài sản, nộp bài thực hành trên con số thật và theo dõi tiến độ rèn luyện cá nhân."
+              "text": "Mỗi học viên chính thức tại Thịnh Vượng Số đều được cấp tài khoản riêng trên Cổng Khu Học Tập tại địa chỉ khuhoctap. Tại đây, học viên có thể xem lại toàn bộ bản ghi video Zoom phân mục theo từng chặng, tải về bộ biểu mẫu kiểm kê dòng tiền và bảng cân đối tài sản, nộp bài thực hành trên con số thật và theo dõi tiến độ rèn luyện cá nhân."
             }
           }
         ]
@@ -1765,13 +1778,13 @@
         <a href="#hanh-trinh" class="text-[12.5px] 2xl:text-sm text-yen hover:text-cam transition-colors font-medium py-1 whitespace-nowrap">Hành trình 5 tầng</a>
         <a href="#bai-test" class="text-[12.5px] 2xl:text-sm text-yen hover:text-cam transition-colors font-medium py-1 whitespace-nowrap">Bài test 3 câu</a>
         <a href="#chuong-trinh" class="text-[12.5px] 2xl:text-sm text-yen hover:text-cam transition-colors font-medium py-1 whitespace-nowrap">Chương trình</a>
-        <a href="khoahoc.html" class="text-[12.5px] 2xl:text-sm text-cam hover:underline transition-colors font-semibold py-1 whitespace-nowrap">Khóa học ↗</a>
+        <a href="khoahoc" class="text-[12.5px] 2xl:text-sm text-cam hover:underline transition-colors font-semibold py-1 whitespace-nowrap">Khóa học ↗</a>
         <a href="#hoc-vien" class="text-[12.5px] 2xl:text-sm text-yen hover:text-cam transition-colors font-medium py-1 whitespace-nowrap">Học viện</a>
         <a href="#phuong-phap" class="text-[12.5px] 2xl:text-sm text-yen hover:text-cam transition-colors font-medium py-1 whitespace-nowrap">Phương pháp</a>
       </nav>
 
       <div class="hidden lg:flex items-center gap-2 2xl:gap-3 shrink-0">
-        <a href="khuhoctap.html" class="touch-target inline-flex items-center gap-2 px-2.5 2xl:px-3.5 py-2 rounded text-[10.5px] 2xl:text-xs font-mono uppercase tracking-wider text-kem bg-xanh/50 hover:bg-xanh border border-kem/20 hover:border-cam/50 transition-all cursor-pointer whitespace-nowrap">
+        <a href="khuhoctap" class="touch-target inline-flex items-center gap-2 px-2.5 2xl:px-3.5 py-2 rounded text-[10.5px] 2xl:text-xs font-mono uppercase tracking-wider text-kem bg-xanh/50 hover:bg-xanh border border-kem/20 hover:border-cam/50 transition-all cursor-pointer whitespace-nowrap">
           <span>Khu học tập</span>
         </a>
         <a href="#dong-hanh" class="btn-p !py-2.5 !px-3 2xl:!px-4 text-[10.5px] 2xl:text-xs uppercase tracking-wider font-mono whitespace-nowrap">
@@ -1780,7 +1793,7 @@
       </div>
 
       <div class="flex items-center gap-1.5 sm:gap-2 shrink-0 lg:hidden">
-        <a href="khuhoctap.html" id="header-mobile-kht-btn" class="touch-target inline-flex items-center justify-center px-2 sm:px-2.5 py-1.5 rounded bg-cam text-abyssal font-bold text-[10.5px] sm:text-[11px] uppercase tracking-normal shadow-sm shrink-0 whitespace-nowrap">
+        <a href="khuhoctap" id="header-mobile-kht-btn" class="touch-target inline-flex items-center justify-center px-2 sm:px-2.5 py-1.5 rounded bg-cam text-abyssal font-bold text-[10.5px] sm:text-[11px] uppercase tracking-normal shadow-sm shrink-0 whitespace-nowrap">
           <span>Khu học tập</span>
         </a>
         <a href="#bai-test" id="header-mobile-test-btn" class="hidden sm:inline-flex touch-target flex-col items-center justify-center px-2 py-1 rounded bg-cam/15 border border-cam/40 text-cam text-[10.5px] font-semibold leading-[1.15] text-center shrink-0">
@@ -1808,8 +1821,8 @@
           <a href="#chuyen-san" class="mobile-nav-link px-3.5 py-2.5 rounded bg-xanh/35 text-kem hover:text-cam text-sm font-medium flex items-center justify-between"><span>Chuyên san & Cộng đồng</span><span>→</span></a>
         </div>
         <div class="pt-3 border-t border-kem/10 flex flex-col sm:flex-row gap-3">
-          <a href="khoahoc.html" class="btn-p w-full justify-center text-sm !py-2.5">Hệ thống Khóa học Thực chiến ↗</a>
-          <a href="khuhoctap.html" class="btn-o w-full justify-center text-sm !py-2.5">Khu học tập (Cổng học viên) ↗</a>
+          <a href="khoahoc" class="btn-p w-full justify-center text-sm !py-2.5">Hệ thống Khóa học Thực chiến ↗</a>
+          <a href="khuhoctap" class="btn-o w-full justify-center text-sm !py-2.5">Khu học tập (Cổng học viên) ↗</a>
         </div>
       </div>
     </div>
@@ -1899,10 +1912,10 @@
                 Nhìn rõ sự thật. Hiểu đúng nguyên nhân. Làm thật trên số thật.
               </h2>
               <p class="hero-anim-3 text-base sm:text-lg text-yen leading-relaxed" style="max-width: 58ch">
-                Học viên làm bài tập trực tiếp trên bảng thu chi, dòng tiền cửa hàng và danh mục tài sản của chính mình tại <a href="khuhoctap.html" class="text-cam font-semibold hover:underline">Khu Học Tập Thịnh Vượng Số</a>.
+                Học viên làm bài tập trực tiếp trên bảng thu chi, dòng tiền cửa hàng và danh mục tài sản của chính mình tại <a href="khuhoctap" class="text-cam font-semibold hover:underline">Khu Học Tập Thịnh Vượng Số</a>.
               </p>
               <div class="hero-anim-4 flex flex-wrap items-center gap-3 pt-1">
-                <a href="khuhoctap.html" class="btn-p text-sm">
+                <a href="khuhoctap" class="btn-p text-sm">
                   <span>Khám phá Khu Học Tập vận hành ↗</span>
                 </a>
                 <a href="#phuong-phap" class="btn-o text-sm">
@@ -2148,7 +2161,7 @@
           <div class="bg-abyssal/80 border border-kem/10 rounded p-3.5 sm:p-4">
             <div class="font-serif text-xl sm:text-3xl font-bold text-cam">100% <span class="text-sm sm:text-lg font-sans font-semibold text-kem">Làm trên số thật</span></div>
             <p class="text-xs sm:text-sm font-semibold text-kem mt-1.5">Khu Học Tập Thực Hành</p>
-            <p class="text-[11px] text-yen mt-0.5"><a href="khuhoctap.html" class="text-cam hover:underline">Khu Học Tập Thịnh Vượng Số ↗</a></p>
+            <p class="text-[11px] text-yen mt-0.5"><a href="khuhoctap" class="text-cam hover:underline">Khu Học Tập Thịnh Vượng Số ↗</a></p>
           </div>
           <div class="bg-abyssal/80 border border-kem/10 rounded p-3.5 sm:p-4">
             <div class="font-serif text-xl sm:text-3xl font-bold text-cam">52 <span class="text-sm sm:text-lg font-sans font-semibold text-kem">Tuần giữ nhịp</span></div>
@@ -2668,7 +2681,7 @@
                 </div>
               </div>
               <div class="p-6 pt-0 space-y-2.5">
-                <a href="khoahoc.html?course=but-pha#but-pha-tai-chinh" class="btn-p w-full justify-center text-xs sm:text-sm">
+                <a href="khoahoc?course=but-pha#but-pha-tai-chinh" class="btn-p w-full justify-center text-xs sm:text-sm">
                   <span>Vào lớp Bứt Phá Tài Chính ↗</span>
                 </a>
                 <button type="button" onclick="window.openProgramModal('but-pha-tai-chinh')" class="block w-full py-2 text-center text-xs font-mono text-yen hover:text-cam">
@@ -2815,10 +2828,10 @@
               Học đi đôi với làm thật trên nền tảng Khu Học Tập.
             </h2>
             <p class="text-yen text-base sm:text-lg leading-relaxed" style="max-width: 65ch">
-              Mỗi học viên tại Thịnh Vượng Số được cấp tài khoản riêng trên <a href="khuhoctap.html" class="text-cam font-semibold hover:underline">Khu Học Tập Thịnh Vượng Số</a> để xem lại toàn bộ bản ghi buổi học, tải biểu mẫu tài chính, nộp bài thực hành trên số thật và theo dõi tiến độ.
+              Mỗi học viên tại Thịnh Vượng Số được cấp tài khoản riêng trên <a href="khuhoctap" class="text-cam font-semibold hover:underline">Khu Học Tập Thịnh Vượng Số</a> để xem lại toàn bộ bản ghi buổi học, tải biểu mẫu tài chính, nộp bài thực hành trên số thật và theo dõi tiến độ.
             </p>
           </div>
-          <a href="khuhoctap.html" class="btn-p text-xs sm:text-sm shrink-0">
+          <a href="khuhoctap" class="btn-p text-xs sm:text-sm shrink-0">
             <span>Trải nghiệm Khu Học Tập ↗</span>
           </a>
         </div>
@@ -3165,7 +3178,7 @@
                 <span class="text-cam font-mono text-xs shrink-0">+</span>
               </summary>
               <p class="text-xs sm:text-sm text-yen leading-relaxed mt-3 pt-3 border-t border-kem/10">
-                Thịnh Vượng Số là hệ sinh thái giáo dục và huấn luyện thực hành xoay quanh 4 trụ cột: Phát triển bản thân (Gốc), Tài chính cá nhân và gia đình, Tạo giá trị và Kinh doanh, Quản trị vốn và Đầu tư. Chúng tôi tuyệt đối không phím hàng, không hô hào làm giàu nhanh hay cam kết lợi nhuận ảo. Học viên làm bài tập trực tiếp trên con số thu, chi, nợ và tài sản thật của chính mình tại nền tảng <a href="khuhoctap.html" class="text-cam font-semibold hover:underline">Khu Học Tập Thịnh Vượng Số</a>.
+                Thịnh Vượng Số là hệ sinh thái giáo dục và huấn luyện thực hành xoay quanh 4 trụ cột: Phát triển bản thân (Gốc), Tài chính cá nhân và gia đình, Tạo giá trị và Kinh doanh, Quản trị vốn và Đầu tư. Chúng tôi tuyệt đối không phím hàng, không hô hào làm giàu nhanh hay cam kết lợi nhuận ảo. Học viên làm bài tập trực tiếp trên con số thu, chi, nợ và tài sản thật của chính mình tại nền tảng <a href="khuhoctap" class="text-cam font-semibold hover:underline">Khu Học Tập Thịnh Vượng Số</a>.
               </p>
             </details>
             <details class="the p-5 bg-nen-sau/90 group">
@@ -3183,7 +3196,7 @@
                 <span class="text-cam font-mono text-xs shrink-0">+</span>
               </summary>
               <p class="text-xs sm:text-sm text-yen leading-relaxed mt-3 pt-3 border-t border-kem/10">
-                Bứt Phá Tài Chính là chương trình huấn luyện thực chiến kéo dài 6 tuần liên tục (từ 06/12/2026 đến 10/01/2027), học trực tiếp qua Zoom vào tối Chủ nhật hàng tuần (20:00 đến 22:30) kết hợp làm bài tập thực hành trên số thật tại <a href="khuhoctap.html" class="text-cam font-semibold hover:underline">Khu Học Tập Thịnh Vượng Số</a>. Học phí tiêu chuẩn là 6.800.000đ, ưu đãi đăng ký sớm Giai đoạn 1 là 4.800.000đ và Giai đoạn 2 là 5.800.000đ.
+                Bứt Phá Tài Chính là chương trình huấn luyện thực chiến kéo dài 6 tuần liên tục (từ 06/12/2026 đến 10/01/2027), học trực tiếp qua Zoom vào tối Chủ nhật hàng tuần (20:00 đến 22:30) kết hợp làm bài tập thực hành trên số thật tại <a href="khuhoctap" class="text-cam font-semibold hover:underline">Khu Học Tập Thịnh Vượng Số</a>. Học phí tiêu chuẩn là 6.800.000đ, ưu đãi đăng ký sớm Giai đoạn 1 là 4.800.000đ và Giai đoạn 2 là 5.800.000đ.
               </p>
             </details>
             <details class="the p-5 bg-nen-sau/90 group">
@@ -3201,7 +3214,7 @@
                 <span class="text-cam font-mono text-xs shrink-0">+</span>
               </summary>
               <p class="text-xs sm:text-sm text-yen leading-relaxed mt-3 pt-3 border-t border-kem/10">
-                Mỗi học viên chính thức tại Thịnh Vượng Số đều được cấp tài khoản riêng trên Cổng Học Viên tại <a href="khuhoctap.html" class="text-cam font-semibold hover:underline">Khu Học Tập Thịnh Vượng Số</a>. Tại đây, học viên có thể xem lại toàn bộ bản ghi video Zoom phân mục theo từng chặng, tải về bộ biểu mẫu kiểm kê dòng tiền và bảng cân đối tài sản, nộp bài thực hành trên con số thật và theo dõi tiến độ rèn luyện cá nhân.
+                Mỗi học viên chính thức tại Thịnh Vượng Số đều được cấp tài khoản riêng trên Cổng Học Viên tại <a href="khuhoctap" class="text-cam font-semibold hover:underline">Khu Học Tập Thịnh Vượng Số</a>. Tại đây, học viên có thể xem lại toàn bộ bản ghi video Zoom phân mục theo từng chặng, tải về bộ biểu mẫu kiểm kê dòng tiền và bảng cân đối tài sản, nộp bài thực hành trên con số thật và theo dõi tiến độ rèn luyện cá nhân.
               </p>
             </details>
           </div>
@@ -3539,7 +3552,7 @@
         <div class="lg:col-span-2 space-y-3">
           <p class="font-mono text-xs uppercase tracking-widest text-cam font-semibold">Hệ sinh thái số</p>
           <ul class="space-y-2 text-xs sm:text-sm">
-            <li><a href="khuhoctap.html" class="hover:text-cam text-left">Khu Học Tập Thịnh Vượng Số ↗</a></li>
+            <li><a href="khuhoctap" class="hover:text-cam text-left">Khu Học Tập Thịnh Vượng Số ↗</a></li>
             <li><a href="https://butphataichinh.vn" target="_blank" rel="noopener noreferrer" class="hover:text-cam">butphataichinh.vn ↗</a></li>
             <li><a href="https://tinhhoathinhvuong.vn" target="_blank" rel="noopener noreferrer" class="hover:text-cam">tinhhoathinhvuong.vn ↗</a></li>
             <li><a href="#chuyen-san" class="hover:text-cam">Chuyên san & FAQ</a></li>
@@ -3664,7 +3677,7 @@
         <span class="font-mono text-[9.5px] text-cam">01</span>
         <span class="font-medium">Đầu trang</span>
       </a>
-      <a href="khuhoctap.html" class="py-1 px-1 rounded bg-cam/20 border border-cam/50 text-cam font-bold text-[10.5px] flex flex-col items-center justify-center">
+      <a href="khuhoctap" class="py-1 px-1 rounded bg-cam/20 border border-cam/50 text-cam font-bold text-[10.5px] flex flex-col items-center justify-center">
         <span class="font-mono text-[9px] uppercase tracking-wider text-kem">Học viên</span>
         <span class="leading-tight">Khu học tập</span>
       </a>
@@ -3736,7 +3749,7 @@
         <li>Theo dõi tiến độ rèn luyện xuyên suốt 12 tháng</li>
       </ul>
       <div class="flex flex-col sm:flex-row gap-3 pt-2">
-        <a href="khuhoctap.html" class="btn-p w-full justify-center text-xs sm:text-sm">Truy cập Khu Học Tập Thịnh Vượng Số ↗</a>
+        <a href="khuhoctap" class="btn-p w-full justify-center text-xs sm:text-sm">Truy cập Khu Học Tập Thịnh Vượng Số ↗</a>
         <button type="button" onclick="window.closePortalModal(); document.getElementById('dong-hanh').scrollIntoView({behavior:'smooth'});" class="btn-o w-full justify-center text-xs">Chưa có tài khoản? Đăng ký học</button>
       </div>
     </div>
@@ -5207,7 +5220,7 @@
             '<div class="space-y-4">' +
               '<p><strong class="text-kem">1.1. Đơn vị kiểm soát và xử lý dữ liệu:</strong> Công ty TNHH Thịnh Vượng Số (Mã số doanh nghiệp: 0111281148, trụ sở tại Số 28, ngõ 81 Đông Ngạc, Phường Đông Ngạc, Thành phố Hà Nội; Email: support@daothinhvuong.vn; Điện thoại: 0981.501.865).</p>' +
               '<p><strong class="text-kem">1.2. Phạm vi dữ liệu thu thập:</strong> Chúng tôi chỉ thu thập dữ liệu cá nhân cơ bản do chính bạn chủ động cung cấp khi điền biểu mẫu tư vấn, tải cẩm nang hoặc làm bài test định vị, bao gồm: Họ và tên, Số điện thoại/Zalo, Địa chỉ Email, Vai trò công việc và Nhu cầu học tập.</p>' +
-              '<p><strong class="text-kem">1.3. Mục đích xử lý dữ liệu:</strong> (a) Liên hệ xác nhận lịch hẹn tư vấn lộ trình học tập; (b) Cấp quyền truy cập Khu Học Tập Thịnh Vượng Số (khuhoctap.html) cho học viên chính thức; (c) Gửi tài liệu học tập, Cẩm nang PDF và thông báo lịch học Zoom định kỳ.</p>' +
+              '<p><strong class="text-kem">1.3. Mục đích xử lý dữ liệu:</strong> (a) Liên hệ xác nhận lịch hẹn tư vấn lộ trình học tập; (b) Cấp quyền truy cập Khu Học Tập Thịnh Vượng Số (khuhoctap) cho học viên chính thức; (c) Gửi tài liệu học tập, Cẩm nang PDF và thông báo lịch học Zoom định kỳ.</p>' +
               '<p><strong class="text-kem">1.4. Cam kết không chia sẻ bên thứ ba:</strong> Thịnh Vượng Số cam kết bảo mật tuyệt đối dữ liệu cá nhân và các con số bài tập tài chính của học viên; tuyệt đối không bán, trao đổi hoặc chia sẻ dữ liệu cho bất kỳ bên thứ ba nào vì mục đích thương mại.</p>' +
               '<p><strong class="text-kem">1.5. Quyền của chủ thể dữ liệu:</strong> Theo Nghị định 13/2023/NĐ-CP, bạn có toàn quyền yêu cầu xem, chỉnh sửa, rút lại sự đồng ý hoặc yêu cầu xóa hoàn toàn dữ liệu cá nhân khỏi hệ thống bất cứ lúc nào qua email support@daothinhvuong.vn hoặc Zalo 0981.501.865.</p>' +
             '</div>'
@@ -5216,9 +5229,9 @@
           title: '2. Điều khoản Sử dụng Website & Hệ thống Khu Học Tập Thịnh Vượng Số',
           html:
             '<div class="space-y-4">' +
-              '<p><strong class="text-kem">2.1. Quyền sở hữu trí tuệ:</strong> Toàn bộ khung chương trình, học liệu, biểu mẫu kiểm kê dòng tiền, Khung 5 lớp ra quyết định và bản ghi video trên daothinhvuong.vn và Khu Học Tập Thịnh Vượng Số (khuhoctap.html) thuộc bản quyền của Công ty TNHH Thịnh Vượng Số. Học viên sử dụng cho mục đích học tập cá nhân, không sao chép, phát tán hoặc kinh doanh lại dưới mọi hình thức.</p>' +
+              '<p><strong class="text-kem">2.1. Quyền sở hữu trí tuệ:</strong> Toàn bộ khung chương trình, học liệu, biểu mẫu kiểm kê dòng tiền, Khung 5 lớp ra quyết định và bản ghi video trên daothinhvuong.vn và Khu Học Tập Thịnh Vượng Số (khuhoctap) thuộc bản quyền của Công ty TNHH Thịnh Vượng Số. Học viên sử dụng cho mục đích học tập cá nhân, không sao chép, phát tán hoặc kinh doanh lại dưới mọi hình thức.</p>' +
               '<p><strong class="text-kem">2.2. Quy tắc ứng xử trong cộng đồng:</strong> Thành viên tham gia các buổi LIVE Người Dẫn Đường, lớp Zoom và Hội Quán Tinh Hoa cam kết giữ văn hóa tôn trọng, minh bạch, không lôi kéo đầu tư tài chính, không chào mời đa cấp hay quảng cáo trái phép trong cộng đồng học viên.</p>' +
-              '<p><strong class="text-kem">2.3. Bảo mật tài khoản Học viện:</strong> Mỗi học viên chính thức được cấp 01 tài khoản định danh trên Khu Học Tập Thịnh Vượng Số (khuhoctap.html) và có trách nhiệm bảo mật thông tin đăng nhập cá nhân.</p>' +
+              '<p><strong class="text-kem">2.3. Bảo mật tài khoản Học viện:</strong> Mỗi học viên chính thức được cấp 01 tài khoản định danh trên Khu Học Tập Thịnh Vượng Số (khuhoctap) và có trách nhiệm bảo mật thông tin đăng nhập cá nhân.</p>' +
             '</div>'
         },
         refund: {

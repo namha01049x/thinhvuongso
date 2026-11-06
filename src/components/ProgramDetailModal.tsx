@@ -301,7 +301,7 @@ export const StudentPortalModal: React.FC<StudentPortalModalProps> = ({
 
         <div className="flex flex-col sm:flex-row gap-3 pt-2">
           <a
-            href="khuhoctap.html"
+            href="khuhoctap"
             className="btn-p w-full justify-center text-xs sm:text-sm"
           >
             <span>Truy cập Khu Học Tập Thịnh Vượng Số ↗</span>

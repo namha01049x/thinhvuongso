@@ -538,7 +538,7 @@ export const PROGRAMS_DATA: ProgramItem[] = [
       earlyBird: '4.800.000đ (Ưu đãi GĐ1)',
       phase2: '5.800.000đ (GĐ2)',
       standard: '6.800.000đ',
-      note: 'Bao gồm toàn bộ biểu mẫu thực hành, bản ghi Zoom và tài khoản tại Khu Học Tập Thịnh Vượng Số (khuhoctap.html)',
+      note: 'Bao gồm toàn bộ biểu mẫu thực hành, bản ghi Zoom và tài khoản tại Khu Học Tập Thịnh Vượng Số (khuhoctap)',
     },
     previewUrl: 'https://butphataichinh.vn',
     externalUrl: 'https://butphataichinh.vn',
