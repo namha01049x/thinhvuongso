@@ -143,6 +143,11 @@
       line-height: 1.68;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button, a {
+      touch-action: manipulation;
     }
 
     .btn-p {
@@ -1494,49 +1499,63 @@
   </section>
 
   <!-- ==================== FULL ARTICLE READER MODAL ==================== -->
-  <div id="article-reader-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 lg:p-6 overflow-hidden">
+  <div id="article-reader-modal" style="display: none;" class="hidden fixed inset-0 z-[100] bg-black/90 backdrop-blur-md items-center justify-center p-2 sm:p-4 lg:p-6 overflow-hidden">
     
     <!-- Modal Card -->
     <div class="bg-abyssal border border-kem/20 rounded-2xl max-w-doc w-full h-full max-h-[94vh] flex flex-col shadow-2xl overflow-hidden relative">
       
       <!-- Sticky Modal Top Bar -->
-      <div class="px-4 sm:px-6 py-3.5 bg-nen-sau border-b border-kem/15 flex items-center justify-between gap-3 shrink-0">
-        <div class="flex items-center gap-2 truncate">
-          <button 
-            type="button" 
-            id="modal-close-top-btn"
-            onclick="window.closeArticle()" 
-            class="text-yen hover:text-cam p-1.5 rounded hover:bg-xanh/40 transition-colors inline-flex items-center gap-1.5 text-xs font-mono cursor-pointer"
-          >
-            <span>←</span>
-            <span class="hidden sm:inline">Quay lại danh sách</span>
-          </button>
-          <span class="text-kem/20 hidden sm:inline" aria-hidden="true">|</span>
-          <span id="modal-top-category" class="px-2 py-0.5 rounded bg-kem/10 border border-kem/20 text-cam font-mono text-[10px] uppercase truncate">
+      <div class="px-3 sm:px-6 py-2.5 sm:py-3.5 bg-nen-sau/95 backdrop-blur-md border-b border-kem/15 flex items-center justify-between gap-2 shrink-0 z-10 shadow-sm">
+        
+        <!-- Left: Close & Back Button (Mobile Friendly 40px+ tap target) -->
+        <button 
+          type="button" 
+          id="modal-close-top-btn"
+          aria-label="Đóng bài viết và quay lại danh sách"
+          class="h-10 px-3 sm:px-4 rounded-xl bg-kem/10 hover:bg-cam hover:text-abyssal text-kem border border-kem/20 hover:border-cam transition-all duration-200 inline-flex items-center gap-2 text-xs sm:text-sm font-semibold cursor-pointer active:scale-95 shrink-0"
+        >
+          <svg class="w-4 h-4 pointer-events-none shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          <span class="pointer-events-none">Danh sách bài</span>
+        </button>
+
+        <!-- Center: Category Badge & Article Counter -->
+        <div class="flex items-center gap-1.5 sm:gap-2 truncate px-1 text-center justify-center">
+          <span id="modal-top-category" class="px-2 py-0.5 rounded-full bg-cam/15 border border-cam/30 text-cam font-mono text-[10px] sm:text-xs font-semibold uppercase truncate">
             Chuyên san TVS
+          </span>
+          <span id="modal-article-counter" class="hidden sm:inline-block px-2 py-0.5 rounded-full bg-kem/10 text-yen font-mono text-[10px]">
+            1 / 15
           </span>
         </div>
 
-        <div class="flex items-center gap-2">
+        <!-- Right: Share & Close X (Mobile Friendly 40px+ tap target) -->
+        <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
           <button 
             type="button" 
-            onclick="window.copyCurrentArticleLink()" 
-            class="p-1.5 rounded hover:bg-xanh/40 text-yen hover:text-cam transition-colors inline-flex items-center gap-1 text-xs font-mono cursor-pointer"
+            id="modal-share-top-btn"
+            class="h-10 px-2.5 sm:px-3 rounded-xl bg-kem/10 hover:bg-xanh/60 text-yen hover:text-cam border border-kem/15 transition-all inline-flex items-center gap-1.5 text-xs font-mono cursor-pointer active:scale-95"
             title="Sao chép liên kết bài viết"
           >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-            <span class="hidden sm:inline">Chia sẻ</span>
+            <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            <span class="hidden sm:inline pointer-events-none">Chia sẻ</span>
           </button>
+          
           <button 
             type="button" 
             id="modal-close-x-btn"
-            onclick="window.closeArticle()" 
             aria-label="Đóng bài đọc" 
-            class="p-1.5 rounded hover:bg-red-500/20 text-yen hover:text-red-400 transition-colors cursor-pointer"
+            title="Đóng bài viết"
+            class="w-10 h-10 rounded-xl bg-red-500/15 hover:bg-red-500 text-red-400 hover:text-white border border-red-500/30 transition-all duration-200 inline-flex items-center justify-center cursor-pointer active:scale-95 shrink-0 shadow-sm"
           >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
           </button>
         </div>
+
+      </div>
+
+      <!-- Reading Progress Bar -->
+      <div class="w-full h-1 bg-kem/10 shrink-0">
+        <div id="reading-progress-fill" class="h-full bg-gradient-to-r from-cam to-vang transition-all duration-150" style="width: 0%;"></div>
       </div>
 
       <!-- Scrollable Article Reader Body -->
@@ -1707,23 +1726,30 @@
           </div>
         </div>
 
-        <!-- Next / Prev Buttons -->
-        <div class="pt-6 border-t border-kem/10 flex items-center justify-between gap-4">
+        <!-- Next / Prev Buttons & Back to List -->
+        <div class="pt-6 border-t border-kem/15 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           <button 
             type="button" 
             id="modal-prev-btn" 
-            onclick="window.navigateArticle(-1)" 
-            class="btn-o !py-2 !px-3 sm:!px-4 text-xs font-mono"
+            class="btn-o !py-2.5 !px-4 text-xs font-mono flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-95"
           >
-            <span>← Bài trước</span>
+            <span class="pointer-events-none">← Bài trước</span>
           </button>
+          
+          <button 
+            type="button" 
+            id="modal-close-bottom-btn"
+            class="px-4 py-2.5 rounded-xl bg-kem/10 hover:bg-kem/20 text-yen hover:text-kem border border-kem/20 text-xs font-mono text-center cursor-pointer transition-colors"
+          >
+            Quay lại danh sách chuyên san
+          </button>
+
           <button 
             type="button" 
             id="modal-next-btn" 
-            onclick="window.navigateArticle(1)" 
-            class="btn-p !py-2 !px-3 sm:!px-4 text-xs font-mono"
+            class="btn-p !py-2.5 !px-4 text-xs font-mono flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-95"
           >
-            <span>Bài tiếp theo →</span>
+            <span class="pointer-events-none">Bài tiếp theo →</span>
           </button>
         </div>
 
@@ -1927,36 +1953,55 @@
 
     // Open article modal
     window.openArticle = function(slug) {
+      if (!allArticles || allArticles.length === 0) return;
       var idx = allArticles.findIndex(function(a) { return a.slug === slug; });
-      if (idx === -1) return;
+      if (idx === -1) idx = 0;
       currentArticleIndex = idx;
       var art = allArticles[idx];
 
-      // Populate elements
-      document.getElementById('modal-top-category').textContent = art.category;
-      document.getElementById('modal-badge-cat').textContent = art.category;
-      document.getElementById('modal-pub-date').textContent = art.date;
-      document.getElementById('modal-read-time').textContent = art.read_time;
-      document.getElementById('modal-article-title').textContent = art.title;
-      document.getElementById('modal-article-lead').textContent = art.lead;
+      // Populate header elements
+      var topCat = document.getElementById('modal-top-category');
+      if (topCat) topCat.textContent = art.category;
+
+      var counterEl = document.getElementById('modal-article-counter');
+      if (counterEl) counterEl.textContent = (idx + 1) + ' / ' + allArticles.length;
+
+      var badgeCat = document.getElementById('modal-badge-cat');
+      if (badgeCat) badgeCat.textContent = art.category;
+
+      var pubDate = document.getElementById('modal-pub-date');
+      if (pubDate) pubDate.textContent = art.date;
+
+      var readTime = document.getElementById('modal-read-time');
+      if (readTime) readTime.textContent = art.read_time;
+
+      var titleEl = document.getElementById('modal-article-title');
+      if (titleEl) titleEl.textContent = art.title;
+
+      var leadEl = document.getElementById('modal-article-lead');
+      if (leadEl) leadEl.textContent = art.lead;
 
       var tomTatBox = document.getElementById('modal-tom-tat-box');
       var tomTatContent = document.getElementById('modal-tom-tat-content');
-      if (art.tom_tat && art.tom_tat.trim().length > 0) {
-        tomTatContent.innerHTML = art.tom_tat;
-        tomTatBox.classList.remove('hidden');
-      } else {
-        tomTatBox.classList.add('hidden');
+      if (tomTatBox && tomTatContent) {
+        if (art.tom_tat && art.tom_tat.trim().length > 0) {
+          tomTatContent.innerHTML = art.tom_tat;
+          tomTatBox.classList.remove('hidden');
+        } else {
+          tomTatBox.classList.add('hidden');
+        }
       }
 
       var modalBody = document.getElementById('modal-article-body');
-      modalBody.innerHTML = art.body;
-      var bodyImgs = modalBody.querySelectorAll('img');
-      for (var bi = 0; bi < bodyImgs.length; bi++) {
-        bodyImgs[bi].onerror = function() {
-          this.onerror = null;
-          this.src = 'anh/cd-bia-1.webp';
-        };
+      if (modalBody) {
+        modalBody.innerHTML = art.body;
+        var bodyImgs = modalBody.querySelectorAll('img');
+        for (var bi = 0; bi < bodyImgs.length; bi++) {
+          bodyImgs[bi].onerror = function() {
+            this.onerror = null;
+            this.src = 'anh/cd-bia-1.webp';
+          };
+        }
       }
 
       // 1. Auto-generate Table of Contents
@@ -1968,30 +2013,16 @@
       // 3. Render Comments
       renderComments(art.slug, art.category);
 
-      // Update Prev / Next buttons
-      // Update Prev / Next buttons
-      var prevBtn = document.getElementById('modal-prev-btn');
-      var nextBtn = document.getElementById('modal-next-btn');
-      if (prevBtn) {
-        prevBtn.disabled = (idx === 0);
-        if (idx === 0) {
-          prevBtn.classList.add('opacity-30', 'cursor-not-allowed', 'pointer-events-none');
-        } else {
-          prevBtn.classList.remove('opacity-30', 'cursor-not-allowed', 'pointer-events-none');
-        }
-      }
-      if (nextBtn) {
-        nextBtn.disabled = (idx === allArticles.length - 1);
-        if (idx === allArticles.length - 1) {
-          nextBtn.classList.add('opacity-30', 'cursor-not-allowed', 'pointer-events-none');
-        } else {
-          nextBtn.classList.remove('opacity-30', 'cursor-not-allowed', 'pointer-events-none');
-        }
-      }
+      // 4. Update Prev / Next buttons state
+      updateModalNavButtons(idx);
 
-      // Open modal
+      // 5. Open modal explicitly via style.display AND classList
       var modal = document.getElementById('article-reader-modal');
-      modal.classList.remove('hidden');
+      if (modal) {
+        modal.style.display = 'flex';
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
       document.body.style.overflow = 'hidden';
 
       var bodyEl = document.getElementById('reader-modal-body');
@@ -1999,6 +2030,7 @@
         bodyEl.scrollTop = 0;
         bodyEl.onscroll = updateReadingProgress;
       }
+      updateReadingProgress();
 
       // Update URL without page reload
       try {
@@ -2006,10 +2038,42 @@
       } catch (e) {}
     };
 
+    function updateModalNavButtons(idx) {
+      var prevBtn = document.getElementById('modal-prev-btn');
+      var nextBtn = document.getElementById('modal-next-btn');
+
+      if (prevBtn) {
+        if (idx <= 0) {
+          prevBtn.disabled = true;
+          prevBtn.classList.add('opacity-35', 'cursor-not-allowed', 'pointer-events-none');
+          prevBtn.innerHTML = '<span class="pointer-events-none">← Hết bài trước</span>';
+        } else {
+          prevBtn.disabled = false;
+          prevBtn.classList.remove('opacity-35', 'cursor-not-allowed', 'pointer-events-none');
+          prevBtn.innerHTML = '<span class="pointer-events-none">← Bài trước</span>';
+        }
+      }
+
+      if (nextBtn) {
+        if (idx >= allArticles.length - 1) {
+          nextBtn.disabled = true;
+          nextBtn.classList.add('opacity-35', 'cursor-not-allowed', 'pointer-events-none');
+          nextBtn.innerHTML = '<span class="pointer-events-none">Hết bài tiếp →</span>';
+        } else {
+          nextBtn.disabled = false;
+          nextBtn.classList.remove('opacity-35', 'cursor-not-allowed', 'pointer-events-none');
+          nextBtn.innerHTML = '<span class="pointer-events-none">Bài tiếp theo →</span>';
+        }
+      }
+    }
+
+    // Close article modal
     window.closeArticle = function() {
       var modal = document.getElementById('article-reader-modal');
       if (modal) {
+        modal.style.display = 'none';
         modal.classList.add('hidden');
+        modal.classList.remove('flex');
       }
       document.body.style.overflow = '';
 
@@ -2025,14 +2089,21 @@
       } catch (e) {}
     };
 
+    var isNavigating = false;
     window.navigateArticle = function(direction) {
+      if (isNavigating) return;
       var newIdx = currentArticleIndex + direction;
       if (newIdx >= 0 && newIdx < allArticles.length) {
+        isNavigating = true;
         window.openArticle(allArticles[newIdx].slug);
         var bodyEl = document.getElementById('reader-modal-body');
         if (bodyEl) {
           bodyEl.scrollTop = 0;
         }
+        showToast('Đang đọc: ' + allArticles[newIdx].title);
+        setTimeout(function() {
+          isNavigating = false;
+        }, 250);
       }
     };
 
@@ -2397,28 +2468,69 @@
       }
     });
 
-    document.getElementById('article-reader-modal').addEventListener('click', function(e) {
-      if (e.target === this) {
-        window.closeArticle();
-      }
-    });
+    var readerModalEl = document.getElementById('article-reader-modal');
+    if (readerModalEl) {
+      readerModalEl.onclick = function(e) {
+        if (e.target === this) {
+          window.closeArticle();
+        }
+      };
+    }
 
     // Initialize & Handle deep linking (?bai=...)
     document.addEventListener('DOMContentLoaded', function() {
       var isLight = document.documentElement.classList.contains('theme-light');
       updateThemeUI(isLight);
 
+      // Close buttons
       var closeTop = document.getElementById('modal-close-top-btn');
-      if (closeTop) closeTop.addEventListener('click', function(e) { e.preventDefault(); window.closeArticle(); });
+      if (closeTop) {
+        closeTop.onclick = function(e) {
+          if (e) { e.preventDefault(); e.stopPropagation(); }
+          window.closeArticle();
+        };
+      }
 
       var closeX = document.getElementById('modal-close-x-btn');
-      if (closeX) closeX.addEventListener('click', function(e) { e.preventDefault(); window.closeArticle(); });
+      if (closeX) {
+        closeX.onclick = function(e) {
+          if (e) { e.preventDefault(); e.stopPropagation(); }
+          window.closeArticle();
+        };
+      }
 
+      var closeBottom = document.getElementById('modal-close-bottom-btn');
+      if (closeBottom) {
+        closeBottom.onclick = function(e) {
+          if (e) { e.preventDefault(); e.stopPropagation(); }
+          window.closeArticle();
+        };
+      }
+
+      var shareTop = document.getElementById('modal-share-top-btn');
+      if (shareTop) {
+        shareTop.onclick = function(e) {
+          if (e) { e.preventDefault(); e.stopPropagation(); }
+          window.copyCurrentArticleLink();
+        };
+      }
+
+      // Navigation buttons (single onclick, no double event firing)
       var prevBtn = document.getElementById('modal-prev-btn');
-      if (prevBtn) prevBtn.addEventListener('click', function(e) { e.preventDefault(); window.navigateArticle(-1); });
+      if (prevBtn) {
+        prevBtn.onclick = function(e) {
+          if (e) { e.preventDefault(); e.stopPropagation(); }
+          window.navigateArticle(-1);
+        };
+      }
 
       var nextBtn = document.getElementById('modal-next-btn');
-      if (nextBtn) nextBtn.addEventListener('click', function(e) { e.preventDefault(); window.navigateArticle(1); });
+      if (nextBtn) {
+        nextBtn.onclick = function(e) {
+          if (e) { e.preventDefault(); e.stopPropagation(); }
+          window.navigateArticle(1);
+        };
+      }
 
       var urlParams = new URLSearchParams(window.location.search);
       var articleParam = urlParams.get('bai');
