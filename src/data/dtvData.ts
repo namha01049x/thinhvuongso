@@ -225,7 +225,7 @@ export const STATS_DATA: StatCounter[] = [
     value: 100,
     suffix: '% Thực hành',
     label: 'Làm trên con số thật của mình',
-    sublabel: 'Tại thuchanh.daothinhvuong.vn',
+    sublabel: 'Tại Khu Học Tập Thịnh Vượng Số',
   },
 ];
 
@@ -538,7 +538,7 @@ export const PROGRAMS_DATA: ProgramItem[] = [
       earlyBird: '4.800.000đ (Ưu đãi GĐ1)',
       phase2: '5.800.000đ (GĐ2)',
       standard: '6.800.000đ',
-      note: 'Bao gồm toàn bộ biểu mẫu thực hành, bản ghi Zoom và tài khoản tại thuchanh.daothinhvuong.vn',
+      note: 'Bao gồm toàn bộ biểu mẫu thực hành, bản ghi Zoom và tài khoản tại Khu Học Tập Thịnh Vượng Số (khuhoctap.html)',
     },
     previewUrl: 'https://butphataichinh.vn',
     externalUrl: 'https://butphataichinh.vn',
@@ -878,7 +878,7 @@ export const ACADEMY_SCREENS: AcademyScreen[] = [
     title: 'Thư viện Bản ghi Zoom phân mục rõ ràng',
     subtitle: 'Không sợ bỏ lỡ buổi học hay quên kiến thức quan trọng',
     description:
-      'Toàn bộ các buổi học trực tiếp đều được biên tập, chia theo từng chặng và chủ đề cụ thể trên thuchanh.daothinhvuong.vn để học viên dễ dàng nghe lại đúng phần mình đang vướng.',
+      'Toàn bộ các buổi học trực tiếp đều được biên tập, chia theo từng chặng và chủ đề cụ thể trên Khu Học Tập Thịnh Vượng Số để học viên dễ dàng nghe lại đúng phần mình đang vướng.',
     image: 'https://daothinhvuong.vn/anh/hv-ban-ghi-zoom.webp',
     highlights: ['Phân loại theo từng buổi & từng chặng', 'Tốc độ phát mượt mà trên cả điện thoại và máy tính', 'Kèm tóm tắt nội dung trọng tâm của từng buổi'],
   },

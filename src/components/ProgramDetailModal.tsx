@@ -263,10 +263,10 @@ export const StudentPortalModal: React.FC<StudentPortalModalProps> = ({
             <GraduationCap className="w-6 h-6 text-cam" />
             <div>
               <span className="font-mono text-[10px] uppercase tracking-wider text-cam block">
-                thuchanh.daothinhvuong.vn
+                Khu Học Tập Thịnh Vượng Số
               </span>
               <h3 className="text-lg font-bold text-kem">
-                Cổng Học Viên · Học Viện Thực Hành
+                Cổng Học Viên · Khu Học Tập Thực Hành
               </h3>
             </div>
           </div>
@@ -280,7 +280,7 @@ export const StudentPortalModal: React.FC<StudentPortalModalProps> = ({
         </div>
 
         <p className="text-xs sm:text-sm text-yen leading-relaxed">
-          Hệ thống Học viện Thực hành dành cho học viên chính thức của các chương trình{' '}
+          Hệ thống Khu Học Tập dành cho học viên chính thức của các chương trình{' '}
           <strong className="text-kem">Bình Dân Học Vụ Tài Chính</strong>,{' '}
           <strong className="text-kem">Bứt Phá Tài Chính</strong> và{' '}
           <strong className="text-kem">Tinh Hoa Thịnh Vượng</strong>.
@@ -301,13 +301,10 @@ export const StudentPortalModal: React.FC<StudentPortalModalProps> = ({
 
         <div className="flex flex-col sm:flex-row gap-3 pt-2">
           <a
-            href="https://thuchanh.daothinhvuong.vn"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="khuhoctap.html"
             className="btn-p w-full justify-center text-xs sm:text-sm"
           >
-            <span>Truy cập thuchanh.daothinhvuong.vn</span>
-            <ExternalLink className="w-4 h-4" />
+            <span>Truy cập Khu Học Tập Thịnh Vượng Số ↗</span>
           </a>
           <button
             type="button"

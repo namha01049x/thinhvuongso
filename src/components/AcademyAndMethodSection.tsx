@@ -26,23 +26,23 @@ export const AcademyAndMethodSection: React.FC<AcademyAndMethodSectionProps> = (
 
   return (
     <div className="divide-y divide-kem/10">
-      {/* SECTION 1: Practical Academy (thuchanh.daothinhvuong.vn) */}
+      {/* SECTION 1: Practical Academy (Khu Học Tập Thịnh Vượng Số) */}
       <section id="hoc-vien" className="py-20 lg:py-28 bg-abyssal relative">
         <div className="max-w-dtv mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div className="max-w-3xl space-y-4">
               <div className="nhan">
-                <span>Học viện thực hành · thuchanh.daothinhvuong.vn</span>
+                <span>Khu Học Tập · Thịnh Vượng Số</span>
               </div>
               <h2 className="text-2xl sm:text-4xl font-bold text-kem leading-tight">
                 Không chỉ nghe giảng qua Zoom.{' '}
                 <em className="font-serif italic text-cam font-semibold">
-                  Bạn có một Học viện số để làm thật.
+                  Bạn có một Khu Học Tập số để làm thật.
                 </em>
               </h2>
               <p className="text-yen text-base sm:text-lg leading-relaxed">
-                Mỗi học viên tại Đạo Thịnh Vượng được cấp tài khoản riêng trên nền tảng{' '}
-                <strong className="text-kem">thuchanh.daothinhvuong.vn</strong> · nơi lưu
+                Mỗi học viên tại Thịnh Vượng Số được cấp tài khoản riêng trên nền tảng{' '}
+                <a href="khuhoctap.html" className="text-cam font-semibold hover:underline">Khu Học Tập Thịnh Vượng Số</a> · nơi lưu
                 trữ toàn bộ bản ghi buổi học, kho biểu mẫu tài chính, bài tập thực hành trên
                 số thật và bảng theo dõi tiến độ cá nhân.
               </p>

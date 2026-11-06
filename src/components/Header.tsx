@@ -173,7 +173,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPortalModal }) => {
                   className="btn-o w-full justify-center text-sm !py-2.5"
                 >
                   <GraduationCap className="w-4 h-4 text-cam" />
-                  <span>Cổng học viên (thuchanh.daothinhvuong.vn)</span>
+                  <span>Khu Học Tập Thịnh Vượng Số ↗</span>
                 </button>
                 <a
                   href="#dong-hanh"
