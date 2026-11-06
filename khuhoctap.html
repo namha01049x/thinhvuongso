@@ -283,13 +283,11 @@
       <!-- Desktop Nav -->
       <nav class="hidden lg:flex items-center gap-5 xl:gap-7 text-xs font-medium" aria-label="Điều hướng Khu Học Tập">
         <a href="./" class="text-yen hover:text-cam transition-colors">Trang chủ TVS</a>
-        <a href="khoahoc" class="text-cam font-semibold hover:underline">Hệ Thống Khóa Học ↗</a>
-        <a href="chuyensan" class="text-yen hover:text-cam transition-colors">Chuyên San TVS ↗</a>
         <a href="#khoa-hoc" class="text-yen hover:text-cam transition-colors">3 Tầng Khóa Học</a>
         <a href="#ban-ghi-zoom" class="text-yen hover:text-cam transition-colors">Kho Bản Ghi Zoom</a>
-        <a href="#bieu-mau" class="text-yen hover:text-cam transition-colors">Biểu Mẫu Tài Chính</a>
-        <a href="#nop-bai" class="text-yen hover:text-cam transition-colors">Nộp Bài Tập</a>
-        <a href="#faq" class="text-yen hover:text-cam transition-colors">Hỏi Đáp & Hỗ Trợ</a>
+        <a href="#bieu-mau" class="text-yen hover:text-cam transition-colors">Biểu Mẫu Thực Chiến</a>
+        <a href="#nop-bai" class="text-yen hover:text-cam transition-colors">Cổng Nộp Bài</a>
+        <a href="chuyensan" class="text-cam font-semibold hover:underline">Chuyên San TVS ↗</a>
       </nav>
 
       <!-- Action & Theme Switch -->
@@ -320,12 +318,11 @@
     <!-- Mobile Drawer for khuhoctap.html -->
     <div id="kht-mobile-drawer" class="hidden lg:hidden bg-nen-sau border-b border-kem/15 p-4 space-y-2">
       <a href="./" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">← Quay về Trang chủ Thịnh Vượng Số</a>
-      <a href="khoahoc" class="block px-3 py-2 rounded bg-cam/20 text-cam text-xs font-semibold">Hệ Thống Khóa Học Thực Chiến ↗</a>
-      <a href="chuyensan" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">Chuyên San Thịnh Vượng Số ↗</a>
-      <a href="#khoa-hoc" onclick="window.toggleKhuHocTapMobileNav()" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">3 Tầng Khóa Học & Lộ Trình</a>
+      <a href="#khoa-hoc" onclick="window.toggleKhuHocTapMobileNav()" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">3 Tầng Khóa Học Thực Chiến</a>
       <a href="#ban-ghi-zoom" onclick="window.toggleKhuHocTapMobileNav()" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">Kho Bản Ghi Zoom Bài Giảng</a>
-      <a href="#bieu-mau" onclick="window.toggleKhuHocTapMobileNav()" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">Thư Viện Biểu Mẫu (.xlsx, .pdf)</a>
+      <a href="#bieu-mau" onclick="window.toggleKhuHocTapMobileNav()" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">Biểu Mẫu Tài Chính (.xlsx, .pdf)</a>
       <a href="#nop-bai" onclick="window.toggleKhuHocTapMobileNav()" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">Cổng Nộp Bài Tập Số Thật</a>
+      <a href="chuyensan" class="block px-3 py-2 rounded bg-cam/20 text-cam text-xs font-semibold">Chuyên San Thịnh Vượng Số ↗</a>
       <a href="#faq" onclick="window.toggleKhuHocTapMobileNav()" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">Hỏi Đáp Kỹ Thuật & Trợ Giảng</a>
     </div>
   </header>
@@ -361,119 +358,161 @@
             <strong class="text-kem font-semibold">Tinh Hoa Thịnh Vượng</strong>.
           </p>
 
-          <!-- 4 Core Privileges Box (Matching the User's Screenshot Exactly) -->
-          <div class="bg-nen-chan/80 border border-kem/20 rounded-xl p-5 sm:p-6 space-y-3.5 shadow-lg">
-            <p class="font-mono text-xs uppercase tracking-wider text-cam font-semibold">Đặc quyền học viên Khu Học Tập:</p>
+          <!-- 4 Core Privileges Box (Streamlined & Elegant) -->
+          <div class="bg-nen-chan/80 border border-kem/20 rounded-2xl p-5 sm:p-6 space-y-3.5 shadow-lg">
+            <p class="font-mono text-xs uppercase tracking-wider text-cam font-semibold flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-cam animate-pulse"></span>
+              Đặc quyền học viên chính thức:
+            </p>
             <ul class="space-y-3 text-xs sm:text-sm text-kem">
               <li class="flex items-start gap-3">
-                <span class="w-5 h-5 rounded-full bg-cam/20 text-cam flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">✓</span>
-                <span><strong>Xem lại toàn bộ bản ghi Zoom</strong> chất lượng cao theo từng buổi học, có phân mục và mốc thời gian chi tiết.</span>
+                <span class="w-6 h-6 rounded-lg bg-cam/15 text-cam flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">📹</span>
+                <span><strong>Kho bản ghi Zoom chất lượng cao:</strong> Xem lại 100% các buổi học kèm mốc thời gian (timestamps) và chủ đề cốt lõi.</span>
               </li>
               <li class="flex items-start gap-3">
-                <span class="w-5 h-5 rounded-full bg-cam/20 text-cam flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">✓</span>
-                <span><strong>Tải trọn bộ biểu mẫu kiểm kê tài chính</strong>, dòng tiền 12 tháng và Khung 5 lớp ra quyết định tài chính.</span>
+                <span class="w-6 h-6 rounded-lg bg-cam/15 text-cam flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">📊</span>
+                <span><strong>Trọn bộ biểu mẫu Excel thực chiến:</strong> Bảng kiểm kê dòng tiền 12 tháng, Net Worth và Khung 5 lớp ra quyết định tài chính.</span>
               </li>
               <li class="flex items-start gap-3">
-                <span class="w-5 h-5 rounded-full bg-cam/20 text-cam flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">✓</span>
-                <span><strong>Nộp bài tập thực hành trên số thật</strong> và nhận phản hồi chi tiết từ Mentor Trần Nam Hà cùng ban trợ giảng trong 48h.</span>
+                <span class="w-6 h-6 rounded-lg bg-cam/15 text-cam flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">✍</span>
+                <span><strong>Cổng nộp bài tập số thật:</strong> Nhận phản hồi và phương án điều chỉnh trực tiếp từ Mentor Trần Nam Hà cùng ban trợ giảng trong 48h.</span>
               </li>
               <li class="flex items-start gap-3">
-                <span class="w-5 h-5 rounded-full bg-cam/20 text-cam flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">✓</span>
-                <span><strong>Theo dõi tiến độ rèn luyện xuyên suốt 12 tháng</strong>, bảo mật thông tin và số liệu tài chính tuyệt đối 100%.</span>
+                <span class="w-6 h-6 rounded-lg bg-cam/15 text-cam flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">🛡</span>
+                <span><strong>Bảo mật số liệu tuyệt đối:</strong> Mã hóa thông tin cá nhân theo đúng tinh thần Nghị định 13/2023/NĐ-CP.</span>
               </li>
             </ul>
           </div>
-
-          <!-- Quick Stats Pill -->
-          <div class="grid grid-cols-3 gap-3 pt-2">
-            <div class="p-3.5 rounded-lg border border-kem/15 bg-nen-sau/60 text-center">
-              <div class="font-mono text-xl sm:text-2xl font-bold text-cam">100%</div>
-              <div class="text-[11px] text-yen mt-0.5">Số liệu thực hành thật</div>
-            </div>
-            <div class="p-3.5 rounded-lg border border-kem/15 bg-nen-sau/60 text-center">
-              <div class="font-mono text-xl sm:text-2xl font-bold text-cam">12 Tháng</div>
-              <div class="text-[11px] text-yen mt-0.5">Đồng hành & Cố vấn</div>
-            </div>
-            <div class="p-3.5 rounded-lg border border-kem/15 bg-nen-sau/60 text-center">
-              <div class="font-mono text-xl sm:text-2xl font-bold text-cam">24/7</div>
-              <div class="text-[11px] text-yen mt-0.5">Kho bản ghi & Biểu mẫu</div>
-            </div>
-          </div>
         </div>
 
-        <!-- Right: Interactive Login / Portal Access Card -->
+        <!-- Right: Interactive Login & Student Dashboard Card -->
         <div class="lg:col-span-5">
           <div class="bg-nen-sau border-2 border-cam/40 rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden">
             <div class="absolute -top-12 -right-12 w-36 h-36 bg-cam/10 rounded-full blur-2xl pointer-events-none"></div>
 
-            <div class="flex items-center justify-between border-b border-kem/15 pb-4">
-              <div>
-                <span class="font-mono text-[10px] uppercase tracking-wider text-cam block font-semibold">CỔNG ĐĂNG NHẬP HỌC VIÊN</span>
-                <h2 class="text-xl font-bold text-kem mt-0.5">Vào Khu Học Tập</h2>
+            <!-- Login Box (Khi chua dang nhap) -->
+            <div id="student-login-box" class="space-y-5">
+              <div class="flex items-center justify-between border-b border-kem/15 pb-4">
+                <div>
+                  <span class="font-mono text-[10px] uppercase tracking-wider text-cam block font-semibold">CỔNG ĐĂNG NHẬP HỌC VIÊN</span>
+                  <h2 class="text-xl font-bold text-kem mt-0.5">Vào Khu Học Tập</h2>
+                </div>
+                <span class="px-2.5 py-1 rounded bg-cam/20 text-cam font-mono text-xs font-semibold">Bảo mật SSL</span>
               </div>
-              <span class="px-2.5 py-1 rounded bg-cam/20 text-cam font-mono text-xs font-semibold">Bảo mật SSL</span>
-            </div>
 
-            <!-- Login Form -->
-            <form id="portal-login-form" onsubmit="window.handleStudentLogin(event)" class="space-y-4">
-              <div>
-                <label for="student-identifier" class="block font-mono text-xs uppercase tracking-wider text-yen mb-1.5 font-medium">
-                  Số điện thoại hoặc Mã học viên:
-                </label>
-                <div class="relative">
+              <!-- Login Form -->
+              <form id="portal-login-form" onsubmit="window.handleStudentLogin(event)" class="space-y-4">
+                <div>
+                  <label for="student-identifier" class="block font-mono text-xs uppercase tracking-wider text-yen mb-1.5 font-medium">
+                    Số điện thoại hoặc Mã học viên:
+                  </label>
+                  <div class="relative">
+                    <input 
+                      type="text" 
+                      id="student-identifier" 
+                      name="student_id" 
+                      required 
+                      placeholder="VD: 0981501865 hoặc TVS-2026-88"
+                      class="w-full px-4 py-3 rounded-lg bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none font-mono text-sm transition-colors"
+                    />
+                    <div class="absolute right-3 top-3 text-yen">
+                      <svg class="w-5 h-5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                    </div>
+                  </div>
+                  <p class="text-[11px] text-yen mt-1">Dùng đúng số điện thoại bạn đã đăng ký với Thịnh Vượng Số.</p>
+                </div>
+
+                <div>
+                  <label for="student-passcode" class="block font-mono text-xs uppercase tracking-wider text-yen mb-1.5 font-medium">
+                    Mã PIN / Mật khẩu truy cập (nếu có):
+                  </label>
                   <input 
-                    type="text" 
-                    id="student-identifier" 
-                    name="student_id" 
-                    required 
-                    placeholder="VD: 0981501865 hoặc TVS-2026-88"
+                    type="password" 
+                    id="student-passcode" 
+                    name="passcode" 
+                    placeholder="Để trống nếu đăng nhập nhanh lần đầu"
                     class="w-full px-4 py-3 rounded-lg bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none font-mono text-sm transition-colors"
                   />
-                  <div class="absolute right-3 top-3 text-yen">
-                    <svg class="w-5 h-5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                </div>
+
+                <div class="flex items-center justify-between text-xs text-yen pt-1">
+                  <label class="flex items-center gap-2 cursor-pointer select-none">
+                    <input type="checkbox" id="remember-me" checked class="rounded border-kem/30 text-cam focus:ring-cam accent-cam" />
+                    <span>Ghi nhớ trên thiết bị này</span>
+                  </label>
+                  <a href="https://zalo.me/0981501865" target="_blank" rel="noopener noreferrer" class="text-cam hover:underline">Quên mã học viên?</a>
+                </div>
+
+                <div class="pt-2 space-y-3">
+                  <button type="submit" id="btn-login-submit" class="btn-p w-full justify-center text-sm !py-3 font-semibold shadow-md">
+                    <span>Truy Cập Khu Học Tập ↗</span>
+                  </button>
+                  <button type="button" onclick="window.enterDemoMode()" class="btn-o w-full justify-center text-xs !py-2.5">
+                    <span>Khám phá thử Khu Học Tập (Demo Preview)</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Dashboard Box (Hien thi khi da dang nhap thanh cong) -->
+            <div id="student-dashboard-box" class="hidden space-y-4">
+              <div class="flex items-center justify-between border-b border-kem/15 pb-3">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-10 h-10 rounded-full bg-cam/20 border border-cam/40 flex items-center justify-center text-cam font-bold text-sm">
+                    ✓
+                  </div>
+                  <div>
+                    <span class="font-mono text-[10px] uppercase tracking-wider text-cam block font-semibold">TÀI KHOẢN HỌC VIÊN CHÍNH THỨC</span>
+                    <h3 id="dash-student-name" class="text-base sm:text-lg font-bold text-kem">Học viên Thịnh Vượng Số</h3>
                   </div>
                 </div>
-                <p class="text-[11px] text-yen mt-1">Dùng đúng số điện thoại bạn đã đăng ký với Thịnh Vượng Số.</p>
+                <span class="px-2 py-0.5 rounded bg-green-900/40 border border-green-500/50 text-green-300 font-mono text-[11px] font-semibold">
+                  Đang hoạt động
+                </span>
               </div>
 
-              <div>
-                <label for="student-passcode" class="block font-mono text-xs uppercase tracking-wider text-yen mb-1.5 font-medium">
-                  Mã PIN / Mật khẩu truy cập (nếu có):
-                </label>
-                <input 
-                  type="password" 
-                  id="student-passcode" 
-                  name="passcode" 
-                  placeholder="Để trống nếu đăng nhập nhanh lần đầu"
-                  class="w-full px-4 py-3 rounded-lg bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none font-mono text-sm transition-colors"
-                />
+              <div class="p-3.5 rounded-xl bg-abyssal/90 border border-kem/15 space-y-2">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="text-yen font-mono">Chương trình:</span>
+                  <span class="text-kem font-semibold">Bứt Phá Tài Chính</span>
+                </div>
+                <div class="flex justify-between items-center text-xs">
+                  <span class="text-yen font-mono">Cố vấn chuyên môn:</span>
+                  <span class="text-cam font-semibold">Mentor Trần Nam Hà</span>
+                </div>
+                <div class="flex justify-between items-center text-xs">
+                  <span class="text-yen font-mono">Quyền truy cập:</span>
+                  <span class="text-green-300 font-semibold">Bản ghi Zoom & Biểu mẫu (.xlsx)</span>
+                </div>
               </div>
 
-              <div class="flex items-center justify-between text-xs text-yen pt-1">
-                <label class="flex items-center gap-2 cursor-pointer select-none">
-                  <input type="checkbox" id="remember-me" checked class="rounded border-kem/30 text-cam focus:ring-cam accent-cam" />
-                  <span>Ghi nhớ trên thiết bị này</span>
-                </label>
-                <a href="https://zalo.me/0981501865" target="_blank" rel="noopener noreferrer" class="text-cam hover:underline">Quên mã học viên?</a>
+              <div class="space-y-2 pt-1">
+                <a href="#ban-ghi-zoom" class="btn-p w-full justify-center text-xs !py-2.5">
+                  <span>Xem Kho Bản Ghi Zoom Bài Giảng ↓</span>
+                </a>
+                <a href="#bieu-mau" class="btn-o w-full justify-center text-xs !py-2.5">
+                  <span>Tải Bộ Biểu Mẫu Tài Chính (.xlsx) ↓</span>
+                </a>
+                <a href="#nop-bai" class="btn-o w-full justify-center text-xs !py-2.5 text-yen hover:text-cam">
+                  <span>Đến Cổng Nộp Bài Tập Số Thật ↓</span>
+                </a>
               </div>
 
-              <div class="pt-2 space-y-3">
-                <button type="submit" id="btn-login-submit" class="btn-p w-full justify-center text-sm !py-3 font-semibold shadow-md">
-                  <span>Truy Cập Khu Học Tập ↗</span>
+              <div class="pt-2 flex items-center justify-between text-xs text-yen border-t border-kem/10">
+                <span id="dash-student-id-display" class="font-mono text-[11px]">SĐT: 0981501865</span>
+                <button type="button" onclick="window.studentLogout()" class="text-cam hover:underline font-mono text-[11px]">
+                  Đăng xuất / Đổi mã ↗
                 </button>
-                <button type="button" onclick="window.enterDemoMode()" class="btn-o w-full justify-center text-xs !py-2.5">
-                  <span>Khám phá thử Khu Học Tập (Demo Preview)</span>
-                </button>
               </div>
-            </form>
+            </div>
 
             <!-- Status Banner -->
             <div id="login-status-msg" class="hidden p-3.5 rounded-lg text-xs leading-relaxed transition-all"></div>
 
             <div class="pt-4 border-t border-kem/15 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-yen">
-              <span>Chưa là học viên chính thức?</span>
-              <a href="./#dong-hanh" class="text-cam font-semibold hover:underline flex items-center gap-1">
-                <span>Đăng ký tham gia ngay</span>
+              <span>Bạn là người mới muốn tham gia?</span>
+              <a href="khoahoc" class="text-cam font-semibold hover:underline flex items-center gap-1">
+                <span>Khám phá lộ trình thực chiến</span>
                 <span>→</span>
               </a>
             </div>
@@ -593,11 +632,11 @@
           </div>
         </div>
         <div class="pt-4 space-y-2">
-          <a href="khoahoc?course=but-pha#but-pha-tai-chinh" class="btn-p w-full justify-center text-xs !py-2.5">
-            <span>Vào lớp Bứt Phá Tài Chính ↗</span>
-          </a>
+          <button type="button" onclick="window.viewProgramDetails('but-pha')" class="btn-p w-full justify-center text-xs !py-2.5">
+            <span>Mở kho bản ghi Bứt Phá Tài Chính ↓</span>
+          </button>
           <a href="khoahoc?course=but-pha#tien-do-hoc-tap" class="btn-o w-full justify-center text-xs !py-1.5 text-yen hover:text-cam">
-            <span>📊 Xem Bảng Tiến Độ & Chứng Chỉ ↗</span>
+            <span>📊 Xem 18 Nhiệm Vụ & Bảng Tiến Độ ↗</span>
           </a>
         </div>
       </div>
@@ -630,9 +669,9 @@
             </div>
           </div>
         </div>
-        <div class="pt-5">
+        <div class="pt-5 space-y-2">
           <button type="button" onclick="window.viewProgramDetails('tinh-hoa')" class="btn-o w-full justify-center text-xs !py-2.5">
-            <span>Mở không gian Tinh Hoa →</span>
+            <span>Mở kho tài liệu & Biểu mẫu Khung 5 Lớp ↓</span>
           </button>
         </div>
       </div>
@@ -679,20 +718,31 @@
             </div>
             <div class="p-5 space-y-2.5">
               <div class="flex items-center justify-between text-[11px] font-mono text-yen">
-                <span class="text-cam">Bứt Phá Tài Chính</span>
+                <span class="text-cam font-semibold">Bứt Phá Tài Chính</span>
                 <span>Buổi 1 / 6</span>
               </div>
               <h3 class="text-base font-bold text-kem leading-snug">
                 Mổ xẻ bức tranh thu nhập & Vá lỗ hổng rò rỉ dòng tiền
               </h3>
-              <p class="text-xs text-yen line-clamp-2 leading-relaxed">
-                Mentor Trần Nam Hà phân tích cách nhận diện 4 khoản chi phí ẩn khiến người có thu nhập cao vẫn không tích lũy được tài sản.
-              </p>
+              <ul class="text-xs text-yen space-y-1 pt-1 leading-relaxed">
+                <li class="flex items-start gap-1.5">
+                  <span class="text-cam font-bold">•</span>
+                  <span>Nhận diện 4 khoản chi phí ẩn khiến người thu nhập cao vẫn không tích lũy được.</span>
+                </li>
+                <li class="flex items-start gap-1.5">
+                  <span class="text-cam font-bold">•</span>
+                  <span>Phương pháp thiết lập ngân sách sống còn và quỹ thanh khoản an toàn.</span>
+                </li>
+              </ul>
             </div>
           </div>
-          <div class="px-5 pb-5 pt-2 flex items-center justify-between border-t border-kem/10 text-xs">
-            <span class="text-yen font-mono text-[11px]">Kèm: Bảng tính Excel</span>
-            <button type="button" onclick="window.playSampleVideo('Buổi 01 · Bứt Phá Tài Chính')" class="text-cam hover:underline font-semibold font-mono text-xs">Xem bản ghi ↗</button>
+          <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-kem/10 text-xs">
+            <button type="button" onclick="window.downloadTemplate('Bang_Kiem_Ke_Dong_Tien_12_Thang_TVS.xlsx')" class="text-yen hover:text-cam font-mono text-[11px] flex items-center gap-1 cursor-pointer">
+              <span>📥 Tải file .xlsx</span>
+            </button>
+            <button type="button" onclick="window.playSampleVideo('Buổi 01 · Bứt Phá Tài Chính')" class="text-cam hover:underline font-semibold font-mono text-xs">
+              Xem bản ghi ↗
+            </button>
           </div>
         </div>
 
@@ -709,20 +759,31 @@
             </div>
             <div class="p-5 space-y-2.5">
               <div class="flex items-center justify-between text-[11px] font-mono text-yen">
-                <span class="text-cam">Bứt Phá Tài Chính</span>
+                <span class="text-cam font-semibold">Bứt Phá Tài Chính</span>
                 <span>Buổi 2 / 6</span>
               </div>
               <h3 class="text-base font-bold text-kem leading-snug">
                 Tái cấu trúc đòn bẩy & Thiết lập trần thu nhập cá nhân
               </h3>
-              <p class="text-xs text-yen line-clamp-2 leading-relaxed">
-                Phương pháp định giá lại năng lực chuyên môn và cách thức chuyển đổi thời gian thành tài sản tạo ra thu nhập thụ động.
-              </p>
+              <ul class="text-xs text-yen space-y-1 pt-1 leading-relaxed">
+                <li class="flex items-start gap-1.5">
+                  <span class="text-cam font-bold">•</span>
+                  <span>Định giá lại năng lực chuyên môn và cách thức chuyển đổi thời gian thành giá trị.</span>
+                </li>
+                <li class="flex items-start gap-1.5">
+                  <span class="text-cam font-bold">•</span>
+                  <span>Kỹ thuật cơ cấu lại nợ và nâng trần thu nhập theo chu kỳ 90 ngày.</span>
+                </li>
+              </ul>
             </div>
           </div>
-          <div class="px-5 pb-5 pt-2 flex items-center justify-between border-t border-kem/10 text-xs">
-            <span class="text-yen font-mono text-[11px]">Kèm: Khung đòn bẩy</span>
-            <button type="button" onclick="window.playSampleVideo('Buổi 02 · Bứt Phá Tài Chính')" class="text-cam hover:underline font-semibold font-mono text-xs">Xem bản ghi ↗</button>
+          <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-kem/10 text-xs">
+            <button type="button" onclick="window.downloadTemplate('Ke_Hoach_Nang_Tran_Thu_Nhap_90_Ngay_TVS.xlsx')" class="text-yen hover:text-cam font-mono text-[11px] flex items-center gap-1 cursor-pointer">
+              <span>📥 Tải Khung 90 Ngày</span>
+            </button>
+            <button type="button" onclick="window.playSampleVideo('Buổi 02 · Bứt Phá Tài Chính')" class="text-cam hover:underline font-semibold font-mono text-xs">
+              Xem bản ghi ↗
+            </button>
           </div>
         </div>
 
@@ -739,20 +800,31 @@
             </div>
             <div class="p-5 space-y-2.5">
               <div class="flex items-center justify-between text-[11px] font-mono text-yen">
-                <span class="text-cam">Bình Dân Học Vụ</span>
+                <span class="text-cam font-semibold">Bình Dân Học Vụ</span>
                 <span>Chặng 2</span>
               </div>
               <h3 class="text-base font-bold text-kem leading-snug">
                 Bảng cân đối tài sản & Nợ ròng (Net Worth Cá Nhân)
               </h3>
-              <p class="text-xs text-yen line-clamp-2 leading-relaxed">
-                Thực hành phân loại tài sản thanh khoản cao, tài sản tích lũy dài hạn và phương án dập tắt các khoản nợ độc hại.
-              </p>
+              <ul class="text-xs text-yen space-y-1 pt-1 leading-relaxed">
+                <li class="flex items-start gap-1.5">
+                  <span class="text-cam font-bold">•</span>
+                  <span>Bóc tách tài sản thanh khoản cao vs tiêu sản ngốn chi phí sinh hoạt.</span>
+                </li>
+                <li class="flex items-start gap-1.5">
+                  <span class="text-cam font-bold">•</span>
+                  <span>Lộ trình dập tắt các khoản nợ độc hại và bảo vệ số dư tài sản ròng.</span>
+                </li>
+              </ul>
             </div>
           </div>
-          <div class="px-5 pb-5 pt-2 flex items-center justify-between border-t border-kem/10 text-xs">
-            <span class="text-yen font-mono text-[11px]">Kèm: File NetWorth.xlsx</span>
-            <button type="button" onclick="window.playSampleVideo('Chặng 02 · Bình Dân Học Vụ')" class="text-cam hover:underline font-semibold font-mono text-xs">Xem bản ghi ↗</button>
+          <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-kem/10 text-xs">
+            <button type="button" onclick="window.downloadTemplate('Bang_Can_Doi_Tai_San_NetWorth_TVS.xlsx')" class="text-yen hover:text-cam font-mono text-[11px] flex items-center gap-1 cursor-pointer">
+              <span>📥 Tải NetWorth.xlsx</span>
+            </button>
+            <button type="button" onclick="window.playSampleVideo('Chặng 02 · Bình Dân Học Vụ')" class="text-cam hover:underline font-semibold font-mono text-xs">
+              Xem bản ghi ↗
+            </button>
           </div>
         </div>
 
@@ -966,13 +1038,6 @@
         </p>
       </div>
 
-      <div class="bg-nen-sau border border-kem/20 rounded-xl p-5 space-y-2">
-        <h3 class="text-base font-bold text-kem">4. Tôi chưa là học viên chính thức nhưng muốn đăng ký tham gia khóa học?</h3>
-        <p class="text-xs sm:text-sm text-yen leading-relaxed">
-          Bạn có thể quay lại <a href="./#dong-hanh" class="text-cam font-semibold hover:underline">Trang chủ Thịnh Vượng Số (Khu vực Đăng ký tư vấn 1-1)</a> hoặc liên hệ trực tiếp hotline 0981501865 để được chuyên viên hỗ trợ thẩm định nhu cầu và xếp lớp phù hợp nhất với tình trạng tài chính hiện tại của bạn.
-        </p>
-      </div>
-
     </div>
 
   </section>
@@ -1066,10 +1131,10 @@
         <span class="font-mono text-[9px] text-cam">Excel</span>
         <span class="font-medium leading-tight">Biểu mẫu</span>
       </a>
-      <a href="#dang-nhap" class="py-1.5 px-1 rounded bg-cam text-abyssal font-bold text-[11px] flex flex-col items-center justify-center shadow-md">
+      <button type="button" onclick="window.handleMobileBottomAction(event)" class="py-1.5 px-1 rounded bg-cam text-abyssal font-bold text-[11px] flex flex-col items-center justify-center shadow-md cursor-pointer">
         <span class="font-mono text-[9px] uppercase">Học viên</span>
         <span class="leading-tight">Vào học ↗</span>
-      </a>
+      </button>
     </div>
   </nav>
 
@@ -1125,12 +1190,50 @@
       });
     };
 
+    // Session State Management (Student Dashboard & Auto-sync)
+    function applyStudentAuthState(auth) {
+      var loginBox = document.getElementById('student-login-box');
+      var dashBox = document.getElementById('student-dashboard-box');
+      var nameEl = document.getElementById('dash-student-name');
+      var idEl = document.getElementById('dash-student-id-display');
+
+      if (!loginBox || !dashBox) return;
+
+      if (auth && auth.id) {
+        loginBox.classList.add('hidden');
+        dashBox.classList.remove('hidden');
+
+        var isDemo = auth.isDemo;
+        if (nameEl) {
+          nameEl.textContent = isDemo ? 'Học viên Trải nghiệm (Demo)' : (auth.name || 'Học viên Thịnh Vượng Số');
+        }
+        if (idEl) {
+          idEl.textContent = 'Mã/SĐT: ' + auth.id;
+        }
+
+        // Auto-fill homework submission form
+        var hwPhone = document.getElementById('hw-phone');
+        var hwName = document.getElementById('hw-name');
+        if (hwPhone && !hwPhone.value) {
+          hwPhone.value = isDemo ? '0981501865' : auth.id;
+        }
+        if (hwName && !hwName.value) {
+          hwName.value = isDemo ? 'Học viên Demo' : (auth.name || 'Học viên chính thức');
+        }
+      } else {
+        loginBox.classList.remove('hidden');
+        dashBox.classList.add('hidden');
+      }
+    }
+
     // Login Handler
     window.handleStudentLogin = function(e) {
       e.preventDefault();
       var id = document.getElementById('student-identifier').value.trim();
       var msg = document.getElementById('login-status-msg');
       var submitBtn = document.getElementById('btn-login-submit');
+
+      if (!id) return;
 
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<span>Đang xác thực thông tin...</span>';
@@ -1139,41 +1242,112 @@
         submitBtn.disabled = false;
         submitBtn.innerHTML = '<span>Truy Cập Khu Học Tập ↗</span>';
 
+        var authData = {
+          id: id,
+          name: 'Học viên ' + id,
+          isDemo: false,
+          loginTime: new Date().toISOString()
+        };
+
+        try {
+          localStorage.setItem('tvs_student_auth', JSON.stringify(authData));
+        } catch (err) {}
+
+        applyStudentAuthState(authData);
+
         msg.classList.remove('hidden', 'bg-red-900/40', 'text-red-200', 'border-red-500/50', 'bg-green-900/40', 'text-green-200', 'border-green-500/50');
-        
-        // Mock successful validation
         msg.classList.add('bg-green-900/40', 'text-green-200', 'border', 'border-green-500/50');
-        msg.innerHTML = '<strong>Đăng nhập thành công!</strong> Chào mừng học viên (' + id + ') đã trở lại Khu Học Tập Thịnh Vượng Số. Đang mở kho bản ghi và biểu mẫu của bạn bên dưới...';
-        
-        // Smooth scroll to courses
+        msg.innerHTML = '<strong>Đăng nhập thành công!</strong> Đã mở khóa quyền truy cập kho bài giảng Zoom và trọn bộ biểu mẫu của bạn.';
+
         setTimeout(function() {
-          document.getElementById('khoa-hoc').scrollIntoView({ behavior: 'smooth' });
-        }, 800);
-      }, 700);
+          var target = document.getElementById('khoa-hoc');
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+        }, 600);
+      }, 500);
     };
 
     // Demo Mode Handler
     window.enterDemoMode = function() {
+      var authData = {
+        id: '0981501865 (Demo)',
+        name: 'Học viên Trải nghiệm',
+        isDemo: true,
+        loginTime: new Date().toISOString()
+      };
+
+      try {
+        localStorage.setItem('tvs_student_auth', JSON.stringify(authData));
+      } catch (err) {}
+
+      applyStudentAuthState(authData);
+
       var msg = document.getElementById('login-status-msg');
-      msg.classList.remove('hidden', 'bg-red-900/40', 'text-red-200', 'border-red-500/50');
-      msg.classList.add('bg-cam/20', 'text-cam', 'border', 'border-cam/40');
-      msg.innerHTML = '<strong>Đang mở chế độ xem thử Khu Học Tập (Demo Preview):</strong> Bạn đang xem không gian học tập mẫu của Thịnh Vượng Số với đầy đủ danh sách bài học Zoom và biểu mẫu tài chính.';
-      document.getElementById('khoa-hoc').scrollIntoView({ behavior: 'smooth' });
+      if (msg) {
+        msg.classList.remove('hidden', 'bg-red-900/40', 'text-red-200', 'border-red-500/50');
+        msg.classList.add('bg-cam/20', 'text-cam', 'border', 'border-cam/40');
+        msg.innerHTML = '<strong>Chế độ xem thử Khu Học Tập (Demo):</strong> Bạn đang trải nghiệm đầy đủ kho tài liệu và video bài giảng mẫu.';
+      }
+
+      setTimeout(function() {
+        var target = document.getElementById('khoa-hoc');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }, 500);
     };
 
-    // Program Details Click
+    // Logout / Switch Account
+    window.studentLogout = function() {
+      try {
+        localStorage.removeItem('tvs_student_auth');
+      } catch (e) {}
+      applyStudentAuthState(null);
+      var msg = document.getElementById('login-status-msg');
+      if (msg) msg.classList.add('hidden');
+      var idInp = document.getElementById('student-identifier');
+      if (idInp) {
+        idInp.value = '';
+        idInp.focus();
+      }
+    };
+
+    // Smart Mobile Bottom Action
+    window.handleMobileBottomAction = function(e) {
+      if (e) e.preventDefault();
+      try {
+        var raw = localStorage.getItem('tvs_student_auth');
+        if (raw) {
+          var target = document.getElementById('khoa-hoc');
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+          return;
+        }
+      } catch (err) {}
+
+      var loginCard = document.getElementById('dang-nhap');
+      if (loginCard) loginCard.scrollIntoView({ behavior: 'smooth' });
+      var idInp = document.getElementById('student-identifier');
+      if (idInp) {
+        setTimeout(function() { idInp.focus(); }, 400);
+      }
+    };
+
+    // Program Details Click (Direct smooth filter & scroll)
     window.viewProgramDetails = function(prog) {
       if (prog === 'but-pha') {
-        window.location.href = 'khoahoc?course=but-pha#but-pha-tai-chinh';
+        window.filterVideos('but-pha');
+        var target = document.getElementById('ban-ghi-zoom');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
         return;
       }
-      var target = document.getElementById('ban-ghi-zoom');
       if (prog === 'binh-dan') {
         window.filterVideos('binh-dan');
-      } else {
-        window.filterVideos('all');
+        var target = document.getElementById('ban-ghi-zoom');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+        return;
       }
-      if (target) target.scrollIntoView({ behavior: 'smooth' });
+      if (prog === 'tinh-hoa') {
+        var target = document.getElementById('bieu-mau');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
     };
 
     // Homework Submit Handler
@@ -1194,8 +1368,7 @@
         msg.classList.remove('hidden');
         msg.classList.add('bg-green-900/40', 'text-green-200', 'border', 'border-green-500/50');
         msg.innerHTML = '<strong>Nộp bài thành công!</strong> Cảm ơn học viên ' + name + ' đã hoàn thành bài tập thực hành chương trình [' + prog + ']. Ban cố vấn & Mentor Trần Nam Hà sẽ thẩm định con số và gửi phản hồi trong vòng 48h làm việc.';
-        document.getElementById('homework-submit-form').reset();
-      }, 800);
+      }, 700);
     };
 
     // Template Download Mockup
@@ -1238,10 +1411,17 @@
       }
     }
 
-    // Init Theme UI & Progress Sync
+    // Init Theme UI, Progress Sync & Auth State
     document.addEventListener('DOMContentLoaded', function() {
       syncThemeUI();
       syncKhuHocTapProgress();
+
+      try {
+        var savedAuth = localStorage.getItem('tvs_student_auth');
+        if (savedAuth) {
+          applyStudentAuthState(JSON.parse(savedAuth));
+        }
+      } catch (e) {}
     });
   </script>
 
