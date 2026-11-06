@@ -1504,6 +1504,7 @@
         <div class="flex items-center gap-2 truncate">
           <button 
             type="button" 
+            id="modal-close-top-btn"
             onclick="window.closeArticle()" 
             class="text-yen hover:text-cam p-1.5 rounded hover:bg-xanh/40 transition-colors inline-flex items-center gap-1.5 text-xs font-mono cursor-pointer"
           >
@@ -1520,7 +1521,7 @@
           <button 
             type="button" 
             onclick="window.copyCurrentArticleLink()" 
-            class="p-1.5 rounded hover:bg-xanh/40 text-yen hover:text-cam transition-colors inline-flex items-center gap-1 text-xs font-mono"
+            class="p-1.5 rounded hover:bg-xanh/40 text-yen hover:text-cam transition-colors inline-flex items-center gap-1 text-xs font-mono cursor-pointer"
             title="Sao chép liên kết bài viết"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
@@ -1528,9 +1529,10 @@
           </button>
           <button 
             type="button" 
+            id="modal-close-x-btn"
             onclick="window.closeArticle()" 
             aria-label="Đóng bài đọc" 
-            class="p-1.5 rounded hover:bg-red-500/20 text-yen hover:text-red-400 transition-colors"
+            class="p-1.5 rounded hover:bg-red-500/20 text-yen hover:text-red-400 transition-colors cursor-pointer"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
           </button>
@@ -1967,10 +1969,25 @@
       renderComments(art.slug, art.category);
 
       // Update Prev / Next buttons
+      // Update Prev / Next buttons
       var prevBtn = document.getElementById('modal-prev-btn');
       var nextBtn = document.getElementById('modal-next-btn');
-      if (prevBtn) prevBtn.disabled = (idx === 0);
-      if (nextBtn) nextBtn.disabled = (idx === allArticles.length - 1);
+      if (prevBtn) {
+        prevBtn.disabled = (idx === 0);
+        if (idx === 0) {
+          prevBtn.classList.add('opacity-30', 'cursor-not-allowed', 'pointer-events-none');
+        } else {
+          prevBtn.classList.remove('opacity-30', 'cursor-not-allowed', 'pointer-events-none');
+        }
+      }
+      if (nextBtn) {
+        nextBtn.disabled = (idx === allArticles.length - 1);
+        if (idx === allArticles.length - 1) {
+          nextBtn.classList.add('opacity-30', 'cursor-not-allowed', 'pointer-events-none');
+        } else {
+          nextBtn.classList.remove('opacity-30', 'cursor-not-allowed', 'pointer-events-none');
+        }
+      }
 
       // Open modal
       var modal = document.getElementById('article-reader-modal');
@@ -1988,6 +2005,49 @@
         window.history.pushState({ articleSlug: slug }, '', 'chuyensan?bai=' + slug);
       } catch (e) {}
     };
+
+    window.closeArticle = function() {
+      var modal = document.getElementById('article-reader-modal');
+      if (modal) {
+        modal.classList.add('hidden');
+      }
+      document.body.style.overflow = '';
+
+      var pFill = document.getElementById('reading-progress-fill');
+      if (pFill) pFill.style.width = '0%';
+
+      try {
+        var cleanPath = window.location.pathname
+          .replace(/\/index\.html$/, '/')
+          .replace(/\.html$/, '');
+        if (!cleanPath) cleanPath = '/';
+        window.history.pushState(null, '', cleanPath);
+      } catch (e) {}
+    };
+
+    window.navigateArticle = function(direction) {
+      var newIdx = currentArticleIndex + direction;
+      if (newIdx >= 0 && newIdx < allArticles.length) {
+        window.openArticle(allArticles[newIdx].slug);
+        var bodyEl = document.getElementById('reader-modal-body');
+        if (bodyEl) {
+          bodyEl.scrollTop = 0;
+        }
+      }
+    };
+
+    function updateReadingProgress() {
+      var el = document.getElementById('reader-modal-body');
+      var pFill = document.getElementById('reading-progress-fill');
+      if (!el || !pFill) return;
+      var total = el.scrollHeight - el.clientHeight;
+      if (total <= 0) {
+        pFill.style.width = '0%';
+        return;
+      }
+      var pct = Math.min(100, Math.round((el.scrollTop / total) * 100));
+      pFill.style.width = pct + '%';
+    }
 
     // ==================== TABLE OF CONTENTS (MUC LUC TU DONG) ====================
     function generateTableOfContents(modalBody) {
@@ -2347,6 +2407,18 @@
     document.addEventListener('DOMContentLoaded', function() {
       var isLight = document.documentElement.classList.contains('theme-light');
       updateThemeUI(isLight);
+
+      var closeTop = document.getElementById('modal-close-top-btn');
+      if (closeTop) closeTop.addEventListener('click', function(e) { e.preventDefault(); window.closeArticle(); });
+
+      var closeX = document.getElementById('modal-close-x-btn');
+      if (closeX) closeX.addEventListener('click', function(e) { e.preventDefault(); window.closeArticle(); });
+
+      var prevBtn = document.getElementById('modal-prev-btn');
+      if (prevBtn) prevBtn.addEventListener('click', function(e) { e.preventDefault(); window.navigateArticle(-1); });
+
+      var nextBtn = document.getElementById('modal-next-btn');
+      if (nextBtn) nextBtn.addEventListener('click', function(e) { e.preventDefault(); window.navigateArticle(1); });
 
       var urlParams = new URLSearchParams(window.location.search);
       var articleParam = urlParams.get('bai');
