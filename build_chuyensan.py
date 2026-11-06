@@ -1243,7 +1243,7 @@ html_content += f'''
           h.id = 'sec-heading-' + validCount;
         }}
         var numStr = (validCount < 10 ? '0' : '') + validCount;
-        html += '<a href="javascript:void(0)" onclick="window.scrollToArticleHeading(\'' + h.id + '\')" class="flex items-start gap-2.5 text-xs sm:text-sm text-yen hover:text-cam transition-colors py-1.5 px-2.5 rounded-lg hover:bg-kem/5 group">';
+        html += '<a href="javascript:void(0)" data-sec="' + h.id + '" class="toc-nav-item flex items-start gap-2.5 text-xs sm:text-sm text-yen hover:text-cam transition-colors py-1.5 px-2.5 rounded-lg hover:bg-kem/5 group">';
         html += '<span class="font-mono text-cam/70 group-hover:text-cam font-bold shrink-0">' + numStr + '.</span>';
         html += '<span class="leading-relaxed line-clamp-1 text-kem group-hover:text-cam font-medium">' + text + '</span>';
         html += '</a>';
@@ -1253,6 +1253,14 @@ html_content += f'''
         tocContent.innerHTML = html;
         if (tocCount) tocCount.textContent = validCount + ' phần nội dung';
         tocBox.classList.remove('hidden');
+
+        var items = tocContent.querySelectorAll('.toc-nav-item');
+        items.forEach(function(item) {{
+          item.onclick = function() {{
+            var secId = this.getAttribute('data-sec');
+            window.scrollToArticleHeading(secId);
+          }};
+        }});
       }} else {{
         tocBox.classList.add('hidden');
       }}
@@ -1278,8 +1286,9 @@ html_content += f'''
       var recommended = sameCat.concat(diffCat).slice(0, 3);
 
       var html = '';
-      recommended.forEach(function(rel) {{
-        html += '<div onclick="window.openArticle(\'' + rel.slug + '\')" class="group p-3.5 sm:p-4 rounded-xl bg-nen-sau hover:bg-xanh/25 border border-kem/10 hover:border-cam/50 transition-all duration-300 cursor-pointer flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-4 shadow-md">';
+      for (var r = 0; r < recommended.length; r++) {{
+        var rel = recommended[r];
+        html += '<div data-slug="' + rel.slug + '" class="rel-article-card group p-3.5 sm:p-4 rounded-xl bg-nen-sau hover:bg-xanh/25 border border-kem/10 hover:border-cam/50 transition-all duration-300 cursor-pointer flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-4 shadow-md">';
         html += '  <div class="flex-1 space-y-1.5">';
         html += '    <div class="flex items-center gap-2 text-[10px] sm:text-xs font-mono text-yen">';
         html += '      <span class="px-2 py-0.5 rounded bg-abyssal border border-kem/15 text-cam font-bold uppercase">' + rel.category + '</span>';
@@ -1296,12 +1305,29 @@ html_content += f'''
         html += '    </p>';
         html += '  </div>';
         html += '  <div class="w-full sm:w-36 h-28 sm:h-24 rounded-lg overflow-hidden shrink-0 border border-kem/15 bg-abyssal">';
-        html += '    <img src="' + rel.image + '" alt="' + rel.title.replace(/"/g, '&quot;') + '" onerror="this.onerror=null;this.src=\'anh/cd-bia-1.webp\';" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />';
+        html += '    <img src="' + rel.image + '" alt="' + rel.title.replace(/"/g, '&quot;') + '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />';
         html += '  </div>';
         html += '</div>';
-      }});
+      }}
 
       container.innerHTML = html;
+
+      container.querySelectorAll('img').forEach(function(img) {{
+        img.onerror = function() {{
+          this.onerror = null;
+          this.src = 'anh/cd-bia-1.webp';
+        }};
+      }});
+
+      var cards = container.querySelectorAll('.rel-article-card');
+      cards.forEach(function(card) {{
+        card.onclick = function() {{
+          var targetSlug = this.getAttribute('data-slug');
+          if (targetSlug) {{
+            window.openArticle(targetSlug);
+          }}
+        }};
+      }});
     }}
 
     // ==================== COMMENTS & DISCUSSION (BINH LUAN) ====================
@@ -1333,7 +1359,6 @@ html_content += f'''
         }} catch (e) {{}}
       }}
       var seeds = defaultCommentsMap[category] || defaultCommentsMap['Tài chính'];
-      // Clone array
       var initial = JSON.parse(JSON.stringify(seeds));
       localStorage.setItem(key, JSON.stringify(initial));
       return initial;
@@ -1383,11 +1408,11 @@ html_content += f'''
         html += '    ' + c.text;
         html += '  </p>';
         html += '  <div class="flex items-center gap-4 pl-10 text-[11px] font-mono">';
-        html += '    <button type="button" onclick="window.toggleCommentLike(\'' + slug + '\', ' + i + ')" class="flex items-center gap-1.5 ' + heartColor + ' transition-colors cursor-pointer">';
+        html += '    <button type="button" data-slug="' + slug + '" data-idx="' + i + '" class="comment-like-btn flex items-center gap-1.5 ' + heartColor + ' transition-colors cursor-pointer">';
         html += '      <span>' + heartIcon + '</span>';
         html += '      <span>LIKE (' + (c.likes || 0) + ')</span>';
         html += '    </button>';
-        html += '    <button type="button" onclick="window.replyToComment(\'' + c.author.replace(/'/g, "\\'") + '\')" class="text-yen hover:text-cam transition-colors uppercase cursor-pointer">';
+        html += '    <button type="button" data-author="' + encodeURIComponent(c.author) + '" class="comment-reply-btn text-yen hover:text-cam transition-colors uppercase cursor-pointer">';
         html += '      REPLY';
         html += '    </button>';
         html += '  </div>';
@@ -1395,6 +1420,21 @@ html_content += f'''
       }}
 
       container.innerHTML = html;
+
+      container.querySelectorAll('.comment-like-btn').forEach(function(btn) {{
+        btn.onclick = function() {{
+          var s = this.getAttribute('data-slug');
+          var idx = parseInt(this.getAttribute('data-idx'));
+          window.toggleCommentLike(s, idx);
+        }};
+      }});
+
+      container.querySelectorAll('.comment-reply-btn').forEach(function(btn) {{
+        btn.onclick = function() {{
+          var auth = decodeURIComponent(this.getAttribute('data-author'));
+          window.replyToComment(auth);
+        }};
+      }});
     }}
 
     window.submitComment = function() {{
