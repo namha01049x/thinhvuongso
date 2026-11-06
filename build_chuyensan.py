@@ -616,7 +616,7 @@ html_content += f'''
           
           <div class="lg:col-span-4 flex flex-col items-center sm:items-start text-center sm:text-left space-y-4">
             <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-2 border-cam/60 shadow-xl bg-xanh/40">
-              <img src="anh/c01-hoc-vien-zoom.webp" alt="Mentor Trần Nam Hà" class="w-full h-full object-cover" />
+              <img src="anh/mentor-vo-hoai-nam.webp" alt="Mentor Trần Nam Hà" class="w-full h-full object-cover" />
             </div>
             <div>
               <span class="nhan text-cam border-cam/30 bg-cam/10 mb-1">Cố vấn chuyên môn</span>
@@ -758,7 +758,7 @@ html_content += f'''
         <div class="pt-8 border-t border-kem/15">
           <div class="p-5 rounded-xl bg-nen-sau border border-kem/15 flex flex-col sm:flex-row items-center sm:items-start gap-4">
             <div class="w-16 h-16 rounded-full overflow-hidden shrink-0 border border-cam bg-xanh/40">
-              <img src="anh/c01-hoc-vien-zoom.webp" alt="Mentor Trần Nam Hà" class="w-full h-full object-cover" />
+              <img src="anh/mentor-vo-hoai-nam.webp" alt="Mentor Trần Nam Hà" class="w-full h-full object-cover" />
             </div>
             <div class="space-y-1.5 text-center sm:text-left">
               <span class="font-mono text-[10px] text-cam uppercase tracking-wider block">Tác giả & Cố vấn</span>
