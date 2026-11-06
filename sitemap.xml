@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Trang chủ Thịnh Vượng Số -->
+  <url>
+    <loc>https://daothinhvuong.vn/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="vi-VN" href="https://daothinhvuong.vn/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://daothinhvuong.vn/" />
+    <image:image>
+      <image:loc>https://daothinhvuong.vn/anh/chia-se.jpg</image:loc>
+      <image:title>Thịnh Vượng Số · Phát triển năng lực làm chủ đời sống, công việc và tài chính</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://daothinhvuong.vn/anh/trang-ban-but-pha-tai-chinh.webp</image:loc>
+      <image:title>Chương trình Bứt Phá Tài Chính · Thịnh Vượng Số</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://daothinhvuong.vn/anh/trang-ban-tinh-hoa.webp</image:loc>
+      <image:title>Chương trình Tinh Hoa Thịnh Vượng 12 tháng · Thịnh Vượng Số</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://daothinhvuong.vn/anh/trang-ban-binh-dan-hoc-vu.webp</image:loc>
+      <image:title>Chương trình Bình Dân Học Vụ Tài Chính · Thịnh Vượng Số</image:title>
+    </image:image>
+  </url>
+
+  <!-- Các trang đích chương trình và chuyên mục chính -->
+  <url>
+    <loc>https://daothinhvuong.vn/khuhoctap.html</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://daothinhvuong.vn/khoahoc.html</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://daothinhvuong.vn/chuong-trinh/binh-dan-hoc-vu-tai-chinh</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://daothinhvuong.vn/chuyen-san</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://daothinhvuong.vn/ve-dtv</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://daothinhvuong.vn/dieu-khoan</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://daothinhvuong.vn/bao-mat</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+</urlset>

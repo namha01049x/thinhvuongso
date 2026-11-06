@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 120" width="680" height="120" fill="none">
+  <rect width="680" height="120" rx="16" fill="#1B2632"/>
+  <g transform="translate(22, 16)">
+    <rect width="88" height="88" rx="18" fill="#16212C" stroke="#FFB162" stroke-width="2.2" stroke-opacity="0.6"/>
+    <path d="M44 10L74 27.3V61.7L44 79L14 61.7V27.3L44 10Z" fill="rgba(255,177,98,0.12)" stroke="#FFB162" stroke-width="2.5"/>
+    <circle cx="44" cy="10" r="3" fill="#FFB162"/>
+    <circle cx="74" cy="27.3" r="3" fill="#FFB162"/>
+    <circle cx="14" cy="27.3" r="3" fill="#FFB162"/>
+    <rect x="25.5" y="47" width="8" height="17" rx="2" fill="#C9C1B1"/>
+    <rect x="40" y="36" width="8" height="28" rx="2" fill="#EEE9DF"/>
+    <rect x="54.5" y="25" width="8" height="39" rx="2" fill="#FFB162"/>
+    <path d="M29.5 40L44 29L58.5 18" stroke="#FFB162" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="58.5" cy="18" r="4.5" fill="#FFB162"/>
+  </g>
+  <text x="132" y="64" fill="#EEE9DF" font-family="'Be Vietnam Pro', system-ui, -apple-system, sans-serif" font-size="42" font-weight="800" letter-spacing="3">THỊNH VƯỢNG SỐ</text>
+  <rect x="564" y="34" width="66" height="30" rx="6" fill="rgba(255,177,98,0.16)" stroke="#FFB162" stroke-width="1.5"/>
+  <text x="597" y="54" text-anchor="middle" fill="#FFB162" font-family="'IBM Plex Mono', monospace" font-size="16" font-weight="700" letter-spacing="2">TVS</text>
+  <text x="134" y="92" fill="#C9C1B1" font-family="'IBM Plex Mono', monospace" font-size="13.5" font-weight="500" letter-spacing="2.8">PHÁT TRIỂN BẢN THÂN · TÀI CHÍNH · KINH DOANH · ĐẦU TƯ</text>
+</svg>

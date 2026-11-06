@@ -1,0 +1,40 @@
+/* Design Tokens - Auto-generated */
+/* Do not edit directly - modify tokens.json instead */
+
+/* === PRIMITIVES === */
+:root {
+  --primitive-color-abyssal-900: #121B24;
+  --primitive-color-abyssal-800: #16212C;
+  --primitive-color-abyssal-700: #1B2632;
+  --primitive-color-blue-fantastic-600: #2C3B4D;
+  --primitive-color-palladian-100: #EEE9DF;
+  --primitive-color-oatmeal-300: #C9C1B1;
+  --primitive-color-burning-flame-400: #FFB162;
+  --primitive-color-burning-flame-300: #FFC07D;
+  --primitive-color-truffle-600: #A35139;
+  --primitive-font-sans: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+  --primitive-font-serif: 'Playfair Display', Georgia, serif;
+  --primitive-font-mono: 'IBM Plex Mono', monospace;
+}
+
+/* === SEMANTIC === */
+:root {
+  --canvas: #1B2632;
+  --panel: #16212C;
+  --footer: #121B24;
+  --surface: #2C3B4D;
+  --text-primary: #EEE9DF;
+  --text-secondary: #C9C1B1;
+  --accent: #FFB162;
+  --accent-hover: #FFC07D;
+  --accent-warm: #A35139;
+}
+
+/* === COMPONENTS === */
+:root {
+  --button-primary-bg: #FFB162;
+  --button-primary-fg: #1B2632;
+  --card-surface: #2C3B4D;
+  --mentor-light-bg: #EEE9DF;
+  --mentor-light-fg: #1B2632;
+}

@@ -1,0 +1,39 @@
+# robots.txt cho Hệ sinh thái Thịnh Vượng Số (https://daothinhvuong.vn)
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+
+# Cho phép toàn bộ Googlebot & Google AI Overviews (SGE)
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /anh/
+Allow: /assets/
+
+User-agent: Google-Extended
+Allow: /
+
+# Cho phép các trình thu thập AI Search để tăng độ phủ thương hiệu trên AI
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://daothinhvuong.vn/sitemap.xml
+Host: https://daothinhvuong.vn

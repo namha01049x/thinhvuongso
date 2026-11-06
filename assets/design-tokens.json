@@ -1,0 +1,38 @@
+{
+  "primitive": {
+    "color": {
+      "abyssal-900": { "$value": "#121B24", "$type": "color" },
+      "abyssal-800": { "$value": "#16212C", "$type": "color" },
+      "abyssal-700": { "$value": "#1B2632", "$type": "color" },
+      "blue-fantastic-600": { "$value": "#2C3B4D", "$type": "color" },
+      "palladian-100": { "$value": "#EEE9DF", "$type": "color" },
+      "oatmeal-300": { "$value": "#C9C1B1", "$type": "color" },
+      "burning-flame-400": { "$value": "#FFB162", "$type": "color" },
+      "burning-flame-300": { "$value": "#FFC07D", "$type": "color" },
+      "truffle-600": { "$value": "#A35139", "$type": "color" }
+    },
+    "font": {
+      "sans": { "$value": "'Be Vietnam Pro', system-ui, -apple-system, sans-serif", "$type": "fontFamily" },
+      "serif": { "$value": "'Playfair Display', Georgia, serif", "$type": "fontFamily" },
+      "mono": { "$value": "'IBM Plex Mono', monospace", "$type": "fontFamily" }
+    }
+  },
+  "semantic": {
+    "canvas": { "$value": "{primitive.color.abyssal-700}", "$type": "color" },
+    "panel": { "$value": "{primitive.color.abyssal-800}", "$type": "color" },
+    "footer": { "$value": "{primitive.color.abyssal-900}", "$type": "color" },
+    "surface": { "$value": "{primitive.color.blue-fantastic-600}", "$type": "color" },
+    "text-primary": { "$value": "{primitive.color.palladian-100}", "$type": "color" },
+    "text-secondary": { "$value": "{primitive.color.oatmeal-300}", "$type": "color" },
+    "accent": { "$value": "{primitive.color.burning-flame-400}", "$type": "color" },
+    "accent-hover": { "$value": "{primitive.color.burning-flame-300}", "$type": "color" },
+    "accent-warm": { "$value": "{primitive.color.truffle-600}", "$type": "color" }
+  },
+  "component": {
+    "button-primary-bg": { "$value": "{semantic.accent}", "$type": "color" },
+    "button-primary-fg": { "$value": "{semantic.canvas}", "$type": "color" },
+    "card-surface": { "$value": "{semantic.surface}", "$type": "color" },
+    "mentor-light-bg": { "$value": "{semantic.text-primary}", "$type": "color" },
+    "mentor-light-fg": { "$value": "{semantic.canvas}", "$type": "color" }
+  }
+}
