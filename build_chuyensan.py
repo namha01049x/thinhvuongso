@@ -285,6 +285,53 @@ html_content = f'''<!DOCTYPE html>
       font-style: italic;
     }}
 
+    /* Q&A details styling */
+    .article-body details {{
+      background-color: var(--panel);
+      border: 1px solid rgba(var(--rgb-kem) / 0.15);
+      border-radius: 0.5rem;
+      padding: 0.85rem 1.15rem;
+      margin-bottom: 0.75rem;
+      transition: all 0.2s ease;
+    }}
+    .article-body details[open] {{
+      border-color: rgba(var(--rgb-cam) / 0.4);
+    }}
+    .article-body summary {{
+      font-weight: 600;
+      color: var(--kem);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }}
+    .article-body summary::-webkit-details-marker {{
+      display: none;
+    }}
+    .article-body summary::after {{
+      content: '+';
+      color: #FFB162;
+      font-family: monospace;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }}
+    .article-body details[open] summary::after {{
+      content: '-';
+    }}
+    .article-body details p {{
+      margin-top: 0.75rem;
+      font-size: 0.95rem;
+      color: var(--yen);
+      border-top: 1px solid rgba(var(--rgb-kem) / 0.1);
+      padding-top: 0.75rem;
+      margin-bottom: 0;
+      line-height: 1.7;
+    }}
+    .article-body svg {{
+      display: none;
+    }}
+
     /* Custom Scrollbar for reader */
     #reader-modal-body::-webkit-scrollbar {{
       width: 6px;
@@ -468,6 +515,7 @@ html_content = f'''<!DOCTYPE html>
             <img 
               src="{spotlight['image']}" 
               alt="{spotlight['title']}" 
+              onerror="this.onerror=null;this.src='anh/cd-bia-1.webp';"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
               loading="eager"
             />
@@ -541,6 +589,7 @@ for a in articles:
             <img 
               src="{a['image']}" 
               alt="{html.escape(a['title'])}" 
+              onerror="this.onerror=null;this.src='anh/cd-bia-1.webp';"
               loading="lazy" 
               decoding="async" 
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -1029,7 +1078,15 @@ html_content += f'''
         tomTatBox.classList.add('hidden');
       }}
 
-      document.getElementById('modal-article-body').innerHTML = art.body;
+      var modalBody = document.getElementById('modal-article-body');
+      modalBody.innerHTML = art.body;
+      var bodyImgs = modalBody.querySelectorAll('img');
+      for (var bi = 0; bi < bodyImgs.length; bi++) {{
+        bodyImgs[bi].onerror = function() {{
+          this.onerror = null;
+          this.src = 'anh/cd-bia-1.webp';
+        }};
+      }}
 
       // Update Prev / Next buttons
       var prevBtn = document.getElementById('modal-prev-btn');
