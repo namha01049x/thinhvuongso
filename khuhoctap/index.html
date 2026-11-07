@@ -658,8 +658,8 @@
               </div>
 
               <div class="space-y-2 pt-1">
-                <a href="#khoa-hoc" class="btn-p w-full justify-center text-xs !py-3 shadow-lg shadow-cam/25 cursor-pointer font-bold text-center">
-                  <span>🚀 Bắt Đầu Học Ngay (Xem Bài Giảng Bên Dưới) ↓</span>
+                <a href="khoahoc?course=but-pha#but-pha-tai-chinh" class="btn-p w-full justify-center text-xs !py-3 shadow-lg shadow-cam/25 cursor-pointer font-bold text-center">
+                  <span>🚀 Mở Kho Bản Ghi Bứt Phá Tài Chính ↗</span>
                 </a>
                 <div class="grid grid-cols-2 gap-2">
                   <a href="#ban-ghi-zoom" class="btn-o w-full justify-center text-[11px] !py-2 text-center">
@@ -879,9 +879,17 @@
           </div>
         </div>
         <div class="pt-4 space-y-2">
-          <button type="button" onclick="window.viewProgramDetails('but-pha')" class="btn-p w-full justify-center text-xs !py-2.5">
-            <span>Mở kho bản ghi Bứt Phá Tài Chính ↓</span>
-          </button>
+          <a href="khoahoc?course=but-pha#but-pha-tai-chinh" class="btn-p w-full justify-center text-xs !py-2.5 text-center font-bold">
+            <span>Mở kho bản ghi Bứt Phá Tài Chính ↗</span>
+          </a>
+          <div class="grid grid-cols-2 gap-2">
+            <button type="button" onclick="window.viewProgramDetails('but-pha')" class="btn-o w-full justify-center text-[11px] !py-1.5 text-yen hover:text-cam text-center cursor-pointer">
+              <span>📹 Bản ghi Zoom ↓</span>
+            </button>
+            <a href="khoahoc?course=but-pha#tien-do-hoc-tap" class="btn-o w-full justify-center text-[11px] !py-1.5 text-yen hover:text-cam text-center">
+              <span>📊 18 Nhiệm vụ ↗</span>
+            </a>
+          </div>
         </div>
       </div>
 
@@ -939,21 +947,21 @@
 
         <!-- Filter tags -->
         <div class="flex flex-wrap gap-2" role="tablist" aria-label="Bộ lọc bản ghi Zoom">
-          <button type="button" onclick="window.filterVideos('all')" class="vid-tab-btn px-3 py-1.5 rounded text-xs font-mono font-semibold bg-cam text-abyssal cursor-pointer">Tất cả bản ghi</button>
-          <button type="button" onclick="window.filterVideos('but-pha')" class="vid-tab-btn px-3 py-1.5 rounded text-xs font-mono text-yen hover:text-kem bg-xanh/40 border border-kem/15 cursor-pointer">Bứt Phá Tài Chính</button>
-          <button type="button" onclick="window.filterVideos('binh-dan')" class="vid-tab-btn px-3 py-1.5 rounded text-xs font-mono text-yen hover:text-kem bg-xanh/40 border border-kem/15 cursor-pointer">Bình Dân Học Vụ</button>
-          <button type="button" onclick="window.filterVideos('qa')" class="vid-tab-btn px-3 py-1.5 rounded text-xs font-mono text-yen hover:text-kem bg-xanh/40 border border-kem/15 cursor-pointer">Hỏi đáp cùng Mentor</button>
+          <button type="button" onclick="window.filterVideos('all')" data-filter="all" class="vid-tab-btn px-3 py-1.5 rounded text-xs font-mono font-semibold bg-cam text-abyssal cursor-pointer">Tất cả bản ghi</button>
+          <button type="button" onclick="window.filterVideos('but-pha')" data-filter="but-pha" class="vid-tab-btn px-3 py-1.5 rounded text-xs font-mono text-yen hover:text-kem bg-xanh/40 border border-kem/15 cursor-pointer">Bứt Phá Tài Chính</button>
+          <button type="button" onclick="window.filterVideos('binh-dan')" data-filter="binh-dan" class="vid-tab-btn px-3 py-1.5 rounded text-xs font-mono text-yen hover:text-kem bg-xanh/40 border border-kem/15 cursor-pointer">Bình Dân Học Vụ</button>
+          <button type="button" onclick="window.filterVideos('qa')" data-filter="qa" class="vid-tab-btn px-3 py-1.5 rounded text-xs font-mono text-yen hover:text-kem bg-xanh/40 border border-kem/15 cursor-pointer">Hỏi đáp cùng Mentor</button>
         </div>
       </div>
 
-      <!-- Video Grid -->
+      <!-- Video Grid: Đầy đủ 6 Buổi Zoom Bứt Phá Tài Chính & Các Khóa Học -->
       <div id="video-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         
-        <!-- Video 1: Mentor Trần Nam Hà giảng dạy -->
+        <!-- Buổi 1: Bứt Phá Tài Chính -->
         <div class="vid-card bg-abyssal border border-kem/20 rounded-xl overflow-hidden hover:border-cam/50 transition-all flex flex-col justify-between shadow-lg" data-category="but-pha">
           <div>
-            <div class="relative aspect-video bg-nen-chan flex items-center justify-center group cursor-pointer" onclick="window.playSampleVideo('Buổi 01 · Bứt Phá Tài Chính: Mổ xẻ bức tranh thu nhập và vá lỗ hổng rò rỉ')">
-              <img src="anh/c05-nam-mic.webp" alt="Mentor Trần Nam Hà giảng dạy trực tiếp" width="825" height="1100" class="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity" />
+            <div class="relative aspect-video bg-nen-chan flex items-center justify-center group cursor-pointer" onclick="window.playSampleVideo('Buổi 01 · Bứt Phá Tài Chính: Mổ xẻ bức tranh thu nhập & Vá lỗ hổng rò rỉ', '1 giờ 52 phút', ['Nhận diện 4 khoản chi phí ẩn ngốn tiền.', 'Phương pháp thiết lập ngân sách sống còn.'], 'Bang_Kiem_Ke_Dong_Tien_12_Thang_TVS.xlsx')">
+              <img src="anh/c05-nam-mic.webp" alt="Mentor Trần Nam Hà giảng dạy trực tiếp Buổi 1" width="825" height="1100" class="w-full h-full object-cover opacity-75 group-hover:opacity-95 transition-opacity" />
               <div class="absolute inset-0 bg-gradient-to-t from-abyssal via-transparent to-transparent"></div>
               <div class="absolute w-12 h-12 rounded-full bg-cam text-abyssal flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                 <svg class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -963,50 +971,41 @@
             <div class="p-5 space-y-2.5">
               <div class="flex items-center justify-between text-[11px] font-mono text-yen">
                 <span class="text-cam font-semibold">Bứt Phá Tài Chính</span>
-                <span>Buổi 1 / 6</span>
+                <span class="px-1.5 py-0.2 rounded bg-cam/20 text-cam font-bold">Buổi 1 / 6</span>
               </div>
               <h3 class="text-base font-bold text-kem leading-snug">
                 Mổ xẻ bức tranh thu nhập & Vá lỗ hổng rò rỉ dòng tiền
               </h3>
               <ul class="text-xs text-yen space-y-1 pt-1 leading-relaxed">
-                <li class="flex items-start gap-1.5">
-                  <span class="text-cam font-bold">•</span>
-                  <span>Nhận diện 4 khoản chi phí ẩn khiến người thu nhập cao vẫn không tích lũy được.</span>
-                </li>
-                <li class="flex items-start gap-1.5">
-                  <span class="text-cam font-bold">•</span>
-                  <span>Phương pháp thiết lập ngân sách sống còn và quỹ thanh khoản an toàn.</span>
-                </li>
+                <li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Nhận diện 4 khoản chi phí ẩn khiến người thu nhập cao vẫn không tích lũy được.</span></li>
+                <li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Phương pháp thiết lập ngân sách sống còn và quỹ thanh khoản an toàn.</span></li>
               </ul>
             </div>
           </div>
-          <div class="px-5 py-2.5 bg-nen-sau/50 border-t border-kem/10 flex items-center justify-between text-xs">
-            <button 
-              type="button" 
-              onclick="window.toggleLessonComplete('zoom-01', 'Buổi 01 · Bứt Phá Tài Chính')" 
-              id="btn-lesson-zoom-01"
-              class="lesson-check-btn flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-kem/20 text-yen hover:text-cam hover:border-cam/40 transition-colors font-mono text-[11px] cursor-pointer"
-            >
-              <span id="lesson-icon-zoom-01">○</span>
-              <span id="lesson-label-zoom-01">Đánh dấu đã học</span>
-            </button>
-            <span id="lesson-status-zoom-01" class="font-mono text-[10px] text-yen/80">Chưa hoàn thành</span>
-          </div>
-          <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-kem/10 text-xs">
-            <button type="button" onclick="window.downloadTemplate('Bang_Kiem_Ke_Dong_Tien_12_Thang_TVS.xlsx')" class="text-yen hover:text-cam font-mono text-[11px] flex items-center gap-1 cursor-pointer">
-              <span>📥 Tải file .xlsx</span>
-            </button>
-            <button type="button" onclick="window.playSampleVideo('Buổi 01 · Bứt Phá Tài Chính')" class="text-cam hover:underline font-semibold font-mono text-xs cursor-pointer">
-              Xem bản ghi ↗
-            </button>
+          <div>
+            <div class="px-5 py-2.5 bg-nen-sau/50 border-t border-kem/10 flex items-center justify-between text-xs">
+              <button type="button" onclick="window.toggleLessonComplete('zoom-01', 'Buổi 01 · Bứt Phá Tài Chính')" id="btn-lesson-zoom-01" class="lesson-check-btn flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-kem/20 text-yen hover:text-cam hover:border-cam/40 transition-colors font-mono text-[11px] cursor-pointer">
+                <span id="lesson-icon-zoom-01">○</span>
+                <span id="lesson-label-zoom-01">Đánh dấu đã học</span>
+              </button>
+              <span id="lesson-status-zoom-01" class="font-mono text-[10px] text-yen/80">Chưa hoàn thành</span>
+            </div>
+            <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-kem/10 text-xs">
+              <a href="khoahoc?course=but-pha#but-pha-tai-chinh" class="text-cam hover:underline font-mono text-[11px] font-semibold flex items-center gap-1">
+                <span>Mở kho nội dung ↗</span>
+              </a>
+              <button type="button" onclick="window.playSampleVideo('Buổi 01 · Bứt Phá Tài Chính', '1 giờ 52 phút')" class="btn-p !py-1 !px-2.5 text-xs font-mono font-bold cursor-pointer">
+                Xem bản ghi ↗
+              </button>
+            </div>
           </div>
         </div>
 
-        <!-- Video 2: Hội trường học viên Bứt Phá Tài Chính -->
+        <!-- Buổi 2: Bứt Phá Tài Chính -->
         <div class="vid-card bg-abyssal border border-kem/20 rounded-xl overflow-hidden hover:border-cam/50 transition-all flex flex-col justify-between shadow-lg" data-category="but-pha">
           <div>
-            <div class="relative aspect-video bg-nen-chan flex items-center justify-center group cursor-pointer" onclick="window.playSampleVideo('Buổi 02 · Bứt Phá Tài Chính: Tái cấu trúc đòn bẩy và nâng trần thu nhập')">
-              <img src="anh/c04-hoi-truong.webp" alt="Hội trường học viên Bứt Phá Tài Chính" width="825" height="1100" class="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity" />
+            <div class="relative aspect-video bg-nen-chan flex items-center justify-center group cursor-pointer" onclick="window.playSampleVideo('Buổi 02 · Bứt Phá Tài Chính: Tái cấu trúc đòn bẩy và nâng trần thu nhập', '2 giờ 10 phút', ['Kỹ thuật cơ cấu lại nợ và đòn bẩy thông minh.', 'Chiến lược nâng trần thu nhập theo chu kỳ 90 ngày.'], 'Ke_Hoach_Nang_Tran_Thu_Nhap_90_Ngay_TVS.xlsx')">
+              <img src="anh/c04-hoi-truong.webp" alt="Hội trường học viên Bứt Phá Tài Chính Buổi 2" width="825" height="1100" class="w-full h-full object-cover opacity-75 group-hover:opacity-95 transition-opacity" />
               <div class="absolute inset-0 bg-gradient-to-t from-abyssal via-transparent to-transparent"></div>
               <div class="absolute w-12 h-12 rounded-full bg-cam text-abyssal flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                 <svg class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -1016,50 +1015,217 @@
             <div class="p-5 space-y-2.5">
               <div class="flex items-center justify-between text-[11px] font-mono text-yen">
                 <span class="text-cam font-semibold">Bứt Phá Tài Chính</span>
-                <span>Buổi 2 / 6</span>
+                <span class="px-1.5 py-0.2 rounded bg-cam/20 text-cam font-bold">Buổi 2 / 6</span>
               </div>
               <h3 class="text-base font-bold text-kem leading-snug">
                 Tái cấu trúc đòn bẩy & Thiết lập trần thu nhập cá nhân
               </h3>
               <ul class="text-xs text-yen space-y-1 pt-1 leading-relaxed">
-                <li class="flex items-start gap-1.5">
-                  <span class="text-cam font-bold">•</span>
-                  <span>Định giá lại năng lực chuyên môn và cách thức chuyển đổi thời gian thành giá trị.</span>
-                </li>
-                <li class="flex items-start gap-1.5">
-                  <span class="text-cam font-bold">•</span>
-                  <span>Kỹ thuật cơ cấu lại nợ và nâng trần thu nhập theo chu kỳ 90 ngày.</span>
-                </li>
+                <li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Định giá lại năng lực chuyên môn và cách thức chuyển đổi thời gian thành giá trị.</span></li>
+                <li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Kỹ thuật cơ cấu lại nợ và nâng trần thu nhập theo chu kỳ 90 ngày.</span></li>
               </ul>
             </div>
           </div>
-          <div class="px-5 py-2.5 bg-nen-sau/50 border-t border-kem/10 flex items-center justify-between text-xs">
-            <button 
-              type="button" 
-              onclick="window.toggleLessonComplete('zoom-02', 'Buổi 02 · Bứt Phá Tài Chính')" 
-              id="btn-lesson-zoom-02"
-              class="lesson-check-btn flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-kem/20 text-yen hover:text-cam hover:border-cam/40 transition-colors font-mono text-[11px] cursor-pointer"
-            >
-              <span id="lesson-icon-zoom-02">○</span>
-              <span id="lesson-label-zoom-02">Đánh dấu đã học</span>
-            </button>
-            <span id="lesson-status-zoom-02" class="font-mono text-[10px] text-yen/80">Chưa hoàn thành</span>
-          </div>
-          <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-kem/10 text-xs">
-            <button type="button" onclick="window.downloadTemplate('Ke_Hoach_Nang_Tran_Thu_Nhap_90_Ngay_TVS.xlsx')" class="text-yen hover:text-cam font-mono text-[11px] flex items-center gap-1 cursor-pointer">
-              <span>📥 Tải Khung 90 Ngày</span>
-            </button>
-            <button type="button" onclick="window.playSampleVideo('Buổi 02 · Bứt Phá Tài Chính')" class="text-cam hover:underline font-semibold font-mono text-xs cursor-pointer">
-              Xem bản ghi ↗
-            </button>
+          <div>
+            <div class="px-5 py-2.5 bg-nen-sau/50 border-t border-kem/10 flex items-center justify-between text-xs">
+              <button type="button" onclick="window.toggleLessonComplete('zoom-02', 'Buổi 02 · Bứt Phá Tài Chính')" id="btn-lesson-zoom-02" class="lesson-check-btn flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-kem/20 text-yen hover:text-cam hover:border-cam/40 transition-colors font-mono text-[11px] cursor-pointer">
+                <span id="lesson-icon-zoom-02">○</span>
+                <span id="lesson-label-zoom-02">Đánh dấu đã học</span>
+              </button>
+              <span id="lesson-status-zoom-02" class="font-mono text-[10px] text-yen/80">Chưa hoàn thành</span>
+            </div>
+            <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-kem/10 text-xs">
+              <a href="khoahoc?course=but-pha#but-pha-tai-chinh" class="text-cam hover:underline font-mono text-[11px] font-semibold flex items-center gap-1">
+                <span>Mở kho nội dung ↗</span>
+              </a>
+              <button type="button" onclick="window.playSampleVideo('Buổi 02 · Bứt Phá Tài Chính', '2 giờ 10 phút')" class="btn-p !py-1 !px-2.5 text-xs font-mono font-bold cursor-pointer">
+                Xem bản ghi ↗
+              </button>
+            </div>
           </div>
         </div>
 
-        <!-- Video 3: Học viên thảo luận tài chính & thực hành -->
+        <!-- Buổi 3: Bứt Phá Tài Chính -->
+        <div class="vid-card bg-abyssal border border-kem/20 rounded-xl overflow-hidden hover:border-cam/50 transition-all flex flex-col justify-between shadow-lg" data-category="but-pha">
+          <div>
+            <div class="relative aspect-video bg-nen-chan flex items-center justify-center group cursor-pointer" onclick="window.playSampleVideo('Buổi 03 · Bứt Phá Tài Chính: Ngân sách sống còn & Quỹ thanh khoản khẩn cấp', '1 giờ 45 phút', ['Công thức thiết lập quỹ khẩn cấp 6 tháng.', 'Kỷ luật dòng tiền trong mọi tình huống.'], 'Quy_Thanh_Khoan_Ngan_Sach_Song_Con_TVS.xlsx')">
+              <img src="anh/c09-vong-tron.webp" alt="Ngân sách sống còn và quỹ thanh khoản Buổi 3" width="825" height="1100" class="w-full h-full object-cover opacity-75 group-hover:opacity-95 transition-opacity" />
+              <div class="absolute inset-0 bg-gradient-to-t from-abyssal via-transparent to-transparent"></div>
+              <div class="absolute w-12 h-12 rounded-full bg-cam text-abyssal flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-kem">1 giờ 45 phút</span>
+            </div>
+            <div class="p-5 space-y-2.5">
+              <div class="flex items-center justify-between text-[11px] font-mono text-yen">
+                <span class="text-cam font-semibold">Bứt Phá Tài Chính</span>
+                <span class="px-1.5 py-0.2 rounded bg-cam/20 text-cam font-bold">Buổi 3 / 6</span>
+              </div>
+              <h3 class="text-base font-bold text-kem leading-snug">
+                Lập ngân sách sống còn & Xây dựng quỹ thanh khoản
+              </h3>
+              <ul class="text-xs text-yen space-y-1 pt-1 leading-relaxed">
+                <li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Bảo vệ gia đình trước mọi biến động kinh tế bằng quỹ dự phòng 6 tháng thực tế.</span></li>
+                <li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Cách tối ưu chi phí sinh hoạt mà không làm suy giảm chất lượng cuộc sống.</span></li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <div class="px-5 py-2.5 bg-nen-sau/50 border-t border-kem/10 flex items-center justify-between text-xs">
+              <button type="button" onclick="window.toggleLessonComplete('zoom-03', 'Buổi 03 · Bứt Phá Tài Chính')" id="btn-lesson-zoom-03" class="lesson-check-btn flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-kem/20 text-yen hover:text-cam hover:border-cam/40 transition-colors font-mono text-[11px] cursor-pointer">
+                <span id="lesson-icon-zoom-03">○</span>
+                <span id="lesson-label-zoom-03">Đánh dấu đã học</span>
+              </button>
+              <span id="lesson-status-zoom-03" class="font-mono text-[10px] text-yen/80">Chưa hoàn thành</span>
+            </div>
+            <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-kem/10 text-xs">
+              <a href="khoahoc?course=but-pha#but-pha-tai-chinh" class="text-cam hover:underline font-mono text-[11px] font-semibold flex items-center gap-1">
+                <span>Mở kho nội dung ↗</span>
+              </a>
+              <button type="button" onclick="window.playSampleVideo('Buổi 03 · Bứt Phá Tài Chính', '1 giờ 45 phút')" class="btn-p !py-1 !px-2.5 text-xs font-mono font-bold cursor-pointer">
+                Xem bản ghi ↗
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buổi 4: Bứt Phá Tài Chính -->
+        <div class="vid-card bg-abyssal border border-kem/20 rounded-xl overflow-hidden hover:border-cam/50 transition-all flex flex-col justify-between shadow-lg" data-category="but-pha">
+          <div>
+            <div class="relative aspect-video bg-nen-chan flex items-center justify-center group cursor-pointer" onclick="window.playSampleVideo('Buổi 04 · Bứt Phá Tài Chính: Đàm phán gia tăng thu nhập & Định giá chuyên môn', '2 giờ 05 phút', ['Chiến thuật đàm phán thu nhập.', 'Xây dựng dòng tiền thứ hai an toàn.'], 'Bang_Dinh_Gia_Nang_Luc_Chuyen_Mon_TVS.xlsx')">
+              <img src="anh/c08-cau-hoi.webp" alt="Đàm phán gia tăng thu nhập Buổi 4" width="825" height="1100" class="w-full h-full object-cover opacity-75 group-hover:opacity-95 transition-opacity" />
+              <div class="absolute inset-0 bg-gradient-to-t from-abyssal via-transparent to-transparent"></div>
+              <div class="absolute w-12 h-12 rounded-full bg-cam text-abyssal flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-kem">2 giờ 05 phút</span>
+            </div>
+            <div class="p-5 space-y-2.5">
+              <div class="flex items-center justify-between text-[11px] font-mono text-yen">
+                <span class="text-cam font-semibold">Bứt Phá Tài Chính</span>
+                <span class="px-1.5 py-0.2 rounded bg-cam/20 text-cam font-bold">Buổi 4 / 6</span>
+              </div>
+              <h3 class="text-base font-bold text-kem leading-snug">
+                Đàm phán nâng trần thu nhập & Định giá năng lực
+              </h3>
+              <ul class="text-xs text-yen space-y-1 pt-1 leading-relaxed">
+                <li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Kỹ thuật định giá giá trị chuyên môn cao cấp và đàm phán thu nhập công bằng.</span></li>
+                <li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Thiết lập nguồn thu nhập song song bền vững không ảnh hưởng công việc cốt lõi.</span></li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <div class="px-5 py-2.5 bg-nen-sau/50 border-t border-kem/10 flex items-center justify-between text-xs">
+              <button type="button" onclick="window.toggleLessonComplete('zoom-04', 'Buổi 04 · Bứt Phá Tài Chính')" id="btn-lesson-zoom-04" class="lesson-check-btn flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-kem/20 text-yen hover:text-cam hover:border-cam/40 transition-colors font-mono text-[11px] cursor-pointer">
+                <span id="lesson-icon-zoom-04">○</span>
+                <span id="lesson-label-zoom-04">Đánh dấu đã học</span>
+              </button>
+              <span id="lesson-status-zoom-04" class="font-mono text-[10px] text-yen/80">Chưa hoàn thành</span>
+            </div>
+            <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-kem/10 text-xs">
+              <a href="khoahoc?course=but-pha#but-pha-tai-chinh" class="text-cam hover:underline font-mono text-[11px] font-semibold flex items-center gap-1">
+                <span>Mở kho nội dung ↗</span>
+              </a>
+              <button type="button" onclick="window.playSampleVideo('Buổi 04 · Bứt Phá Tài Chính', '2 giờ 05 phút')" class="btn-p !py-1 !px-2.5 text-xs font-mono font-bold cursor-pointer">
+                Xem bản ghi ↗
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buổi 5: Bứt Phá Tài Chính -->
+        <div class="vid-card bg-abyssal border border-kem/20 rounded-xl overflow-hidden hover:border-cam/50 transition-all flex flex-col justify-between shadow-lg" data-category="but-pha">
+          <div>
+            <div class="relative aspect-video bg-nen-chan flex items-center justify-center group cursor-pointer" onclick="window.playSampleVideo('Buổi 05 · Bứt Phá Tài Chính: Phân bổ dòng tiền nhàn rỗi & Phòng thủ vốn', '1 giờ 58 phút', ['Khung 5 lớp phân bổ tài sản.', 'Nguyên tắc bảo toàn vốn chống lạm phát.'], 'Khung_5_Lop_Phan_Bo_Tai_San_TVS.xlsx')">
+              <img src="anh/c06-ket-noi.webp" alt="Phân bổ dòng tiền nhàn rỗi Buổi 5" width="825" height="1100" class="w-full h-full object-cover opacity-75 group-hover:opacity-95 transition-opacity" />
+              <div class="absolute inset-0 bg-gradient-to-t from-abyssal via-transparent to-transparent"></div>
+              <div class="absolute w-12 h-12 rounded-full bg-cam text-abyssal flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-kem">1 giờ 58 phút</span>
+            </div>
+            <div class="p-5 space-y-2.5">
+              <div class="flex items-center justify-between text-[11px] font-mono text-yen">
+                <span class="text-cam font-semibold">Bứt Phá Tài Chính</span>
+                <span class="px-1.5 py-0.2 rounded bg-cam/20 text-cam font-bold">Buổi 5 / 6</span>
+              </div>
+              <h3 class="text-base font-bold text-kem leading-snug">
+                Phân bổ dòng tiền nhàn rỗi & Phòng thủ vốn
+              </h3>
+              <ul class="text-xs text-yen space-y-1 pt-1 leading-relaxed">
+                <li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Khung phân bổ tài sản 5 lớp: Phòng thủ thanh khoản, bảo toàn giá trị và tăng trưởng.</span></li>
+                <li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Loại bỏ hoàn toàn tâm lý FOMO và các bẫy cam kết lợi nhuận phi thực tế.</span></li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <div class="px-5 py-2.5 bg-nen-sau/50 border-t border-kem/10 flex items-center justify-between text-xs">
+              <button type="button" onclick="window.toggleLessonComplete('zoom-05', 'Buổi 05 · Bứt Phá Tài Chính')" id="btn-lesson-zoom-05" class="lesson-check-btn flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-kem/20 text-yen hover:text-cam hover:border-cam/40 transition-colors font-mono text-[11px] cursor-pointer">
+                <span id="lesson-icon-zoom-05">○</span>
+                <span id="lesson-label-zoom-05">Đánh dấu đã học</span>
+              </button>
+              <span id="lesson-status-zoom-05" class="font-mono text-[10px] text-yen/80">Chưa hoàn thành</span>
+            </div>
+            <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-kem/10 text-xs">
+              <a href="khoahoc?course=but-pha#but-pha-tai-chinh" class="text-cam hover:underline font-mono text-[11px] font-semibold flex items-center gap-1">
+                <span>Mở kho nội dung ↗</span>
+              </a>
+              <button type="button" onclick="window.playSampleVideo('Buổi 05 · Bứt Phá Tài Chính', '1 giờ 58 phút')" class="btn-p !py-1 !px-2.5 text-xs font-mono font-bold cursor-pointer">
+                Xem bản ghi ↗
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buổi 6: Bứt Phá Tài Chính -->
+        <div class="vid-card bg-abyssal border border-kem/20 rounded-xl overflow-hidden hover:border-cam/50 transition-all flex flex-col justify-between shadow-lg" data-category="but-pha">
+          <div>
+            <div class="relative aspect-video bg-nen-chan flex items-center justify-center group cursor-pointer" onclick="window.playSampleVideo('Buổi 06 · Bứt Phá Tài Chính: Chữa bài 1-1 trên số liệu thật & Kế hoạch 90 ngày', '2 giờ 30 phút', ['Phiên chữa bài trực tiếp cùng Mentor Trần Nam Hà.', 'Cam kết kế hoạch hành động 90 ngày.'], 'Lộ_Trình_Hành_Động_Tài_Chính_90_Ngày_TVS.xlsx')">
+              <img src="anh/c05-nam-mic.webp" alt="Chữa bài trực tiếp cùng Mentor Buổi 6" width="825" height="1100" class="w-full h-full object-cover opacity-75 group-hover:opacity-95 transition-opacity" />
+              <div class="absolute inset-0 bg-gradient-to-t from-abyssal via-transparent to-transparent"></div>
+              <div class="absolute w-12 h-12 rounded-full bg-cam text-abyssal flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-kem">2 giờ 30 phút</span>
+            </div>
+            <div class="p-5 space-y-2.5">
+              <div class="flex items-center justify-between text-[11px] font-mono text-yen">
+                <span class="text-cam font-semibold">Bứt Phá Tài Chính</span>
+                <span class="px-1.5 py-0.2 rounded bg-cam/20 text-cam font-bold">Buổi 6 / 6 · Trọng điểm</span>
+              </div>
+              <h3 class="text-base font-bold text-kem leading-snug">
+                Chữa bài 1-1 trên số liệu thật & Kế hoạch 90 ngày
+              </h3>
+              <ul class="text-xs text-yen space-y-1 pt-1 leading-relaxed">
+                <li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Mentor Trần Nam Hà trực tiếp mổ xẻ bảng số liệu thật và tháo gỡ điểm nghẽn.</span></li>
+                <li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Đóng gói kế hoạch hành động thịnh vượng cá nhân hóa cho từng học viên.</span></li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <div class="px-5 py-2.5 bg-nen-sau/50 border-t border-kem/10 flex items-center justify-between text-xs">
+              <button type="button" onclick="window.toggleLessonComplete('zoom-06', 'Buổi 06 · Bứt Phá Tài Chính')" id="btn-lesson-zoom-06" class="lesson-check-btn flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-kem/20 text-yen hover:text-cam hover:border-cam/40 transition-colors font-mono text-[11px] cursor-pointer">
+                <span id="lesson-icon-zoom-06">○</span>
+                <span id="lesson-label-zoom-06">Đánh dấu đã học</span>
+              </button>
+              <span id="lesson-status-zoom-06" class="font-mono text-[10px] text-yen/80">Chưa hoàn thành</span>
+            </div>
+            <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-kem/10 text-xs">
+              <a href="khoahoc?course=but-pha#but-pha-tai-chinh" class="text-cam hover:underline font-mono text-[11px] font-semibold flex items-center gap-1">
+                <span>Mở kho nội dung ↗</span>
+              </a>
+              <button type="button" onclick="window.playSampleVideo('Buổi 06 · Bứt Phá Tài Chính', '2 giờ 30 phút')" class="btn-p !py-1 !px-2.5 text-xs font-mono font-bold cursor-pointer">
+                Xem bản ghi ↗
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video 7: Bình Dân Học Vụ Tài Chính -->
         <div class="vid-card bg-abyssal border border-kem/20 rounded-xl overflow-hidden hover:border-cam/50 transition-all flex flex-col justify-between shadow-lg" data-category="binh-dan">
           <div>
-            <div class="relative aspect-video bg-nen-chan flex items-center justify-center group cursor-pointer" onclick="window.playSampleVideo('Chặng 02 · Bình Dân Học Vụ: Bảng cân đối tài sản và nợ ròng')">
-              <img src="anh/c02-hoc-vien-cafe.webp" alt="Học viên thảo luận và thực hành tài chính" width="825" height="1100" class="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity" />
+            <div class="relative aspect-video bg-nen-chan flex items-center justify-center group cursor-pointer" onclick="window.playSampleVideo('Chặng 02 · Bình Dân Học Vụ: Bảng cân đối tài sản và nợ ròng', '1 giờ 35 phút', ['Phân loại tài sản thanh khoản vs tiêu sản.', 'Chiến lược dập nợ xấu nhanh nhất.'], 'Bang_Can_Doi_Tai_San_NetWorth_TVS.xlsx')">
+              <img src="anh/c02-hoc-vien-cafe.webp" alt="Học viên thảo luận và thực hành tài chính" width="825" height="1100" class="w-full h-full object-cover opacity-75 group-hover:opacity-95 transition-opacity" />
               <div class="absolute inset-0 bg-gradient-to-t from-abyssal via-transparent to-transparent"></div>
               <div class="absolute w-12 h-12 rounded-full bg-cam text-abyssal flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                 <svg class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -1069,42 +1235,77 @@
             <div class="p-5 space-y-2.5">
               <div class="flex items-center justify-between text-[11px] font-mono text-yen">
                 <span class="text-cam font-semibold">Bình Dân Học Vụ</span>
-                <span>Chặng 2</span>
+                <span class="px-1.5 py-0.2 rounded bg-xanh/40 text-kem font-bold">Chặng 2</span>
               </div>
               <h3 class="text-base font-bold text-kem leading-snug">
                 Bảng cân đối tài sản & Nợ ròng (Net Worth Cá Nhân)
               </h3>
               <ul class="text-xs text-yen space-y-1 pt-1 leading-relaxed">
-                <li class="flex items-start gap-1.5">
-                  <span class="text-cam font-bold">•</span>
-                  <span>Bóc tách tài sản thanh khoản cao vs tiêu sản ngốn chi phí sinh hoạt.</span>
-                </li>
-                <li class="flex items-start gap-1.5">
-                  <span class="text-cam font-bold">•</span>
-                  <span>Lộ trình dập tắt các khoản nợ độc hại và bảo vệ số dư tài sản ròng.</span>
-                </li>
+                <li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Bóc tách tài sản thanh khoản cao vs tiêu sản ngốn chi phí sinh hoạt.</span></li>
+                <li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Lộ trình dập tắt các khoản nợ độc hại và bảo vệ số dư tài sản ròng.</span></li>
               </ul>
             </div>
           </div>
-          <div class="px-5 py-2.5 bg-nen-sau/50 border-t border-kem/10 flex items-center justify-between text-xs">
-            <button 
-              type="button" 
-              onclick="window.toggleLessonComplete('zoom-03', 'Chặng 02 · Bình Dân Học Vụ')" 
-              id="btn-lesson-zoom-03"
-              class="lesson-check-btn flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-kem/20 text-yen hover:text-cam hover:border-cam/40 transition-colors font-mono text-[11px] cursor-pointer"
-            >
-              <span id="lesson-icon-zoom-03">○</span>
-              <span id="lesson-label-zoom-03">Đánh dấu đã học</span>
-            </button>
-            <span id="lesson-status-zoom-03" class="font-mono text-[10px] text-yen/80">Chưa hoàn thành</span>
+          <div>
+            <div class="px-5 py-2.5 bg-nen-sau/50 border-t border-kem/10 flex items-center justify-between text-xs">
+              <button type="button" onclick="window.toggleLessonComplete('zoom-bd-02', 'Chặng 02 · Bình Dân Học Vụ')" id="btn-lesson-zoom-bd-02" class="lesson-check-btn flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-kem/20 text-yen hover:text-cam hover:border-cam/40 transition-colors font-mono text-[11px] cursor-pointer">
+                <span id="lesson-icon-zoom-bd-02">○</span>
+                <span id="lesson-label-zoom-bd-02">Đánh dấu đã học</span>
+              </button>
+              <span id="lesson-status-zoom-bd-02" class="font-mono text-[10px] text-yen/80">Chưa hoàn thành</span>
+            </div>
+            <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-kem/10 text-xs">
+              <a href="khoahoc" class="text-cam hover:underline font-mono text-[11px] font-semibold flex items-center gap-1">
+                <span>Mở kho nội dung ↗</span>
+              </a>
+              <button type="button" onclick="window.playSampleVideo('Chặng 02 · Bình Dân Học Vụ', '1 giờ 35 phút')" class="btn-p !py-1 !px-2.5 text-xs font-mono font-bold cursor-pointer">
+                Xem bản ghi ↗
+              </button>
+            </div>
           </div>
-          <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-kem/10 text-xs">
-            <button type="button" onclick="window.downloadTemplate('Bang_Can_Doi_Tai_San_NetWorth_TVS.xlsx')" class="text-yen hover:text-cam font-mono text-[11px] flex items-center gap-1 cursor-pointer">
-              <span>📥 Tải NetWorth.xlsx</span>
-            </button>
-            <button type="button" onclick="window.playSampleVideo('Chặng 02 · Bình Dân Học Vụ')" class="text-cam hover:underline font-semibold font-mono text-xs cursor-pointer">
-              Xem bản ghi ↗
-            </button>
+        </div>
+
+        <!-- Video 8: Hỏi đáp Q&A cùng Mentor -->
+        <div class="vid-card bg-abyssal border border-kem/20 rounded-xl overflow-hidden hover:border-cam/50 transition-all flex flex-col justify-between shadow-lg" data-category="qa">
+          <div>
+            <div class="relative aspect-video bg-nen-chan flex items-center justify-center group cursor-pointer" onclick="window.playSampleVideo('Phiên Q&A Đặc Biệt: Tháo gỡ nút thắt dòng tiền cùng Mentor Trần Nam Hà', '1 giờ 40 phút', ['Giải đáp các ca dòng tiền thực tế.', 'Kinh nghiệm xử lý khi bị đứt gãy thu nhập.'], 'Bang_Kiem_Ke_Dong_Tien_12_Thang_TVS.xlsx')">
+              <img src="anh/c05-nam-mic.webp" alt="Phiên Q&A cùng Mentor Trần Nam Hà" width="825" height="1100" class="w-full h-full object-cover opacity-75 group-hover:opacity-95 transition-opacity" />
+              <div class="absolute inset-0 bg-gradient-to-t from-abyssal via-transparent to-transparent"></div>
+              <div class="absolute w-12 h-12 rounded-full bg-cam text-abyssal flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                <svg class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-kem">1 giờ 40 phút</span>
+            </div>
+            <div class="p-5 space-y-2.5">
+              <div class="flex items-center justify-between text-[11px] font-mono text-yen">
+                <span class="text-cam font-semibold">Hỏi Đáp Chuyên Sâu</span>
+                <span class="px-1.5 py-0.2 rounded bg-kem/10 text-yen font-mono font-bold">Q&A Zoom</span>
+              </div>
+              <h3 class="text-base font-bold text-kem leading-snug">
+                Tháo gỡ nút thắt dòng tiền & Khôi phục thanh khoản cá nhân
+              </h3>
+              <ul class="text-xs text-yen space-y-1 pt-1 leading-relaxed">
+                <li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Giải đáp trực tiếp các tình huống khó khăn dòng tiền của học viên.</span></li>
+                <li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Lời khuyên thực chiến từ Mentor Trần Nam Hà để tái thiết kế tài chính.</span></li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <div class="px-5 py-2.5 bg-nen-sau/50 border-t border-kem/10 flex items-center justify-between text-xs">
+              <button type="button" onclick="window.toggleLessonComplete('zoom-qa-01', 'Phiên Q&A Đặc Biệt')" id="btn-lesson-zoom-qa-01" class="lesson-check-btn flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-kem/20 text-yen hover:text-cam hover:border-cam/40 transition-colors font-mono text-[11px] cursor-pointer">
+                <span id="lesson-icon-zoom-qa-01">○</span>
+                <span id="lesson-label-zoom-qa-01">Đánh dấu đã học</span>
+              </button>
+              <span id="lesson-status-zoom-qa-01" class="font-mono text-[10px] text-yen/80">Chưa hoàn thành</span>
+            </div>
+            <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-kem/10 text-xs">
+              <a href="khoahoc" class="text-cam hover:underline font-mono text-[11px] font-semibold flex items-center gap-1">
+                <span>Mở kho nội dung ↗</span>
+              </a>
+              <button type="button" onclick="window.playSampleVideo('Phiên Q&A Đặc Biệt cùng Mentor', '1 giờ 40 phút')" class="btn-p !py-1 !px-2.5 text-xs font-mono font-bold cursor-pointer">
+                Xem bản ghi ↗
+              </button>
+            </div>
           </div>
         </div>
 
@@ -1450,21 +1651,23 @@
 
     // Video Filter
     window.filterVideos = function(category) {
+      var cat = category || 'all';
       var cards = document.querySelectorAll('.vid-card');
       var buttons = document.querySelectorAll('.vid-tab-btn');
 
       buttons.forEach(function(btn) {
-        btn.classList.remove('bg-cam', 'text-abyssal');
-        btn.classList.add('bg-xanh/40', 'text-yen');
+        var match = btn.getAttribute('data-filter') === cat;
+        if (match) {
+          btn.classList.add('bg-cam', 'text-abyssal');
+          btn.classList.remove('bg-xanh/40', 'text-yen');
+        } else {
+          btn.classList.remove('bg-cam', 'text-abyssal');
+          btn.classList.add('bg-xanh/40', 'text-yen');
+        }
       });
 
-      if (event && event.currentTarget) {
-        event.currentTarget.classList.add('bg-cam', 'text-abyssal');
-        event.currentTarget.classList.remove('bg-xanh/40', 'text-yen');
-      }
-
       cards.forEach(function(card) {
-        if (category === 'all' || card.getAttribute('data-category') === category) {
+        if (cat === 'all' || card.getAttribute('data-category') === cat) {
           card.style.display = 'flex';
         } else {
           card.style.display = 'none';
@@ -2450,9 +2653,32 @@
       alert('Đang tải biểu mẫu chính thức: ' + fileName + '\nBiểu mẫu được cấp phép sử dụng độc quyền cho học viên Thịnh Vượng Số.');
     };
 
-    // Xem video
-    window.playSampleVideo = function(videoTitle) {
-      alert('Đang mở bản ghi Zoom: ' + videoTitle + '\nChất lượng: Full HD 1080p · Có phụ đề và mốc thời gian.');
+    // Xem video bản ghi bài giảng
+    window.playSampleVideo = function(videoTitle, duration, descList, xlsxFile) {
+      var modal = document.getElementById('video-player-modal');
+      var titleEl = document.getElementById('player-video-title');
+      var durEl = document.getElementById('player-video-duration');
+      var ctrlDurEl = document.getElementById('player-ctrl-duration');
+      var listEl = document.getElementById('player-highlights-list');
+
+      if (titleEl) titleEl.textContent = videoTitle || 'Bản Ghi Zoom Bứt Phá Tài Chính';
+      if (durEl) durEl.textContent = duration || '2 giờ 00 phút';
+      if (ctrlDurEl) ctrlDurEl.textContent = duration || '2:00:00';
+
+      if (listEl && Array.isArray(descList) && descList.length > 0) {
+        listEl.innerHTML = descList.map(function(d) {
+          return '<li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>' + d + '</span></li>';
+        }).join('');
+      } else if (listEl) {
+        listEl.innerHTML = '<li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Bản ghi trực tiếp cùng Mentor Trần Nam Hà kèm tài liệu bài tập số thật.</span></li>';
+      }
+
+      if (modal) modal.classList.remove('hidden');
+    };
+
+    window.closeVideoModal = function() {
+      var modal = document.getElementById('video-player-modal');
+      if (modal) modal.classList.add('hidden');
     };
 
     // Đồng bộ tiến độ từ khoahoc.html
@@ -2920,6 +3146,80 @@
         <button type="button" onclick="window.backToForgotStep1()" class="text-xs text-yen hover:text-cam font-mono transition-colors cursor-pointer">
           ← Nhập lại Email hoặc SĐT khác
         </button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ==================== MODAL XEM BẢN GHI ZOOM VIDEO THỰC CHIẾN ==================== -->
+  <div id="video-player-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-abyssal/90 backdrop-blur-md overflow-y-auto" role="dialog" aria-modal="true">
+    <div class="relative w-full max-w-4xl bg-nen-sau border-2 border-cam/40 rounded-2xl shadow-2xl overflow-hidden p-6 sm:p-8 space-y-5 my-8">
+      
+      <!-- Modal Header -->
+      <div class="flex items-start justify-between gap-4 border-b border-kem/15 pb-4">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-cam/20 border border-cam/40 text-cam font-mono text-[10px] font-bold uppercase">Bản Ghi Zoom Trực Tiếp · Full HD 1080p</span>
+            <span class="font-mono text-xs text-green-300 font-semibold">● Đang phát</span>
+          </div>
+          <h3 id="player-video-title" class="text-xl sm:text-2xl font-bold text-kem leading-snug">
+            Buổi 01 · Bứt Phá Tài Chính: Mổ xẻ bức tranh thu nhập và vá lỗ hổng rò rỉ
+          </h3>
+          <p class="text-xs text-yen font-mono">Giảng dạy: <strong class="text-kem">Mentor Trần Nam Hà</strong> · Thời lượng: <span id="player-video-duration" class="text-cam font-bold">1 giờ 52 phút</span></p>
+        </div>
+        <button type="button" onclick="window.closeVideoModal()" class="w-9 h-9 rounded-full bg-abyssal border border-kem/20 hover:border-cam text-yen hover:text-cam flex items-center justify-center text-lg transition-colors cursor-pointer shrink-0" aria-label="Đóng video">
+          ✕
+        </button>
+      </div>
+
+      <!-- Video Player Frame Screen -->
+      <div class="relative aspect-video rounded-xl overflow-hidden bg-black border border-kem/20 shadow-2xl flex items-center justify-center group">
+        <img id="player-video-cover" src="anh/c05-nam-mic.webp" alt="Video bài giảng" class="w-full h-full object-cover opacity-80" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40"></div>
+        
+        <!-- Center Animated Play Button -->
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-cam text-abyssal flex items-center justify-center shadow-2xl animate-pulse cursor-pointer hover:scale-105 transition-transform">
+            <svg class="w-8 h-8 ml-1 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+
+        <!-- Video Player Overlay Controls Bar -->
+        <div class="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black via-black/80 to-transparent space-y-2">
+          <div class="w-full bg-white/20 h-1.5 rounded-full overflow-hidden">
+            <div class="bg-cam h-full rounded-full" style="width: 35%"></div>
+          </div>
+          <div class="flex items-center justify-between text-xs text-kem font-mono pt-1">
+            <div class="flex items-center gap-3">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
+              <span>32:15 / <span id="player-ctrl-duration">1:52:00</span></span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="px-2 py-0.5 rounded bg-white/10 text-[10px]">1080p HD</span>
+              <span class="px-2 py-0.5 rounded bg-white/10 text-[10px]">Tốc độ: 1.0x</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Highlights & Actions -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center pt-2 border-t border-kem/10">
+        <div class="md:col-span-8 space-y-2">
+          <h4 class="text-xs uppercase font-mono tracking-wider text-cam font-bold">Nội Dung Trọng Tâm & Nhiệm Vụ Rèn Luyện:</h4>
+          <ul id="player-highlights-list" class="text-xs text-yen space-y-1 leading-relaxed">
+            <li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Mổ xẻ chính xác bức tranh thu nhập và bóc tách các rò rỉ dòng tiền âm thầm.</span></li>
+            <li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Thiết lập kỷ luật tài chính cá nhân và hoàn thành bảng tính số thật đính kèm.</span></li>
+          </ul>
+        </div>
+        <div class="md:col-span-4 flex flex-col gap-2">
+          <a href="khoahoc?course=but-pha#but-pha-tai-chinh" class="btn-p w-full justify-center text-xs !py-2.5 text-center font-bold">
+            <span>Mở Kho Bứt Phá Đầy Đủ ↗</span>
+          </a>
+          <button type="button" onclick="window.closeVideoModal()" class="btn-o w-full justify-center text-xs !py-2 text-center cursor-pointer">
+            <span>Đóng Trình Phát</span>
+          </button>
+        </div>
       </div>
 
     </div>

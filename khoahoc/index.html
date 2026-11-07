@@ -10,11 +10,16 @@
   <meta name="theme-color" content="#1B2632" />
   <meta name="author" content="Công ty TNHH Thịnh Vượng Số · Trần Nam Hà · Phan Trọng Quỳnh" />
 
-  <!-- Tự động chuyển hướng ngay sang Cổng Học Viên & Khu Học Tập Thịnh Vượng Số -->
+  <!-- Clean URL: Tự động loại bỏ đuôi .html trên thanh địa chỉ trình duyệt -->
   <script>
     (function () {
-      var target = 'khuhoctap' + window.location.search + window.location.hash;
-      window.location.replace(target);
+      if (window.location.pathname.endsWith('.html')) {
+        var cleanPath = window.location.pathname
+          .replace(/\/index\.html$/, '/')
+          .replace(/\.html$/, '');
+        if (!cleanPath) cleanPath = '/';
+        window.history.replaceState(null, '', cleanPath + window.location.search + window.location.hash);
+      }
     })();
   </script>
 
