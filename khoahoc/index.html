@@ -2947,125 +2947,129 @@
  </footer>
 
  
- <!-- ==================== COURSE VIDEO TRAILER MODAL ==================== -->
- <div id="course-trailer-modal" class="hidden fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
- <div class="bg-nen-sau border-2 border-cam/60 rounded-2xl max-w-3xl w-full p-4 sm:p-7 space-y-5 relative shadow-2xl overflow-hidden">
- 
- <!-- Close button -->
- <button type="button" onclick="window.closeCourseTrailer()" aria-label="Đóng video" class="absolute top-4 right-4 text-yen hover:text-cam p-2 rounded-full bg-black/60 border border-kem/20 z-20 transition-colors">
- <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
- </button>
+ <!-- ==================== COURSE VIDEO TRAILER MODAL (KHÔNG KỊCH KHUNG HÌNH, NÚT X CỐ ĐỊNH, HỖ TRỢ ESC & BẤM NỀN THOÁT) ==================== -->
+  <div id="course-trailer-modal" onclick="if(event.target === this) window.closeCourseTrailer()" class="hidden fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-2.5 sm:p-4 md:p-6 overflow-y-auto">
+    <div class="bg-nen-sau border-2 border-cam/60 rounded-2xl max-w-3xl w-full max-h-[92vh] flex flex-col relative shadow-2xl overflow-hidden my-auto animate-fade-in" onclick="event.stopPropagation()">
+      
+      <!-- STICKY TOP HEADER (LUÔN CỐ ĐỊNH Ở ĐỈNH, KHÔNG BAO GIỜ BỊ TRÔI MẤT NÚT X) -->
+      <div class="p-3.5 sm:p-5 border-b border-kem/15 flex items-start justify-between gap-3 bg-nen-sau/95 backdrop-blur-sm shrink-0 z-20">
+        <div class="space-y-1 min-w-0 pr-2">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="nhan text-cam border-cam/30 bg-cam/10 text-[10px] sm:text-xs">Bản ghi trực tiếp Zoom HD</span>
+            <span class="px-2 py-0.5 rounded bg-green-500/20 text-green-300 font-mono text-[10px] sm:text-[11px] border border-green-500/30">Full HD 1080p</span>
+            <span class="px-2 py-0.5 rounded bg-kem/10 text-yen font-mono text-[10px] sm:text-[11px] border border-kem/15">Xem trực tiếp trên web</span>
+          </div>
+          <h3 id="modal-video-title" class="text-base sm:text-xl font-bold text-kem leading-snug line-clamp-2">
+            Buổi 01 · Mổ Xẻ Bức Tranh Thu Nhập & Vá Lỗ Hổng Rò Rỉ Dòng Tiền
+          </h3>
+        </div>
 
- <!-- Header info -->
- <div class="space-y-1.5 pr-12">
- <div class="flex items-center gap-2 flex-wrap">
- <span class="nhan text-cam border-cam/30 bg-cam/10">Bản ghi trích đoạn Zoom trực tiếp</span>
- <span class="px-2 py-0.5 rounded bg-green-500/20 text-green-300 font-mono text-[11px] border border-green-500/30">Full HD 1080p</span>
- <span class="px-2 py-0.5 rounded bg-kem/10 text-yen font-mono text-[11px] border border-kem/15">Thời lượng xem trước: 04:32</span>
- </div>
- <h3 class="text-lg sm:text-2xl font-bold text-kem">
- Buổi 01: Mổ Xẻ Bức Tranh Thu Nhập & Vá Lỗ Hổng Dòng Tiền
- </h3>
- <p class="text-xs text-yen leading-relaxed">
- Mentor Trần Nam Hà trực tiếp dẫn dắt, chỉ rõ 3 nguyên nhân khiến người thu nhập cao vẫn không giữ được tiền và phương pháp cài đặt hệ thống tài chính tự động.
- </p>
- </div>
+        <!-- Nút Đóng X To, Rõ Ràng, Nổi Bật, Bấm Là Thoát Ngay -->
+        <button type="button" onclick="window.closeCourseTrailer()" aria-label="Đóng video" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-abyssal hover:bg-cam hover:text-abyssal border border-kem/30 hover:border-cam text-kem flex items-center justify-center transition-all shrink-0 cursor-pointer shadow-lg group" title="Đóng video (Phím ESC hoặc click ra ngoài)">
+          <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
 
- <!-- Video Simulated Player Screen -->
- <div class="relative aspect-video rounded-xl overflow-hidden bg-black border border-kem/20 shadow-2xl group select-none">
- <img id="trailer-video-poster" src="anh/c05-nam-mic.webp" alt="Video teaser Bứt Phá Tài Chính" class="w-full h-full object-cover opacity-85 transition-opacity duration-300" />
- <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/40"></div>
+      <!-- SCROLLABLE BODY CONTENT (CUỘN MƯỢT MÀ TRONG KHUNG 92VH) -->
+      <div class="p-3.5 sm:p-5 space-y-4 overflow-y-auto flex-1 overscroll-contain">
+        <p id="modal-video-desc" class="text-xs text-yen leading-relaxed">
+          Mentor Trần Nam Hà trực tiếp dẫn dắt, chỉ rõ các điểm mù trong dòng tiền và phương pháp cài đặt hệ thống tài chính tự động.
+        </p>
 
- <!-- Center Play / Playing indicator -->
- <div id="trailer-center-play" class="absolute inset-0 flex items-center justify-center cursor-pointer" onclick="window.toggleTrailerPlayback()">
- <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-cam text-abyssal flex items-center justify-center shadow-2xl transition-transform hover:scale-110">
- <svg id="trailer-play-icon" class="w-8 h-8 ml-1 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
- <svg id="trailer-pause-icon" class="w-8 h-8 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
- </div>
- </div>
+        <!-- Video Simulated Player Screen -->
+        <div class="relative aspect-video rounded-xl overflow-hidden bg-black border border-kem/20 shadow-2xl group select-none">
+          <img id="trailer-video-poster" src="anh/c05-nam-mic.webp" alt="Video bài học Thịnh Vượng Số" class="w-full h-full object-cover opacity-85 transition-opacity duration-300" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/40"></div>
 
- <!-- Top live badge -->
- <div class="absolute top-3 left-3 flex items-center gap-2 px-2.5 py-1 rounded bg-black/75 border border-kem/20 font-mono text-[11px] text-kem backdrop-blur-sm">
- <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
- <span>Phòng Zoom Thịnh Vượng Số Private · Giảng viên: Trần Nam Hà</span>
- </div>
+          <!-- Center Play / Playing indicator -->
+          <div id="trailer-center-play" class="absolute inset-0 flex items-center justify-center cursor-pointer" onclick="window.toggleTrailerPlayback()">
+            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-cam text-abyssal flex items-center justify-center shadow-2xl transition-transform hover:scale-110">
+              <svg id="trailer-play-icon" class="w-8 h-8 ml-1 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <svg id="trailer-pause-icon" class="w-8 h-8 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </div>
+          </div>
 
- <!-- Bottom controls bar -->
- <div class="absolute bottom-0 inset-x-0 p-3 sm:p-4 bg-gradient-to-t from-black/95 via-black/85 to-transparent space-y-2">
- <!-- Progress bar -->
- <div class="w-full h-2 rounded-full bg-kem/20 overflow-hidden cursor-pointer" onclick="window.seekTrailer(event)">
- <div id="trailer-progress-bar" class="h-full bg-cam rounded-full transition-all duration-300" style="width: 38%;"></div>
- </div>
- <div class="flex items-center justify-between text-[11px] font-mono text-yen">
- <div class="flex items-center gap-3">
- <button type="button" onclick="window.toggleTrailerPlayback()" class="text-kem hover:text-cam flex items-center gap-1 font-semibold">
- <span id="trailer-btn-label">Tạm dừng ⏸</span>
- </button>
- <span id="trailer-time-text" class="text-kem">01:42 / 04:32</span>
- </div>
- <div class="flex items-center gap-3">
- <span class="text-cam font-bold">1080p HD 60fps</span>
- <span class="text-kem">Zoom 2 Chiều</span>
- </div>
- </div>
- </div>
- </div>
+          <!-- Top live badge -->
+          <div class="absolute top-3 left-3 flex items-center gap-2 px-2.5 py-1 rounded bg-black/75 border border-kem/20 font-mono text-[11px] text-kem backdrop-blur-sm">
+            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+            <span>Phòng Zoom Thịnh Vượng Số Private · Giảng viên: Trần Nam Hà</span>
+          </div>
 
- <!-- Chapter Navigation Tabs -->
- <div class="space-y-2">
- <span class="font-mono text-xs uppercase text-cam font-semibold block">Mục lục các phân đoạn then chốt trong video:</span>
- <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
- <button type="button" class="trailer-chap-btn p-2.5 rounded-lg bg-abyssal border border-cam/50 text-kem flex items-center justify-between text-left hover:border-cam transition-colors" onclick="window.setTrailerChapter(0, '00:00 / 04:32', '0%')">
- <span class="font-medium">1. Vì sao kiếm 30-50tr vẫn hết sạch tiền?</span>
- <span class="font-mono text-cam text-[11px] font-bold">00:00</span>
- </button>
- <button type="button" class="trailer-chap-btn p-2.5 rounded-lg bg-abyssal border border-kem/15 text-yen flex items-center justify-between text-left hover:border-cam hover:text-kem transition-colors" onclick="window.setTrailerChapter(76, '01:16 / 04:32', '28%')">
- <span class="font-medium">2. 3 rò rỉ âm thầm lấy cắp 20% thu nhập</span>
- <span class="font-mono text-cam text-[11px] font-bold">01:16</span>
- </button>
- <button type="button" class="trailer-chap-btn p-2.5 rounded-lg bg-abyssal border border-kem/15 text-yen flex items-center justify-between text-left hover:border-cam hover:text-kem transition-colors" onclick="window.setTrailerChapter(161, '02:41 / 04:32', '60%')">
- <span class="font-medium">3. Mô hình 4 tài khoản tự động hóa dòng tiền</span>
- <span class="font-mono text-cam text-[11px] font-bold">02:41</span>
- </button>
- <button type="button" class="trailer-chap-btn p-2.5 rounded-lg bg-abyssal border border-kem/15 text-yen flex items-center justify-between text-left hover:border-cam hover:text-kem transition-colors" onclick="window.setTrailerChapter(226, '03:46 / 04:32', '83%')">
- <span class="font-medium">4. Lộ trình 6 tuần & Trọn bộ công cụ Excel TVS</span>
- <span class="font-mono text-cam text-[11px] font-bold">03:46</span>
- </button>
- </div>
- </div>
+          <!-- Bottom controls bar -->
+          <div class="absolute bottom-0 inset-x-0 p-3 sm:p-4 bg-gradient-to-t from-black/95 via-black/85 to-transparent space-y-2">
+            <!-- Progress bar -->
+            <div class="w-full h-2 rounded-full bg-kem/20 overflow-hidden cursor-pointer" onclick="window.seekTrailer(event)">
+              <div id="trailer-progress-bar" class="h-full bg-cam rounded-full transition-all duration-300" style="width: 38%;"></div>
+            </div>
+            <div class="flex items-center justify-between text-[11px] font-mono text-yen">
+              <div class="flex items-center gap-3">
+                <button type="button" onclick="window.toggleTrailerPlayback()" class="text-kem hover:text-cam flex items-center gap-1 font-semibold">
+                  <span id="trailer-btn-label">Tạm dừng ⏸</span>
+                </button>
+                <span id="trailer-time-text" class="text-kem">01:42 / 01:52:00</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-cam font-bold">1080p HD 60fps</span>
+                <span class="text-kem">Zoom 2 Chiều</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
- <!-- Key Insights Summary Box -->
- <div class="p-3.5 rounded-xl bg-nen-chan border border-kem/15 text-xs text-yen space-y-1.5">
- <div class="flex items-center gap-1.5 text-kem font-semibold font-mono text-[11px] uppercase text-cam">
- <span>💡 Điểm khác biệt lớn nhất của khóa học:</span>
- </div>
- <p class="leading-relaxed">
- Không dạy lý thuyết hàn lâm. Bạn được cấp quyền truy cập trọn bộ biểu mẫu Excel quản trị vốn độc quyền, thực hành ngay trên số tiền của bản thân và được Mentor Trần Nam Hà đối thoại trực tiếp trong phòng Zoom kín.
- </p>
- </div>
+        <!-- Chapter Navigation Tabs -->
+        <div class="space-y-2">
+          <span class="font-mono text-xs uppercase text-cam font-semibold block">Mục lục các phân đoạn then chốt trong video:</span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <button type="button" class="trailer-chap-btn p-2.5 rounded-lg bg-abyssal border border-cam/50 text-kem flex items-center justify-between text-left hover:border-cam transition-colors" onclick="window.setTrailerChapter(0, '00:00 / 01:52:00', '0%')">
+              <span class="font-medium">1. Vì sao kiếm 30-50tr vẫn hết sạch tiền?</span>
+              <span class="font-mono text-cam text-[11px] font-bold">00:00</span>
+            </button>
+            <button type="button" class="trailer-chap-btn p-2.5 rounded-lg bg-abyssal border border-kem/15 text-yen flex items-center justify-between text-left hover:border-cam hover:text-kem transition-colors" onclick="window.setTrailerChapter(76, '18:40 / 01:52:00', '16%')">
+              <span class="font-medium">2. 3 rò rỉ âm thầm lấy cắp 20% thu nhập</span>
+              <span class="font-mono text-cam text-[11px] font-bold">18:40</span>
+            </button>
+            <button type="button" class="trailer-chap-btn p-2.5 rounded-lg bg-abyssal border border-kem/15 text-yen flex items-center justify-between text-left hover:border-cam hover:text-kem transition-colors" onclick="window.setTrailerChapter(161, '45:15 / 01:52:00', '40%')">
+              <span class="font-medium">3. Mô hình 4 tài khoản tự động hóa dòng tiền</span>
+              <span class="font-mono text-cam text-[11px] font-bold">45:15</span>
+            </button>
+            <button type="button" class="trailer-chap-btn p-2.5 rounded-lg bg-abyssal border border-kem/15 text-yen flex items-center justify-between text-left hover:border-cam hover:text-kem transition-colors" onclick="window.setTrailerChapter(226, '01:12:00 / 01:52:00', '64%')">
+              <span class="font-medium">4. Hướng dẫn điền file Excel kiểm kê số thật</span>
+              <span class="font-mono text-cam text-[11px] font-bold">01:12:00</span>
+            </button>
+          </div>
+        </div>
 
- <!-- Modal Bottom Actions -->
- <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 border-t border-kem/10">
- <div class="text-xs text-yen">
- Học phí ưu đãi đợt này: <strong class="text-cam font-mono text-sm sm:text-base font-extrabold">2.990.000 đ</strong> <span class="text-[11px] line-through text-yen/80">9.900.000 đ</span>
- </div>
- <div class="flex items-center gap-2 w-full sm:w-auto">
- <button type="button" onclick="window.closeCourseTrailer(); window.openCheckoutModal('Bứt Phá Tài Chính · Mentor Trần Nam Hà', '2.990.000 đ')" class="btn-p !py-2.5 !px-5 text-xs font-mono uppercase tracking-wider font-bold w-full sm:w-auto justify-center shadow-lg">
- <span>Đăng ký tham gia ngay ↗</span>
- </button>
- <button type="button" onclick="window.closeCourseTrailer()" class="btn-o !py-2.5 !px-4 text-xs font-mono w-full sm:w-auto justify-center">
- <span>Đóng lại</span>
- </button>
- </div>
- </div>
+        <!-- Key Insights Summary Box -->
+        <div class="p-3.5 rounded-xl bg-nen-chan border border-kem/15 text-xs text-yen space-y-1.5">
+          <div class="flex items-center gap-1.5 text-kem font-semibold font-mono text-[11px] uppercase text-cam">
+            <span>💡 Điểm khác biệt lớn nhất của khóa học:</span>
+          </div>
+          <p class="leading-relaxed">
+            Không dạy lý thuyết hàn lâm. Bạn được cấp quyền truy cập trọn bộ biểu mẫu Excel quản trị vốn độc quyền, thực hành ngay trên số tiền của bản thân và được Mentor Trần Nam Hà đối thoại trực tiếp trong phòng Zoom kín.
+          </p>
+        </div>
+      </div>
 
- </div>
- </div>
+      <!-- STICKY BOTTOM FOOTER (LUÔN CỐ ĐỊNH Ở ĐÁY, CÓ NÚT ĐÓNG LẠI DỄ BẤM) -->
+      <div class="p-3.5 sm:p-4 bg-nen-chan/95 border-t border-kem/15 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0 z-20">
+        <div class="text-xs text-yen text-center sm:text-left">
+          Học phí ưu đãi đợt này: <strong class="text-cam font-mono text-sm sm:text-base font-extrabold">2.990.000 đ</strong> <span class="text-[11px] line-through text-yen/80">9.900.000 đ</span>
+        </div>
+        <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+          <button type="button" onclick="window.closeCourseTrailer()" class="btn-o !py-2.5 !px-5 text-xs font-mono w-full sm:w-auto justify-center hover:bg-red-500/20 hover:text-red-300 hover:border-red-500/40 cursor-pointer">
+            <span>Đóng lại ✕</span>
+          </button>
+          <button type="button" onclick="window.closeCourseTrailer(); window.openCheckoutModal('Bứt Phá Tài Chính · Mentor Trần Nam Hà', '2.990.000 đ')" class="btn-p !py-2.5 !px-5 text-xs font-mono uppercase tracking-wider font-bold w-full sm:w-auto justify-center shadow-lg">
+            <span>Đăng ký tham gia ngay ↗</span>
+          </button>
+        </div>
+      </div>
 
-
- <!-- ==================== QUICK CHECKOUT / ENROLLMENT MODAL WITH VIETQR ==================== -->
+    </div>
+  </div>
+<!-- ==================== QUICK CHECKOUT / ENROLLMENT MODAL WITH VIETQR ==================== -->
    <!-- ==================== LOCKED LESSON MODAL (POPUP BÀI HỌC ĐANG KHÓA) ==================== -->
-  <div id="locked-lesson-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+  <div id="locked-lesson-modal" onclick="if(event.target === this) window.closeLockedModal()" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-nen-sau border-2 border-amber-500/70 rounded-2xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl relative animate-fade-in">
       <button type="button" onclick="window.closeLockedModal()" aria-label="Đóng" class="absolute top-4 right-4 text-yen hover:text-cam p-1.5 rounded-full bg-black/40 border border-kem/20 transition-colors">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -3786,8 +3790,8 @@
   window.openLessonVideo = function(lessonIndex) {
     var data = LESSON_DATA[lessonIndex] || LESSON_DATA[1];
     var modal = document.getElementById('course-trailer-modal');
-    var titleEl = modal ? modal.querySelector('h3') : null;
-    var descEl = modal ? modal.querySelector('p.text-xs.text-yen') : null;
+    var titleEl = document.getElementById('modal-video-title') || (modal ? modal.querySelector('h3') : null);
+    var descEl = document.getElementById('modal-video-desc') || (modal ? modal.querySelector('p.text-xs.text-yen') : null);
     var timeTextEl = document.getElementById('trailer-time-text');
     var barEl = document.getElementById('trailer-progress-bar');
 
@@ -4238,7 +4242,18 @@
  }
 
  // Initialization
- document.addEventListener('DOMContentLoaded', function() {
+ 
+  // Global Escape key listener to close modals
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' || e.keyCode === 27) {
+      if (typeof window.closeCourseTrailer === 'function') window.closeCourseTrailer();
+      if (typeof window.closeLockedModal === 'function') window.closeLockedModal();
+      if (typeof window.closeCheckoutModal === 'function') window.closeCheckoutModal();
+      if (typeof window.closeCertificateModal === 'function') window.closeCertificateModal();
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
  var isLight = document.documentElement.classList.contains('theme-light');
  updateThemeUI(isLight);
  startCountdown();
