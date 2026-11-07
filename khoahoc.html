@@ -2835,7 +2835,7 @@
   </div>
 
   <div id="checkout-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
- <div class="bg-nen-sau border-2 border-cam/60 rounded-2xl max-w-xl w-full p-5 sm:p-7 space-y-5 relative shadow-2xl overflow-y-auto max-h-[92vh]">
+ <div class="bg-nen-sau border-2 border-cam/60 rounded-2xl max-w-2xl w-full p-4 sm:p-6 space-y-4 relative shadow-2xl overflow-y-auto max-h-[95vh]">
  
  <!-- Close button -->
  <button type="button" onclick="window.closeCheckoutModal()" aria-label="Đóng biểu mẫu" class="absolute top-4 right-4 text-yen hover:text-cam p-1.5 rounded-full bg-black/40 border border-kem/20 transition-colors z-10">
@@ -2843,7 +2843,7 @@
  </button>
 
  <!-- Stepper Indicator -->
- <div class="flex items-center justify-between border-b border-kem/15 pb-4">
+ <div class="flex items-center justify-between border-b border-kem/15 pb-3">
  <div class="flex items-center gap-2">
  <span id="step-badge-1" class="w-6 h-6 rounded-full bg-cam text-abyssal text-xs font-mono font-bold flex items-center justify-center">1</span>
  <span class="text-xs font-mono font-bold text-kem">Thông Tin Học Viên</span>
@@ -2905,64 +2905,63 @@
  </div>
 
  <!-- STEP 2: VIETQR INSTANT PAYMENT -->
- <div id="checkout-step-2" class="hidden space-y-5">
- <div class="flex items-center justify-between">
- <div>
- <span class="nhan text-cam border-cam/30 bg-cam/10 mb-1">Bước 2 · Chuyển khoản 24/7</span>
- <h3 class="text-xl font-bold text-kem">Quét Mã VietQR Napas Kích Hoạt Tức Thì</h3>
- </div>
- <button type="button" onclick="window.goToCheckoutStep1()" class="text-xs font-mono text-cam hover:underline">
- ← Sửa thông tin
- </button>
- </div>
+  <div id="checkout-step-2" class="hidden space-y-3.5">
+  <div class="flex items-center justify-between">
+  <div>
+  <span class="nhan text-cam border-cam/30 bg-cam/10 mb-0.5 text-[10px]">Bước 2 · Chuyển khoản 24/7</span>
+  <h3 class="text-base sm:text-lg font-bold text-kem">Quét Mã VietQR Napas Kích Hoạt Tức Thì</h3>
+  </div>
+  <button type="button" onclick="window.goToCheckoutStep1()" class="text-xs font-mono text-cam hover:underline flex items-center gap-1 cursor-pointer">
+  ← Sửa thông tin
+  </button>
+  </div>
 
- <!-- QR Display and Banking Info Grid -->
-  <div class="grid grid-cols-1 sm:grid-cols-12 gap-5 items-center bg-abyssal p-4 sm:p-5 rounded-xl border border-kem/20 shadow-inner">
+  <!-- QR Display and Banking Info Grid (Compact & Square View) -->
+  <div class="grid grid-cols-12 gap-2.5 sm:gap-4 items-center bg-abyssal p-2.5 sm:p-4 rounded-xl border border-kem/20 shadow-inner">
   
   <!-- Left: QR Code của Mentor Trần Nam Hà -->
-  <div class="sm:col-span-5 flex flex-col items-center justify-center p-3 bg-white rounded-xl shadow-lg border border-kem/15">
-  <img id="vietqr-image" src="anh/qr-tran-nam-ha.png" alt="Mã VietQR thanh toán MB Bank Trần Nam Hà" class="w-full max-w-[210px] h-auto object-contain rounded-lg" />
-  <span class="text-[11px] font-mono text-gray-700 mt-2 font-bold flex items-center gap-1">
-    <span>⚡</span> Quét Mã QR Tức Thì · Napas 24/7
+  <div class="col-span-5 sm:col-span-5 flex flex-col items-center justify-center p-1.5 sm:p-2.5 bg-white rounded-xl shadow-lg border border-kem/15">
+  <img id="vietqr-image" src="anh/qr-tran-nam-ha.png" alt="Mã VietQR thanh toán MB Bank Trần Nam Hà" class="w-full max-w-[130px] sm:max-w-[175px] h-auto object-contain rounded-md sm:rounded-lg" />
+  <span class="text-[9px] sm:text-[10px] font-mono text-gray-700 mt-1 font-bold flex items-center gap-1 text-center">
+    <span>⚡</span> Quét QR Tức Thì
   </span>
   </div>
 
   <!-- Right: Details with Copy Buttons -->
-  <div class="sm:col-span-7 space-y-3 text-xs font-mono">
+  <div class="col-span-7 sm:col-span-7 space-y-1 sm:space-y-2 text-[11px] sm:text-xs font-mono">
   <div>
-  <span class="text-yen text-[11px] block">Ngân hàng thụ hưởng:</span>
-  <strong class="text-kem text-sm sm:text-base block font-bold text-cam">MB Bank (Ngân hàng Quân Đội)</strong>
+  <span class="text-yen text-[9px] sm:text-[10px] block">Ngân hàng thụ hưởng:</span>
+  <strong class="text-kem text-xs sm:text-sm block font-bold text-cam leading-tight">MB Bank (Quân Đội)</strong>
   </div>
 
   <div>
-  <span class="text-yen text-[11px] block">Số tài khoản:</span>
-  <div class="flex items-center gap-2">
-  <strong class="text-cam text-base sm:text-lg font-bold tracking-wider">245612345678</strong>
-  <button type="button" onclick="window.copyTextToClipboard('245612345678', 'Đã sao chép số tài khoản MB Bank!')" class="px-2.5 py-1 rounded bg-kem/10 hover:bg-cam hover:text-abyssal text-[11px] text-kem border border-kem/20 transition-colors cursor-pointer shadow-sm">
+  <span class="text-yen text-[9px] sm:text-[10px] block">Số tài khoản:</span>
+  <div class="flex items-center gap-1.5 flex-wrap">
+  <strong class="text-cam text-xs sm:text-base font-bold tracking-wider">245612345678</strong>
+  <button type="button" onclick="window.copyTextToClipboard('245612345678', 'Đã sao chép số tài khoản MB Bank!')" class="px-1.5 py-0.5 rounded bg-kem/10 hover:bg-cam hover:text-abyssal text-[9px] sm:text-[10px] text-kem border border-kem/20 transition-colors cursor-pointer shadow-sm">
   Sao chép
   </button>
   </div>
   </div>
 
   <div>
-  <span class="text-yen text-[11px] block">Tên chủ tài khoản:</span>
-  <strong class="text-kem text-sm sm:text-base block font-bold uppercase tracking-wide">TRẦN NAM HÀ</strong>
-  <span class="text-[11px] text-yen/80 font-normal">TRAN NAM HA</span>
+  <span class="text-yen text-[9px] sm:text-[10px] block">Chủ tài khoản:</span>
+  <strong class="text-kem text-xs sm:text-sm block font-bold uppercase tracking-wide leading-tight">TRẦN NAM HÀ</strong>
   </div>
 
   <div>
-  <span class="text-yen text-[11px] block">Số tiền thanh toán:</span>
-  <div class="flex items-center gap-2">
-  <strong class="text-green-400 text-lg sm:text-xl font-bold">2.990.000 đ</strong>
-  <span class="text-xs text-yen line-through">9.900.000 đ</span>
+  <span class="text-yen text-[9px] sm:text-[10px] block">Số tiền:</span>
+  <div class="flex items-center gap-1.5">
+  <strong class="text-green-400 text-sm sm:text-lg font-bold">2.990.000 đ</strong>
+  <span class="text-[9px] sm:text-[10px] text-yen line-through">9.900.000 đ</span>
   </div>
   </div>
 
   <div>
-  <span class="text-yen text-[11px] block">Nội dung chuyển khoản:</span>
-  <div class="flex items-center gap-2 flex-wrap">
-  <strong id="transfer-memo" class="text-kem font-bold bg-nen-sau px-2.5 py-1 rounded border border-kem/20 text-xs sm:text-sm">BPTC 0981501865</strong>
-  <button type="button" onclick="window.copyMemoContent()" class="px-2.5 py-1 rounded bg-kem/10 hover:bg-cam hover:text-abyssal text-[11px] text-kem border border-kem/20 transition-colors cursor-pointer shadow-sm">
+  <span class="text-yen text-[9px] sm:text-[10px] block">Nội dung CK:</span>
+  <div class="flex items-center gap-1.5 flex-wrap">
+  <strong id="transfer-memo" class="text-kem font-bold bg-nen-sau px-1.5 py-0.5 rounded border border-kem/20 text-[11px] sm:text-xs">BPTC 0981501865</strong>
+  <button type="button" onclick="window.copyMemoContent()" class="px-1.5 py-0.5 rounded bg-kem/10 hover:bg-cam hover:text-abyssal text-[9px] sm:text-[10px] text-kem border border-kem/20 transition-colors cursor-pointer shadow-sm">
   Sao chép
   </button>
   </div>
@@ -2971,21 +2970,21 @@
 
   </div>
 
-  <!-- Instructions after transfer -->
- <div class="p-3.5 rounded-xl bg-nen-chan border border-kem/15 text-xs text-yen space-y-1.5">
- <p class="font-medium text-kem">Sau khi quét mã / chuyển khoản thành công:</p>
- <p>1. Hệ thống sẽ tự động gửi email xác nhận và kích hoạt tài khoản Khu Học Tập trong 5 - 15 phút.</p>
- <p>2. Bạn có thể chụp ảnh giao dịch gửi qua Zalo Hotline <strong class="text-cam">0981501865</strong> để được trợ giảng phê duyệt ngay lập tức.</p>
- </div>
+  <!-- Micro Notice Line -->
+  <div class="p-2 sm:p-2.5 rounded-lg bg-nen-chan/80 border border-kem/10 text-[11px] text-yen flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+  <span>⚡ Tự động kích hoạt tài khoản trong 5-15 phút sau khi chuyển khoản.</span>
+  <span>Zalo / Hotline: <strong class="text-cam font-mono">0981501865</strong></span>
+  </div>
 
- <div class="flex flex-col sm:flex-row items-center gap-3">
- <button type="button" onclick="window.confirmTransferCompleted()" class="btn-p w-full justify-center !py-3.5 text-xs sm:text-sm font-mono uppercase tracking-wider font-bold shadow-lg">
- <span>Tôi Đã Chuyển Khoản Thành Công ↗</span>
- </button>
- <a href="https://zalo.me/0981501865" target="_blank" rel="noopener noreferrer" class="btn-o w-full sm:w-auto justify-center !py-3 text-xs font-mono text-center shrink-0">
- <span>Zalo Hỗ Trợ: 0981501865</span>
- </a>
- </div>
+  <!-- Primary Action Buttons (Luôn hiển thị ngay trong khung không cần cuộn) -->
+  <div class="flex flex-col sm:flex-row items-center gap-2.5 pt-0.5">
+  <button type="button" onclick="window.confirmTransferCompleted()" class="btn-p w-full sm:flex-1 justify-center !py-3 text-xs sm:text-sm font-mono uppercase tracking-wider font-bold shadow-lg cursor-pointer">
+  <span>Tôi Đã Chuyển Khoản Thành Công ↗</span>
+  </button>
+  <a href="https://zalo.me/0981501865" target="_blank" rel="noopener noreferrer" class="btn-o w-full sm:w-auto justify-center !py-2.5 text-xs font-mono text-center shrink-0">
+  <span>Zalo Hỗ Trợ: 0981501865</span>
+  </a>
+  </div>
 
  <div id="enroll-success-msg" class="hidden p-4 rounded-xl bg-green-500/20 border border-green-500/40 text-green-300 text-xs sm:text-sm text-center space-y-2">
  <p class="font-bold text-base">🎉 Đã ghi nhận thông tin đăng ký!</p>
