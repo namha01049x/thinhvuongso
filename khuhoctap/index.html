@@ -2532,27 +2532,11 @@
         var nameEl = document.getElementById('reset-student-name');
         var phoneEl = document.getElementById('reset-student-phone');
         var emailEl = document.getElementById('reset-student-email');
-        var courseEl = document.getElementById('reset-student-course');
-        var previewEl = document.getElementById('reset-email-preview');
-        var btnGmail = document.getElementById('btn-open-gmail');
-
         var studentEmail = student.email || query;
         if (nameEl) nameEl.textContent = student.name || 'Học viên Thịnh Vượng Số';
         if (phoneEl) phoneEl.textContent = student.phone || student.id;
         if (emailEl) emailEl.textContent = studentEmail;
-        if (courseEl) courseEl.textContent = student.courseName || 'Bứt Phá Tài Chính';
-        if (previewEl) previewEl.textContent = studentEmail;
-
-        // Sinh token khôi phục và tạo link Gmail trực tiếp
-        var resetToken = Math.random().toString(36).substring(2, 8).toUpperCase();
-        var resetLink = window.location.origin + window.location.pathname + '?reset_email=' + encodeURIComponent(studentEmail) + '&token=' + resetToken;
-        
-        var mailSubject = encodeURIComponent('[Thịnh Vượng Số] Liên kết khôi phục mật khẩu học viên ' + (student.name || ''));
-        var mailBody = encodeURIComponent('Chào bạn ' + (student.name || '') + ',\n\nBạn vừa gửi yêu cầu khôi phục mật khẩu Khu Học Tập Thịnh Vượng Số.\n\nMã xác thực OTP của bạn là: ' + resetToken + '\n\nBấm vào liên kết sau để truy cập trực tiếp và đặt lại mật khẩu mới:\n' + resetLink + '\n\nTrân trọng,\nMentor Trần Nam Hà - Đội ngũ Thịnh Vượng Số');
-
-        if (btnGmail) {
-          btnGmail.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(studentEmail) + '&su=' + mailSubject + '&body=' + mailBody;
-        }
+        if (courseEl) courseEl.textContent = student.courseName || 'Khu Học Tập Thịnh Vượng Số';
 
         var newPinInp = document.getElementById('new-pin-input');
         if (newPinInp) setTimeout(function() { newPinInp.focus(); }, 150);
@@ -2639,7 +2623,7 @@
         if (msg) {
           msg.classList.remove('hidden', 'bg-red-900/40', 'text-red-200', 'border-red-500/50');
           msg.classList.add('bg-green-900/40', 'text-green-200', 'border', 'border-green-500/50');
-          msg.innerHTML = '<strong>Đổi mã PIN thành công!</strong> Đã cập nhật mật khẩu mới vào cơ sở dữ liệu và tự động đăng nhập hồ sơ học viên <strong>' + student.name + '</strong>. Bạn có thể bắt đầu học ngay bây giờ!';
+          msg.innerHTML = '<strong>Đổi mật khẩu thành công!</strong> Đã cập nhật mật khẩu mới vào cơ sở dữ liệu và tự động đăng nhập hồ sơ học viên <strong>' + student.name + '</strong>. Bạn có thể bắt đầu học ngay bây giờ!';
         }
 
         var target = document.getElementById('khoa-hoc');
@@ -2693,7 +2677,7 @@
           Lấy Lại Mã PIN / Mật Khẩu Học Viên
         </h3>
         <p class="text-xs text-yen leading-relaxed">
-          Hệ thống tự động tra cứu CSDL học viên, hỗ trợ gửi liên kết xác thực vào hộp thư Gmail và thiết lập mật khẩu mới ngay lập tức để không gián đoạn buổi học của bạn.
+          Hệ thống tự động tra cứu CSDL học viên và thiết lập mật khẩu mới ngay lập tức để không gián đoạn buổi học của bạn.
         </p>
       </div>
 
@@ -2752,37 +2736,19 @@
           <div class="space-y-1 text-xs text-kem font-mono border-t border-green-500/20 pt-2">
             <div>Học viên: <strong id="reset-student-name" class="text-cam">---</strong></div>
             <div>Số điện thoại: <strong id="reset-student-phone" class="text-kem">---</strong></div>
-            <div>Email nhận link: <strong id="reset-student-email" class="text-green-300">---</strong></div>
+            <div>Email học viên: <strong id="reset-student-email" class="text-green-300">---</strong></div>
             <div>Khóa học: <span id="reset-student-course" class="text-yen">---</span></div>
           </div>
-        </div>
-
-        <!-- Tiện ích Mở Gmail nhanh -->
-        <div class="p-3 rounded-xl bg-abyssal/90 border border-kem/20 flex items-center justify-between gap-3 text-xs">
-          <div>
-            <p class="font-bold text-kem text-xs">Nhận link đặt lại qua Gmail:</p>
-            <p class="text-yen text-[11px]">Đã tạo link khôi phục gửi tới <span id="reset-email-preview" class="text-cam font-mono"></span></p>
-          </div>
-          <a 
-            id="btn-open-gmail" 
-            href="#" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            class="shrink-0 px-3 py-1.5 rounded-lg bg-red-600/90 hover:bg-red-600 text-white font-bold font-mono text-xs transition-colors flex items-center gap-1.5 shadow-md cursor-pointer"
-          >
-            <span>📧</span>
-            <span>Mở Gmail</span>
-          </a>
         </div>
 
         <!-- Form đặt mã PIN mới ngay lập tức (Không cần chờ đợi) -->
         <form onsubmit="window.handleResetPinSubmit(event)" class="space-y-3 pt-1 border-t border-kem/15">
           <div class="space-y-1">
             <p class="font-bold text-kem text-xs uppercase tracking-wide text-cam">
-              ✨ Đặt lại Mã PIN / Mật khẩu mới để vào học ngay:
+              ✨ Đặt lại Mật khẩu mới để vào học ngay:
             </p>
             <p class="text-[11px] text-yen">
-              Nhập mã PIN mới (4 - 6 số) để cập nhật vào CSDL vĩnh viễn và đăng nhập trực tiếp.
+              Nhập mật khẩu mới (chữ, số hoặc ký tự tùy ý) để cập nhật vào CSDL vĩnh viễn và đăng nhập trực tiếp.
             </p>
           </div>
 
