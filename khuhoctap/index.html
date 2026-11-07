@@ -304,7 +304,7 @@
           <span id="header-theme-label" class="hidden md:inline font-mono text-[11px]">Nền sáng</span>
         </button>
 
-        <a href="#dang-nhap" class="btn-p !py-1.5 sm:!py-2 !px-3 sm:!px-3.5 text-xs font-mono uppercase tracking-wider">
+        <a href="#student-portal-hub" class="btn-p !py-1.5 sm:!py-2 !px-3 sm:!px-3.5 text-xs font-mono uppercase tracking-wider">
           <span>Vào học</span>
         </a>
 
@@ -341,7 +341,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
         
         <!-- Left: Value Prop & Introduction -->
-        <div class="lg:col-span-7 space-y-6">
+        <div class="lg:col-span-7 order-2 lg:order-1 space-y-6">
           <div class="nhan text-cam border-cam/30 bg-cam/10">
             <span class="w-1.5 h-1.5 rounded-full bg-cam animate-pulse"></span>
             Hệ thống đào tạo thực chiến · Khu Học Tập Thịnh Vượng Số
@@ -386,34 +386,34 @@
         </div>
 
         <!-- Right: Interactive Login, Register & Student Dashboard Card -->
-        <div class="lg:col-span-5">
+        <div class="lg:col-span-5 order-1 lg:order-2" id="student-portal-hub">
           <div class="bg-nen-sau border-2 border-cam/40 rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden">
             <div class="absolute -top-12 -right-12 w-36 h-36 bg-cam/10 rounded-full blur-2xl pointer-events-none"></div>
 
             <!-- Auth Container (Tab Toggle between Login and Register) -->
             <div id="student-auth-container" class="space-y-5">
               
-              <!-- Tab Switcher Header (To bản, nổi bật, 2 cột 50/50) -->
+              <!-- Tab Switcher Header (To bản, nổi bật, 2 cột 50/50 - Mặc định mở Đăng Ký Mới) -->
               <div class="space-y-2">
                 <div class="grid grid-cols-2 gap-2 p-1.5 rounded-xl bg-abyssal/95 border-2 border-kem/20 shadow-inner">
                   <button 
                     type="button" 
-                    id="tab-btn-login" 
-                    onclick="window.switchAuthTab('login')" 
-                    class="py-2.5 px-3 rounded-lg text-xs font-mono font-bold transition-all duration-200 bg-cam text-abyssal shadow-md cursor-pointer flex items-center justify-center gap-1.5"
-                  >
-                    <span>🔑</span>
-                    <span>Đăng Nhập</span>
-                  </button>
-                  <button 
-                    type="button" 
                     id="tab-btn-register" 
                     onclick="window.switchAuthTab('register')" 
-                    class="py-2.5 px-3 rounded-lg text-xs font-mono font-semibold text-yen hover:text-kem transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 relative"
+                    class="py-2.5 px-3 rounded-lg text-xs font-mono font-bold transition-all duration-200 bg-cam text-abyssal shadow-md cursor-pointer flex items-center justify-center gap-1.5 relative"
                   >
                     <span>✨</span>
                     <span>Đăng Ký Mới</span>
-                    <span class="w-2 h-2 rounded-full bg-cam animate-pulse"></span>
+                    <span class="w-2 h-2 rounded-full bg-abyssal animate-pulse"></span>
+                  </button>
+                  <button 
+                    type="button" 
+                    id="tab-btn-login" 
+                    onclick="window.switchAuthTab('login')" 
+                    class="py-2.5 px-3 rounded-lg text-xs font-mono font-semibold text-yen hover:text-kem transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5"
+                  >
+                    <span>🔑</span>
+                    <span>Đăng Nhập</span>
                   </button>
                 </div>
                 <div class="flex items-center justify-between px-1 text-[11px] font-mono text-yen">
@@ -425,8 +425,8 @@
                 </div>
               </div>
 
-              <!-- Form ĐĂNG NHẬP -->
-              <div id="student-login-box" class="space-y-4">
+              <!-- Form ĐĂNG NHẬP (Ẩn mặc định, mở khi bấm tab Đăng Nhập) -->
+              <div id="student-login-box" class="hidden space-y-4">
                 <div class="space-y-1">
                   <h2 class="text-lg sm:text-xl font-bold text-kem">Vào Khu Học Tập</h2>
                   <p class="text-xs text-yen leading-relaxed">
@@ -494,8 +494,8 @@
                 </div>
               </div>
 
-              <!-- Form ĐĂNG KÝ HỌC VIÊN MỚI -->
-              <div id="student-register-box" class="hidden space-y-4">
+              <!-- Form ĐĂNG KÝ HỌC VIÊN MỚI (Mặc định hiển thị) -->
+              <div id="student-register-box" class="space-y-4">
                 <div class="space-y-1">
                   <div class="flex items-center justify-between">
                     <h2 class="text-lg sm:text-xl font-bold text-kem flex items-center gap-2">
@@ -2203,12 +2203,18 @@
         return;
       }
 
-      var loginCard = document.getElementById('dang-nhap');
+      var loginCard = document.getElementById('student-portal-hub') || document.getElementById('dang-nhap');
       if (loginCard) loginCard.scrollIntoView({ behavior: 'smooth' });
+      var regName = document.getElementById('reg-name');
       var idInp = document.getElementById('student-identifier');
-      if (idInp) {
-        setTimeout(function() { idInp.focus(); }, 400);
-      }
+      setTimeout(function() {
+        var regBox = document.getElementById('student-register-box');
+        if (regBox && !regBox.classList.contains('hidden') && regName) {
+          regName.focus();
+        } else if (idInp) {
+          idInp.focus();
+        }
+      }, 400);
     };
 
     // Xem chi tiết chương trình
