@@ -1390,14 +1390,222 @@
  <span class="text-xs font-mono text-yen">6 Buổi · 18 Đầu việc · 12 Giờ đào tạo</span>
  </div>
 
- <div class="space-y-4">
+           <!-- BẢNG DANH MỤC BÀI HỌC CHUẨN LMS VỚI BIỂU TƯỢNG ĐÔI MẮT VÀ CÁI KHÓA (THEO MẪU REVIEWKHOAHOC.NET) -->
+          <div class="bg-nen-sau border-2 border-cam/30 rounded-2xl p-4 sm:p-6 space-y-4 shadow-xl mb-6">
+            <!-- Header danh mục bài học & Thanh công tắc trạng thái học viên -->
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pb-4 border-b border-kem/10">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-cam animate-ping"></span>
+                  <span class="font-mono text-xs uppercase tracking-wider text-cam font-bold">Danh Mục Bài Giảng & Video Bản Ghi Zoom HD (6 Buổi)</span>
+                </div>
+                <p class="text-xs text-yen mt-0.5">Phát video trực tiếp trên nền tảng Thịnh Vượng Số · Không bị chuyển trang ra ngoài YouTube</p>
+              </div>
+
+              <!-- Thanh chuyển đổi trạng thái Khóa / Mắt (Demo & Trải nghiệm thực tế) -->
+              <div class="flex items-center flex-wrap gap-2 text-xs font-mono bg-abyssal/90 p-1.5 rounded-xl border border-kem/15">
+                <span class="text-yen text-[11px] px-2 hidden sm:inline">Trạng thái:</span>
+                <button type="button" id="btn-status-unpaid" onclick="window.setCourseEnrollmentStatus(false)" class="px-2.5 py-1 rounded-lg border text-[11px] font-bold transition-all flex items-center gap-1.5 cursor-pointer bg-amber-500/20 text-amber-300 border-amber-500/50 shadow-sm" title="Chế độ khách: Bài 1 mở mắt, các bài sau bị khóa">
+                  <span>🔒 Chưa thanh toán</span>
+                </button>
+                <button type="button" id="btn-status-paid" onclick="window.setCourseEnrollmentStatus(true)" class="px-2.5 py-1 rounded-lg border text-[11px] font-bold transition-all flex items-center gap-1.5 cursor-pointer bg-transparent text-yen border-transparent hover:text-kem" title="Chế độ học viên: Toàn bộ bài học mở mắt">
+                  <span>👁️ Đã thanh toán</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Banner trạng thái thông tin -->
+            <div id="enrollment-status-alert" class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 transition-all">
+              <div class="flex items-start sm:items-center gap-2.5">
+                <span id="enrollment-alert-icon" class="text-lg shrink-0">💡</span>
+                <div class="space-y-0.5">
+                  <span id="enrollment-alert-title" class="font-bold text-amber-300 block sm:inline">Chế độ Khách (Chưa thanh toán):</span>
+                  <span id="enrollment-alert-desc">Buổi 1 mở học thử miễn phí (icon 👁️). Các buổi 2 đến 6 đang tạm khóa (icon 🔒).</span>
+                </div>
+              </div>
+              <button type="button" id="enrollment-alert-cta" onclick="window.openCheckoutModal('Bứt Phá Tài Chính · Mentor Trần Nam Hà', '2.990.000 đ')" class="btn-p !py-1.5 !px-3 text-xs font-mono uppercase tracking-wider font-bold shrink-0 self-start sm:self-auto shadow-md">
+                <span>Mở khóa toàn bộ ↗</span>
+              </button>
+            </div>
+
+            <!-- Danh sách 6 buổi học chuẩn LMS -->
+            <div class="space-y-2.5" id="lms-lesson-list">
+              <!-- Buổi 1: Luôn là icon Mắt (Học thử miễn phí) -->
+              <div class="lesson-row flex items-center justify-between p-3 sm:p-3.5 rounded-xl bg-abyssal/80 border border-kem/15 hover:border-cam/50 hover:bg-abyssal transition-all cursor-pointer group" onclick="window.handleLessonClick(1)">
+                <div class="flex items-center gap-3 min-w-0 pr-2">
+                  <div class="w-8 h-8 rounded-full bg-cam/20 border border-cam/40 text-cam flex items-center justify-center shrink-0 group-hover:bg-cam group-hover:text-abyssal transition-all shadow-sm">
+                    <svg class="w-3.5 h-3.5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                  <div class="space-y-0.5 min-w-0">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span class="text-xs sm:text-sm font-bold text-kem group-hover:text-cam transition-colors">
+                        Buổi 01 · Mổ Xẻ Bức Tranh Thu Nhập & Vá Lỗ Hổng Rò Rỉ Dòng Tiền
+                      </span>
+                      <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 shrink-0">
+                        👈 HỌC MIỄN PHÍ
+                      </span>
+                    </div>
+                    <div class="flex items-center flex-wrap gap-x-2 gap-y-0.5 text-[11px] font-mono text-yen">
+                      <span class="whitespace-nowrap">Thời lượng: 1h 52m</span>
+                      <span>·</span>
+                      <span class="text-green-400">Xem thử ngay không cần mật khẩu</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                  <span class="w-8 h-8 rounded-lg bg-green-500/15 border border-green-500/40 text-green-300 flex items-center justify-center text-sm shadow-sm group-hover:scale-110 transition-transform" title="Xem ngay bài học 1 miễn phí">
+                    👁️
+                  </span>
+                </div>
+              </div>
+
+              <!-- Buổi 2 -->
+              <div class="lesson-row flex items-center justify-between p-3 sm:p-3.5 rounded-xl bg-abyssal/60 border border-kem/10 hover:border-cam/50 hover:bg-abyssal transition-all cursor-pointer group" onclick="window.handleLessonClick(2)">
+                <div class="flex items-center gap-3 min-w-0 pr-2">
+                  <div class="w-8 h-8 rounded-full bg-kem/10 border border-kem/20 text-yen flex items-center justify-center shrink-0 group-hover:bg-cam group-hover:text-abyssal group-hover:border-cam transition-all shadow-sm">
+                    <svg class="w-3.5 h-3.5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                  <div class="space-y-0.5 min-w-0">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span class="text-xs sm:text-sm font-semibold text-kem group-hover:text-cam transition-colors">
+                        Buổi 02 · Tái Cấu Trúc Đòn Bẩy & Thiết Lập Trần Thu Nhập Cá Nhân
+                      </span>
+                    </div>
+                    <div class="flex items-center flex-wrap gap-x-2 gap-y-0.5 text-[11px] font-mono text-yen">
+                      <span class="whitespace-nowrap">Thời lượng: 2h 10m</span>
+                      <span>·</span>
+                      <span id="lesson-status-desc-2" class="text-yen">Cơ chế đòn bẩy an toàn & DTI</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                  <span id="lesson-icon-2" class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center justify-center text-sm shadow-sm transition-transform group-hover:scale-105" title="Khóa · Cần mở khóa">
+                    🔒
+                  </span>
+                </div>
+              </div>
+
+              <!-- Buổi 3 -->
+              <div class="lesson-row flex items-center justify-between p-3 sm:p-3.5 rounded-xl bg-abyssal/60 border border-kem/10 hover:border-cam/50 hover:bg-abyssal transition-all cursor-pointer group" onclick="window.handleLessonClick(3)">
+                <div class="flex items-center gap-3 min-w-0 pr-2">
+                  <div class="w-8 h-8 rounded-full bg-kem/10 border border-kem/20 text-yen flex items-center justify-center shrink-0 group-hover:bg-cam group-hover:text-abyssal group-hover:border-cam transition-all shadow-sm">
+                    <svg class="w-3.5 h-3.5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                  <div class="space-y-0.5 min-w-0">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span class="text-xs sm:text-sm font-semibold text-kem group-hover:text-cam transition-colors">
+                        Buổi 03 · Quy Hoạch Danh Mục Tài Sản Theo Khung 5 Lớp An Toàn
+                      </span>
+                    </div>
+                    <div class="flex items-center flex-wrap gap-x-2 gap-y-0.5 text-[11px] font-mono text-yen">
+                      <span class="whitespace-nowrap">Thời lượng: 2h 05m</span>
+                      <span>·</span>
+                      <span id="lesson-status-desc-3" class="text-yen">Phòng thủ sinh tồn & đầu tư</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                  <span id="lesson-icon-3" class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center justify-center text-sm shadow-sm transition-transform group-hover:scale-105" title="Khóa · Cần mở khóa">
+                    🔒
+                  </span>
+                </div>
+              </div>
+
+              <!-- Buổi 4 -->
+              <div class="lesson-row flex items-center justify-between p-3 sm:p-3.5 rounded-xl bg-abyssal/60 border border-kem/10 hover:border-cam/50 hover:bg-abyssal transition-all cursor-pointer group" onclick="window.handleLessonClick(4)">
+                <div class="flex items-center gap-3 min-w-0 pr-2">
+                  <div class="w-8 h-8 rounded-full bg-kem/10 border border-kem/20 text-yen flex items-center justify-center shrink-0 group-hover:bg-cam group-hover:text-abyssal group-hover:border-cam transition-all shadow-sm">
+                    <svg class="w-3.5 h-3.5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                  <div class="space-y-0.5 min-w-0">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span class="text-xs sm:text-sm font-semibold text-kem group-hover:text-cam transition-colors">
+                        Buổi 04 · Kỹ Thuật Tạo Lập Nguồn Thu Nhập Thứ Hai Không Cần Vốn Lớn
+                      </span>
+                    </div>
+                    <div class="flex items-center flex-wrap gap-x-2 gap-y-0.5 text-[11px] font-mono text-yen">
+                      <span class="whitespace-nowrap">Thời lượng: 1h 58m</span>
+                      <span>·</span>
+                      <span id="lesson-status-desc-4" class="text-yen">Đóng gói chuyên môn dịch vụ</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                  <span id="lesson-icon-4" class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center justify-center text-sm shadow-sm transition-transform group-hover:scale-105" title="Khóa · Cần mở khóa">
+                    🔒
+                  </span>
+                </div>
+              </div>
+
+              <!-- Buổi 5 -->
+              <div class="lesson-row flex items-center justify-between p-3 sm:p-3.5 rounded-xl bg-abyssal/60 border border-kem/10 hover:border-cam/50 hover:bg-abyssal transition-all cursor-pointer group" onclick="window.handleLessonClick(5)">
+                <div class="flex items-center gap-3 min-w-0 pr-2">
+                  <div class="w-8 h-8 rounded-full bg-kem/10 border border-kem/20 text-yen flex items-center justify-center shrink-0 group-hover:bg-cam group-hover:text-abyssal group-hover:border-cam transition-all shadow-sm">
+                    <svg class="w-3.5 h-3.5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                  <div class="space-y-0.5 min-w-0">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span class="text-xs sm:text-sm font-semibold text-kem group-hover:text-cam transition-colors">
+                        Buổi 05 · Quản Trị Tâm Lý Thị Trường & Bảo Vệ Vốn Trước Chu Kỳ Biến Động
+                      </span>
+                    </div>
+                    <div class="flex items-center flex-wrap gap-x-2 gap-y-0.5 text-[11px] font-mono text-yen">
+                      <span class="whitespace-nowrap">Thời lượng: 2h 15m</span>
+                      <span>·</span>
+                      <span id="lesson-status-desc-5" class="text-yen">Xóa bỏ FOMO & Bảo vệ tài sản</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                  <span id="lesson-icon-5" class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center justify-center text-sm shadow-sm transition-transform group-hover:scale-105" title="Khóa · Cần mở khóa">
+                    🔒
+                  </span>
+                </div>
+              </div>
+
+              <!-- Buổi 6 -->
+              <div class="lesson-row flex items-center justify-between p-3 sm:p-3.5 rounded-xl bg-abyssal/60 border border-kem/10 hover:border-cam/50 hover:bg-abyssal transition-all cursor-pointer group" onclick="window.handleLessonClick(6)">
+                <div class="flex items-center gap-3 min-w-0 pr-2">
+                  <div class="w-8 h-8 rounded-full bg-kem/10 border border-kem/20 text-yen flex items-center justify-center shrink-0 group-hover:bg-cam group-hover:text-abyssal group-hover:border-cam transition-all shadow-sm">
+                    <svg class="w-3.5 h-3.5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                  <div class="space-y-0.5 min-w-0">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span class="text-xs sm:text-sm font-semibold text-kem group-hover:text-cam transition-colors">
+                        Buổi 06 · Phiên Cố Vấn 1-1 & Thiết Kế Lộ Trình Tài Chính Cá Nhân Hóa 365 Ngày
+                      </span>
+                      <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cam/20 text-cam border border-cam/30 shrink-0">
+                        CỐ VẤN ĐỘC QUYỀN
+                      </span>
+                    </div>
+                    <div class="flex items-center flex-wrap gap-x-2 gap-y-0.5 text-[11px] font-mono text-yen">
+                      <span class="whitespace-nowrap">Thời lượng: 2h 30m</span>
+                      <span>·</span>
+                      <span id="lesson-status-desc-6" class="text-yen">Mentor Trần Nam Hà duyệt bài tập</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                  <span id="lesson-icon-6" class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center justify-center text-sm shadow-sm transition-transform group-hover:scale-105" title="Khóa · Cần mở khóa">
+                    🔒
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between text-[11px] font-mono text-yen pt-2 border-t border-kem/10">
+              <span>Nhấn vào từng buổi học để mở video trực tiếp trên web</span>
+              <span id="lesson-unlock-counter" class="text-cam font-bold">1 / 6 bài học đã mở</span>
+            </div>
+          </div>
+<div class="space-y-4">
  
  <!-- Module 1 -->
  <div id="module-box-1" class="bg-nen-sau border-2 border-green-500/40 rounded-xl overflow-hidden transition-all">
  <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-nen-chan/60 border-b border-kem/10">
  <div class="space-y-1">
  <div class="flex items-center gap-2">
- <span class="font-mono text-xs text-cam font-bold">BUỔI 01 · ZOOM TRỰC TIẾP</span>
+ <span class="font-mono text-xs text-cam font-bold">BUỔI 01 · ZOOM TRỰC TIẾP</span><span id="mod-icon-1" class="text-sm ml-1">👁️</span>
  <span id="mod-badge-1" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-green-500/20 text-green-400 border border-green-500/30">
  ✓ ĐÃ HOÀN THÀNH
  </span>
@@ -1435,7 +1643,7 @@
  <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-nen-chan/60 border-b border-kem/10">
  <div class="space-y-1">
  <div class="flex items-center gap-2">
- <span class="font-mono text-xs text-cam font-bold">BUỔI 02 · ZOOM TRỰC TIẾP</span>
+ <span class="font-mono text-xs text-cam font-bold">BUỔI 02 · ZOOM TRỰC TIẾP</span><span id="mod-icon-2" class="text-sm ml-1">🔒</span>
  <span id="mod-badge-2" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-green-500/20 text-green-400 border border-green-500/30">
  ✓ ĐÃ HOÀN THÀNH
  </span>
@@ -1473,7 +1681,7 @@
  <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-cam/10 border-b border-kem/10">
  <div class="space-y-1">
  <div class="flex items-center gap-2">
- <span class="font-mono text-xs text-cam font-bold">BUỔI 03 · ZOOM TRỰC TIẾP</span>
+ <span class="font-mono text-xs text-cam font-bold">BUỔI 03 · ZOOM TRỰC TIẾP</span><span id="mod-icon-3" class="text-sm ml-1">🔒</span>
  <span id="mod-badge-3" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cam/20 text-cam border border-cam/40">
  ⚡ ĐANG HỌC TIẾP
  </span>
@@ -1511,7 +1719,7 @@
  <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-nen-chan/50 border-b border-kem/10">
  <div class="space-y-1">
  <div class="flex items-center gap-2">
- <span class="font-mono text-xs text-cam font-bold">BUỔI 04 · ZOOM TRỰC TIẾP</span>
+ <span class="font-mono text-xs text-cam font-bold">BUỔI 04 · ZOOM TRỰC TIẾP</span><span id="mod-icon-4" class="text-sm ml-1">🔒</span>
  <span id="mod-badge-4" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-kem/10 text-yen border border-kem/20">
  CHƯA MỞ
  </span>
@@ -1549,7 +1757,7 @@
  <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-nen-chan/50 border-b border-kem/10">
  <div class="space-y-1">
  <div class="flex items-center gap-2">
- <span class="font-mono text-xs text-cam font-bold">BUỔI 05 · ZOOM TRỰC TIẾP</span>
+ <span class="font-mono text-xs text-cam font-bold">BUỔI 05 · ZOOM TRỰC TIẾP</span><span id="mod-icon-5" class="text-sm ml-1">🔒</span>
  <span id="mod-badge-5" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-kem/10 text-yen border border-kem/20">
  CHƯA MỞ
  </span>
@@ -1587,7 +1795,7 @@
  <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-cam/10 border-b border-kem/10">
  <div class="space-y-1">
  <div class="flex items-center gap-2">
- <span class="font-mono text-xs text-cam font-bold">BUỔI 06 · ZOOM KÍN ĐẶC BIỆT</span>
+ <span class="font-mono text-xs text-cam font-bold">BUỔI 06 · ZOOM KÍN ĐẶC BIỆT</span><span id="mod-icon-6" class="text-sm ml-1">🔒</span>
  <span id="mod-badge-6" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
  CỐ VẤN 1-1 & TỐT NGHIỆP 🎓
  </span>
@@ -2171,7 +2379,42 @@
 
 
  <!-- ==================== QUICK CHECKOUT / ENROLLMENT MODAL WITH VIETQR ==================== -->
- <div id="checkout-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+   <!-- ==================== LOCKED LESSON MODAL (POPUP BÀI HỌC ĐANG KHÓA) ==================== -->
+  <div id="locked-lesson-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-nen-sau border-2 border-amber-500/70 rounded-2xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl relative animate-fade-in">
+      <button type="button" onclick="window.closeLockedModal()" aria-label="Đóng" class="absolute top-4 right-4 text-yen hover:text-cam p-1.5 rounded-full bg-black/40 border border-kem/20 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <div class="w-16 h-16 rounded-full bg-amber-500/20 border-2 border-amber-500/50 text-amber-300 flex items-center justify-center text-3xl mx-auto shadow-lg">
+        🔒
+      </div>
+      <div>
+        <span class="nhan text-amber-300 border-amber-500/40 bg-amber-500/10 mb-1">Quyền truy cập bị khóa</span>
+        <h3 id="locked-modal-title" class="text-lg font-bold text-kem mt-1">Bài Học Này Đang Được Khóa</h3>
+        <p id="locked-modal-desc" class="text-xs text-yen mt-2 leading-relaxed">
+          Bài giảng này thuộc phạm vi chương trình chuyên sâu <strong>Bứt Phá Tài Chính</strong> cùng Mentor Trần Nam Hà. Vui lòng đăng ký tham gia để mở khóa toàn bộ 6 buổi học kèm kho biểu mẫu Excel số thật.
+        </p>
+      </div>
+      <div class="p-3.5 rounded-xl bg-abyssal border border-kem/15 text-xs text-yen space-y-1.5 text-left">
+        <div class="flex items-center justify-between text-kem font-semibold">
+          <span>Học phí ưu đãi đợt này:</span>
+          <span class="text-cam font-mono text-base font-bold">2.990.000 đ</span>
+        </div>
+        <div class="text-[11px] text-green-400 font-mono">✓ Kích hoạt tức thì qua mã VietQR Napas 24/7</div>
+        <div class="text-[11px] text-yen/80">✓ Hoàn phí 100% trong 14 ngày nếu không đúng cam kết</div>
+      </div>
+      <div class="space-y-2 pt-2">
+        <button type="button" onclick="window.closeLockedModal(); window.openCheckoutModal('Bứt Phá Tài Chính · Mentor Trần Nam Hà', '2.990.000 đ')" class="btn-p w-full justify-center !py-3 text-xs sm:text-sm font-mono uppercase tracking-wider font-bold shadow-lg">
+          <span>Mở Khóa Toàn Bộ Khóa Học Ngay ↗</span>
+        </button>
+        <button type="button" onclick="window.closeLockedModal(); window.openLessonVideo(1)" class="btn-o w-full justify-center !py-2.5 text-xs font-mono text-yen hover:text-kem">
+          <span>Học thử miễn phí Buổi 1 (1h 52m) 👁️</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="checkout-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
  <div class="bg-nen-sau border-2 border-cam/60 rounded-2xl max-w-xl w-full p-5 sm:p-7 space-y-5 relative shadow-2xl overflow-y-auto max-h-[92vh]">
  
  <!-- Close button -->
@@ -2572,7 +2815,271 @@
 
 
  
- // ==================== VIDEO TRAILER MODAL CONTROLS ====================
+ 
+  // ==================== LESSON CURRICULUM & ENROLLMENT STATE ENGINE ====================
+  var LESSON_DATA = {
+    1: {
+      title: 'Buổi 01 · Mổ Xẻ Bức Tranh Thu Nhập & Vá Lỗ Hổng Rò Rỉ Dòng Tiền',
+      timeText: '01:52:00',
+      durationLabel: '1h 52m',
+      badge: '👈 HỌC MIỄN PHÍ · FULL HD 1080P',
+      desc: 'Mentor Trần Nam Hà trực tiếp mổ xẻ 5 điểm mù trong dòng tiền cá nhân, hướng dẫn cài đặt bảng tính kiểm kê tài sản và xác định chính xác số tiền rò rỉ mỗi tháng.',
+      chapters: [
+        { title: '1. Vì sao kiếm 30-50tr vẫn hết sạch tiền?', time: '00:00' },
+        { title: '2. 3 lỗ rò rỉ âm thầm lấy cắp 20% thu nhập', time: '18:40' },
+        { title: '3. Mô hình 4 tài khoản tự động hóa dòng tiền', time: '45:15' },
+        { title: '4. Hướng dẫn điền file Excel kiểm kê số thật', time: '01:12:00' }
+      ]
+    },
+    2: {
+      title: 'Buổi 02 · Tái Cấu Trúc Đòn Bẩy & Thiết Lập Trần Thu Nhập Cá Nhân',
+      timeText: '02:10:00',
+      durationLabel: '2h 10m',
+      badge: 'CHUYÊN SÂU · BẢN GHI ZOOM HD',
+      desc: 'Phân loại nợ tốt và nợ xấu, cơ cấu lại kỳ hạn trả nợ an toàn, và xây dựng lộ trình nâng giá trị giờ làm việc từ chuyên môn cốt lõi.',
+      chapters: [
+        { title: '1. Bản chất của đòn bẩy tài chính và rủi ro DTI', time: '00:00' },
+        { title: '2. Chiến lược đảo nợ và hạ chi phí lãi vay', time: '35:20' },
+        { title: '3. Công thức x2 giá trị một giờ làm việc', time: '01:15:30' }
+      ]
+    },
+    3: {
+      title: 'Buổi 03 · Quy Hoạch Danh Mục Tài Sản Theo Khung 5 Lớp An Toàn',
+      timeText: '02:05:00',
+      durationLabel: '2h 05m',
+      badge: 'CHUYÊN SÂU · BẢN GHI ZOOM HD',
+      desc: 'Hiểu sâu Khung 5 lớp tài sản Thịnh Vượng Số, xây dựng lớp phòng thủ sinh tồn trước khi đầu tư tăng trưởng, tránh bẫy đóng băng tài sản.',
+      chapters: [
+        { title: '1. Cấu trúc 5 lớp tài sản phòng thủ và tấn công', time: '00:00' },
+        { title: '2. Cách phân bổ tỷ trọng theo độ tuổi và thu nhập', time: '42:10' },
+        { title: '3. Tránh bẫy thanh khoản trong thị trường biến động', time: '01:28:40' }
+      ]
+    },
+    4: {
+      title: 'Buổi 04 · Kỹ Thuật Tạo Lập Nguồn Thu Nhập Thứ Hai Không Cần Vốn Lớn',
+      timeText: '01:58:00',
+      durationLabel: '1h 58m',
+      badge: 'CHUYÊN SÂU · BẢN GHI ZOOM HD',
+      desc: 'Phương pháp đóng gói chuyên môn cá nhân thành dịch vụ tư vấn và sản phẩm giá trị gia tăng, tạo dòng tiền phụ thứ hai bền vững.',
+      chapters: [
+        { title: '1. Khai thác tài sản vô hình và kinh nghiệm bản thân', time: '00:00' },
+        { title: '2. Quy trình đóng gói dịch vụ 3 bước thực chiến', time: '38:00' },
+        { title: '3. Tìm kiếm 5 khách hàng trả phí đầu tiên', time: '01:14:20' }
+      ]
+    },
+    5: {
+      title: 'Buổi 05 · Quản Trị Tâm Lý Thị Trường & Bảo Vệ Vốn Trước Chu Kỳ Biến Động',
+      timeText: '02:15:00',
+      durationLabel: '2h 15m',
+      badge: 'CHUYÊN SÂU · BẢN GHI ZOOM HD',
+      desc: 'Xóa bỏ tâm lý FOMO đám đông, xây dựng hệ thống phòng thủ tài chính vững vàng trước chu kỳ suy thoái và lạm phát.',
+      chapters: [
+        { title: '1. Tâm lý học hành vi trong quyết định tài chính', time: '00:00' },
+        { title: '2. Nhận diện các bẫy đầu tư siêu lợi nhuận ảo', time: '44:15' },
+        { title: '3. Kịch bản dự phòng 6 tháng sinh hoạt phí gia đình', time: '01:30:00' }
+      ]
+    },
+    6: {
+      title: 'Buổi 06 · Phiên Cố Vấn 1-1 & Thiết Kế Lộ Trình Tài Chính Cá Nhân Hóa 365 Ngày',
+      timeText: '02:30:00',
+      durationLabel: '2h 30m',
+      badge: 'CỐ VẤN KÍN 1-1 · TRẦN NAM HÀ',
+      desc: 'Mentor Trần Nam Hà trực tiếp mổ xẻ bài tập số thật của từng học viên trong phòng Zoom kín và trao kế hoạch hành động 365 ngày.',
+      chapters: [
+        { title: '1. Phiên chữa bài tập bảng cân đối số thật', time: '00:00' },
+        { title: '2. Chỉnh sửa lộ trình cá nhân hóa cho từng hoàn cảnh', time: '52:10' },
+        { title: '3. Lời khuyên định hướng dài hạn 365 ngày', time: '01:45:00' }
+      ]
+    }
+  };
+
+  var COURSE_ENROLLED_KEY = 'tvs_course_enrolled_butpha';
+  var isCourseEnrolled = false;
+
+  // Initialize enrollment state from localStorage
+  try {
+    var savedEnroll = localStorage.getItem(COURSE_ENROLLED_KEY);
+    if (savedEnroll === 'true') {
+      isCourseEnrolled = true;
+    }
+  } catch(e) {}
+
+  window.setCourseEnrollmentStatus = function(isPaid, silent) {
+    isCourseEnrolled = !!isPaid;
+    try {
+      localStorage.setItem(COURSE_ENROLLED_KEY, isCourseEnrolled ? 'true' : 'false');
+    } catch(e) {}
+
+    // Update Toggle Buttons
+    var btnUnpaid = document.getElementById('btn-status-unpaid');
+    var btnPaid = document.getElementById('btn-status-paid');
+    if (btnUnpaid && btnPaid) {
+      if (isCourseEnrolled) {
+        btnPaid.className = 'px-2.5 py-1 rounded-lg border text-[11px] font-bold transition-all flex items-center gap-1.5 cursor-pointer bg-cam text-abyssal border-cam shadow-sm';
+        btnUnpaid.className = 'px-2.5 py-1 rounded-lg border text-[11px] font-bold transition-all flex items-center gap-1.5 cursor-pointer bg-transparent text-yen border-transparent hover:text-kem';
+      } else {
+        btnUnpaid.className = 'px-2.5 py-1 rounded-lg border text-[11px] font-bold transition-all flex items-center gap-1.5 cursor-pointer bg-amber-500/20 text-amber-300 border-amber-500/50 shadow-sm';
+        btnPaid.className = 'px-2.5 py-1 rounded-lg border text-[11px] font-bold transition-all flex items-center gap-1.5 cursor-pointer bg-transparent text-yen border-transparent hover:text-kem';
+      }
+    }
+
+    // Update Alert Banner
+    var alertBox = document.getElementById('enrollment-status-alert');
+    var alertIcon = document.getElementById('enrollment-alert-icon');
+    var alertTitle = document.getElementById('enrollment-alert-title');
+    var alertDesc = document.getElementById('enrollment-alert-desc');
+    var alertCta = document.getElementById('enrollment-alert-cta');
+    var counter = document.getElementById('lesson-unlock-counter');
+
+    if (alertBox && alertTitle && alertDesc) {
+      if (isCourseEnrolled) {
+        alertBox.className = 'p-3.5 rounded-xl bg-green-500/10 border border-green-500/30 text-xs text-green-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 transition-all';
+        if (alertIcon) alertIcon.textContent = '🎉';
+        alertTitle.className = 'font-bold text-green-300 block sm:inline';
+        alertTitle.textContent = 'Trạng thái: Học viên VIP (Đã kích hoạt):';
+        alertDesc.textContent = ' Toàn bộ 6 buổi học đã được mở khóa (icon 👁️). Bạn có thể bấm vào bất kỳ buổi nào để xem video trực tiếp.';
+        if (alertCta) {
+          alertCta.innerHTML = '<span>Vào học Buổi 1 ↗</span>';
+          alertCta.onclick = function() { window.openLessonVideo(1); };
+        }
+        if (counter) counter.textContent = '6 / 6 bài học đã mở';
+      } else {
+        alertBox.className = 'p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 transition-all';
+        if (alertIcon) alertIcon.textContent = '💡';
+        alertTitle.className = 'font-bold text-amber-300 block sm:inline';
+        alertTitle.textContent = 'Chế độ Khách (Chưa thanh toán):';
+        alertDesc.textContent = ' Buổi 1 mở học thử miễn phí (icon 👁️). Các buổi 2 đến 6 đang tạm khóa (icon 🔒).';
+        if (alertCta) {
+          alertCta.innerHTML = '<span>Mở khóa toàn bộ ↗</span>';
+          alertCta.onclick = function() { window.openCheckoutModal('Bứt Phá Tài Chính · Mentor Trần Nam Hà', '2.990.000 đ'); };
+        }
+        if (counter) counter.textContent = '1 / 6 bài học đã mở';
+      }
+    }
+
+    // Update Icons for lessons 2 through 6
+    for (var i = 2; i <= 6; i++) {
+      var iconEl = document.getElementById('lesson-icon-' + i);
+      var descEl = document.getElementById('lesson-status-desc-' + i);
+      var modIcon = document.getElementById('mod-icon-' + i);
+
+      if (iconEl) {
+        if (isCourseEnrolled) {
+          iconEl.textContent = '👁️';
+          iconEl.className = 'w-8 h-8 rounded-lg bg-blue-500/15 border border-blue-500/40 text-blue-300 flex items-center justify-center text-sm shadow-sm transition-transform group-hover:scale-110';
+          iconEl.title = 'Mở xem video bài học ' + i;
+        } else {
+          iconEl.textContent = '🔒';
+          iconEl.className = 'w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center justify-center text-sm shadow-sm transition-transform group-hover:scale-105';
+          iconEl.title = 'Khóa · Cần đăng ký để mở';
+        }
+      }
+
+      if (descEl) {
+        if (isCourseEnrolled) {
+          descEl.className = 'text-green-400 font-medium';
+          descEl.textContent = '✓ Đã mở khóa · Bấm để xem video';
+        } else {
+          descEl.className = 'text-yen';
+          if (i === 2) descEl.textContent = 'Cơ chế đòn bẩy an toàn & DTI';
+          if (i === 3) descEl.textContent = 'Phòng thủ sinh tồn & đầu tư';
+          if (i === 4) descEl.textContent = 'Đóng gói chuyên môn dịch vụ';
+          if (i === 5) descEl.textContent = 'Xóa bỏ FOMO & Bảo vệ tài sản';
+          if (i === 6) descEl.textContent = 'Mentor Trần Nam Hà duyệt bài tập';
+        }
+      }
+
+      if (modIcon) {
+        modIcon.textContent = isCourseEnrolled ? '👁️' : '🔒';
+        modIcon.className = isCourseEnrolled ? 'text-sm ml-1 text-blue-400' : 'text-sm ml-1 text-amber-300';
+      }
+    }
+
+    if (!silent) {
+      if (isCourseEnrolled) {
+        showToast('🎉 Đã kích hoạt trạng thái Học viên: Toàn bộ bài học mở icon Đôi mắt 👁️');
+      } else {
+        showToast('🔒 Đã chuyển sang trạng thái Khách: Các bài 2 - 6 hiện icon Cái khóa 🔒');
+      }
+    }
+  };
+
+  // Handle click on a lesson item
+  window.handleLessonClick = function(lessonIndex) {
+    if (lessonIndex === 1 || isCourseEnrolled) {
+      window.openLessonVideo(lessonIndex);
+    } else {
+      window.showLockedLessonModal(lessonIndex);
+    }
+  };
+
+  // Show locked lesson modal
+  window.showLockedLessonModal = function(lessonIndex) {
+    var data = LESSON_DATA[lessonIndex] || {};
+    var modal = document.getElementById('locked-lesson-modal');
+    var titleEl = document.getElementById('locked-modal-title');
+    var descEl = document.getElementById('locked-modal-desc');
+
+    if (titleEl) {
+      titleEl.textContent = (data.title || ('Buổi 0' + lessonIndex)) + ' đang tạm khóa';
+    }
+    if (descEl && data.desc) {
+      descEl.textContent = data.desc + ' Bạn vui lòng đăng ký để mở khóa toàn bộ video HD và file Excel số thật của buổi này.';
+    }
+
+    if (modal) {
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  window.closeLockedModal = function() {
+    var modal = document.getElementById('locked-lesson-modal');
+    if (modal) {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+  };
+
+  // Open Lesson Video Player (Embedded In-Page, never jumps out to YouTube)
+  window.openLessonVideo = function(lessonIndex) {
+    var data = LESSON_DATA[lessonIndex] || LESSON_DATA[1];
+    var modal = document.getElementById('course-trailer-modal');
+    var titleEl = modal ? modal.querySelector('h3') : null;
+    var descEl = modal ? modal.querySelector('p.text-xs.text-yen') : null;
+    var timeTextEl = document.getElementById('trailer-time-text');
+    var barEl = document.getElementById('trailer-progress-bar');
+
+    if (titleEl) titleEl.textContent = data.title;
+    if (descEl) descEl.textContent = data.desc;
+    if (timeTextEl) timeTextEl.textContent = '00:00 / ' + (data.timeText || '01:52:00');
+    if (barEl) barEl.style.width = '0%';
+
+    // Populate chapters if chapter container exists
+    var chapButtons = modal ? modal.querySelectorAll('.trailer-chap-btn') : [];
+    if (data.chapters && chapButtons.length > 0) {
+      for (var c = 0; c < chapButtons.length; c++) {
+        var ch = data.chapters[c];
+        if (ch) {
+          var titleSpan = chapButtons[c].querySelector('span.font-medium');
+          var timeSpan = chapButtons[c].querySelector('span.font-mono');
+          if (titleSpan) titleSpan.textContent = ch.title;
+          if (timeSpan) timeSpan.textContent = ch.time;
+          chapButtons[c].style.display = 'flex';
+        } else {
+          chapButtons[c].style.display = 'none';
+        }
+      }
+    }
+
+    if (modal) {
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    showToast('Đang phát trực tiếp ' + (data.title || 'bài học') + ' trên trang');
+  };
+
+  // ==================== VIDEO TRAILER MODAL CONTROLS ====================
  var trailerIsPlaying = true;
  window.playCourseTrailer = function() {
  var modal = document.getElementById('course-trailer-modal');
