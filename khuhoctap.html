@@ -452,23 +452,38 @@
                         id="student-identifier" 
                         name="student_id" 
                         required 
-                        placeholder="Nhập SĐT (VD: 0981501865) hoặc Họ tên..."
+                        oninput="window.clearLoginError()"
+                        placeholder="Nhập SĐT (VD: 0981501865), Họ tên hoặc Email..."
                         class="w-full px-3.5 py-2.5 rounded-xl bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none font-mono text-xs sm:text-sm transition-colors"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label for="student-passcode" class="block font-mono text-xs uppercase tracking-wider text-yen mb-1 font-medium">
-                      Mã PIN / Mật khẩu truy cập (nếu có):
-                    </label>
+                    <div class="flex items-center justify-between mb-1">
+                      <label for="student-passcode" class="block font-mono text-xs uppercase tracking-wider text-yen font-medium">
+                        Mật khẩu truy cập *
+                      </label>
+                      <button type="button" onclick="window.openForgotPasswordModal()" class="text-cam hover:underline cursor-pointer font-medium text-xs">Quên mật khẩu?</button>
+                    </div>
                     <input 
                       type="password" 
                       id="student-passcode" 
                       name="passcode" 
-                      placeholder="Nhập mã PIN hoặc để trống nếu truy cập nhanh"
+                      required
+                      oninput="window.clearLoginError()"
+                      placeholder="Nhập mật khẩu tài khoản của bạn..."
                       class="w-full px-3.5 py-2.5 rounded-xl bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none font-mono text-xs sm:text-sm transition-colors"
                     />
+                  </div>
+
+                  <!-- Hộp cảnh báo lỗi đăng nhập (Sai mật khẩu hoặc sai tài khoản) -->
+                  <div id="login-error-msg" class="hidden p-3 rounded-xl bg-red-950/95 border-2 border-red-500 text-red-200 text-xs leading-relaxed space-y-1 shadow-lg animate-pulse">
+                    <div class="flex items-center gap-1.5 font-bold text-red-400">
+                      <span>⚠️</span>
+                      <span class="uppercase tracking-wider">ĐĂNG NHẬP KHÔNG THÀNH CÔNG:</span>
+                    </div>
+                    <p id="login-error-text" class="text-xs pl-5 font-medium"></p>
                   </div>
 
                   <div class="flex items-center justify-between text-xs text-yen pt-0.5">
@@ -476,7 +491,7 @@
                       <input type="checkbox" id="remember-me" checked class="rounded border-kem/30 text-cam focus:ring-cam accent-cam" />
                       <span>Ghi nhớ phiên học vĩnh viễn</span>
                     </label>
-                    <button type="button" onclick="window.openForgotPasswordModal()" class="text-cam hover:underline cursor-pointer font-medium text-xs">Quên mã học viên?</button>
+                    <span class="text-[11px] text-yen/80 font-mono">Bảo mật đa tầng TVS</span>
                   </div>
 
                   <div class="pt-1 space-y-2.5">
@@ -562,31 +577,18 @@
                     </div>
                   </div>
 
-                  <!-- Bước 3: Khóa học & PIN -->
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                      <label for="reg-course" class="block font-mono text-xs uppercase tracking-wider text-yen mb-1 font-medium">
-                        Khóa học tham gia *
-                      </label>
-                      <select id="reg-course" required class="w-full px-2.5 py-2 rounded-xl bg-abyssal border border-kem/20 text-kem text-xs focus:border-cam focus:outline-none">
-                        <option value="but-pha">Bứt Phá Tài Chính (Mentor Trần Nam Hà)</option>
-                        <option value="binh-dan">Bình Dân Học Vụ Tài Chính</option>
-                        <option value="tinh-hoa">Tinh Hoa Thịnh Vượng</option>
-                        <option value="all">Trọn bộ 3 Tầng Thực Chiến</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label for="reg-pin" class="block font-mono text-xs uppercase tracking-wider text-yen mb-1 font-medium">
-                        Mật khẩu truy cập (chữ, số hoặc ký tự tùy ý) *
-                      </label>
-                      <input 
-                        type="password" 
-                        id="reg-pin" 
-                        required 
-                        placeholder="Nhập mật khẩu (tùy ý chữ, số hoặc ký tự...)"
-                        class="w-full px-3 py-2 rounded-xl bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none font-mono text-xs transition-colors"
-                      />
-                    </div>
+                  <!-- Bước 3: Mật khẩu truy cập -->
+                  <div>
+                    <label for="reg-pin" class="block font-mono text-xs uppercase tracking-wider text-yen mb-1 font-medium">
+                      Mật khẩu truy cập (chữ, số hoặc ký tự tùy ý) *
+                    </label>
+                    <input 
+                      type="password" 
+                      id="reg-pin" 
+                      required 
+                      placeholder="Nhập mật khẩu (tùy ý chữ, số hoặc ký tự...)"
+                      class="w-full px-3.5 py-2.5 rounded-xl bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none font-mono text-xs sm:text-sm transition-colors"
+                    />
                   </div>
 
                   <!-- Duplicate Error Alert Box (Báo đỏ cảnh báo trùng lặp rực rỡ) -->
@@ -602,9 +604,9 @@
                     <button type="submit" id="btn-register-submit" class="btn-p w-full justify-center text-xs sm:text-sm !py-2.5 font-bold shadow-md cursor-pointer">
                       <span>Hoàn Tất Đăng Ký & Lưu Vào CSDL ↗</span>
                     </button>
-                    <div class="flex items-center justify-between text-xs text-yen pt-1">
+                    <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-yen pt-1">
                       <button type="button" onclick="window.switchAuthTab('login')" class="text-cam hover:underline font-mono text-xs cursor-pointer">
-                        ← Đã có tài khoản? Quay lại Đăng Nhập
+                        ← Quay lại Đăng Nhập
                       </button>
                       <span class="text-[11px] text-yen/80 font-mono">Bảo mật Nghị định 13/2023/NĐ-CP</span>
                     </div>
@@ -1592,7 +1594,7 @@
         if (input) input.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
         if (errorBox && errorText) {
           errorBox.classList.remove('hidden');
-          errorText.innerHTML = 'Họ và tên <strong>' + name + '</strong> đã trùng với học viên đã có trong CSDL (SĐT: ' + duplicate.phone + '). Vui lòng thêm từ phân biệt hoặc dùng SĐT khác!';
+          errorText.innerHTML = 'Họ và tên <strong>' + name + '</strong> đã tồn tại trong hệ thống. Vui lòng thêm từ phân biệt hoặc chuyển sang tab Đăng Nhập nếu đây là tài khoản của bạn!';
         }
         return false;
       } else {
@@ -1604,7 +1606,7 @@
       }
     };
 
-    // Kiểm tra trùng lặp SĐT Realtime
+    // Kiểm tra trùng lặp SĐT Realtime (Bảo mật: Không để lộ danh tính người khác)
     window.validatePhoneLive = function(val) {
       var phone = (val || '').replace(/[\s\-\.]/g, '').trim();
       var input = document.getElementById('reg-phone');
@@ -1626,7 +1628,7 @@
         if (input) input.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
         if (errorBox && errorText) {
           errorBox.classList.remove('hidden');
-          errorText.innerHTML = 'Số điện thoại <strong>' + phone + '</strong> đã được đăng ký trước đó bởi học viên <strong>[' + duplicate.name + ']</strong>. Vui lòng chuyển sang tab Đăng Nhập hoặc dùng số khác!';
+          errorText.innerHTML = 'Số điện thoại này đã được đăng ký tài khoản trong hệ thống. Vui lòng chuyển sang tab Đăng Nhập để vào học!';
         }
         return false;
       } else {
@@ -1638,7 +1640,7 @@
       }
     };
 
-    // Kiểm tra trùng lặp Email Realtime
+    // Kiểm tra trùng lặp Email Realtime (Bảo mật: Không để lộ danh tính người khác)
     window.validateEmailLive = function(val) {
       var email = (val || '').trim().toLowerCase();
       var input = document.getElementById('reg-email');
@@ -1659,7 +1661,7 @@
         if (input) input.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
         if (errorBox && errorText) {
           errorBox.classList.remove('hidden');
-          errorText.innerHTML = 'Địa chỉ Email <strong>' + email + '</strong> đã tồn tại trong cơ sở dữ liệu học viên! Vui lòng nhập địa chỉ Email khác.';
+          errorText.innerHTML = 'Địa chỉ Email này đã được đăng ký tài khoản trong hệ thống. Vui lòng chuyển sang tab Đăng Nhập để vào học!';
         }
         return false;
       } else {
@@ -1671,13 +1673,22 @@
       }
     };
 
+    // Xóa trạng thái lỗi khi người dùng gõ vào form đăng nhập
+    window.clearLoginError = function() {
+      var idInp = document.getElementById('student-identifier');
+      var pinInp = document.getElementById('student-passcode');
+      var errBox = document.getElementById('login-error-msg');
+      if (idInp) idInp.classList.remove('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
+      if (pinInp) pinInp.classList.remove('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
+      if (errBox) errBox.classList.add('hidden');
+    };
+
     // ĐĂNG KÝ HỌC VIÊN MỚI (Lưu vào CSDL)
     window.handleStudentRegister = function(e) {
       e.preventDefault();
       var nameInp = document.getElementById('reg-name');
       var phoneInp = document.getElementById('reg-phone');
       var emailInp = document.getElementById('reg-email');
-      var courseInp = document.getElementById('reg-course');
       var pinInp = document.getElementById('reg-pin');
       var submitBtn = document.getElementById('btn-register-submit');
       var errorBox = document.getElementById('reg-error-msg');
@@ -1687,9 +1698,9 @@
       var rawPhone = phoneInp ? phoneInp.value.trim() : '';
       var phone = rawPhone.replace(/[\s\-\.]/g, '');
       var email = emailInp ? emailInp.value.trim().toLowerCase() : '';
-      var courseVal = courseInp ? courseInp.value : 'but-pha';
-      var courseName = COURSE_NAMES[courseVal] || 'Bứt Phá Tài Chính (Mentor Trần Nam Hà)';
       var pin = pinInp ? pinInp.value.trim() : '123456';
+      var courseVal = 'all';
+      var courseName = 'Khu Học Tập Thịnh Vượng Số';
 
       // Kiểm tra rỗng
       if (!name || !phone || !email) {
@@ -1709,7 +1720,7 @@
 
       var db = getStudentsDatabase();
 
-      // Kiểm tra trùng Họ tên
+      // Kiểm tra trùng Họ tên (Bảo mật: Không để lộ SĐT người khác)
       var dupName = db.find(function(s) {
         return s.name && s.name.trim().toLowerCase() === name.toLowerCase();
       });
@@ -1717,13 +1728,13 @@
         if (nameInp) nameInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/30');
         if (errorBox && errorText) {
           errorBox.classList.remove('hidden');
-          errorText.innerHTML = 'Họ và tên <strong>' + name + '</strong> đã trùng với học viên đã đăng ký trước đó (SĐT: ' + dupName.phone + '). Hệ thống phát hiện trùng lặp!';
+          errorText.innerHTML = 'Họ và tên <strong>' + name + '</strong> đã tồn tại trong hệ thống. Vui lòng thêm từ phân biệt hoặc chuyển sang tab Đăng Nhập!';
         }
         nameInp.focus();
         return;
       }
 
-      // Kiểm tra trùng Số điện thoại
+      // Kiểm tra trùng Số điện thoại (Bảo mật: Không để lộ tên người khác)
       var dupPhone = db.find(function(s) {
         var sPhone = (s.phone || s.id || '').replace(/[\s\-\.]/g, '').trim();
         return sPhone === phone;
@@ -1732,7 +1743,7 @@
         if (phoneInp) phoneInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/30');
         if (errorBox && errorText) {
           errorBox.classList.remove('hidden');
-          errorText.innerHTML = 'Số điện thoại <strong>' + phone + '</strong> đã được đăng ký trước đó cho học viên <strong>[' + dupPhone.name + ']</strong>. Hệ thống không cho phép đăng ký trùng lặp!';
+          errorText.innerHTML = 'Số điện thoại này đã được đăng ký tài khoản trong hệ thống. Vui lòng chuyển sang tab Đăng Nhập!';
         }
         phoneInp.focus();
         return;
@@ -1746,7 +1757,7 @@
         if (emailInp) emailInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/30');
         if (errorBox && errorText) {
           errorBox.classList.remove('hidden');
-          errorText.innerHTML = 'Địa chỉ Email <strong>' + email + '</strong> đã tồn tại trong cơ sở dữ liệu! Vui lòng sử dụng địa chỉ Email khác.';
+          errorText.innerHTML = 'Địa chỉ Email này đã được đăng ký tài khoản trong hệ thống. Vui lòng chuyển sang tab Đăng Nhập!';
         }
         emailInp.focus();
         return;
@@ -1773,6 +1784,7 @@
           course: courseVal,
           courseName: courseName,
           pin: pin,
+          passcode: pin,
           registeredAt: now.toISOString(),
           registeredDateFormatted: formattedDate,
           completedLessons: []
@@ -1791,7 +1803,7 @@
         if (msg) {
           msg.classList.remove('hidden', 'bg-red-900/40', 'text-red-200', 'border-red-500/50');
           msg.classList.add('bg-green-900/40', 'text-green-200', 'border', 'border-green-500/50');
-          msg.innerHTML = '<strong>Đăng ký thành công!</strong> Chào mừng học viên <strong>' + name + '</strong>. Toàn bộ hồ sơ, khóa học [' + courseName + '] và tiến độ học tập của bạn đã được lưu vĩnh viễn vào hệ thống.';
+          msg.innerHTML = '<strong>Đăng ký thành công!</strong> Chào mừng học viên <strong>' + name + '</strong>. Toàn bộ hồ sơ và tiến độ học tập của bạn đã được lưu vĩnh viễn vào hệ thống.';
         }
 
         // Tự động điền Cổng nộp bài tập
@@ -1815,22 +1827,52 @@
       }, 500);
     };
 
-    // ĐĂNG NHẬP HỌC VIÊN (Hỗ trợ SĐT, Họ tên, Email)
+    // ĐĂNG NHẬP HỌC VIÊN (Bảo mật: Xác thực tài khoản và kiểm tra mật khẩu chặt chẽ)
     window.handleStudentLogin = function(e) {
       e.preventDefault();
       var idInp = document.getElementById('student-identifier');
       var pinInp = document.getElementById('student-passcode');
-      var msg = document.getElementById('login-status-msg');
       var submitBtn = document.getElementById('btn-login-submit');
+      var errBox = document.getElementById('login-error-msg');
+      var errText = document.getElementById('login-error-text');
+      var msg = document.getElementById('login-status-msg');
 
       var rawId = idInp ? idInp.value.trim() : '';
       var cleanPhone = rawId.replace(/[\s\-\.]/g, '');
       var pin = pinInp ? pinInp.value.trim() : '';
 
-      if (!rawId) return;
+      // Reset các cảnh báo trước đó
+      if (idInp) idInp.classList.remove('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
+      if (pinInp) pinInp.classList.remove('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
+      if (errBox) errBox.classList.add('hidden');
+
+      // 1. Kiểm tra trường rỗng
+      if (!rawId) {
+        if (idInp) {
+          idInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
+          idInp.focus();
+        }
+        if (errBox && errText) {
+          errBox.classList.remove('hidden');
+          errText.textContent = 'Vui lòng nhập Số điện thoại, Họ tên hoặc Email của bạn!';
+        }
+        return;
+      }
+
+      if (!pin) {
+        if (pinInp) {
+          pinInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
+          pinInp.focus();
+        }
+        if (errBox && errText) {
+          errBox.classList.remove('hidden');
+          errText.textContent = 'Vui lòng nhập Mật khẩu truy cập tài khoản của bạn!';
+        }
+        return;
+      }
 
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span>Đang truy xuất cơ sở dữ liệu...</span>';
+      submitBtn.innerHTML = '<span>Đang xác thực thông tin...</span>';
 
       setTimeout(function() {
         submitBtn.disabled = false;
@@ -1844,60 +1886,59 @@
           var sEmail = (s.email || '').trim().toLowerCase();
           var q = rawId.toLowerCase();
 
-          return sPhone === cleanPhone || sName === q || sEmail === q;
+          return (cleanPhone && sPhone === cleanPhone) || sName === q || (sEmail && sEmail === q);
         });
 
-        if (student) {
-          // Khôi phục hồ sơ đã lưu
-          setActiveStudent(student);
-          applyStudentAuthState(student);
-          renderLessonProgressUI(student.completedLessons || []);
-          renderDbInspector();
-
-          if (msg) {
-            msg.classList.remove('hidden', 'bg-red-900/40', 'text-red-200', 'border-red-500/50');
-            msg.classList.add('bg-green-900/40', 'text-green-200', 'border', 'border-green-500/50');
-            msg.innerHTML = '<strong>Đăng nhập thành công!</strong> Chào mừng trở lại, học viên <strong>' + student.name + '</strong>. Đã khôi phục toàn bộ tiến độ học tập và khóa học [' + student.courseName + '] của bạn.';
+        // 2. Nếu tài khoản KHÔNG tồn tại: Báo đỏ và ngăn chặn, không tự ý tạo tài khoản
+        if (!student) {
+          if (idInp) {
+            idInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
+            idInp.focus();
           }
-        } else {
-          // Chưa có trong database: tự động tạo hồ sơ với định danh này để không làm gián đoạn
-          var now = new Date();
-          var formattedDate = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear() + ' ' + 
-                              (now.getHours() < 10 ? '0' : '') + now.getHours() + ':' + 
-                              (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
-
-          var autoStudent = {
-            id: cleanPhone || rawId,
-            phone: cleanPhone || rawId,
-            name: isNaN(rawId) ? rawId : ('Học viên ' + rawId),
-            email: (cleanPhone || 'hocvien') + '@thinhvuongso.vn',
-            course: 'but-pha',
-            courseName: 'Bứt Phá Tài Chính (Mentor Trần Nam Hà)',
-            pin: pin,
-            registeredAt: now.toISOString(),
-            registeredDateFormatted: formattedDate,
-            completedLessons: []
-          };
-
-          db.push(autoStudent);
-          saveStudentsDatabase(db);
-          setActiveStudent(autoStudent);
-          applyStudentAuthState(autoStudent);
-          renderLessonProgressUI(autoStudent.completedLessons);
-          renderDbInspector();
-
-          if (msg) {
-            msg.classList.remove('hidden', 'bg-red-900/40', 'text-red-200', 'border-red-500/50');
-            msg.classList.add('bg-green-900/40', 'text-green-200', 'border', 'border-green-500/50');
-            msg.innerHTML = '<strong>Đăng nhập thành công!</strong> Đã khởi tạo và lưu trữ tài khoản của bạn vào cơ sở dữ liệu hệ thống.';
+          if (errBox && errText) {
+            errBox.classList.remove('hidden');
+            errText.innerHTML = 'Tài khoản không tồn tại trong hệ thống! Vui lòng kiểm tra lại Số điện thoại hoặc Email, hoặc chuyển sang tab <strong>Đăng Ký Mới</strong>.';
           }
+          return;
+        }
+
+        // 3. Nếu tài khoản tồn tại: Kiểm tra mật khẩu bắt buộc
+        var savedPin = String(student.pin || student.passcode || '123456').trim();
+        var enteredPin = String(pin).trim();
+
+        if (enteredPin !== savedPin) {
+          if (pinInp) {
+            pinInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
+            pinInp.focus();
+          }
+          if (errBox && errText) {
+            errBox.classList.remove('hidden');
+            errText.innerHTML = 'Mật khẩu không chính xác! Vui lòng nhập lại hoặc bấm <strong>[Quên mật khẩu?]</strong> để đặt lại mật khẩu.';
+          }
+          return;
+        }
+
+        // 4. Mật khẩu chính xác -> Đăng nhập thành công!
+        if (idInp) idInp.classList.remove('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
+        if (pinInp) pinInp.classList.remove('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
+        if (errBox) errBox.classList.add('hidden');
+
+        setActiveStudent(student);
+        applyStudentAuthState(student);
+        renderLessonProgressUI(student.completedLessons || []);
+        renderDbInspector();
+
+        if (msg) {
+          msg.classList.remove('hidden', 'bg-red-900/40', 'text-red-200', 'border-red-500/50');
+          msg.classList.add('bg-green-900/40', 'text-green-200', 'border', 'border-green-500/50');
+          msg.innerHTML = '<strong>Đăng nhập thành công!</strong> Chào mừng trở lại, học viên <strong>' + student.name + '</strong>. Đã khôi phục toàn bộ tiến độ học tập của bạn.';
         }
 
         setTimeout(function() {
           var target = document.getElementById('khoa-hoc');
           if (target) target.scrollIntoView({ behavior: 'smooth' });
-        }, 600);
-      }, 400);
+        }, 500);
+      }, 350);
     };
 
     // Áp dụng trạng thái Học viên lên Dashboard
