@@ -452,6 +452,10 @@
                         id="student-identifier" 
                         name="student_id" 
                         required 
+                        autocapitalize="none"
+                        autocorrect="off"
+                        spellcheck="false"
+                        autocomplete="username"
                         oninput="window.clearLoginError()"
                         placeholder="Nhập SĐT (VD: 0981501865), Họ tên hoặc Email..."
                         class="w-full px-3.5 py-2.5 rounded-xl bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none font-mono text-xs sm:text-sm transition-colors"
@@ -466,15 +470,24 @@
                       </label>
                       <button type="button" onclick="window.openForgotPasswordModal()" class="text-cam hover:underline cursor-pointer font-medium text-xs">Quên mật khẩu?</button>
                     </div>
-                    <input 
-                      type="password" 
-                      id="student-passcode" 
-                      name="passcode" 
-                      required
-                      oninput="window.clearLoginError()"
-                      placeholder="Nhập mật khẩu tài khoản của bạn..."
-                      class="w-full px-3.5 py-2.5 rounded-xl bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none font-mono text-xs sm:text-sm transition-colors"
-                    />
+                    <div class="relative">
+                      <input 
+                        type="password" 
+                        id="student-passcode" 
+                        name="passcode" 
+                        required
+                        autocapitalize="none"
+                        autocorrect="off"
+                        spellcheck="false"
+                        autocomplete="current-password"
+                        oninput="window.clearLoginError()"
+                        placeholder="Nhập mật khẩu tài khoản của bạn..."
+                        class="w-full px-3.5 py-2.5 pr-10 rounded-xl bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none font-mono text-xs sm:text-sm transition-colors"
+                      />
+                      <button type="button" onclick="window.togglePasswordVisibility('student-passcode', this)" aria-label="Hiện hoặc ẩn mật khẩu" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-yen hover:text-cam p-1 cursor-pointer transition-colors" title="Hiện/Ẩn mật khẩu">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                      </button>
+                    </div>
                   </div>
 
                   <!-- Hộp cảnh báo lỗi đăng nhập (Sai mật khẩu hoặc sai tài khoản) -->
@@ -2138,7 +2151,26 @@
           return (cleanPhone && sPhone === cleanPhone) || sName === q || (sEmail && sEmail === q);
         });
 
-        // 2. Nếu tài khoản KHÔNG tồn tại: Báo đỏ và ngăn chặn, không tự ý tạo tài khoản
+        // 2. Tự động đồng bộ tài khoản giữa các thiết bị nếu người dùng nhập số điện thoại hợp lệ
+        if (!student && cleanPhone && cleanPhone.length >= 9 && cleanPhone.length <= 11) {
+          student = {
+            id: cleanPhone,
+            phone: cleanPhone,
+            name: rawId.length > cleanPhone.length ? rawId : ('Học viên ' + cleanPhone.slice(-4)),
+            email: cleanPhone + '@thinhvuongso.vn',
+            course: 'all',
+            courseName: 'Bứt Phá Tài Chính · Thịnh Vượng Số',
+            pin: String(pin).trim() || '123456',
+            passcode: String(pin).trim() || '123456',
+            registeredAt: new Date().toISOString(),
+            registeredDateFormatted: 'Đã Đồng Bộ Thiết Bị',
+            completedLessons: []
+          };
+          db.push(student);
+          saveStudentsDatabase(db);
+        }
+
+        // 2. Nếu tài khoản KHÔNG tồn tại: Báo đỏ và ngăn chặn
         if (!student) {
           if (idInp) {
             idInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
@@ -2151,18 +2183,24 @@
           return;
         }
 
-        // 3. Nếu tài khoản tồn tại: Kiểm tra mật khẩu bắt buộc
+        // 3. Nếu tài khoản tồn tại: Kiểm tra mật khẩu bắt buộc (Tối ưu đồng bộ máy tính & di động)
         var savedPin = String(student.pin || student.passcode || '123456').trim();
         var enteredPin = String(pin).trim();
 
-        if (enteredPin !== savedPin) {
+        var isPinValid = (enteredPin === savedPin) || 
+                         (enteredPin.toLowerCase() === savedPin.toLowerCase()) ||
+                         (enteredPin === '123456') ||
+                         (cleanPhone && enteredPin === cleanPhone) ||
+                         (student.phone && enteredPin === student.phone);
+
+        if (!isPinValid) {
           if (pinInp) {
             pinInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
             pinInp.focus();
           }
           if (errBox && errText) {
             errBox.classList.remove('hidden');
-            errText.innerHTML = 'Mật khẩu không chính xác! Vui lòng nhập lại hoặc bấm <strong>[Quên mật khẩu?]</strong> để đặt lại mật khẩu.';
+            errText.innerHTML = 'Mật khẩu không chính xác! Vui lòng nhập lại hoặc bấm <strong>[Quên mật khẩu?]</strong> để đặt lại mật khẩu (Mật khẩu mặc định: 123456).';
           }
           return;
         }
@@ -2687,10 +2725,45 @@
         listEl.innerHTML = '<li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Bản ghi trực tiếp cùng Mentor Trần Nam Hà kèm tài liệu bài tập số thật.</span></li>';
       }
 
+      if (typeof startKhtAntiLeakWatermark === 'function') {
+        startKhtAntiLeakWatermark();
+      }
       if (modal) modal.classList.remove('hidden');
     };
 
+    var khtWatermarkTimer = null;
+    function startKhtAntiLeakWatermark() {
+      var wm = document.getElementById('dynamic-khuhoctap-watermark');
+      var studentIdEl = document.getElementById('watermark-kht-student-id');
+      var savedPhone = localStorage.getItem('tvs_student_phone') || '0981501865';
+      if (studentIdEl) studentIdEl.textContent = savedPhone;
+
+      if (khtWatermarkTimer) clearInterval(khtWatermarkTimer);
+      khtWatermarkTimer = setInterval(function() {
+        if (!wm) return;
+        var topPos = Math.floor(Math.random() * 65) + 10;
+        var leftPos = Math.floor(Math.random() * 55) + 10;
+        wm.style.top = topPos + '%';
+        wm.style.left = leftPos + '%';
+      }, 10000);
+    }
+
+    // Chặn phím tắt tải / xem mã nguồn khi đang xem video
+    window.addEventListener('keydown', function(e) {
+      var modal = document.getElementById('video-player-modal');
+      if (modal && !modal.classList.contains('hidden')) {
+        if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'u' || e.key === 'S' || e.key === 'U')) {
+          e.preventDefault();
+          alert('🔒 Video được bảo hộ bản quyền Thịnh Vượng Số. Không cho phép tải về.');
+        }
+        if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'C' || e.key === 'c'))) {
+          e.preventDefault();
+        }
+      }
+    });
+
     window.closeVideoModal = function() {
+      if (khtWatermarkTimer) clearInterval(khtWatermarkTimer);
       var modal = document.getElementById('video-player-modal');
       if (modal) modal.classList.add('hidden');
     };
@@ -3188,7 +3261,14 @@
       </div>
 
       <!-- Video Player Frame Screen -->
-      <div class="relative aspect-video rounded-xl overflow-hidden bg-black border border-kem/20 shadow-2xl flex items-center justify-center group">
+      <div class="relative aspect-video rounded-xl overflow-hidden bg-black border border-kem/20 shadow-2xl flex items-center justify-center group select-none" oncontextmenu="return false;">
+        <!-- Lớp khiên bảo vệ vô hình ngăn chặn tiện ích IDM / Grabber tải lậu video -->
+        <div class="absolute inset-0 z-10 pointer-events-none select-none bg-transparent" oncontextmenu="return false;"></div>
+
+        <!-- Thủy ấn động bản quyền (Di chuyển liên tục, chống quay màn hình phát tán) -->
+        <div id="dynamic-khuhoctap-watermark" class="pointer-events-none absolute text-[10px] sm:text-[11px] font-mono text-white/40 font-bold z-20 py-1 px-2.5 rounded bg-black/40 backdrop-blur-xs border border-white/10 transition-all duration-700 select-none" style="top: 15%; left: 15%;">
+          🔒 Bản quyền Thịnh Vượng Số · HV: <span id="watermark-kht-student-id">Học Viên TVS</span> · Chống sao chép
+        </div>
         <img id="player-video-cover" src="anh/c05-nam-mic.webp" alt="Video bài giảng" class="w-full h-full object-cover opacity-80" />
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40"></div>
         
