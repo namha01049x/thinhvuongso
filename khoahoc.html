@@ -1429,171 +1429,856 @@
             </div>
 
             <!-- Danh sách 6 buổi học chuẩn LMS -->
-            <div class="space-y-2.5" id="lms-lesson-list">
-              <!-- Buổi 1: Luôn là icon Mắt (Học thử miễn phí) -->
-              <div class="lesson-row flex items-center justify-between p-3 sm:p-3.5 rounded-xl bg-abyssal/80 border border-kem/15 hover:border-cam/50 hover:bg-abyssal transition-all cursor-pointer group" onclick="window.handleLessonClick(1)">
-                <div class="flex items-center gap-3 min-w-0 pr-2">
-                  <div class="w-8 h-8 rounded-full bg-cam/20 border border-cam/40 text-cam flex items-center justify-center shrink-0 group-hover:bg-cam group-hover:text-abyssal transition-all shadow-sm">
-                    <svg class="w-3.5 h-3.5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <!-- DANH SÁCH 6 BUỔI LỚN & CÁC NỘI DUNG NHỎ KÈM CHECKLIST CẠNH CON MẮT / CÁI KHÓA -->
+            <div class="space-y-3" id="lms-lesson-list">
+              <!-- BUỔI 01 ACCORDION GROUP -->
+              <div id="accordion-group-1" class="bg-abyssal/80 border border-kem/15 rounded-xl overflow-hidden transition-all shadow-md">
+                <!-- Header Buổi Lớn (Bấm để đóng/mở nội dung nhỏ) -->
+                <div onclick="window.toggleModuleAccordion(1)" class="p-3.5 sm:p-4 bg-gradient-to-r from-nen-sau via-abyssal to-nen-sau border-b border-kem/10 flex items-center justify-between gap-3 cursor-pointer select-none hover:border-cam/40 transition-colors group">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-8 h-8 rounded-lg bg-cam/15 border border-cam/30 text-cam flex items-center justify-center font-mono font-bold text-xs shrink-0 group-hover:bg-cam group-hover:text-abyssal transition-all">
+                      01
+                    </div>
+                    <div class="space-y-0.5 min-w-0">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <h4 class="text-xs sm:text-sm font-bold text-kem group-hover:text-cam transition-colors truncate">
+                          Buổi 01 · Mổ Xẻ Bức Tranh Thu Nhập & Vá Lỗ Hổng Rò Rỉ Dòng Tiền
+                        </h4>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 border-amber-500/40 shrink-0">
+                          👈 HỌC MIỄN PHÍ
+                        </span>
+                      </div>
+                      <div class="flex items-center gap-2 text-[11px] font-mono text-yen">
+                        <span class="hidden sm:inline">Tổng thời lượng: </span><span class="sm:hidden">Thời lượng: </span>1h 52m</span>
+                        <span>·</span>
+                        <span>3 Nội dung thực hành</span>
+                      </div>
+                    </div>
                   </div>
-                  <div class="space-y-0.5 min-w-0">
-                    <div class="flex items-center gap-2 flex-wrap">
-                      <span class="text-xs sm:text-sm font-bold text-kem group-hover:text-cam transition-colors">
-                        Buổi 01 · Mổ Xẻ Bức Tranh Thu Nhập & Vá Lỗ Hổng Rò Rỉ Dòng Tiền
-                      </span>
-                      <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 shrink-0">
-                        👈 HỌC MIỄN PHÍ
-                      </span>
-                    </div>
-                    <div class="flex items-center flex-wrap gap-x-2 gap-y-0.5 text-[11px] font-mono text-yen">
-                      <span class="whitespace-nowrap">Thời lượng: 1h 52m</span>
-                      <span>·</span>
-                      <span class="text-green-400">Xem thử ngay không cần mật khẩu</span>
-                    </div>
+
+                  <div class="flex items-center gap-2.5 shrink-0">
+                    <span id="mod-prog-badge-1" class="px-2 py-0.5 rounded-md text-[11px] font-mono font-bold bg-kem/10 text-yen border border-kem/15">
+                      0/3 hoàn thành
+                    </span>
+                    <svg id="accordion-arrow-1" class="w-4 h-4 text-yen group-hover:text-cam transition-transform transform rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                    </svg>
                   </div>
                 </div>
-                <div class="flex items-center gap-2 shrink-0">
-                  <span class="w-8 h-8 rounded-lg bg-green-500/15 border border-green-500/40 text-green-300 flex items-center justify-center text-sm shadow-sm group-hover:scale-110 transition-transform" title="Xem ngay bài học 1 miễn phí">
-                    👁️
-                  </span>
+
+                <!-- Danh Sách Các Nội Dung Nhỏ Trong Buổi 01 -->
+                <div id="accordion-body-1" class="p-2.5 sm:p-3 space-y-2 bg-abyssal/40 ">
+                  <!-- Nội Dung Con 1.1 -->
+                  <div id="sub-item-box-1-1" class="sub-lesson-row flex flex-col sm:flex-row sm:items-center justify-between p-2.5 sm:p-3 rounded-lg bg-nen-sau/70 hover:bg-nen-sau border border-kem/10 hover:border-cam/40 transition-all gap-2">
+                    <div class="flex items-start sm:items-center gap-2.5 min-w-0 pr-2">
+                      <span class="w-6 h-6 rounded-md bg-abyssal border border-kem/15 flex items-center justify-center text-xs text-cam shrink-0 mt-0.5 sm:mt-0">
+                        ▶
+                      </span>
+                      <div class="space-y-0.5 min-w-0">
+                        <button type="button" onclick="window.handleSubItemClick(1, 1)" class="text-left font-medium text-xs sm:text-sm text-kem hover:text-cam transition-colors leading-snug cursor-pointer">
+                          1.1 Video Bản Ghi Zoom HD: 5 Điểm mù dòng tiền & Kỹ thuật kiểm kê tài sản
+                        </button>
+                        <p class="text-[11px] text-yen/80 line-clamp-1">
+                          Mổ xẻ 5 điểm mù trong dòng tiền và phương pháp cài đặt hệ thống tự động.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Cột Bên Phải: Thời lượng + Con Mắt/Cái Khóa + Ô Checkbox Đánh Dấu Tiến Độ -->
+                    <div class="flex items-center justify-end gap-2.5 shrink-0 self-end sm:self-center pt-1 sm:pt-0 border-t sm:border-t-0 border-kem/10 w-full sm:w-auto">
+                      <span class="text-[11px] font-mono text-yen whitespace-nowrap">
+                        1h 52m
+                      </span>
+
+                      <!-- Biểu tượng Con Mắt / Cái Khóa -->
+                      <button type="button" onclick="window.handleSubItemClick(1, 1)" id="sub-icon-1-1" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-green-500/15 border-green-500/40 text-green-300 flex items-center justify-center text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform cursor-pointer" title="Xem bài học miễn phí">
+                        👁️
+                      </button>
+
+                      <!-- Ô Checkbox Đánh Dấu Tiến Độ Cài Ngay Bên Cạnh Con Mắt / Cái Khóa -->
+                      <label class="flex items-center gap-1.5 cursor-pointer bg-abyssal hover:bg-kem/15 px-2 py-1 rounded-lg border border-kem/20 hover:border-cam/40 transition-all select-none" title="Nhấn vào đây sau khi học xong để cập nhật tiến độ học tập">
+                        <input type="checkbox" id="chk-1-1" data-progress-key="chk-1-1" onchange="window.updateProgressFromCheckbox(1, 1, this.checked)" class="w-4 h-4 rounded text-cam focus:ring-cam accent-cam cursor-pointer" />
+                        <span class="text-[10px] font-mono text-yen hidden md:inline">Đã học</span>
+                      </label>
+                    </div>
+                  </div>
+                  <!-- Nội Dung Con 1.2 -->
+                  <div id="sub-item-box-1-2" class="sub-lesson-row flex flex-col sm:flex-row sm:items-center justify-between p-2.5 sm:p-3 rounded-lg bg-nen-sau/70 hover:bg-nen-sau border border-kem/10 hover:border-cam/40 transition-all gap-2">
+                    <div class="flex items-start sm:items-center gap-2.5 min-w-0 pr-2">
+                      <span class="w-6 h-6 rounded-md bg-abyssal border border-kem/15 flex items-center justify-center text-xs text-cam shrink-0 mt-0.5 sm:mt-0">
+                        📊
+                      </span>
+                      <div class="space-y-0.5 min-w-0">
+                        <button type="button" onclick="window.handleSubItemClick(1, 2)" class="text-left font-medium text-xs sm:text-sm text-kem hover:text-cam transition-colors leading-snug cursor-pointer">
+                          1.2 Biểu mẫu thực hành: Tải và điền Bang-tinh-kiem-ke-dong-tien-TVS.xlsx
+                        </button>
+                        <p class="text-[11px] text-yen/80 line-clamp-1">
+                          File Excel tự động tính số tiền rò rỉ và phân bổ 4 tài khoản tài chính.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Cột Bên Phải: Thời lượng + Con Mắt/Cái Khóa + Ô Checkbox Đánh Dấu Tiến Độ -->
+                    <div class="flex items-center justify-end gap-2.5 shrink-0 self-end sm:self-center pt-1 sm:pt-0 border-t sm:border-t-0 border-kem/10 w-full sm:w-auto">
+                      <span class="text-[11px] font-mono text-yen whitespace-nowrap">
+                        20m
+                      </span>
+
+                      <!-- Biểu tượng Con Mắt / Cái Khóa -->
+                      <button type="button" onclick="window.handleSubItemClick(1, 2)" id="sub-icon-1-2" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-green-500/15 border-green-500/40 text-green-300 flex items-center justify-center text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform cursor-pointer" title="Xem bài học miễn phí">
+                        👁️
+                      </button>
+
+                      <!-- Ô Checkbox Đánh Dấu Tiến Độ Cài Ngay Bên Cạnh Con Mắt / Cái Khóa -->
+                      <label class="flex items-center gap-1.5 cursor-pointer bg-abyssal hover:bg-kem/15 px-2 py-1 rounded-lg border border-kem/20 hover:border-cam/40 transition-all select-none" title="Nhấn vào đây sau khi học xong để cập nhật tiến độ học tập">
+                        <input type="checkbox" id="chk-1-2" data-progress-key="chk-1-2" onchange="window.updateProgressFromCheckbox(1, 2, this.checked)" class="w-4 h-4 rounded text-cam focus:ring-cam accent-cam cursor-pointer" />
+                        <span class="text-[10px] font-mono text-yen hidden md:inline">Đã học</span>
+                      </label>
+                    </div>
+                  </div>
+                  <!-- Nội Dung Con 1.3 -->
+                  <div id="sub-item-box-1-3" class="sub-lesson-row flex flex-col sm:flex-row sm:items-center justify-between p-2.5 sm:p-3 rounded-lg bg-nen-sau/70 hover:bg-nen-sau border border-kem/10 hover:border-cam/40 transition-all gap-2">
+                    <div class="flex items-start sm:items-center gap-2.5 min-w-0 pr-2">
+                      <span class="w-6 h-6 rounded-md bg-abyssal border border-kem/15 flex items-center justify-center text-xs text-cam shrink-0 mt-0.5 sm:mt-0">
+                        📝
+                      </span>
+                      <div class="space-y-0.5 min-w-0">
+                        <button type="button" onclick="window.handleSubItemClick(1, 3)" class="text-left font-medium text-xs sm:text-sm text-kem hover:text-cam transition-colors leading-snug cursor-pointer">
+                          1.3 Nhiệm vụ số thật: Xác định 3 khoản chi tiêu vô thức & Thiết lập quỹ khẩn cấp
+                        </button>
+                        <p class="text-[11px] text-yen/80 line-clamp-1">
+                          Cắt giảm chi tiêu vô thức và thiết lập quỹ dự phòng sinh hoạt phí an toàn.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Cột Bên Phải: Thời lượng + Con Mắt/Cái Khóa + Ô Checkbox Đánh Dấu Tiến Độ -->
+                    <div class="flex items-center justify-end gap-2.5 shrink-0 self-end sm:self-center pt-1 sm:pt-0 border-t sm:border-t-0 border-kem/10 w-full sm:w-auto">
+                      <span class="text-[11px] font-mono text-yen whitespace-nowrap">
+                        30m
+                      </span>
+
+                      <!-- Biểu tượng Con Mắt / Cái Khóa -->
+                      <button type="button" onclick="window.handleSubItemClick(1, 3)" id="sub-icon-1-3" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-green-500/15 border-green-500/40 text-green-300 flex items-center justify-center text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform cursor-pointer" title="Xem bài học miễn phí">
+                        👁️
+                      </button>
+
+                      <!-- Ô Checkbox Đánh Dấu Tiến Độ Cài Ngay Bên Cạnh Con Mắt / Cái Khóa -->
+                      <label class="flex items-center gap-1.5 cursor-pointer bg-abyssal hover:bg-kem/15 px-2 py-1 rounded-lg border border-kem/20 hover:border-cam/40 transition-all select-none" title="Nhấn vào đây sau khi học xong để cập nhật tiến độ học tập">
+                        <input type="checkbox" id="chk-1-3" data-progress-key="chk-1-3" onchange="window.updateProgressFromCheckbox(1, 3, this.checked)" class="w-4 h-4 rounded text-cam focus:ring-cam accent-cam cursor-pointer" />
+                        <span class="text-[10px] font-mono text-yen hidden md:inline">Đã học</span>
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
-
-              <!-- Buổi 2 -->
-              <div class="lesson-row flex items-center justify-between p-3 sm:p-3.5 rounded-xl bg-abyssal/60 border border-kem/10 hover:border-cam/50 hover:bg-abyssal transition-all cursor-pointer group" onclick="window.handleLessonClick(2)">
-                <div class="flex items-center gap-3 min-w-0 pr-2">
-                  <div class="w-8 h-8 rounded-full bg-kem/10 border border-kem/20 text-yen flex items-center justify-center shrink-0 group-hover:bg-cam group-hover:text-abyssal group-hover:border-cam transition-all shadow-sm">
-                    <svg class="w-3.5 h-3.5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <!-- BUỔI 02 ACCORDION GROUP -->
+              <div id="accordion-group-2" class="bg-abyssal/80 border border-kem/15 rounded-xl overflow-hidden transition-all shadow-md">
+                <!-- Header Buổi Lớn (Bấm để đóng/mở nội dung nhỏ) -->
+                <div onclick="window.toggleModuleAccordion(2)" class="p-3.5 sm:p-4 bg-gradient-to-r from-nen-sau via-abyssal to-nen-sau border-b border-kem/10 flex items-center justify-between gap-3 cursor-pointer select-none hover:border-cam/40 transition-colors group">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-8 h-8 rounded-lg bg-cam/15 border border-cam/30 text-cam flex items-center justify-center font-mono font-bold text-xs shrink-0 group-hover:bg-cam group-hover:text-abyssal transition-all">
+                      02
+                    </div>
+                    <div class="space-y-0.5 min-w-0">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <h4 class="text-xs sm:text-sm font-bold text-kem group-hover:text-cam transition-colors truncate">
+                          Buổi 02 · Tái Cấu Trúc Đòn Bẩy & Thiết Lập Trần Thu Nhập Cá Nhân
+                        </h4>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cam/20 text-cam border-cam/30 shrink-0">
+                          CHUYÊN SÂU ZOOM
+                        </span>
+                      </div>
+                      <div class="flex items-center gap-2 text-[11px] font-mono text-yen">
+                        <span class="hidden sm:inline">Tổng thời lượng: </span><span class="sm:hidden">Thời lượng: </span>2h 10m</span>
+                        <span>·</span>
+                        <span>3 Nội dung thực hành</span>
+                      </div>
+                    </div>
                   </div>
-                  <div class="space-y-0.5 min-w-0">
-                    <div class="flex items-center gap-2 flex-wrap">
-                      <span class="text-xs sm:text-sm font-semibold text-kem group-hover:text-cam transition-colors">
-                        Buổi 02 · Tái Cấu Trúc Đòn Bẩy & Thiết Lập Trần Thu Nhập Cá Nhân
-                      </span>
-                    </div>
-                    <div class="flex items-center flex-wrap gap-x-2 gap-y-0.5 text-[11px] font-mono text-yen">
-                      <span class="whitespace-nowrap">Thời lượng: 2h 10m</span>
-                      <span>·</span>
-                      <span id="lesson-status-desc-2" class="text-yen">Cơ chế đòn bẩy an toàn & DTI</span>
-                    </div>
+
+                  <div class="flex items-center gap-2.5 shrink-0">
+                    <span id="mod-prog-badge-2" class="px-2 py-0.5 rounded-md text-[11px] font-mono font-bold bg-kem/10 text-yen border border-kem/15">
+                      0/3 hoàn thành
+                    </span>
+                    <svg id="accordion-arrow-2" class="w-4 h-4 text-yen group-hover:text-cam transition-transform transform rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                    </svg>
                   </div>
                 </div>
-                <div class="flex items-center gap-2 shrink-0">
-                  <span id="lesson-icon-2" class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center justify-center text-sm shadow-sm transition-transform group-hover:scale-105" title="Khóa · Cần mở khóa">
-                    🔒
-                  </span>
+
+                <!-- Danh Sách Các Nội Dung Nhỏ Trong Buổi 02 -->
+                <div id="accordion-body-2" class="p-2.5 sm:p-3 space-y-2 bg-abyssal/40 ">
+                  <!-- Nội Dung Con 2.1 -->
+                  <div id="sub-item-box-2-1" class="sub-lesson-row flex flex-col sm:flex-row sm:items-center justify-between p-2.5 sm:p-3 rounded-lg bg-nen-sau/70 hover:bg-nen-sau border border-kem/10 hover:border-cam/40 transition-all gap-2">
+                    <div class="flex items-start sm:items-center gap-2.5 min-w-0 pr-2">
+                      <span class="w-6 h-6 rounded-md bg-abyssal border border-kem/15 flex items-center justify-center text-xs text-cam shrink-0 mt-0.5 sm:mt-0">
+                        ▶
+                      </span>
+                      <div class="space-y-0.5 min-w-0">
+                        <button type="button" onclick="window.handleSubItemClick(2, 1)" class="text-left font-medium text-xs sm:text-sm text-kem hover:text-cam transition-colors leading-snug cursor-pointer">
+                          2.1 Video Zoom HD: Phân loại nợ tốt - nợ xấu & Chiến lược hạ chi phí lãi vay
+                        </button>
+                        <p class="text-[11px] text-yen/80 line-clamp-1">
+                          Bản chất của đòn bẩy tài chính, rủi ro DTI và kỹ thuật cơ cấu nợ an toàn.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Cột Bên Phải: Thời lượng + Con Mắt/Cái Khóa + Ô Checkbox Đánh Dấu Tiến Độ -->
+                    <div class="flex items-center justify-end gap-2.5 shrink-0 self-end sm:self-center pt-1 sm:pt-0 border-t sm:border-t-0 border-kem/10 w-full sm:w-auto">
+                      <span class="text-[11px] font-mono text-yen whitespace-nowrap">
+                        1h 40m
+                      </span>
+
+                      <!-- Biểu tượng Con Mắt / Cái Khóa -->
+                      <button type="button" onclick="window.handleSubItemClick(2, 1)" id="sub-icon-2-1" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 border-amber-500/30 text-amber-300 flex items-center justify-center text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform cursor-pointer" title="Khóa · Cần mở khóa">
+                        🔒
+                      </button>
+
+                      <!-- Ô Checkbox Đánh Dấu Tiến Độ Cài Ngay Bên Cạnh Con Mắt / Cái Khóa -->
+                      <label class="flex items-center gap-1.5 cursor-pointer bg-abyssal hover:bg-kem/15 px-2 py-1 rounded-lg border border-kem/20 hover:border-cam/40 transition-all select-none" title="Nhấn vào đây sau khi học xong để cập nhật tiến độ học tập">
+                        <input type="checkbox" id="chk-2-1" data-progress-key="chk-2-1" onchange="window.updateProgressFromCheckbox(2, 1, this.checked)" class="w-4 h-4 rounded text-cam focus:ring-cam accent-cam cursor-pointer" />
+                        <span class="text-[10px] font-mono text-yen hidden md:inline">Đã học</span>
+                      </label>
+                    </div>
+                  </div>
+                  <!-- Nội Dung Con 2.2 -->
+                  <div id="sub-item-box-2-2" class="sub-lesson-row flex flex-col sm:flex-row sm:items-center justify-between p-2.5 sm:p-3 rounded-lg bg-nen-sau/70 hover:bg-nen-sau border border-kem/10 hover:border-cam/40 transition-all gap-2">
+                    <div class="flex items-start sm:items-center gap-2.5 min-w-0 pr-2">
+                      <span class="w-6 h-6 rounded-md bg-abyssal border border-kem/15 flex items-center justify-center text-xs text-cam shrink-0 mt-0.5 sm:mt-0">
+                        📄
+                      </span>
+                      <div class="space-y-0.5 min-w-0">
+                        <button type="button" onclick="window.handleSubItemClick(2, 2)" class="text-left font-medium text-xs sm:text-sm text-kem hover:text-cam transition-colors leading-snug cursor-pointer">
+                          2.2 Sơ đồ thực hành: Tải sơ đồ Khung-don-bay-von-TVS.pdf & Tính chỉ số DTI
+                        </button>
+                        <p class="text-[11px] text-yen/80 line-clamp-1">
+                          Sơ đồ trực quan giúp bạn xác định ngưỡng đòn bẩy an toàn tuyệt đối.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Cột Bên Phải: Thời lượng + Con Mắt/Cái Khóa + Ô Checkbox Đánh Dấu Tiến Độ -->
+                    <div class="flex items-center justify-end gap-2.5 shrink-0 self-end sm:self-center pt-1 sm:pt-0 border-t sm:border-t-0 border-kem/10 w-full sm:w-auto">
+                      <span class="text-[11px] font-mono text-yen whitespace-nowrap">
+                        15m
+                      </span>
+
+                      <!-- Biểu tượng Con Mắt / Cái Khóa -->
+                      <button type="button" onclick="window.handleSubItemClick(2, 2)" id="sub-icon-2-2" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 border-amber-500/30 text-amber-300 flex items-center justify-center text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform cursor-pointer" title="Khóa · Cần mở khóa">
+                        🔒
+                      </button>
+
+                      <!-- Ô Checkbox Đánh Dấu Tiến Độ Cài Ngay Bên Cạnh Con Mắt / Cái Khóa -->
+                      <label class="flex items-center gap-1.5 cursor-pointer bg-abyssal hover:bg-kem/15 px-2 py-1 rounded-lg border border-kem/20 hover:border-cam/40 transition-all select-none" title="Nhấn vào đây sau khi học xong để cập nhật tiến độ học tập">
+                        <input type="checkbox" id="chk-2-2" data-progress-key="chk-2-2" onchange="window.updateProgressFromCheckbox(2, 2, this.checked)" class="w-4 h-4 rounded text-cam focus:ring-cam accent-cam cursor-pointer" />
+                        <span class="text-[10px] font-mono text-yen hidden md:inline">Đã học</span>
+                      </label>
+                    </div>
+                  </div>
+                  <!-- Nội Dung Con 2.3 -->
+                  <div id="sub-item-box-2-3" class="sub-lesson-row flex flex-col sm:flex-row sm:items-center justify-between p-2.5 sm:p-3 rounded-lg bg-nen-sau/70 hover:bg-nen-sau border border-kem/10 hover:border-cam/40 transition-all gap-2">
+                    <div class="flex items-start sm:items-center gap-2.5 min-w-0 pr-2">
+                      <span class="w-6 h-6 rounded-md bg-abyssal border border-kem/15 flex items-center justify-center text-xs text-cam shrink-0 mt-0.5 sm:mt-0">
+                        📝
+                      </span>
+                      <div class="space-y-0.5 min-w-0">
+                        <button type="button" onclick="window.handleSubItemClick(2, 3)" class="text-left font-medium text-xs sm:text-sm text-kem hover:text-cam transition-colors leading-snug cursor-pointer">
+                          2.3 Nhiệm vụ số thật: Xây dựng lộ trình nâng giá trị giờ làm việc từ chuyên môn
+                        </button>
+                        <p class="text-[11px] text-yen/80 line-clamp-1">
+                          Phương pháp nâng trần thu nhập cá nhân từ năng lực cốt lõi.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Cột Bên Phải: Thời lượng + Con Mắt/Cái Khóa + Ô Checkbox Đánh Dấu Tiến Độ -->
+                    <div class="flex items-center justify-end gap-2.5 shrink-0 self-end sm:self-center pt-1 sm:pt-0 border-t sm:border-t-0 border-kem/10 w-full sm:w-auto">
+                      <span class="text-[11px] font-mono text-yen whitespace-nowrap">
+                        35m
+                      </span>
+
+                      <!-- Biểu tượng Con Mắt / Cái Khóa -->
+                      <button type="button" onclick="window.handleSubItemClick(2, 3)" id="sub-icon-2-3" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 border-amber-500/30 text-amber-300 flex items-center justify-center text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform cursor-pointer" title="Khóa · Cần mở khóa">
+                        🔒
+                      </button>
+
+                      <!-- Ô Checkbox Đánh Dấu Tiến Độ Cài Ngay Bên Cạnh Con Mắt / Cái Khóa -->
+                      <label class="flex items-center gap-1.5 cursor-pointer bg-abyssal hover:bg-kem/15 px-2 py-1 rounded-lg border border-kem/20 hover:border-cam/40 transition-all select-none" title="Nhấn vào đây sau khi học xong để cập nhật tiến độ học tập">
+                        <input type="checkbox" id="chk-2-3" data-progress-key="chk-2-3" onchange="window.updateProgressFromCheckbox(2, 3, this.checked)" class="w-4 h-4 rounded text-cam focus:ring-cam accent-cam cursor-pointer" />
+                        <span class="text-[10px] font-mono text-yen hidden md:inline">Đã học</span>
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
-
-              <!-- Buổi 3 -->
-              <div class="lesson-row flex items-center justify-between p-3 sm:p-3.5 rounded-xl bg-abyssal/60 border border-kem/10 hover:border-cam/50 hover:bg-abyssal transition-all cursor-pointer group" onclick="window.handleLessonClick(3)">
-                <div class="flex items-center gap-3 min-w-0 pr-2">
-                  <div class="w-8 h-8 rounded-full bg-kem/10 border border-kem/20 text-yen flex items-center justify-center shrink-0 group-hover:bg-cam group-hover:text-abyssal group-hover:border-cam transition-all shadow-sm">
-                    <svg class="w-3.5 h-3.5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <!-- BUỔI 03 ACCORDION GROUP -->
+              <div id="accordion-group-3" class="bg-abyssal/80 border border-kem/15 rounded-xl overflow-hidden transition-all shadow-md">
+                <!-- Header Buổi Lớn (Bấm để đóng/mở nội dung nhỏ) -->
+                <div onclick="window.toggleModuleAccordion(3)" class="p-3.5 sm:p-4 bg-gradient-to-r from-nen-sau via-abyssal to-nen-sau border-b border-kem/10 flex items-center justify-between gap-3 cursor-pointer select-none hover:border-cam/40 transition-colors group">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-8 h-8 rounded-lg bg-cam/15 border border-cam/30 text-cam flex items-center justify-center font-mono font-bold text-xs shrink-0 group-hover:bg-cam group-hover:text-abyssal transition-all">
+                      03
+                    </div>
+                    <div class="space-y-0.5 min-w-0">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <h4 class="text-xs sm:text-sm font-bold text-kem group-hover:text-cam transition-colors truncate">
+                          Buổi 03 · Quy Hoạch Danh Mục Tài Sản Theo Khung 5 Lớp An Toàn
+                        </h4>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cam/20 text-cam border-cam/30 shrink-0">
+                          CHUYÊN SÂU ZOOM
+                        </span>
+                      </div>
+                      <div class="flex items-center gap-2 text-[11px] font-mono text-yen">
+                        <span class="hidden sm:inline">Tổng thời lượng: </span><span class="sm:hidden">Thời lượng: </span>2h 05m</span>
+                        <span>·</span>
+                        <span>3 Nội dung thực hành</span>
+                      </div>
+                    </div>
                   </div>
-                  <div class="space-y-0.5 min-w-0">
-                    <div class="flex items-center gap-2 flex-wrap">
-                      <span class="text-xs sm:text-sm font-semibold text-kem group-hover:text-cam transition-colors">
-                        Buổi 03 · Quy Hoạch Danh Mục Tài Sản Theo Khung 5 Lớp An Toàn
-                      </span>
-                    </div>
-                    <div class="flex items-center flex-wrap gap-x-2 gap-y-0.5 text-[11px] font-mono text-yen">
-                      <span class="whitespace-nowrap">Thời lượng: 2h 05m</span>
-                      <span>·</span>
-                      <span id="lesson-status-desc-3" class="text-yen">Phòng thủ sinh tồn & đầu tư</span>
-                    </div>
+
+                  <div class="flex items-center gap-2.5 shrink-0">
+                    <span id="mod-prog-badge-3" class="px-2 py-0.5 rounded-md text-[11px] font-mono font-bold bg-kem/10 text-yen border border-kem/15">
+                      0/3 hoàn thành
+                    </span>
+                    <svg id="accordion-arrow-3" class="w-4 h-4 text-yen group-hover:text-cam transition-transform transform " fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                    </svg>
                   </div>
                 </div>
-                <div class="flex items-center gap-2 shrink-0">
-                  <span id="lesson-icon-3" class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center justify-center text-sm shadow-sm transition-transform group-hover:scale-105" title="Khóa · Cần mở khóa">
-                    🔒
-                  </span>
+
+                <!-- Danh Sách Các Nội Dung Nhỏ Trong Buổi 03 -->
+                <div id="accordion-body-3" class="p-2.5 sm:p-3 space-y-2 bg-abyssal/40 hidden">
+                  <!-- Nội Dung Con 3.1 -->
+                  <div id="sub-item-box-3-1" class="sub-lesson-row flex flex-col sm:flex-row sm:items-center justify-between p-2.5 sm:p-3 rounded-lg bg-nen-sau/70 hover:bg-nen-sau border border-kem/10 hover:border-cam/40 transition-all gap-2">
+                    <div class="flex items-start sm:items-center gap-2.5 min-w-0 pr-2">
+                      <span class="w-6 h-6 rounded-md bg-abyssal border border-kem/15 flex items-center justify-center text-xs text-cam shrink-0 mt-0.5 sm:mt-0">
+                        ▶
+                      </span>
+                      <div class="space-y-0.5 min-w-0">
+                        <button type="button" onclick="window.handleSubItemClick(3, 1)" class="text-left font-medium text-xs sm:text-sm text-kem hover:text-cam transition-colors leading-snug cursor-pointer">
+                          3.1 Video Zoom HD: Khung 5 Lớp tài sản phòng thủ sinh tồn và đầu tư tăng trưởng
+                        </button>
+                        <p class="text-[11px] text-yen/80 line-clamp-1">
+                          Cấu trúc 5 lớp tài sản Thịnh Vượng Số, tránh bẫy đóng băng thanh khoản.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Cột Bên Phải: Thời lượng + Con Mắt/Cái Khóa + Ô Checkbox Đánh Dấu Tiến Độ -->
+                    <div class="flex items-center justify-end gap-2.5 shrink-0 self-end sm:self-center pt-1 sm:pt-0 border-t sm:border-t-0 border-kem/10 w-full sm:w-auto">
+                      <span class="text-[11px] font-mono text-yen whitespace-nowrap">
+                        1h 35m
+                      </span>
+
+                      <!-- Biểu tượng Con Mắt / Cái Khóa -->
+                      <button type="button" onclick="window.handleSubItemClick(3, 1)" id="sub-icon-3-1" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 border-amber-500/30 text-amber-300 flex items-center justify-center text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform cursor-pointer" title="Khóa · Cần mở khóa">
+                        🔒
+                      </button>
+
+                      <!-- Ô Checkbox Đánh Dấu Tiến Độ Cài Ngay Bên Cạnh Con Mắt / Cái Khóa -->
+                      <label class="flex items-center gap-1.5 cursor-pointer bg-abyssal hover:bg-kem/15 px-2 py-1 rounded-lg border border-kem/20 hover:border-cam/40 transition-all select-none" title="Nhấn vào đây sau khi học xong để cập nhật tiến độ học tập">
+                        <input type="checkbox" id="chk-3-1" data-progress-key="chk-3-1" onchange="window.updateProgressFromCheckbox(3, 1, this.checked)" class="w-4 h-4 rounded text-cam focus:ring-cam accent-cam cursor-pointer" />
+                        <span class="text-[10px] font-mono text-yen hidden md:inline">Đã học</span>
+                      </label>
+                    </div>
+                  </div>
+                  <!-- Nội Dung Con 3.2 -->
+                  <div id="sub-item-box-3-2" class="sub-lesson-row flex flex-col sm:flex-row sm:items-center justify-between p-2.5 sm:p-3 rounded-lg bg-nen-sau/70 hover:bg-nen-sau border border-kem/10 hover:border-cam/40 transition-all gap-2">
+                    <div class="flex items-start sm:items-center gap-2.5 min-w-0 pr-2">
+                      <span class="w-6 h-6 rounded-md bg-abyssal border border-kem/15 flex items-center justify-center text-xs text-cam shrink-0 mt-0.5 sm:mt-0">
+                        📊
+                      </span>
+                      <div class="space-y-0.5 min-w-0">
+                        <button type="button" onclick="window.handleSubItemClick(3, 2)" class="text-left font-medium text-xs sm:text-sm text-kem hover:text-cam transition-colors leading-snug cursor-pointer">
+                          3.2 Bảng tính ma trận: Tải và điền Ma-tran-5-lop-tai-san-TVS.xlsx
+                        </button>
+                        <p class="text-[11px] text-yen/80 line-clamp-1">
+                          Bảng tính tự động phân bổ tỷ trọng tài sản phòng thủ và tài sản sinh lời.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Cột Bên Phải: Thời lượng + Con Mắt/Cái Khóa + Ô Checkbox Đánh Dấu Tiến Độ -->
+                    <div class="flex items-center justify-end gap-2.5 shrink-0 self-end sm:self-center pt-1 sm:pt-0 border-t sm:border-t-0 border-kem/10 w-full sm:w-auto">
+                      <span class="text-[11px] font-mono text-yen whitespace-nowrap">
+                        20m
+                      </span>
+
+                      <!-- Biểu tượng Con Mắt / Cái Khóa -->
+                      <button type="button" onclick="window.handleSubItemClick(3, 2)" id="sub-icon-3-2" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 border-amber-500/30 text-amber-300 flex items-center justify-center text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform cursor-pointer" title="Khóa · Cần mở khóa">
+                        🔒
+                      </button>
+
+                      <!-- Ô Checkbox Đánh Dấu Tiến Độ Cài Ngay Bên Cạnh Con Mắt / Cái Khóa -->
+                      <label class="flex items-center gap-1.5 cursor-pointer bg-abyssal hover:bg-kem/15 px-2 py-1 rounded-lg border border-kem/20 hover:border-cam/40 transition-all select-none" title="Nhấn vào đây sau khi học xong để cập nhật tiến độ học tập">
+                        <input type="checkbox" id="chk-3-2" data-progress-key="chk-3-2" onchange="window.updateProgressFromCheckbox(3, 2, this.checked)" class="w-4 h-4 rounded text-cam focus:ring-cam accent-cam cursor-pointer" />
+                        <span class="text-[10px] font-mono text-yen hidden md:inline">Đã học</span>
+                      </label>
+                    </div>
+                  </div>
+                  <!-- Nội Dung Con 3.3 -->
+                  <div id="sub-item-box-3-3" class="sub-lesson-row flex flex-col sm:flex-row sm:items-center justify-between p-2.5 sm:p-3 rounded-lg bg-nen-sau/70 hover:bg-nen-sau border border-kem/10 hover:border-cam/40 transition-all gap-2">
+                    <div class="flex items-start sm:items-center gap-2.5 min-w-0 pr-2">
+                      <span class="w-6 h-6 rounded-md bg-abyssal border border-kem/15 flex items-center justify-center text-xs text-cam shrink-0 mt-0.5 sm:mt-0">
+                        📝
+                      </span>
+                      <div class="space-y-0.5 min-w-0">
+                        <button type="button" onclick="window.handleSubItemClick(3, 3)" class="text-left font-medium text-xs sm:text-sm text-kem hover:text-cam transition-colors leading-snug cursor-pointer">
+                          3.3 Nhiệm vụ số thật: Phân bổ lại danh mục tài sản cá nhân nộp vào Khu Học Tập
+                        </button>
+                        <p class="text-[11px] text-yen/80 line-clamp-1">
+                          Nộp bài tập số thật để được trợ giảng và Mentor phản hồi chi tiết.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Cột Bên Phải: Thời lượng + Con Mắt/Cái Khóa + Ô Checkbox Đánh Dấu Tiến Độ -->
+                    <div class="flex items-center justify-end gap-2.5 shrink-0 self-end sm:self-center pt-1 sm:pt-0 border-t sm:border-t-0 border-kem/10 w-full sm:w-auto">
+                      <span class="text-[11px] font-mono text-yen whitespace-nowrap">
+                        40m
+                      </span>
+
+                      <!-- Biểu tượng Con Mắt / Cái Khóa -->
+                      <button type="button" onclick="window.handleSubItemClick(3, 3)" id="sub-icon-3-3" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 border-amber-500/30 text-amber-300 flex items-center justify-center text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform cursor-pointer" title="Khóa · Cần mở khóa">
+                        🔒
+                      </button>
+
+                      <!-- Ô Checkbox Đánh Dấu Tiến Độ Cài Ngay Bên Cạnh Con Mắt / Cái Khóa -->
+                      <label class="flex items-center gap-1.5 cursor-pointer bg-abyssal hover:bg-kem/15 px-2 py-1 rounded-lg border border-kem/20 hover:border-cam/40 transition-all select-none" title="Nhấn vào đây sau khi học xong để cập nhật tiến độ học tập">
+                        <input type="checkbox" id="chk-3-3" data-progress-key="chk-3-3" onchange="window.updateProgressFromCheckbox(3, 3, this.checked)" class="w-4 h-4 rounded text-cam focus:ring-cam accent-cam cursor-pointer" />
+                        <span class="text-[10px] font-mono text-yen hidden md:inline">Đã học</span>
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
-
-              <!-- Buổi 4 -->
-              <div class="lesson-row flex items-center justify-between p-3 sm:p-3.5 rounded-xl bg-abyssal/60 border border-kem/10 hover:border-cam/50 hover:bg-abyssal transition-all cursor-pointer group" onclick="window.handleLessonClick(4)">
-                <div class="flex items-center gap-3 min-w-0 pr-2">
-                  <div class="w-8 h-8 rounded-full bg-kem/10 border border-kem/20 text-yen flex items-center justify-center shrink-0 group-hover:bg-cam group-hover:text-abyssal group-hover:border-cam transition-all shadow-sm">
-                    <svg class="w-3.5 h-3.5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <!-- BUỔI 04 ACCORDION GROUP -->
+              <div id="accordion-group-4" class="bg-abyssal/80 border border-kem/15 rounded-xl overflow-hidden transition-all shadow-md">
+                <!-- Header Buổi Lớn (Bấm để đóng/mở nội dung nhỏ) -->
+                <div onclick="window.toggleModuleAccordion(4)" class="p-3.5 sm:p-4 bg-gradient-to-r from-nen-sau via-abyssal to-nen-sau border-b border-kem/10 flex items-center justify-between gap-3 cursor-pointer select-none hover:border-cam/40 transition-colors group">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-8 h-8 rounded-lg bg-cam/15 border border-cam/30 text-cam flex items-center justify-center font-mono font-bold text-xs shrink-0 group-hover:bg-cam group-hover:text-abyssal transition-all">
+                      04
+                    </div>
+                    <div class="space-y-0.5 min-w-0">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <h4 class="text-xs sm:text-sm font-bold text-kem group-hover:text-cam transition-colors truncate">
+                          Buổi 04 · Kỹ Thuật Tạo Lập Nguồn Thu Nhập Thứ Hai Không Cần Vốn Lớn
+                        </h4>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cam/20 text-cam border-cam/30 shrink-0">
+                          CHUYÊN SÂU ZOOM
+                        </span>
+                      </div>
+                      <div class="flex items-center gap-2 text-[11px] font-mono text-yen">
+                        <span class="hidden sm:inline">Tổng thời lượng: </span><span class="sm:hidden">Thời lượng: </span>1h 58m</span>
+                        <span>·</span>
+                        <span>3 Nội dung thực hành</span>
+                      </div>
+                    </div>
                   </div>
-                  <div class="space-y-0.5 min-w-0">
-                    <div class="flex items-center gap-2 flex-wrap">
-                      <span class="text-xs sm:text-sm font-semibold text-kem group-hover:text-cam transition-colors">
-                        Buổi 04 · Kỹ Thuật Tạo Lập Nguồn Thu Nhập Thứ Hai Không Cần Vốn Lớn
-                      </span>
-                    </div>
-                    <div class="flex items-center flex-wrap gap-x-2 gap-y-0.5 text-[11px] font-mono text-yen">
-                      <span class="whitespace-nowrap">Thời lượng: 1h 58m</span>
-                      <span>·</span>
-                      <span id="lesson-status-desc-4" class="text-yen">Đóng gói chuyên môn dịch vụ</span>
-                    </div>
+
+                  <div class="flex items-center gap-2.5 shrink-0">
+                    <span id="mod-prog-badge-4" class="px-2 py-0.5 rounded-md text-[11px] font-mono font-bold bg-kem/10 text-yen border border-kem/15">
+                      0/3 hoàn thành
+                    </span>
+                    <svg id="accordion-arrow-4" class="w-4 h-4 text-yen group-hover:text-cam transition-transform transform " fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                    </svg>
                   </div>
                 </div>
-                <div class="flex items-center gap-2 shrink-0">
-                  <span id="lesson-icon-4" class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center justify-center text-sm shadow-sm transition-transform group-hover:scale-105" title="Khóa · Cần mở khóa">
-                    🔒
-                  </span>
+
+                <!-- Danh Sách Các Nội Dung Nhỏ Trong Buổi 04 -->
+                <div id="accordion-body-4" class="p-2.5 sm:p-3 space-y-2 bg-abyssal/40 hidden">
+                  <!-- Nội Dung Con 4.1 -->
+                  <div id="sub-item-box-4-1" class="sub-lesson-row flex flex-col sm:flex-row sm:items-center justify-between p-2.5 sm:p-3 rounded-lg bg-nen-sau/70 hover:bg-nen-sau border border-kem/10 hover:border-cam/40 transition-all gap-2">
+                    <div class="flex items-start sm:items-center gap-2.5 min-w-0 pr-2">
+                      <span class="w-6 h-6 rounded-md bg-abyssal border border-kem/15 flex items-center justify-center text-xs text-cam shrink-0 mt-0.5 sm:mt-0">
+                        ▶
+                      </span>
+                      <div class="space-y-0.5 min-w-0">
+                        <button type="button" onclick="window.handleSubItemClick(4, 1)" class="text-left font-medium text-xs sm:text-sm text-kem hover:text-cam transition-colors leading-snug cursor-pointer">
+                          4.1 Video Zoom HD: Phương pháp đóng gói chuyên môn cá nhân thành dịch vụ tư vấn
+                        </button>
+                        <p class="text-[11px] text-yen/80 line-clamp-1">
+                          Khai thác tài sản vô hình và kinh nghiệm bản thân để tạo dòng tiền phụ thứ hai.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Cột Bên Phải: Thời lượng + Con Mắt/Cái Khóa + Ô Checkbox Đánh Dấu Tiến Độ -->
+                    <div class="flex items-center justify-end gap-2.5 shrink-0 self-end sm:self-center pt-1 sm:pt-0 border-t sm:border-t-0 border-kem/10 w-full sm:w-auto">
+                      <span class="text-[11px] font-mono text-yen whitespace-nowrap">
+                        1h 28m
+                      </span>
+
+                      <!-- Biểu tượng Con Mắt / Cái Khóa -->
+                      <button type="button" onclick="window.handleSubItemClick(4, 1)" id="sub-icon-4-1" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 border-amber-500/30 text-amber-300 flex items-center justify-center text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform cursor-pointer" title="Khóa · Cần mở khóa">
+                        🔒
+                      </button>
+
+                      <!-- Ô Checkbox Đánh Dấu Tiến Độ Cài Ngay Bên Cạnh Con Mắt / Cái Khóa -->
+                      <label class="flex items-center gap-1.5 cursor-pointer bg-abyssal hover:bg-kem/15 px-2 py-1 rounded-lg border border-kem/20 hover:border-cam/40 transition-all select-none" title="Nhấn vào đây sau khi học xong để cập nhật tiến độ học tập">
+                        <input type="checkbox" id="chk-4-1" data-progress-key="chk-4-1" onchange="window.updateProgressFromCheckbox(4, 1, this.checked)" class="w-4 h-4 rounded text-cam focus:ring-cam accent-cam cursor-pointer" />
+                        <span class="text-[10px] font-mono text-yen hidden md:inline">Đã học</span>
+                      </label>
+                    </div>
+                  </div>
+                  <!-- Nội Dung Con 4.2 -->
+                  <div id="sub-item-box-4-2" class="sub-lesson-row flex flex-col sm:flex-row sm:items-center justify-between p-2.5 sm:p-3 rounded-lg bg-nen-sau/70 hover:bg-nen-sau border border-kem/10 hover:border-cam/40 transition-all gap-2">
+                    <div class="flex items-start sm:items-center gap-2.5 min-w-0 pr-2">
+                      <span class="w-6 h-6 rounded-md bg-abyssal border border-kem/15 flex items-center justify-center text-xs text-cam shrink-0 mt-0.5 sm:mt-0">
+                        📄
+                      </span>
+                      <div class="space-y-0.5 min-w-0">
+                        <button type="button" onclick="window.handleSubItemClick(4, 2)" class="text-left font-medium text-xs sm:text-sm text-kem hover:text-cam transition-colors leading-snug cursor-pointer">
+                          4.2 Khung kế hoạch: Tải Ke-hoach-nguon-thu-nhap-2.pdf & Định vị gói dịch vụ
+                        </button>
+                        <p class="text-[11px] text-yen/80 line-clamp-1">
+                          Khung kế hoạch 3 bước triển khai nhanh trong 30 ngày.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Cột Bên Phải: Thời lượng + Con Mắt/Cái Khóa + Ô Checkbox Đánh Dấu Tiến Độ -->
+                    <div class="flex items-center justify-end gap-2.5 shrink-0 self-end sm:self-center pt-1 sm:pt-0 border-t sm:border-t-0 border-kem/10 w-full sm:w-auto">
+                      <span class="text-[11px] font-mono text-yen whitespace-nowrap">
+                        20m
+                      </span>
+
+                      <!-- Biểu tượng Con Mắt / Cái Khóa -->
+                      <button type="button" onclick="window.handleSubItemClick(4, 2)" id="sub-icon-4-2" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 border-amber-500/30 text-amber-300 flex items-center justify-center text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform cursor-pointer" title="Khóa · Cần mở khóa">
+                        🔒
+                      </button>
+
+                      <!-- Ô Checkbox Đánh Dấu Tiến Độ Cài Ngay Bên Cạnh Con Mắt / Cái Khóa -->
+                      <label class="flex items-center gap-1.5 cursor-pointer bg-abyssal hover:bg-kem/15 px-2 py-1 rounded-lg border border-kem/20 hover:border-cam/40 transition-all select-none" title="Nhấn vào đây sau khi học xong để cập nhật tiến độ học tập">
+                        <input type="checkbox" id="chk-4-2" data-progress-key="chk-4-2" onchange="window.updateProgressFromCheckbox(4, 2, this.checked)" class="w-4 h-4 rounded text-cam focus:ring-cam accent-cam cursor-pointer" />
+                        <span class="text-[10px] font-mono text-yen hidden md:inline">Đã học</span>
+                      </label>
+                    </div>
+                  </div>
+                  <!-- Nội Dung Con 4.3 -->
+                  <div id="sub-item-box-4-3" class="sub-lesson-row flex flex-col sm:flex-row sm:items-center justify-between p-2.5 sm:p-3 rounded-lg bg-nen-sau/70 hover:bg-nen-sau border border-kem/10 hover:border-cam/40 transition-all gap-2">
+                    <div class="flex items-start sm:items-center gap-2.5 min-w-0 pr-2">
+                      <span class="w-6 h-6 rounded-md bg-abyssal border border-kem/15 flex items-center justify-center text-xs text-cam shrink-0 mt-0.5 sm:mt-0">
+                        📝
+                      </span>
+                      <div class="space-y-0.5 min-w-0">
+                        <button type="button" onclick="window.handleSubItemClick(4, 3)" class="text-left font-medium text-xs sm:text-sm text-kem hover:text-cam transition-colors leading-snug cursor-pointer">
+                          4.3 Nhiệm vụ số thật: Viết đề xuất gói dịch vụ thử nghiệm cho 3 khách hàng đầu tiên
+                        </button>
+                        <p class="text-[11px] text-yen/80 line-clamp-1">
+                          Hoàn thiện bản chào giá dịch vụ chuyên môn số 1 của bạn.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Cột Bên Phải: Thời lượng + Con Mắt/Cái Khóa + Ô Checkbox Đánh Dấu Tiến Độ -->
+                    <div class="flex items-center justify-end gap-2.5 shrink-0 self-end sm:self-center pt-1 sm:pt-0 border-t sm:border-t-0 border-kem/10 w-full sm:w-auto">
+                      <span class="text-[11px] font-mono text-yen whitespace-nowrap">
+                        35m
+                      </span>
+
+                      <!-- Biểu tượng Con Mắt / Cái Khóa -->
+                      <button type="button" onclick="window.handleSubItemClick(4, 3)" id="sub-icon-4-3" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 border-amber-500/30 text-amber-300 flex items-center justify-center text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform cursor-pointer" title="Khóa · Cần mở khóa">
+                        🔒
+                      </button>
+
+                      <!-- Ô Checkbox Đánh Dấu Tiến Độ Cài Ngay Bên Cạnh Con Mắt / Cái Khóa -->
+                      <label class="flex items-center gap-1.5 cursor-pointer bg-abyssal hover:bg-kem/15 px-2 py-1 rounded-lg border border-kem/20 hover:border-cam/40 transition-all select-none" title="Nhấn vào đây sau khi học xong để cập nhật tiến độ học tập">
+                        <input type="checkbox" id="chk-4-3" data-progress-key="chk-4-3" onchange="window.updateProgressFromCheckbox(4, 3, this.checked)" class="w-4 h-4 rounded text-cam focus:ring-cam accent-cam cursor-pointer" />
+                        <span class="text-[10px] font-mono text-yen hidden md:inline">Đã học</span>
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
-
-              <!-- Buổi 5 -->
-              <div class="lesson-row flex items-center justify-between p-3 sm:p-3.5 rounded-xl bg-abyssal/60 border border-kem/10 hover:border-cam/50 hover:bg-abyssal transition-all cursor-pointer group" onclick="window.handleLessonClick(5)">
-                <div class="flex items-center gap-3 min-w-0 pr-2">
-                  <div class="w-8 h-8 rounded-full bg-kem/10 border border-kem/20 text-yen flex items-center justify-center shrink-0 group-hover:bg-cam group-hover:text-abyssal group-hover:border-cam transition-all shadow-sm">
-                    <svg class="w-3.5 h-3.5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <!-- BUỔI 05 ACCORDION GROUP -->
+              <div id="accordion-group-5" class="bg-abyssal/80 border border-kem/15 rounded-xl overflow-hidden transition-all shadow-md">
+                <!-- Header Buổi Lớn (Bấm để đóng/mở nội dung nhỏ) -->
+                <div onclick="window.toggleModuleAccordion(5)" class="p-3.5 sm:p-4 bg-gradient-to-r from-nen-sau via-abyssal to-nen-sau border-b border-kem/10 flex items-center justify-between gap-3 cursor-pointer select-none hover:border-cam/40 transition-colors group">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-8 h-8 rounded-lg bg-cam/15 border border-cam/30 text-cam flex items-center justify-center font-mono font-bold text-xs shrink-0 group-hover:bg-cam group-hover:text-abyssal transition-all">
+                      05
+                    </div>
+                    <div class="space-y-0.5 min-w-0">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <h4 class="text-xs sm:text-sm font-bold text-kem group-hover:text-cam transition-colors truncate">
+                          Buổi 05 · Quản Trị Tâm Lý Thị Trường & Bảo Vệ Vốn Trước Chu Kỳ Biến Động
+                        </h4>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cam/20 text-cam border-cam/30 shrink-0">
+                          CHUYÊN SÂU ZOOM
+                        </span>
+                      </div>
+                      <div class="flex items-center gap-2 text-[11px] font-mono text-yen">
+                        <span class="hidden sm:inline">Tổng thời lượng: </span><span class="sm:hidden">Thời lượng: </span>2h 15m</span>
+                        <span>·</span>
+                        <span>3 Nội dung thực hành</span>
+                      </div>
+                    </div>
                   </div>
-                  <div class="space-y-0.5 min-w-0">
-                    <div class="flex items-center gap-2 flex-wrap">
-                      <span class="text-xs sm:text-sm font-semibold text-kem group-hover:text-cam transition-colors">
-                        Buổi 05 · Quản Trị Tâm Lý Thị Trường & Bảo Vệ Vốn Trước Chu Kỳ Biến Động
-                      </span>
-                    </div>
-                    <div class="flex items-center flex-wrap gap-x-2 gap-y-0.5 text-[11px] font-mono text-yen">
-                      <span class="whitespace-nowrap">Thời lượng: 2h 15m</span>
-                      <span>·</span>
-                      <span id="lesson-status-desc-5" class="text-yen">Xóa bỏ FOMO & Bảo vệ tài sản</span>
-                    </div>
+
+                  <div class="flex items-center gap-2.5 shrink-0">
+                    <span id="mod-prog-badge-5" class="px-2 py-0.5 rounded-md text-[11px] font-mono font-bold bg-kem/10 text-yen border border-kem/15">
+                      0/3 hoàn thành
+                    </span>
+                    <svg id="accordion-arrow-5" class="w-4 h-4 text-yen group-hover:text-cam transition-transform transform " fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                    </svg>
                   </div>
                 </div>
-                <div class="flex items-center gap-2 shrink-0">
-                  <span id="lesson-icon-5" class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center justify-center text-sm shadow-sm transition-transform group-hover:scale-105" title="Khóa · Cần mở khóa">
-                    🔒
-                  </span>
+
+                <!-- Danh Sách Các Nội Dung Nhỏ Trong Buổi 05 -->
+                <div id="accordion-body-5" class="p-2.5 sm:p-3 space-y-2 bg-abyssal/40 hidden">
+                  <!-- Nội Dung Con 5.1 -->
+                  <div id="sub-item-box-5-1" class="sub-lesson-row flex flex-col sm:flex-row sm:items-center justify-between p-2.5 sm:p-3 rounded-lg bg-nen-sau/70 hover:bg-nen-sau border border-kem/10 hover:border-cam/40 transition-all gap-2">
+                    <div class="flex items-start sm:items-center gap-2.5 min-w-0 pr-2">
+                      <span class="w-6 h-6 rounded-md bg-abyssal border border-kem/15 flex items-center justify-center text-xs text-cam shrink-0 mt-0.5 sm:mt-0">
+                        ▶
+                      </span>
+                      <div class="space-y-0.5 min-w-0">
+                        <button type="button" onclick="window.handleSubItemClick(5, 1)" class="text-left font-medium text-xs sm:text-sm text-kem hover:text-cam transition-colors leading-snug cursor-pointer">
+                          5.1 Video Zoom HD: Tâm lý học hành vi, xóa bỏ bẫy FOMO và kịch bản ứng phó suy thoái
+                        </button>
+                        <p class="text-[11px] text-yen/80 line-clamp-1">
+                          Hệ thống phòng thủ tâm lý trước các bẫy đầu tư siêu lợi nhuận ảo.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Cột Bên Phải: Thời lượng + Con Mắt/Cái Khóa + Ô Checkbox Đánh Dấu Tiến Độ -->
+                    <div class="flex items-center justify-end gap-2.5 shrink-0 self-end sm:self-center pt-1 sm:pt-0 border-t sm:border-t-0 border-kem/10 w-full sm:w-auto">
+                      <span class="text-[11px] font-mono text-yen whitespace-nowrap">
+                        1h 45m
+                      </span>
+
+                      <!-- Biểu tượng Con Mắt / Cái Khóa -->
+                      <button type="button" onclick="window.handleSubItemClick(5, 1)" id="sub-icon-5-1" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 border-amber-500/30 text-amber-300 flex items-center justify-center text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform cursor-pointer" title="Khóa · Cần mở khóa">
+                        🔒
+                      </button>
+
+                      <!-- Ô Checkbox Đánh Dấu Tiến Độ Cài Ngay Bên Cạnh Con Mắt / Cái Khóa -->
+                      <label class="flex items-center gap-1.5 cursor-pointer bg-abyssal hover:bg-kem/15 px-2 py-1 rounded-lg border border-kem/20 hover:border-cam/40 transition-all select-none" title="Nhấn vào đây sau khi học xong để cập nhật tiến độ học tập">
+                        <input type="checkbox" id="chk-5-1" data-progress-key="chk-5-1" onchange="window.updateProgressFromCheckbox(5, 1, this.checked)" class="w-4 h-4 rounded text-cam focus:ring-cam accent-cam cursor-pointer" />
+                        <span class="text-[10px] font-mono text-yen hidden md:inline">Đã học</span>
+                      </label>
+                    </div>
+                  </div>
+                  <!-- Nội Dung Con 5.2 -->
+                  <div id="sub-item-box-5-2" class="sub-lesson-row flex flex-col sm:flex-row sm:items-center justify-between p-2.5 sm:p-3 rounded-lg bg-nen-sau/70 hover:bg-nen-sau border border-kem/10 hover:border-cam/40 transition-all gap-2">
+                    <div class="flex items-start sm:items-center gap-2.5 min-w-0 pr-2">
+                      <span class="w-6 h-6 rounded-md bg-abyssal border border-kem/15 flex items-center justify-center text-xs text-cam shrink-0 mt-0.5 sm:mt-0">
+                        📄
+                      </span>
+                      <div class="space-y-0.5 min-w-0">
+                        <button type="button" onclick="window.handleSubItemClick(5, 2)" class="text-left font-medium text-xs sm:text-sm text-kem hover:text-cam transition-colors leading-snug cursor-pointer">
+                          5.2 Ma trận phòng ngừa: Tải Ma-tran-phong-ngua-rui-ro-TVS.pdf
+                        </button>
+                        <p class="text-[11px] text-yen/80 line-clamp-1">
+                          Ma trận phân loại rủi ro và các kịch bản kiểm soát vốn an toàn.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Cột Bên Phải: Thời lượng + Con Mắt/Cái Khóa + Ô Checkbox Đánh Dấu Tiến Độ -->
+                    <div class="flex items-center justify-end gap-2.5 shrink-0 self-end sm:self-center pt-1 sm:pt-0 border-t sm:border-t-0 border-kem/10 w-full sm:w-auto">
+                      <span class="text-[11px] font-mono text-yen whitespace-nowrap">
+                        15m
+                      </span>
+
+                      <!-- Biểu tượng Con Mắt / Cái Khóa -->
+                      <button type="button" onclick="window.handleSubItemClick(5, 2)" id="sub-icon-5-2" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 border-amber-500/30 text-amber-300 flex items-center justify-center text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform cursor-pointer" title="Khóa · Cần mở khóa">
+                        🔒
+                      </button>
+
+                      <!-- Ô Checkbox Đánh Dấu Tiến Độ Cài Ngay Bên Cạnh Con Mắt / Cái Khóa -->
+                      <label class="flex items-center gap-1.5 cursor-pointer bg-abyssal hover:bg-kem/15 px-2 py-1 rounded-lg border border-kem/20 hover:border-cam/40 transition-all select-none" title="Nhấn vào đây sau khi học xong để cập nhật tiến độ học tập">
+                        <input type="checkbox" id="chk-5-2" data-progress-key="chk-5-2" onchange="window.updateProgressFromCheckbox(5, 2, this.checked)" class="w-4 h-4 rounded text-cam focus:ring-cam accent-cam cursor-pointer" />
+                        <span class="text-[10px] font-mono text-yen hidden md:inline">Đã học</span>
+                      </label>
+                    </div>
+                  </div>
+                  <!-- Nội Dung Con 5.3 -->
+                  <div id="sub-item-box-5-3" class="sub-lesson-row flex flex-col sm:flex-row sm:items-center justify-between p-2.5 sm:p-3 rounded-lg bg-nen-sau/70 hover:bg-nen-sau border border-kem/10 hover:border-cam/40 transition-all gap-2">
+                    <div class="flex items-start sm:items-center gap-2.5 min-w-0 pr-2">
+                      <span class="w-6 h-6 rounded-md bg-abyssal border border-kem/15 flex items-center justify-center text-xs text-cam shrink-0 mt-0.5 sm:mt-0">
+                        📝
+                      </span>
+                      <div class="space-y-0.5 min-w-0">
+                        <button type="button" onclick="window.handleSubItemClick(5, 3)" class="text-left font-medium text-xs sm:text-sm text-kem hover:text-cam transition-colors leading-snug cursor-pointer">
+                          5.3 Nhiệm vụ số thật: Kích hoạt kịch bản bảo vệ tài chính 6 tháng sinh hoạt phí gia đình
+                        </button>
+                        <p class="text-[11px] text-yen/80 line-clamp-1">
+                          Kiểm tra kịch bản ứng phó tài chính khẩn cấp của gia đình.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Cột Bên Phải: Thời lượng + Con Mắt/Cái Khóa + Ô Checkbox Đánh Dấu Tiến Độ -->
+                    <div class="flex items-center justify-end gap-2.5 shrink-0 self-end sm:self-center pt-1 sm:pt-0 border-t sm:border-t-0 border-kem/10 w-full sm:w-auto">
+                      <span class="text-[11px] font-mono text-yen whitespace-nowrap">
+                        30m
+                      </span>
+
+                      <!-- Biểu tượng Con Mắt / Cái Khóa -->
+                      <button type="button" onclick="window.handleSubItemClick(5, 3)" id="sub-icon-5-3" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 border-amber-500/30 text-amber-300 flex items-center justify-center text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform cursor-pointer" title="Khóa · Cần mở khóa">
+                        🔒
+                      </button>
+
+                      <!-- Ô Checkbox Đánh Dấu Tiến Độ Cài Ngay Bên Cạnh Con Mắt / Cái Khóa -->
+                      <label class="flex items-center gap-1.5 cursor-pointer bg-abyssal hover:bg-kem/15 px-2 py-1 rounded-lg border border-kem/20 hover:border-cam/40 transition-all select-none" title="Nhấn vào đây sau khi học xong để cập nhật tiến độ học tập">
+                        <input type="checkbox" id="chk-5-3" data-progress-key="chk-5-3" onchange="window.updateProgressFromCheckbox(5, 3, this.checked)" class="w-4 h-4 rounded text-cam focus:ring-cam accent-cam cursor-pointer" />
+                        <span class="text-[10px] font-mono text-yen hidden md:inline">Đã học</span>
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
-
-              <!-- Buổi 6 -->
-              <div class="lesson-row flex items-center justify-between p-3 sm:p-3.5 rounded-xl bg-abyssal/60 border border-kem/10 hover:border-cam/50 hover:bg-abyssal transition-all cursor-pointer group" onclick="window.handleLessonClick(6)">
-                <div class="flex items-center gap-3 min-w-0 pr-2">
-                  <div class="w-8 h-8 rounded-full bg-kem/10 border border-kem/20 text-yen flex items-center justify-center shrink-0 group-hover:bg-cam group-hover:text-abyssal group-hover:border-cam transition-all shadow-sm">
-                    <svg class="w-3.5 h-3.5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <!-- BUỔI 06 ACCORDION GROUP -->
+              <div id="accordion-group-6" class="bg-abyssal/80 border border-kem/15 rounded-xl overflow-hidden transition-all shadow-md">
+                <!-- Header Buổi Lớn (Bấm để đóng/mở nội dung nhỏ) -->
+                <div onclick="window.toggleModuleAccordion(6)" class="p-3.5 sm:p-4 bg-gradient-to-r from-nen-sau via-abyssal to-nen-sau border-b border-kem/10 flex items-center justify-between gap-3 cursor-pointer select-none hover:border-cam/40 transition-colors group">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-8 h-8 rounded-lg bg-cam/15 border border-cam/30 text-cam flex items-center justify-center font-mono font-bold text-xs shrink-0 group-hover:bg-cam group-hover:text-abyssal transition-all">
+                      06
+                    </div>
+                    <div class="space-y-0.5 min-w-0">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <h4 class="text-xs sm:text-sm font-bold text-kem group-hover:text-cam transition-colors truncate">
+                          Buổi 06 · Phiên Cố Vấn 1-1 & Thiết Kế Lộ Trình Tài Chính Cá Nhân Hóa 365 Ngày
+                        </h4>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 border-amber-500/40 shrink-0">
+                          CỐ VẤN KÍN 1-1
+                        </span>
+                      </div>
+                      <div class="flex items-center gap-2 text-[11px] font-mono text-yen">
+                        <span class="hidden sm:inline">Tổng thời lượng: </span><span class="sm:hidden">Thời lượng: </span>2h 30m</span>
+                        <span>·</span>
+                        <span>3 Nội dung thực hành</span>
+                      </div>
+                    </div>
                   </div>
-                  <div class="space-y-0.5 min-w-0">
-                    <div class="flex items-center gap-2 flex-wrap">
-                      <span class="text-xs sm:text-sm font-semibold text-kem group-hover:text-cam transition-colors">
-                        Buổi 06 · Phiên Cố Vấn 1-1 & Thiết Kế Lộ Trình Tài Chính Cá Nhân Hóa 365 Ngày
-                      </span>
-                      <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cam/20 text-cam border border-cam/30 shrink-0">
-                        CỐ VẤN ĐỘC QUYỀN
-                      </span>
-                    </div>
-                    <div class="flex items-center flex-wrap gap-x-2 gap-y-0.5 text-[11px] font-mono text-yen">
-                      <span class="whitespace-nowrap">Thời lượng: 2h 30m</span>
-                      <span>·</span>
-                      <span id="lesson-status-desc-6" class="text-yen">Mentor Trần Nam Hà duyệt bài tập</span>
-                    </div>
+
+                  <div class="flex items-center gap-2.5 shrink-0">
+                    <span id="mod-prog-badge-6" class="px-2 py-0.5 rounded-md text-[11px] font-mono font-bold bg-kem/10 text-yen border border-kem/15">
+                      0/3 hoàn thành
+                    </span>
+                    <svg id="accordion-arrow-6" class="w-4 h-4 text-yen group-hover:text-cam transition-transform transform " fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                    </svg>
                   </div>
                 </div>
-                <div class="flex items-center gap-2 shrink-0">
-                  <span id="lesson-icon-6" class="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center justify-center text-sm shadow-sm transition-transform group-hover:scale-105" title="Khóa · Cần mở khóa">
-                    🔒
-                  </span>
+
+                <!-- Danh Sách Các Nội Dung Nhỏ Trong Buổi 06 -->
+                <div id="accordion-body-6" class="p-2.5 sm:p-3 space-y-2 bg-abyssal/40 hidden">
+                  <!-- Nội Dung Con 6.1 -->
+                  <div id="sub-item-box-6-1" class="sub-lesson-row flex flex-col sm:flex-row sm:items-center justify-between p-2.5 sm:p-3 rounded-lg bg-nen-sau/70 hover:bg-nen-sau border border-kem/10 hover:border-cam/40 transition-all gap-2">
+                    <div class="flex items-start sm:items-center gap-2.5 min-w-0 pr-2">
+                      <span class="w-6 h-6 rounded-md bg-abyssal border border-kem/15 flex items-center justify-center text-xs text-cam shrink-0 mt-0.5 sm:mt-0">
+                        ▶
+                      </span>
+                      <div class="space-y-0.5 min-w-0">
+                        <button type="button" onclick="window.handleSubItemClick(6, 1)" class="text-left font-medium text-xs sm:text-sm text-kem hover:text-cam transition-colors leading-snug cursor-pointer">
+                          6.1 Zoom kín đặc biệt: Phiên sửa bài tập số thật trực tiếp cùng Mentor Trần Nam Hà
+                        </button>
+                        <p class="text-[11px] text-yen/80 line-clamp-1">
+                          Mentor trực tiếp mổ xẻ bài tập và chỉnh sửa lộ trình cho từng học viên.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Cột Bên Phải: Thời lượng + Con Mắt/Cái Khóa + Ô Checkbox Đánh Dấu Tiến Độ -->
+                    <div class="flex items-center justify-end gap-2.5 shrink-0 self-end sm:self-center pt-1 sm:pt-0 border-t sm:border-t-0 border-kem/10 w-full sm:w-auto">
+                      <span class="text-[11px] font-mono text-yen whitespace-nowrap">
+                        2h 00m
+                      </span>
+
+                      <!-- Biểu tượng Con Mắt / Cái Khóa -->
+                      <button type="button" onclick="window.handleSubItemClick(6, 1)" id="sub-icon-6-1" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 border-amber-500/30 text-amber-300 flex items-center justify-center text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform cursor-pointer" title="Khóa · Cần mở khóa">
+                        🔒
+                      </button>
+
+                      <!-- Ô Checkbox Đánh Dấu Tiến Độ Cài Ngay Bên Cạnh Con Mắt / Cái Khóa -->
+                      <label class="flex items-center gap-1.5 cursor-pointer bg-abyssal hover:bg-kem/15 px-2 py-1 rounded-lg border border-kem/20 hover:border-cam/40 transition-all select-none" title="Nhấn vào đây sau khi học xong để cập nhật tiến độ học tập">
+                        <input type="checkbox" id="chk-6-1" data-progress-key="chk-6-1" onchange="window.updateProgressFromCheckbox(6, 1, this.checked)" class="w-4 h-4 rounded text-cam focus:ring-cam accent-cam cursor-pointer" />
+                        <span class="text-[10px] font-mono text-yen hidden md:inline">Đã học</span>
+                      </label>
+                    </div>
+                  </div>
+                  <!-- Nội Dung Con 6.2 -->
+                  <div id="sub-item-box-6-2" class="sub-lesson-row flex flex-col sm:flex-row sm:items-center justify-between p-2.5 sm:p-3 rounded-lg bg-nen-sau/70 hover:bg-nen-sau border border-kem/10 hover:border-cam/40 transition-all gap-2">
+                    <div class="flex items-start sm:items-center gap-2.5 min-w-0 pr-2">
+                      <span class="w-6 h-6 rounded-md bg-abyssal border border-kem/15 flex items-center justify-center text-xs text-cam shrink-0 mt-0.5 sm:mt-0">
+                        📄
+                      </span>
+                      <div class="space-y-0.5 min-w-0">
+                        <button type="button" onclick="window.handleSubItemClick(6, 2)" class="text-left font-medium text-xs sm:text-sm text-kem hover:text-cam transition-colors leading-snug cursor-pointer">
+                          6.2 Lộ trình cá nhân: Nhận bản Lộ trình hành động tài chính 365 ngày đã được duyệt
+                        </button>
+                        <p class="text-[11px] text-yen/80 line-clamp-1">
+                          Kế hoạch hành động cụ thể từng quý trong 365 ngày tới.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Cột Bên Phải: Thời lượng + Con Mắt/Cái Khóa + Ô Checkbox Đánh Dấu Tiến Độ -->
+                    <div class="flex items-center justify-end gap-2.5 shrink-0 self-end sm:self-center pt-1 sm:pt-0 border-t sm:border-t-0 border-kem/10 w-full sm:w-auto">
+                      <span class="text-[11px] font-mono text-yen whitespace-nowrap">
+                        30m
+                      </span>
+
+                      <!-- Biểu tượng Con Mắt / Cái Khóa -->
+                      <button type="button" onclick="window.handleSubItemClick(6, 2)" id="sub-icon-6-2" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 border-amber-500/30 text-amber-300 flex items-center justify-center text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform cursor-pointer" title="Khóa · Cần mở khóa">
+                        🔒
+                      </button>
+
+                      <!-- Ô Checkbox Đánh Dấu Tiến Độ Cài Ngay Bên Cạnh Con Mắt / Cái Khóa -->
+                      <label class="flex items-center gap-1.5 cursor-pointer bg-abyssal hover:bg-kem/15 px-2 py-1 rounded-lg border border-kem/20 hover:border-cam/40 transition-all select-none" title="Nhấn vào đây sau khi học xong để cập nhật tiến độ học tập">
+                        <input type="checkbox" id="chk-6-2" data-progress-key="chk-6-2" onchange="window.updateProgressFromCheckbox(6, 2, this.checked)" class="w-4 h-4 rounded text-cam focus:ring-cam accent-cam cursor-pointer" />
+                        <span class="text-[10px] font-mono text-yen hidden md:inline">Đã học</span>
+                      </label>
+                    </div>
+                  </div>
+                  <!-- Nội Dung Con 6.3 -->
+                  <div id="sub-item-box-6-3" class="sub-lesson-row flex flex-col sm:flex-row sm:items-center justify-between p-2.5 sm:p-3 rounded-lg bg-nen-sau/70 hover:bg-nen-sau border border-kem/10 hover:border-cam/40 transition-all gap-2">
+                    <div class="flex items-start sm:items-center gap-2.5 min-w-0 pr-2">
+                      <span class="w-6 h-6 rounded-md bg-abyssal border border-kem/15 flex items-center justify-center text-xs text-cam shrink-0 mt-0.5 sm:mt-0">
+                        🎓
+                      </span>
+                      <div class="space-y-0.5 min-w-0">
+                        <button type="button" onclick="window.handleSubItemClick(6, 3)" class="text-left font-medium text-xs sm:text-sm text-kem hover:text-cam transition-colors leading-snug cursor-pointer">
+                          6.3 Tốt nghiệp: Mở Khóa Chứng Nhận Tốt Nghiệp & Gia nhập TVS Private Circle
+                        </button>
+                        <p class="text-[11px] text-yen/80 line-clamp-1">
+                          Đăng kiểm chữ ký số và nhận huy hiệu thành viên chính thức.
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Cột Bên Phải: Thời lượng + Con Mắt/Cái Khóa + Ô Checkbox Đánh Dấu Tiến Độ -->
+                    <div class="flex items-center justify-end gap-2.5 shrink-0 self-end sm:self-center pt-1 sm:pt-0 border-t sm:border-t-0 border-kem/10 w-full sm:w-auto">
+                      <span class="text-[11px] font-mono text-yen whitespace-nowrap">
+                        15m
+                      </span>
+
+                      <!-- Biểu tượng Con Mắt / Cái Khóa -->
+                      <button type="button" onclick="window.handleSubItemClick(6, 3)" id="sub-icon-6-3" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 border-amber-500/30 text-amber-300 flex items-center justify-center text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform cursor-pointer" title="Khóa · Cần mở khóa">
+                        🔒
+                      </button>
+
+                      <!-- Ô Checkbox Đánh Dấu Tiến Độ Cài Ngay Bên Cạnh Con Mắt / Cái Khóa -->
+                      <label class="flex items-center gap-1.5 cursor-pointer bg-abyssal hover:bg-kem/15 px-2 py-1 rounded-lg border border-kem/20 hover:border-cam/40 transition-all select-none" title="Nhấn vào đây sau khi học xong để cập nhật tiến độ học tập">
+                        <input type="checkbox" id="chk-6-3" data-progress-key="chk-6-3" onchange="window.updateProgressFromCheckbox(6, 3, this.checked)" class="w-4 h-4 rounded text-cam focus:ring-cam accent-cam cursor-pointer" />
+                        <span class="text-[10px] font-mono text-yen hidden md:inline">Đã học</span>
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-
-            <div class="flex items-center justify-between text-[11px] font-mono text-yen pt-2 border-t border-kem/10">
+<div class="flex items-center justify-between text-[11px] font-mono text-yen pt-2 border-t border-kem/10">
               <span>Nhấn vào từng buổi học để mở video trực tiếp trên web</span>
               <span id="lesson-unlock-counter" class="text-cam font-bold">1 / 6 bài học đã mở</span>
             </div>
@@ -2904,6 +3589,46 @@
     }
   } catch(e) {}
 
+  
+  // Toggle Accordion Group for a Module
+  window.toggleModuleAccordion = function(modId) {
+    var bodyEl = document.getElementById('accordion-body-' + modId);
+    var arrowEl = document.getElementById('accordion-arrow-' + modId);
+    if (!bodyEl) return;
+    var isHidden = bodyEl.classList.contains('hidden');
+    if (isHidden) {
+      bodyEl.classList.remove('hidden');
+      if (arrowEl) arrowEl.classList.add('rotate-180');
+    } else {
+      bodyEl.classList.add('hidden');
+      if (arrowEl) arrowEl.classList.remove('rotate-180');
+    }
+  };
+
+  // Handle click on a sub-lesson item
+  window.handleSubItemClick = function(modId, subId) {
+    if (modId === 1 || isCourseEnrolled) {
+      if (subId === 1) {
+        window.openLessonVideo(modId);
+      } else if (subId === 2) {
+        showToast('📥 Đang mở tệp biểu mẫu thực hành Buổi ' + modId + '...');
+        var chk = document.getElementById('chk-' + modId + '-' + subId);
+        if (chk && !chk.checked) {
+          // Suggest marking done
+          setTimeout(function() {
+            showToast('💡 Bạn có thể tích chọn ô [Đã học] bên cạnh để ghi nhận tiến độ!');
+          }, 1500);
+        }
+      } else {
+        showToast('📝 Đang mở bảng nhiệm vụ số thật Buổi ' + modId + '...');
+        var box = document.getElementById('module-box-' + modId);
+        if (box) box.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      window.showLockedLessonModal(modId);
+    }
+  };
+
   window.setCourseEnrollmentStatus = function(isPaid, silent) {
     isCourseEnrolled = !!isPaid;
     try {
@@ -2957,7 +3682,7 @@
       }
     }
 
-    // Update Icons for lessons 2 through 6
+    // Update Icons for lessons 2 through 6 (both main and sub-items)
     for (var i = 2; i <= 6; i++) {
       var iconEl = document.getElementById('lesson-icon-' + i);
       var descEl = document.getElementById('lesson-status-desc-' + i);
@@ -2972,6 +3697,22 @@
           iconEl.textContent = '🔒';
           iconEl.className = 'w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center justify-center text-sm shadow-sm transition-transform group-hover:scale-105';
           iconEl.title = 'Khóa · Cần đăng ký để mở';
+        }
+      }
+
+      // Update all 3 sub-items in module i
+      for (var s = 1; s <= 3; s++) {
+        var subBtn = document.getElementById('sub-icon-' + i + '-' + s);
+        if (subBtn) {
+          if (isCourseEnrolled) {
+            subBtn.textContent = '👁️';
+            subBtn.className = 'w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-blue-500/15 border border-blue-500/40 text-blue-300 flex items-center justify-center text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform cursor-pointer';
+            subBtn.title = 'Mở học nội dung này';
+          } else {
+            subBtn.textContent = '🔒';
+            subBtn.className = 'w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center justify-center text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform cursor-pointer';
+            subBtn.title = 'Khóa · Cần mở khóa để học';
+          }
         }
       }
 
