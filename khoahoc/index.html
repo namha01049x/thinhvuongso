@@ -79,6 +79,24 @@
         document.documentElement.classList.add('theme-light');
       }
     } catch (e) {}
+
+    // Resilient image loader for root and subdirectory paths
+    window.addEventListener('error', function(e) {
+      if (e.target && e.target.tagName === 'IMG') {
+        var img = e.target;
+        if (!img.dataset.retried) {
+          img.dataset.retried = '1';
+          var src = img.getAttribute('src');
+          if (src && !src.startsWith('http') && !src.startsWith('data:')) {
+            if (src.startsWith('anh/')) {
+              img.src = '../' + src;
+            } else if (src.startsWith('../anh/')) {
+              img.src = src.substring(3);
+            }
+          }
+        }
+      }
+    }, true);
   </script>
 
   <style>
@@ -843,20 +861,21 @@
   </section>
 
   <!-- ==================== DEEP DIVE SECTION: BỨT PHÁ TÀI CHÍNH (FLAGSHIP COURSE LANDING) ==================== -->
-  <section id="but-pha-tai-chinh" class="py-12 sm:py-20 bg-abyssal border-b border-kem/15 scroll-mt-20">
+  <section id="but-pha-tai-chinh" class="py-12 sm:py-20 bg-abyssal border-b border-kem/15 scroll-mt-28">
     <div class="max-w-dtv mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
       
-      <!-- HERO HEADER OF BỨT PHÁ TÀI CHÍNH (Inspired by songdoingoaihang.com course header) -->
-      <div class="space-y-4 max-w-4xl">
+      <!-- HERO HEADER OF BỨT PHÁ TÀI CHÍNH (High-craft editorial header) -->
+      <div class="space-y-6 max-w-4xl">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="px-2.5 py-1 rounded bg-cam text-abyssal font-mono text-xs font-bold uppercase tracking-wider">
-            Tầng 2 · Chương trình trọng điểm Zoom
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cam text-abyssal font-mono text-xs font-bold uppercase tracking-wider shadow">
+            <span class="w-2 h-2 rounded-full bg-abyssal animate-pulse"></span>
+            Khóa Huấn Luyện Trọng Điểm Zoom · Khai Giảng Tháng 11/2026
           </span>
-          <span class="px-2.5 py-1 rounded bg-kem/10 border border-kem/20 font-mono text-xs text-yen">
+          <span class="px-2.5 py-1 rounded-full bg-kem/10 border border-kem/20 font-mono text-xs text-yen">
             Huấn luyện trực tiếp cùng Mentor Trần Nam Hà
           </span>
-          <span class="px-2.5 py-1 rounded bg-green-500/20 text-green-400 font-mono text-xs border border-green-500/30">
-            6 Tuần · Cam kết hoàn tiền 100%
+          <span class="px-2.5 py-1 rounded-full bg-green-500/20 text-green-300 font-mono text-xs border border-green-500/30 flex items-center gap-1">
+            <span>🛡️</span> Cam kết hoàn tiền 100% trong 14 ngày
           </span>
         </div>
 
@@ -866,16 +885,44 @@
 
         <p class="text-base sm:text-lg text-yen leading-relaxed">
           Chương trình huấn luyện thực chiến 6 buổi trực tiếp qua Zoom cùng <strong class="text-kem font-semibold">Mentor Trần Nam Hà</strong>. 
-          Giúp bạn mổ xẻ chính xác bức tranh thu nhập, bịt kín các rò rỉ âm thầm, tái cấu trúc đòn bẩy thông minh và thiết lập lộ trình thịnh vượng vững chắc dựa trên số liệu thật.
+          Giúp bạn mổ xẻ chính xác bức tranh thu nhập, bịt kín các rò rỉ âm thầm, tái cấu trúc đòn bẩy thông minh và thiết lập lộ trình thịnh vượng vững chắc dựa trên số liệu thật của chính bạn.
         </p>
 
-        <div class="flex flex-wrap items-center gap-4 pt-2">
-          <a href="#dang-ky-ngay" class="btn-p !py-3 !px-6 text-sm font-mono uppercase tracking-wider shadow-lg">
-            <span>Đăng ký tham gia ngay ↗</span>
-          </a>
-          <a href="tel:0981501865" class="btn-o !py-3 !px-5 text-sm font-mono">
-            <span>Hotline / Zalo: 0981501865</span>
-          </a>
+        <!-- 3 Quantitative Outcome Indicator Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+          <div class="p-4 rounded-xl bg-nen-sau border border-cam/30 space-y-1 shadow-md">
+            <span class="font-mono text-xs font-bold text-cam uppercase tracking-wider block">Mục Tiêu #1</span>
+            <div class="font-mono text-lg sm:text-xl font-extrabold text-kem">5 - 15 Triệu đ/tháng</div>
+            <p class="text-xs text-yen leading-relaxed">Bịt kín rò rỉ âm thầm từ các khoản chi tiêu vô thức và chi phí ngầm.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-nen-sau border border-cam/30 space-y-1 shadow-md">
+            <span class="font-mono text-xs font-bold text-cam uppercase tracking-wider block">Mục Tiêu #2</span>
+            <div class="font-mono text-lg sm:text-xl font-extrabold text-kem">Quỹ Dự Phòng 6 Tháng</div>
+            <p class="text-xs text-yen leading-relaxed">Thiết lập đệm an toàn tài chính chuẩn quốc tế bảo vệ gia đình trước biến cố.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-nen-sau border border-cam/30 space-y-1 shadow-md">
+            <span class="font-mono text-xs font-bold text-cam uppercase tracking-wider block">Mục Tiêu #3</span>
+            <div class="font-mono text-lg sm:text-xl font-extrabold text-kem">Lộ Trình 90 Ngày</div>
+            <p class="text-xs text-yen leading-relaxed">Bản kế hoạch hành động số thật được Mentor Trần Nam Hà chữa bài 1-1.</p>
+          </div>
+        </div>
+
+        <!-- Proof row & Quick CTAs -->
+        <div class="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-kem/10">
+          <div class="flex items-center gap-3 text-xs font-mono text-yen">
+            <div class="flex text-cam">★★★★★</div>
+            <span class="text-kem font-bold">4.98 / 5.0</span>
+            <span>(2.500+ học viên đã kiểm chứng)</span>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <button type="button" onclick="window.openCheckoutModal('Bứt Phá Tài Chính · Mentor Trần Nam Hà', '2.990.000 đ')" class="btn-p !py-3 !px-6 text-xs sm:text-sm font-mono uppercase tracking-wider shadow-lg font-bold">
+              <span>Đăng ký giữ chỗ ưu đãi 2.990.000 đ ↗</span>
+            </button>
+            <button type="button" onclick="window.playCourseTrailer()" class="btn-o !py-3 !px-5 text-xs sm:text-sm font-mono flex items-center gap-2">
+              <span>Xem Video Teaser ⏯</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -885,15 +932,18 @@
         <!-- LEFT 8 COLS: COURSE DETAILS, VIDEO, PROBLEMS, BENEFITS, SYLLABUS -->
         <div class="lg:col-span-8 space-y-12">
           
-          <!-- 1. VIDEO PREVIEW SECTION (Inspired by songdoingoaihang.com) -->
+          <!-- 1. VIDEO PREVIEW SECTION WITH INTERACTIVE MODAL TRIGGER -->
           <div class="bg-nen-sau border border-kem/20 rounded-2xl p-4 sm:p-6 space-y-4 shadow-xl">
-            <div class="flex items-center justify-between">
-              <span class="font-mono text-xs font-semibold text-cam uppercase tracking-wider">Video giới thiệu khóa học</span>
-              <span class="font-mono text-xs text-yen">Thời lượng teaser: 04:32</span>
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+                <span class="font-mono text-xs font-semibold text-cam uppercase tracking-wider">Video xem thử trích đoạn khóa học</span>
+              </div>
+              <span class="font-mono text-xs text-yen">Thời lượng teaser: 04:32 · Full HD 1080p</span>
             </div>
 
-            <!-- Video wrapper -->
-            <div class="relative aspect-video rounded-xl overflow-hidden bg-nen-chan border border-kem/15 group cursor-pointer" onclick="window.playCourseTrailer()">
+            <!-- Video wrapper clickable -->
+            <div class="relative aspect-video rounded-xl overflow-hidden bg-nen-chan border border-kem/15 group cursor-pointer" onclick="window.playCourseTrailer()" title="Bấm vào để mở video xem thử trích đoạn Buổi 1">
               <img src="anh/c05-nam-mic.webp" alt="Trailer khóa học Bứt Phá Tài Chính cùng Mentor Trần Nam Hà" width="900" height="500" class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500 opacity-80" />
               <div class="absolute inset-0 bg-gradient-to-t from-abyssal via-black/30 to-transparent"></div>
 
@@ -907,10 +957,10 @@
               <!-- Video controls mockup bar -->
               <div class="absolute bottom-0 inset-x-0 p-3 sm:p-4 bg-gradient-to-t from-black/90 to-transparent flex items-center justify-between text-xs text-kem font-mono">
                 <div class="flex items-center gap-3">
-                  <span class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></span>
-                  <span class="font-medium">Xem bản demo: Buổi 1 · Mổ xẻ bức tranh thu nhập</span>
+                  <span class="w-2 h-2 rounded-full bg-cam"></span>
+                  <span class="font-medium">Xem trích đoạn: Buổi 1 · Mổ xẻ bức tranh thu nhập cùng Mentor</span>
                 </div>
-                <span>Full HD 1080p</span>
+                <span class="text-cam font-bold">Bấm để phát video ▶</span>
               </div>
             </div>
 
@@ -919,91 +969,193 @@
             </p>
           </div>
 
-          <!-- 2. "BẠN CÓ ĐANG GẶP NHỮNG RÀO CẢN NÀY KHÔNG?" (Pain Points Accordion - Inspired directly by songdoingoaihang.com) -->
-          <div class="space-y-4">
-            <div class="nhan text-cam border-cam/30 bg-cam/10">Thấu hiểu rào cản</div>
-            <h3 class="text-2xl sm:text-3xl font-bold text-kem font-serif">Bạn Có Đang Gặp Những Vấn Đề Này Không?</h3>
-            <p class="text-sm text-yen">Hầu hết người kiếm tiền chăm chỉ đều mắc kẹt ở những nút thắt tài chính giống nhau:</p>
+          <!-- 2. "BẠN CÓ ĐANG GẶP NHỮNG RÀO CẢN NÀY KHÔNG?" (Visual Comparative Cards Layout) -->
+          <div class="space-y-6">
+            <div>
+              <div class="nhan text-cam border-cam/30 bg-cam/10 mb-2">Thấu hiểu rào cản</div>
+              <h3 class="text-2xl sm:text-3xl font-bold text-kem font-serif">5 Điểm Nghẽn Khiến Bạn Kiếm Tiền Nhiều Nhưng Không Giàu Được</h3>
+              <p class="text-sm text-yen mt-1">Hầu hết người đi làm chăm chỉ và chủ doanh nghiệp đều mắc kẹt ở những nút thắt giống nhau:</p>
+            </div>
 
-            <div class="space-y-3 pt-2">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               
-              <!-- Problem 1 -->
-              <details class="group bg-nen-sau border border-kem/20 rounded-xl overflow-hidden transition-all" open>
-                <summary class="flex items-center justify-between p-4 sm:p-5 cursor-pointer font-semibold text-sm sm:text-base text-kem hover:text-cam">
-                  <span class="flex items-center gap-3">
-                    <span class="w-6 h-6 rounded-full bg-cam/20 text-cam text-xs font-mono flex items-center justify-center shrink-0">1</span>
-                    Thu nhập tăng nhưng tiền tiết kiệm cuối tháng vẫn bằng không?
-                  </span>
-                  <svg class="acc-icon w-5 h-5 text-yen transition-transform shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-                </summary>
-                <div class="px-5 pb-5 pt-1 text-xs sm:text-sm text-yen leading-relaxed border-t border-kem/10">
-                  Lương từ 15 triệu lên 30 triệu, thậm chí 50 triệu nhưng phong cách sống tự động nâng lên theo, chi tiêu tăng theo cấp số nhân khiến số tiền thực tế giữ lại trong tài khoản chẳng hơn gì ngày xưa.
+              <!-- Left Column: Pain Points -->
+              <div class="p-5 rounded-2xl bg-red-950/20 border border-red-500/30 space-y-4">
+                <div class="flex items-center gap-2 pb-2 border-b border-red-500/20">
+                  <span class="text-base">⚠️</span>
+                  <h4 class="font-mono text-xs uppercase tracking-wider font-bold text-red-400">Thực Trạng Mắc Kẹt Tài Chính</h4>
                 </div>
-              </details>
+                <ul class="space-y-3 text-xs sm:text-sm text-kem">
+                  <li class="flex items-start gap-2.5">
+                    <span class="text-red-400 font-bold shrink-0">✕</span>
+                    <span><strong>Thu nhập tăng nhưng tiền tiết kiệm bằng không:</strong> Phong cách sống nâng lên theo khiến tiền vào túi bao nhiêu lại trôi đi hết bấy nhiêu.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <span class="text-red-400 font-bold shrink-0">✕</span>
+                    <span><strong>Dòng tiền rò rỉ qua các khoản chi tiêu vô thức:</strong> Cà phê, mua sắm online, phí dịch vụ không tên âm thầm ngốn 15% - 25% thu nhập mỗi tháng.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <span class="text-red-400 font-bold shrink-0">✕</span>
+                    <span><strong>Phụ thuộc 1 nguồn thu độc đạo:</strong> Luôn nơm nớp lo sợ khi công ty cắt giảm nhân sự hoặc tình hình kinh doanh gặp biến động.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <span class="text-red-400 font-bold shrink-0">✕</span>
+                    <span><strong>Nóng vội đầu tư khi chưa có quỹ dự phòng:</strong> Nghe người khác rủ rê rồi bị chôn vốn vào những tài sản khó thanh khoản lúc cấp bách.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <span class="text-red-400 font-bold shrink-0">✕</span>
+                    <span><strong>Thiếu người dẫn dắt số thật:</strong> Tự ghi chép vài ngày rồi bỏ cuộc vì không có hệ thống đo lường và mentor chữa bài.</span>
+                  </li>
+                </ul>
+              </div>
 
-              <!-- Problem 2 -->
-              <details class="group bg-nen-sau border border-kem/20 rounded-xl overflow-hidden transition-all">
-                <summary class="flex items-center justify-between p-4 sm:p-5 cursor-pointer font-semibold text-sm sm:text-base text-kem hover:text-cam">
-                  <span class="flex items-center gap-3">
-                    <span class="w-6 h-6 rounded-full bg-cam/20 text-cam text-xs font-mono flex items-center justify-center shrink-0">2</span>
-                    Dòng tiền rò rỉ âm thầm qua các khoản chi tiêu vô thức không tên?
-                  </span>
-                  <svg class="acc-icon w-5 h-5 text-yen transition-transform shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-                </summary>
-                <div class="px-5 pb-5 pt-1 text-xs sm:text-sm text-yen leading-relaxed border-t border-kem/10">
-                  Mỗi ngày quẹt thẻ vài chục nghìn, vài trăm nghìn cho cà phê, mua sắm online, phí hội viên không dùng... Đến cuối tháng nhìn lại không biết tiền đã trôi đi đâu mất. Bạn thiếu một hệ thống kiểm kê tự động.
+              <!-- Right Column: Solutions by TVS -->
+              <div class="p-5 rounded-2xl bg-green-950/20 border border-green-500/30 space-y-4">
+                <div class="flex items-center gap-2 pb-2 border-b border-green-500/20">
+                  <span class="text-base">✨</span>
+                  <h4 class="font-mono text-xs uppercase tracking-wider font-bold text-green-400">Chuyển Hóa Cùng Thịnh Vượng Số</h4>
                 </div>
-              </details>
-
-              <!-- Problem 3 -->
-              <details class="group bg-nen-sau border border-kem/20 rounded-xl overflow-hidden transition-all">
-                <summary class="flex items-center justify-between p-4 sm:p-5 cursor-pointer font-semibold text-sm sm:text-base text-kem hover:text-cam">
-                  <span class="flex items-center gap-3">
-                    <span class="w-6 h-6 rounded-full bg-cam/20 text-cam text-xs font-mono flex items-center justify-center shrink-0">3</span>
-                    Phụ thuộc vào duy nhất một nguồn thu nhập, luôn bất an trước biến cố?
-                  </span>
-                  <svg class="acc-icon w-5 h-5 text-yen transition-transform shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-                </summary>
-                <div class="px-5 pb-5 pt-1 text-xs sm:text-sm text-yen leading-relaxed border-t border-kem/10">
-                  Chỉ cần công ty cắt giảm nhân sự hoặc doanh thu kinh doanh chậm lại 1 tháng là toàn bộ sinh hoạt gia đình rơi vào áp lực nặng nề. Bạn chưa biết cách thiết lập đòn bẩy để xây dựng nguồn thu nhập thứ hai bền vững.
-                </div>
-              </details>
-
-              <!-- Problem 4 -->
-              <details class="group bg-nen-sau border border-kem/20 rounded-xl overflow-hidden transition-all">
-                <summary class="flex items-center justify-between p-4 sm:p-5 cursor-pointer font-semibold text-sm sm:text-base text-kem hover:text-cam">
-                  <span class="flex items-center gap-3">
-                    <span class="w-6 h-6 rounded-full bg-cam/20 text-cam text-xs font-mono flex items-center justify-center shrink-0">4</span>
-                    Nóng vội đầu tư khi chưa có quỹ dự phòng, dẫn tới mất vốn hoặc kẹt thanh khoản?
-                  </span>
-                  <svg class="acc-icon w-5 h-5 text-yen transition-transform shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-                </summary>
-                <div class="px-5 pb-5 pt-1 text-xs sm:text-sm text-yen leading-relaxed border-t border-kem/10">
-                  Nghe người khác rủ rê mua đất, mua cổ phiếu, lướt sóng khi chưa hiểu Khung 5 lớp tài sản, khiến tiền tích cóp nhiều năm bốc hơi hoặc bị chôn vốn vào những tài sản khó bán lúc cấp bách.
-                </div>
-              </details>
-
-              <!-- Problem 5 -->
-              <details class="group bg-nen-sau border border-kem/20 rounded-xl overflow-hidden transition-all">
-                <summary class="flex items-center justify-between p-4 sm:p-5 cursor-pointer font-semibold text-sm sm:text-base text-kem hover:text-cam">
-                  <span class="flex items-center gap-3">
-                    <span class="w-6 h-6 rounded-full bg-cam/20 text-cam text-xs font-mono flex items-center justify-center shrink-0">5</span>
-                    Thiếu kỷ luật duy trì và thiếu người thầy có kinh nghiệm chỉ điểm số thật?
-                  </span>
-                  <svg class="acc-icon w-5 h-5 text-yen transition-transform shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-                </summary>
-                <div class="px-5 pb-5 pt-1 text-xs sm:text-sm text-yen leading-relaxed border-t border-kem/10">
-                  Tự ghi chép chi tiêu được 3 ngày rồi chán nản bỏ dở. Bạn cần một môi trường cộng đồng nghiêm túc và người mentor giàu trải nghiệm trực tiếp sửa bài kiểm kê của bạn.
-                </div>
-              </details>
+                <ul class="space-y-3 text-xs sm:text-sm text-kem">
+                  <li class="flex items-start gap-2.5">
+                    <span class="text-green-400 font-bold shrink-0">✓</span>
+                    <span><strong>Cài đặt Bản đồ 4 tài khoản tự động:</strong> Tiền lương về tự phân luồng sinh hoạt, quỹ khẩn cấp và đầu tư trước khi bạn kịp tiêu xài.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <span class="text-green-400 font-bold shrink-0">✓</span>
+                    <span><strong>Sổ cái kiểm kê & Bộ 4 chỉ số sinh tồn:</strong> Chỉ ra chính xác từng đồng tiền đang rò rỉ ở đâu để bịt kín ngay 5 - 15 triệu/tháng.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <span class="text-green-400 font-bold shrink-0">✓</span>
+                    <span><strong>Tái cấu trúc đòn bẩy 3 giai đoạn:</strong> Tận dụng chuyên môn và tài sản sẵn có để tạo dòng thu nhập thứ hai bền vững không rủi ro.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <span class="text-green-400 font-bold shrink-0">✓</span>
+                    <span><strong>Khung 5 lớp tài sản an toàn:</strong> Xây dựng phòng tuyến dự phòng 6 tháng vững vàng trước khi bước sang giai đoạn tích sản.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <span class="text-green-400 font-bold shrink-0">✓</span>
+                    <span><strong>Mentor Trần Nam Hà chữa bài 1-1:</strong> Đồng hành trực tiếp qua Zoom kín, mổ xẻ trên số liệu tài chính thật của bạn.</span>
+                  </li>
+                </ul>
+              </div>
 
             </div>
 
-            <!-- Callout Note Block (Direct quote from songdoingoaihang.com) -->
-            <div class="p-4 sm:p-5 rounded-xl bg-cam/15 border-l-4 border-cam text-kem font-semibold text-xs sm:text-sm">
-              💡 Nếu bạn thấy mình trong các rào cản trên, khóa học Bứt Phá Tài Chính này được tạo ra là để giải phóng bạn!
+            <!-- Callout Note Block -->
+            <div class="p-4 sm:p-5 rounded-xl bg-cam/15 border-l-4 border-cam text-kem font-semibold text-xs sm:text-sm flex items-center justify-between flex-wrap gap-3">
+              <span>💡 Nếu bạn nhận ra mình trong các rào cản trên, khóa học Bứt Phá Tài Chính được tạo ra là để giải phóng bạn!</span>
+              <button type="button" onclick="window.openCheckoutModal('Bứt Phá Tài Chính · Mentor Trần Nam Hà', '2.990.000 đ')" class="btn-p !py-2 !px-4 text-xs font-mono uppercase tracking-wider font-bold">
+                <span>Nhận giải pháp ngay ↗</span>
+              </button>
             </div>
           </div>
+
+          <!-- 2.5 BẢNG SO SÁNH QUYẾT ĐỊNH (DECISION CONTRAST MATRIX) -->
+          <div class="bg-nen-sau border border-kem/20 rounded-2xl p-5 sm:p-7 space-y-5 shadow-xl">
+            <div>
+              <div class="nhan text-cam border-cam/30 bg-cam/10 mb-2">Bảng so sánh quyết định</div>
+              <h3 class="text-xl sm:text-2xl font-bold text-kem font-serif">Tự Mày Mò Thử Sai vs Đồng Hành Cùng Mentor Trần Nam Hà</h3>
+              <p class="text-xs sm:text-sm text-yen mt-1">Sự khác biệt giữa việc trả giá bằng tiền bạc trên thị trường và học theo quy trình đã được chứng thực:</p>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr class="border-b border-kem/20 text-yen font-mono text-[11px] uppercase">
+                    <th class="py-3 px-3">Tiêu chí so sánh</th>
+                    <th class="py-3 px-3 bg-red-950/20 text-red-300 rounded-t-lg">Tự mày mò thử sai</th>
+                    <th class="py-3 px-3 bg-cam/15 text-cam font-bold rounded-t-lg">Đồng hành cùng TVS (6 Tuần)</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-kem/10 text-xs">
+                  <tr>
+                    <td class="py-3 px-3 font-semibold text-kem">Thời gian trả giá</td>
+                    <td class="py-3 px-3 text-yen bg-red-950/10">3 - 5 năm lúng túng, vừa làm vừa sửa</td>
+                    <td class="py-3 px-3 text-kem bg-cam/10 font-medium">6 tuần có ngay bản đồ số thật rõ ràng</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-3 font-semibold text-kem">Chi phí trả giá</td>
+                    <td class="py-3 px-3 text-red-300 bg-red-950/10">Mất 50 - 200 triệu cho sai lầm đầu tư và chi tiêu vô thức</td>
+                    <td class="py-3 px-3 text-cam bg-cam/10 font-bold">2.990.000 đ (Bảo hành 100% hoàn tiền 14 ngày)</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-3 font-semibold text-kem">Công cụ & Biểu mẫu</td>
+                    <td class="py-3 px-3 text-yen bg-red-950/10">Sổ tay rời rạc, ghi vài ngày chán nản bỏ cuộc</td>
+                    <td class="py-3 px-3 text-kem bg-cam/10 font-medium">Trọn bộ Excel độc quyền TVS tự động hóa công thức</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-3 font-semibold text-kem">Người dẫn dắt & Chữa bài</td>
+                    <td class="py-3 px-3 text-yen bg-red-950/10">Tự bơi một mình, không biết sai ở đâu</td>
+                    <td class="py-3 px-3 text-kem bg-cam/10 font-medium">Mentor Trần Nam Hà trực tiếp sửa bài 1-1 qua Zoom</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-3 font-semibold text-kem">Môi trường & Kỷ luật</td>
+                    <td class="py-3 px-3 text-yen bg-red-950/10">Thiếu môi trường, dễ thoái thác và tái nghiện chi tiêu</td>
+                    <td class="py-3 px-3 text-kem bg-cam/10 font-medium">Cộng đồng Private Circle giám sát và nâng đỡ nhau</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 2.8 KHÓA HỌC DÀNH CHO AI & AI KHÔNG NÊN THAM GIA (FIT & QUALIFICATION FILTER) -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            
+            <!-- Fit: Who this is for -->
+            <div class="p-6 rounded-2xl bg-nen-sau border-2 border-cam/40 space-y-4 shadow-xl">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded bg-cam text-abyssal font-mono text-[11px] font-bold uppercase">Phù hợp 100%</span>
+                <h4 class="font-serif font-bold text-lg text-kem">Khóa Học Này Dành Cho:</h4>
+              </div>
+              <ul class="space-y-2.5 text-xs sm:text-sm text-yen">
+                <li class="flex items-start gap-2">
+                  <span class="text-cam font-bold shrink-0">✓</span>
+                  <span>Người có thu nhập từ 15 - 50+ triệu/tháng nhưng chưa có quỹ tích lũy tương xứng.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-cam font-bold shrink-0">✓</span>
+                  <span>Doanh chủ nhỏ, Freelancer, Quản lý muốn tối ưu dòng tiền xoay vòng và tách bạch tài chính.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-cam font-bold shrink-0">✓</span>
+                  <span>Người chuẩn bị bước vào thị trường đầu tư nhưng muốn xây phòng tuyến bảo vệ vốn trước.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-cam font-bold shrink-0">✓</span>
+                  <span>Người cam kết dành 2 giờ/tuần để nghiêm túc mổ xẻ các con số tài chính của chính mình.</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Unfit: Who should NOT join -->
+            <div class="p-6 rounded-2xl bg-nen-sau border border-kem/20 space-y-4 opacity-90">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded bg-kem/10 text-yen font-mono text-[11px] font-bold uppercase">Lưu ý trước khi mua</span>
+                <h4 class="font-serif font-bold text-lg text-kem">Ai KHÔNG NÊN Tham Gia:</h4>
+              </div>
+              <ul class="space-y-2.5 text-xs sm:text-sm text-yen">
+                <li class="flex items-start gap-2">
+                  <span class="text-red-400 font-bold shrink-0">✕</span>
+                  <span>Người tìm kiếm công thức làm giàu nhanh qua một đêm hoặc kiếm tiền cờ bạc chớp nhoáng.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-red-400 font-bold shrink-0">✕</span>
+                  <span>Người chỉ muốn nghe lý thuyết suông mà không chịu ngồi xuống mở bảng kê tài chính của mình.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-red-400 font-bold shrink-0">✕</span>
+                  <span>Người không sẵn sàng đối diện với sự thật và không muốn làm bài tập rèn luyện.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-red-400 font-bold shrink-0">✕</span>
+                  <span>Người không có tinh thần học hỏi và từ chối kỷ luật phân bổ dòng tiền cá nhân.</span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
+          
 
           <!-- 3. "BẠN SẼ NHẬN ĐƯỢC GÌ?" (5 Numbered Outcomes - Inspired by songdoingoaihang.com) -->
           <div id="loi-ich" class="space-y-6 scroll-mt-24">
@@ -1524,6 +1676,27 @@
                 <span>Cam kết hoàn 100% học phí trong 14 ngày nếu không hài lòng</span>
               </div>
             </div>
+
+          <!-- 6. OFFICIAL 100% 14-DAY MONEY-BACK GUARANTEE SEAL CARD -->
+          <div class="p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-[#1C2530] via-[#16202A] to-[#121B24] border-2 border-[#D4AF37] space-y-4 shadow-2xl relative overflow-hidden">
+            <div class="flex flex-col sm:flex-row items-center gap-6">
+              <div class="w-20 h-20 rounded-full border-2 border-dashed border-[#D4AF37] flex items-center justify-center p-1.5 bg-[#D4AF37]/10 shrink-0">
+                <div class="w-16 h-16 rounded-full border border-[#D4AF37] flex flex-col items-center justify-center text-[9px] font-mono font-bold text-[#D4AF37] uppercase text-center leading-tight">
+                  <span>100%</span>
+                  <span>BẢO HIỂM</span>
+                  <span>HOÀN PHÍ</span>
+                </div>
+              </div>
+              <div class="space-y-1.5 text-center sm:text-left">
+                <span class="font-mono text-xs uppercase text-[#D4AF37] font-bold tracking-widest block">Cam kết vàng từ Thịnh Vượng Số & Mentor Trần Nam Hà</span>
+                <h4 class="text-xl sm:text-2xl font-bold text-kem font-serif">Bảo Hành Kết Quả 100% Trong 14 Ngày · Không Rủi Ro</h4>
+                <p class="text-xs sm:text-sm text-yen leading-relaxed">
+                  Nếu sau 2 buổi học Zoom đầu tiên, bạn cảm thấy phương pháp không thực tế hoặc không giúp bạn bịt kín được rò rỉ dòng tiền, chỉ cần gửi tin nhắn đến hotline <strong class="text-cam font-mono">0981501865</strong>. Chúng tôi sẽ hoàn trả 100% học phí vào tài khoản của bạn ngay trong 24 giờ. Không hỏi vặn, không gây khó dễ.
+                </p>
+              </div>
+            </div>
+          </div>
+
           </div>
 
         </div>
@@ -1533,19 +1706,24 @@
           <div class="bg-nen-sau border-2 border-cam/60 rounded-2xl p-6 space-y-6 shadow-2xl">
             
             <!-- Thumbnail preview inside card -->
-            <div class="relative aspect-video rounded-xl overflow-hidden bg-nen-chan border border-kem/20">
-              <img src="anh/c05-nam-mic.webp" alt="Khóa học Bứt Phá Tài Chính" width="400" height="225" class="w-full h-full object-cover" />
+            <div class="relative aspect-video rounded-xl overflow-hidden bg-nen-chan border border-kem/20 cursor-pointer group" onclick="window.playCourseTrailer()">
+              <img src="anh/c05-nam-mic.webp" alt="Khóa học Bứt Phá Tài Chính" width="400" height="225" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
               <div class="absolute inset-0 bg-gradient-to-t from-abyssal via-transparent to-transparent"></div>
-              <span class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded bg-cam text-abyssal font-mono text-[10px] font-bold uppercase">
-                Ưu Đãi Đặc Biệt
+              <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-cam text-abyssal font-mono text-[10px] font-bold uppercase shadow">
+                ⚡ Ưu Đãi Tháng 11/2026
               </span>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-10 h-10 rounded-full bg-cam/90 text-abyssal flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                  <svg class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
             </div>
 
             <!-- Pricing Box -->
-            <div class="space-y-1 text-center py-2 border-b border-kem/10">
+            <div class="space-y-1.5 text-center py-2 border-b border-kem/10">
               <div class="flex items-center justify-center gap-3">
                 <span class="font-mono text-sm text-yen line-through">9.900.000 đ</span>
-                <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-400 font-mono text-xs font-bold border border-red-500/30">Tiết kiệm 70%</span>
+                <span class="px-2.5 py-0.5 rounded bg-red-500/20 text-red-400 font-mono text-xs font-bold border border-red-500/30">Tiết kiệm 70%</span>
               </div>
               <div class="text-3xl sm:text-4xl font-extrabold font-mono text-cam leading-tight">
                 2.990.000 đ
@@ -1565,13 +1743,13 @@
               </div>
             </div>
 
-            <!-- CTA Button -->
+            <!-- CTA Buttons -->
             <div class="space-y-2.5">
-              <button type="button" onclick="window.openCheckoutModal('Bứt Phá Tài Chính', '2.990.000 đ')" class="btn-p w-full justify-center !py-3.5 text-sm font-mono uppercase tracking-wider shadow-lg text-center font-bold">
+              <button type="button" onclick="window.openCheckoutModal('Bứt Phá Tài Chính · Mentor Trần Nam Hà', '2.990.000 đ')" class="btn-p w-full justify-center !py-3.5 text-sm font-mono uppercase tracking-wider shadow-lg text-center font-bold">
                 <span>Đăng ký khóa học ngay ↗</span>
               </button>
               <a href="tel:0981501865" class="btn-o w-full justify-center !py-2.5 text-xs font-mono text-center">
-                <span>Gọi cố vấn: 0981501865</span>
+                <span>Gọi cố vấn trực tiếp: 0981501865</span>
               </a>
             </div>
 
@@ -1579,7 +1757,7 @@
             <div class="space-y-2 pt-2 border-t border-kem/10 text-xs text-yen">
               <div class="flex items-center justify-between">
                 <span>Hình thức học:</span>
-                <strong class="text-kem font-medium">Zoom trực tiếp 2 chiều</strong>
+                <strong class="text-kem font-medium">Zoom 2 chiều trực tiếp</strong>
               </div>
               <div class="flex items-center justify-between">
                 <span>Lịch học:</span>
@@ -1587,7 +1765,7 @@
               </div>
               <div class="flex items-center justify-between">
                 <span>Số buổi:</span>
-                <strong class="text-kem font-medium">6 Buổi (12 giờ)</strong>
+                <strong class="text-kem font-medium">6 Buổi (12 giờ kèm sát)</strong>
               </div>
               <div class="flex items-center justify-between">
                 <span>Biểu mẫu đính kèm:</span>
@@ -1595,13 +1773,19 @@
               </div>
               <div class="flex items-center justify-between">
                 <span>Bảo hành kết quả:</span>
-                <strong class="text-green-400 font-medium">Hoàn tiền 100%</strong>
+                <strong class="text-green-400 font-medium">Hoàn tiền 100% 14 ngày</strong>
               </div>
             </div>
 
             <!-- Trust badge -->
             <div class="p-3 rounded-lg bg-green-500/10 border border-green-500/30 text-center text-xs text-green-300">
               🛡️ Cam kết hoàn học phí 100% trong 14 ngày nếu sau 2 buổi học bạn cảm thấy không nhận được giá trị vượt trội.
+            </div>
+
+            <!-- Legal Credential Pill -->
+            <div class="p-2.5 rounded-lg bg-abyssal/80 border border-kem/10 text-[10px] text-yen text-center font-mono space-y-0.5">
+              <span class="text-kem font-bold">Công ty TNHH Thịnh Vượng Số</span>
+              <div>MSDN: 0111281148 · VietQR Napas 24/7</div>
             </div>
 
           </div>
@@ -1867,71 +2051,292 @@
     </div>
   </footer>
 
-  <!-- ==================== QUICK CHECKOUT / ENROLLMENT MODAL ==================== -->
-  <div id="checkout-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-nen-sau border-2 border-cam/60 rounded-2xl max-w-lg w-full p-6 sm:p-7 space-y-5 relative shadow-2xl overflow-y-auto max-h-[90vh]">
+  
+  <!-- ==================== COURSE VIDEO TRAILER MODAL ==================== -->
+  <div id="course-trailer-modal" class="hidden fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="bg-nen-sau border-2 border-cam/60 rounded-2xl max-w-3xl w-full p-4 sm:p-7 space-y-5 relative shadow-2xl overflow-hidden">
       
       <!-- Close button -->
-      <button type="button" onclick="window.closeCheckoutModal()" aria-label="Đóng biểu mẫu" class="absolute top-4 right-4 text-yen hover:text-cam p-1 rounded">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      <button type="button" onclick="window.closeCourseTrailer()" aria-label="Đóng video" class="absolute top-4 right-4 text-yen hover:text-cam p-2 rounded-full bg-black/60 border border-kem/20 z-20 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
 
-      <div>
-        <span class="nhan text-cam border-cam/30 bg-cam/10 mb-1">Đăng ký khóa học</span>
-        <h3 id="modal-course-title" class="text-xl font-bold text-kem">Bứt Phá Tài Chính · Mentor Trần Nam Hà</h3>
-        <p class="text-xs text-yen mt-0.5">Vui lòng điền thông tin để hoàn tất giữ chỗ và nhận link Zoom kích hoạt:</p>
+      <!-- Header info -->
+      <div class="space-y-1.5 pr-12">
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="nhan text-cam border-cam/30 bg-cam/10">Bản ghi trích đoạn Zoom trực tiếp</span>
+          <span class="px-2 py-0.5 rounded bg-green-500/20 text-green-300 font-mono text-[11px] border border-green-500/30">Full HD 1080p</span>
+          <span class="px-2 py-0.5 rounded bg-kem/10 text-yen font-mono text-[11px] border border-kem/15">Thời lượng xem trước: 04:32</span>
+        </div>
+        <h3 class="text-lg sm:text-2xl font-bold text-kem font-serif">
+          Buổi 01: Mổ Xẻ Bức Tranh Thu Nhập & Vá Lỗ Hổng Dòng Tiền
+        </h3>
+        <p class="text-xs text-yen leading-relaxed">
+          Mentor Trần Nam Hà trực tiếp dẫn dắt, chỉ rõ 3 nguyên nhân khiến người thu nhập cao vẫn không giữ được tiền và phương pháp cài đặt hệ thống tài chính tự động.
+        </p>
       </div>
 
-      <!-- Pricing preview in modal -->
-      <div class="p-3.5 rounded-xl bg-abyssal border border-kem/15 flex items-center justify-between">
-        <div>
-          <span class="text-xs text-yen block">Học phí ưu đãi kỳ này:</span>
-          <span id="modal-course-price" class="font-mono text-xl font-bold text-cam">2.990.000 đ</span>
-        </div>
-        <span class="px-2 py-0.5 rounded bg-green-500/20 text-green-400 font-mono text-xs border border-green-500/30">Cam kết hoàn tiền 100%</span>
-      </div>
+      <!-- Video Simulated Player Screen -->
+      <div class="relative aspect-video rounded-xl overflow-hidden bg-black border border-kem/20 shadow-2xl group select-none">
+        <img id="trailer-video-poster" src="anh/c05-nam-mic.webp" alt="Video teaser Bứt Phá Tài Chính" class="w-full h-full object-cover opacity-85 transition-opacity duration-300" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/40"></div>
 
-      <form id="course-enroll-form" onsubmit="window.handleEnrollSubmit(event)" class="space-y-4">
-        <div>
-          <label for="enroll-name" class="block font-mono text-xs uppercase text-yen mb-1 font-medium">Họ và tên của bạn *</label>
-          <input type="text" id="enroll-name" required placeholder="Ví dụ: Nguyễn Văn An" class="w-full px-4 py-2.5 rounded-lg bg-abyssal border border-kem/20 text-kem text-sm focus:border-cam focus:outline-none" />
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label for="enroll-phone" class="block font-mono text-xs uppercase text-yen mb-1 font-medium">Số điện thoại / Zalo *</label>
-            <input type="tel" id="enroll-phone" required placeholder="Ví dụ: 0912345678" class="w-full px-4 py-2.5 rounded-lg bg-abyssal border border-kem/20 text-kem text-sm focus:border-cam focus:outline-none" />
-          </div>
-          <div>
-            <label for="enroll-email" class="block font-mono text-xs uppercase text-yen mb-1 font-medium">Email nhận tài liệu *</label>
-            <input type="email" id="enroll-email" required placeholder="email@gmail.com" class="w-full px-4 py-2.5 rounded-lg bg-abyssal border border-kem/20 text-kem text-sm focus:border-cam focus:outline-none" />
+        <!-- Center Play / Playing indicator -->
+        <div id="trailer-center-play" class="absolute inset-0 flex items-center justify-center cursor-pointer" onclick="window.toggleTrailerPlayback()">
+          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-cam text-abyssal flex items-center justify-center shadow-2xl transition-transform hover:scale-110">
+            <svg id="trailer-play-icon" class="w-8 h-8 ml-1 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg id="trailer-pause-icon" class="w-8 h-8 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
           </div>
         </div>
 
-        <div>
-          <label for="enroll-note" class="block font-mono text-xs uppercase text-yen mb-1 font-medium">Mục tiêu tài chính lớn nhất bạn muốn giải quyết?</label>
-          <textarea id="enroll-note" rows="2" placeholder="Ví dụ: Cắt giảm chi phí rò rỉ, muốn thiết lập quỹ khẩn cấp hoặc tái cấu trúc nợ..." class="w-full px-4 py-2.5 rounded-lg bg-abyssal border border-kem/20 text-kem text-sm focus:border-cam focus:outline-none"></textarea>
+        <!-- Top live badge -->
+        <div class="absolute top-3 left-3 flex items-center gap-2 px-2.5 py-1 rounded bg-black/75 border border-kem/20 font-mono text-[11px] text-kem backdrop-blur-sm">
+          <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+          <span>Phòng Zoom Thịnh Vượng Số Private · Giảng viên: Trần Nam Hà</span>
         </div>
 
-        <div class="p-3 rounded-lg bg-nen-chan border border-kem/10 text-xs text-yen space-y-1">
-          <p class="font-medium text-kem">Phương thức thanh toán & Kích hoạt:</p>
-          <p>• Sau khi bấm đăng ký, trợ giảng sẽ liên hệ qua Zalo hoặc điện thoại <strong class="text-cam">0981501865</strong> trong 15 phút để gửi mã kích hoạt tài khoản và link nhóm Zoom kín.</p>
+        <!-- Bottom controls bar -->
+        <div class="absolute bottom-0 inset-x-0 p-3 sm:p-4 bg-gradient-to-t from-black/95 via-black/85 to-transparent space-y-2">
+          <!-- Progress bar -->
+          <div class="w-full h-2 rounded-full bg-kem/20 overflow-hidden cursor-pointer" onclick="window.seekTrailer(event)">
+            <div id="trailer-progress-bar" class="h-full bg-cam rounded-full transition-all duration-300" style="width: 38%;"></div>
+          </div>
+          <div class="flex items-center justify-between text-[11px] font-mono text-yen">
+            <div class="flex items-center gap-3">
+              <button type="button" onclick="window.toggleTrailerPlayback()" class="text-kem hover:text-cam flex items-center gap-1 font-semibold">
+                <span id="trailer-btn-label">Tạm dừng ⏸</span>
+              </button>
+              <span id="trailer-time-text" class="text-kem">01:42 / 04:32</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-cam font-bold">1080p HD 60fps</span>
+              <span class="text-kem">Zoom 2 Chiều</span>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <button type="submit" class="btn-p w-full justify-center !py-3 text-sm font-mono uppercase tracking-wider font-bold">
-          <span>Xác nhận đăng ký học ngay ↗</span>
-        </button>
-      </form>
+      <!-- Chapter Navigation Tabs -->
+      <div class="space-y-2">
+        <span class="font-mono text-xs uppercase text-cam font-semibold block">Mục lục các phân đoạn then chốt trong video:</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+          <button type="button" class="trailer-chap-btn p-2.5 rounded-lg bg-abyssal border border-cam/50 text-kem flex items-center justify-between text-left hover:border-cam transition-colors" onclick="window.setTrailerChapter(0, '00:00 / 04:32', '0%')">
+            <span class="font-medium">1. Vì sao kiếm 30-50tr vẫn hết sạch tiền?</span>
+            <span class="font-mono text-cam text-[11px] font-bold">00:00</span>
+          </button>
+          <button type="button" class="trailer-chap-btn p-2.5 rounded-lg bg-abyssal border border-kem/15 text-yen flex items-center justify-between text-left hover:border-cam hover:text-kem transition-colors" onclick="window.setTrailerChapter(76, '01:16 / 04:32', '28%')">
+            <span class="font-medium">2. 3 rò rỉ âm thầm lấy cắp 20% thu nhập</span>
+            <span class="font-mono text-cam text-[11px] font-bold">01:16</span>
+          </button>
+          <button type="button" class="trailer-chap-btn p-2.5 rounded-lg bg-abyssal border border-kem/15 text-yen flex items-center justify-between text-left hover:border-cam hover:text-kem transition-colors" onclick="window.setTrailerChapter(161, '02:41 / 04:32', '60%')">
+            <span class="font-medium">3. Mô hình 4 tài khoản tự động hóa dòng tiền</span>
+            <span class="font-mono text-cam text-[11px] font-bold">02:41</span>
+          </button>
+          <button type="button" class="trailer-chap-btn p-2.5 rounded-lg bg-abyssal border border-kem/15 text-yen flex items-center justify-between text-left hover:border-cam hover:text-kem transition-colors" onclick="window.setTrailerChapter(226, '03:46 / 04:32', '83%')">
+            <span class="font-medium">4. Lộ trình 6 tuần & Trọn bộ công cụ Excel TVS</span>
+            <span class="font-mono text-cam text-[11px] font-bold">03:46</span>
+          </button>
+        </div>
+      </div>
 
-      <div id="enroll-success-msg" class="hidden p-4 rounded-xl bg-green-500/20 border border-green-500/40 text-green-300 text-xs sm:text-sm text-center space-y-2">
-        <p class="font-bold text-base">🎉 Đăng ký thành công!</p>
-        <p>Cảm ơn bạn. Trợ giảng của Mentor Trần Nam Hà đang kết nối qua số điện thoại của bạn để gửi tài liệu và hướng dẫn vào lớp.</p>
+      <!-- Key Insights Summary Box -->
+      <div class="p-3.5 rounded-xl bg-nen-chan border border-kem/15 text-xs text-yen space-y-1.5">
+        <div class="flex items-center gap-1.5 text-kem font-semibold font-mono text-[11px] uppercase text-cam">
+          <span>💡 Điểm khác biệt lớn nhất của khóa học:</span>
+        </div>
+        <p class="leading-relaxed">
+          Không dạy lý thuyết hàn lâm. Bạn được cấp quyền truy cập trọn bộ biểu mẫu Excel quản trị vốn độc quyền, thực hành ngay trên số tiền của bản thân và được Mentor Trần Nam Hà đối thoại trực tiếp trong phòng Zoom kín.
+        </p>
+      </div>
+
+      <!-- Modal Bottom Actions -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 border-t border-kem/10">
+        <div class="text-xs text-yen">
+          Học phí ưu đãi đợt này: <strong class="text-cam font-mono text-sm sm:text-base font-extrabold">2.990.000 đ</strong> <span class="text-[11px] line-through text-yen/80">9.900.000 đ</span>
+        </div>
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <button type="button" onclick="window.closeCourseTrailer(); window.openCheckoutModal('Bứt Phá Tài Chính · Mentor Trần Nam Hà', '2.990.000 đ')" class="btn-p !py-2.5 !px-5 text-xs font-mono uppercase tracking-wider font-bold w-full sm:w-auto justify-center shadow-lg">
+            <span>Đăng ký tham gia ngay ↗</span>
+          </button>
+          <button type="button" onclick="window.closeCourseTrailer()" class="btn-o !py-2.5 !px-4 text-xs font-mono w-full sm:w-auto justify-center">
+            <span>Đóng lại</span>
+          </button>
+        </div>
       </div>
 
     </div>
   </div>
 
-  <!-- ==================== GRADUATION CERTIFICATE MODAL ==================== -->
+
+  <!-- ==================== QUICK CHECKOUT / ENROLLMENT MODAL WITH VIETQR ==================== -->
+  <div id="checkout-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+    <div class="bg-nen-sau border-2 border-cam/60 rounded-2xl max-w-xl w-full p-5 sm:p-7 space-y-5 relative shadow-2xl overflow-y-auto max-h-[92vh]">
+      
+      <!-- Close button -->
+      <button type="button" onclick="window.closeCheckoutModal()" aria-label="Đóng biểu mẫu" class="absolute top-4 right-4 text-yen hover:text-cam p-1.5 rounded-full bg-black/40 border border-kem/20 transition-colors z-10">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <!-- Stepper Indicator -->
+      <div class="flex items-center justify-between border-b border-kem/15 pb-4">
+        <div class="flex items-center gap-2">
+          <span id="step-badge-1" class="w-6 h-6 rounded-full bg-cam text-abyssal text-xs font-mono font-bold flex items-center justify-center">1</span>
+          <span class="text-xs font-mono font-bold text-kem">Thông Tin Học Viên</span>
+        </div>
+        <div class="w-12 h-0.5 bg-kem/20"></div>
+        <div class="flex items-center gap-2">
+          <span id="step-badge-2" class="w-6 h-6 rounded-full bg-kem/15 text-yen text-xs font-mono font-bold flex items-center justify-center">2</span>
+          <span class="text-xs font-mono font-bold text-yen">Thanh Toán VietQR 24/7</span>
+        </div>
+      </div>
+
+      <!-- STEP 1: REGISTRATION FORM -->
+      <div id="checkout-step-1" class="space-y-4">
+        <div>
+          <span class="nhan text-cam border-cam/30 bg-cam/10 mb-1">Đăng ký khóa học</span>
+          <h3 id="modal-course-title" class="text-xl font-bold text-kem font-serif">Bứt Phá Tài Chính · Mentor Trần Nam Hà</h3>
+          <p class="text-xs text-yen mt-0.5">Điền thông tin để đăng ký suất học và nhận trọn bộ công cụ Excel TVS:</p>
+        </div>
+
+        <!-- Pricing preview in modal -->
+        <div class="p-3.5 rounded-xl bg-abyssal border border-kem/15 flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <span class="text-xs text-yen block">Học phí ưu đãi đợt này:</span>
+            <div class="flex items-baseline gap-2">
+              <span id="modal-course-price" class="font-mono text-2xl font-bold text-cam">2.990.000 đ</span>
+              <span class="font-mono text-xs text-yen line-through">9.900.000 đ</span>
+            </div>
+          </div>
+          <span class="px-2.5 py-1 rounded bg-green-500/20 text-green-300 font-mono text-xs border border-green-500/30">
+            🛡️ Hoàn tiền 100% 14 ngày
+          </span>
+        </div>
+
+        <form id="course-enroll-form" onsubmit="window.goToCheckoutStep2(event)" class="space-y-3.5">
+          <div>
+            <label for="enroll-name" class="block font-mono text-xs uppercase text-yen mb-1 font-medium">Họ và tên của bạn *</label>
+            <input type="text" id="enroll-name" required placeholder="Ví dụ: Nguyễn Văn An" class="w-full px-4 py-2.5 rounded-lg bg-abyssal border border-kem/20 text-kem text-sm focus:border-cam focus:outline-none transition-colors" />
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label for="enroll-phone" class="block font-mono text-xs uppercase text-yen mb-1 font-medium">Số điện thoại / Zalo *</label>
+              <input type="tel" id="enroll-phone" required placeholder="Ví dụ: 0912345678" class="w-full px-4 py-2.5 rounded-lg bg-abyssal border border-kem/20 text-kem text-sm focus:border-cam focus:outline-none transition-colors" />
+            </div>
+            <div>
+              <label for="enroll-email" class="block font-mono text-xs uppercase text-yen mb-1 font-medium">Email nhận tài liệu *</label>
+              <input type="email" id="enroll-email" required placeholder="email@gmail.com" class="w-full px-4 py-2.5 rounded-lg bg-abyssal border border-kem/20 text-kem text-sm focus:border-cam focus:outline-none transition-colors" />
+            </div>
+          </div>
+
+          <div>
+            <label for="enroll-note" class="block font-mono text-xs uppercase text-yen mb-1 font-medium">Mục tiêu tài chính lớn nhất bạn muốn giải quyết?</label>
+            <textarea id="enroll-note" rows="2" placeholder="Ví dụ: Cắt giảm chi phí rò rỉ, muốn thiết lập quỹ khẩn cấp 6 tháng hoặc tái cấu trúc nợ..." class="w-full px-4 py-2.5 rounded-lg bg-abyssal border border-kem/20 text-kem text-xs sm:text-sm focus:border-cam focus:outline-none transition-colors"></textarea>
+          </div>
+
+          <div class="p-3 rounded-lg bg-nen-chan border border-kem/10 text-xs text-yen space-y-1">
+            <p class="font-medium text-kem">Quy trình kích hoạt khóa học:</p>
+            <p>• Bước 1: Bấm "Tiếp tục sang bước Thanh toán VietQR" bên dưới.</p>
+            <p>• Bước 2: Quét mã QR thanh toán hoặc chuyển khoản 24/7 để nhận link phòng Zoom và bộ biểu mẫu Excel.</p>
+          </div>
+
+          <button type="submit" class="btn-p w-full justify-center !py-3.5 text-sm font-mono uppercase tracking-wider font-bold shadow-lg">
+            <span>Tiếp tục sang bước Thanh toán VietQR ↗</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- STEP 2: VIETQR INSTANT PAYMENT -->
+      <div id="checkout-step-2" class="hidden space-y-5">
+        <div class="flex items-center justify-between">
+          <div>
+            <span class="nhan text-cam border-cam/30 bg-cam/10 mb-1">Bước 2 · Chuyển khoản 24/7</span>
+            <h3 class="text-xl font-bold text-kem font-serif">Quét Mã VietQR Napas Kích Hoạt Tức Thì</h3>
+          </div>
+          <button type="button" onclick="window.goToCheckoutStep1()" class="text-xs font-mono text-cam hover:underline">
+            ← Sửa thông tin
+          </button>
+        </div>
+
+        <!-- QR Display and Banking Info Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-12 gap-5 items-center bg-abyssal p-4 rounded-xl border border-kem/20">
+          
+          <!-- Left: QR Code -->
+          <div class="sm:col-span-5 flex flex-col items-center justify-center p-2 bg-white rounded-xl shadow-lg">
+            <img id="vietqr-image" src="https://img.vietqr.io/image/970422-0981501865-compact2.png?amount=2990000&addInfo=BPTC%20HOCVIEN&accountName=CONG%20TY%20TNHH%20THINH%20VUONG%20SO" alt="Mã VietQR thanh toán khóa học Bứt Phá Tài Chính" class="w-full max-w-[190px] h-auto object-contain" />
+            <span class="text-[10px] font-mono text-gray-600 mt-1 font-bold">Napas 24/7 · VietQR Chuẩn</span>
+          </div>
+
+          <!-- Right: Details with Copy Buttons -->
+          <div class="sm:col-span-7 space-y-2.5 text-xs font-mono">
+            <div>
+              <span class="text-yen text-[11px] block">Ngân hàng thụ hưởng:</span>
+              <strong class="text-kem text-sm block">MB Bank (Ngân hàng Quân Đội)</strong>
+            </div>
+
+            <div>
+              <span class="text-yen text-[11px] block">Số tài khoản:</span>
+              <div class="flex items-center gap-2">
+                <strong class="text-cam text-base font-bold">0981501865</strong>
+                <button type="button" onclick="window.copyTextToClipboard('0981501865', 'Đã sao chép số tài khoản!')" class="px-2 py-0.5 rounded bg-kem/10 hover:bg-cam hover:text-abyssal text-[10px] text-kem border border-kem/20 transition-colors">
+                  Sao chép
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <span class="text-yen text-[11px] block">Tên chủ tài khoản:</span>
+              <strong class="text-kem text-xs block">CONG TY TNHH THINH VUONG SO</strong>
+              <span class="text-[10px] text-yen/80">(hoặc NGUYEN CONG THAI)</span>
+            </div>
+
+            <div>
+              <span class="text-yen text-[11px] block">Số tiền thanh toán:</span>
+              <div class="flex items-center gap-2">
+                <strong class="text-green-400 text-lg font-bold">2.990.000 đ</strong>
+                <span class="text-[10px] text-yen line-through">9.900.000 đ</span>
+              </div>
+            </div>
+
+            <div>
+              <span class="text-yen text-[11px] block">Nội dung chuyển khoản:</span>
+              <div class="flex items-center gap-2">
+                <strong id="transfer-memo" class="text-kem font-bold bg-nen-sau px-2 py-1 rounded border border-kem/20">BPTC 0981501865</strong>
+                <button type="button" onclick="window.copyMemoContent()" class="px-2 py-0.5 rounded bg-kem/10 hover:bg-cam hover:text-abyssal text-[10px] text-kem border border-kem/20 transition-colors">
+                  Sao chép
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Instructions after transfer -->
+        <div class="p-3.5 rounded-xl bg-nen-chan border border-kem/15 text-xs text-yen space-y-1.5">
+          <p class="font-medium text-kem">Sau khi quét mã / chuyển khoản thành công:</p>
+          <p>1. Hệ thống sẽ tự động gửi email xác nhận và kích hoạt tài khoản Khu Học Tập trong 5 - 15 phút.</p>
+          <p>2. Bạn có thể chụp ảnh giao dịch gửi qua Zalo Hotline <strong class="text-cam">0981501865</strong> để được trợ giảng phê duyệt ngay lập tức.</p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center gap-3">
+          <button type="button" onclick="window.confirmTransferCompleted()" class="btn-p w-full justify-center !py-3.5 text-xs sm:text-sm font-mono uppercase tracking-wider font-bold shadow-lg">
+            <span>Tôi Đã Chuyển Khoản Thành Công ↗</span>
+          </button>
+          <a href="https://zalo.me/0981501865" target="_blank" rel="noopener noreferrer" class="btn-o w-full sm:w-auto justify-center !py-3 text-xs font-mono text-center shrink-0">
+            <span>Zalo Hỗ Trợ: 0981501865</span>
+          </a>
+        </div>
+
+        <div id="enroll-success-msg" class="hidden p-4 rounded-xl bg-green-500/20 border border-green-500/40 text-green-300 text-xs sm:text-sm text-center space-y-2">
+          <p class="font-bold text-base">🎉 Đã ghi nhận thông tin đăng ký!</p>
+          <p>Trợ giảng của Mentor Trần Nam Hà đang kết nối qua số điện thoại của bạn để gửi tài liệu và hướng dẫn vào lớp.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+<!-- ==================== GRADUATION CERTIFICATE MODAL ==================== -->
   <div id="certificate-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
     <div class="max-w-3xl w-full bg-gradient-to-b from-[#1C2530] via-[#16202A] to-[#121B24] border-4 border-[#D4AF37]/70 rounded-2xl p-6 sm:p-10 relative shadow-2xl text-center space-y-6">
       
@@ -2136,12 +2541,23 @@
       var pEl = document.getElementById('modal-course-price');
       if (tEl && title) tEl.textContent = title;
       if (pEl && price) pEl.textContent = price;
-      if (modal) modal.classList.remove('hidden');
+      if (typeof window.goToCheckoutStep1 === 'function') {
+        window.goToCheckoutStep1();
+      }
+      var msg = document.getElementById('enroll-success-msg');
+      if (msg) msg.classList.add('hidden');
+      if (modal) {
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
     };
 
     window.closeCheckoutModal = function() {
       var modal = document.getElementById('checkout-modal');
-      if (modal) modal.classList.add('hidden');
+      if (modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
     };
 
     window.handleEnrollSubmit = function(e) {
@@ -2152,8 +2568,168 @@
       if (msg) msg.classList.remove('hidden');
     };
 
+
+    
+    // ==================== VIDEO TRAILER MODAL CONTROLS ====================
+    var trailerIsPlaying = true;
     window.playCourseTrailer = function() {
-      alert('Đang mở bản xem thử: Buổi 01 · Bứt Phá Tài Chính (Mentor Trần Nam Hà giảng dạy trực tiếp qua Zoom).');
+      var modal = document.getElementById('course-trailer-modal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+    };
+
+    window.closeCourseTrailer = function() {
+      var modal = document.getElementById('course-trailer-modal');
+      if (modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    };
+
+    window.toggleTrailerPlayback = function() {
+      trailerIsPlaying = !trailerIsPlaying;
+      var playIcon = document.getElementById('trailer-play-icon');
+      var pauseIcon = document.getElementById('trailer-pause-icon');
+      var btnLabel = document.getElementById('trailer-btn-label');
+      var centerPlay = document.getElementById('trailer-center-play');
+
+      if (trailerIsPlaying) {
+        if (playIcon) playIcon.classList.add('hidden');
+        if (pauseIcon) pauseIcon.classList.remove('hidden');
+        if (btnLabel) btnLabel.textContent = 'Tạm dừng ⏸';
+        if (centerPlay) centerPlay.classList.add('opacity-0');
+        showToast('Đang phát trích đoạn Buổi 1 · Bứt Phá Tài Chính');
+      } else {
+        if (playIcon) playIcon.classList.remove('hidden');
+        if (pauseIcon) pauseIcon.classList.add('hidden');
+        if (btnLabel) btnLabel.textContent = 'Phát tiếp ▶';
+        if (centerPlay) centerPlay.classList.remove('opacity-0');
+      }
+    };
+
+    window.setTrailerChapter = function(seconds, timeText, progressPct) {
+      var timeEl = document.getElementById('trailer-time-text');
+      var barEl = document.getElementById('trailer-progress-bar');
+      if (timeEl) timeEl.textContent = timeText;
+      if (barEl) barEl.style.width = progressPct;
+      trailerIsPlaying = true;
+      var playIcon = document.getElementById('trailer-play-icon');
+      var pauseIcon = document.getElementById('trailer-pause-icon');
+      var btnLabel = document.getElementById('trailer-btn-label');
+      if (playIcon) playIcon.classList.add('hidden');
+      if (pauseIcon) pauseIcon.classList.remove('hidden');
+      if (btnLabel) btnLabel.textContent = 'Tạm dừng ⏸';
+      showToast('Đang chuyển đến phân đoạn ' + timeText);
+    };
+
+    window.seekTrailer = function(event) {
+      var rect = event.currentTarget.getBoundingClientRect();
+      var clickX = event.clientX - rect.left;
+      var pct = Math.max(5, Math.min(100, Math.round((clickX / rect.width) * 100)));
+      var barEl = document.getElementById('trailer-progress-bar');
+      if (barEl) barEl.style.width = pct + '%';
+      showToast('Tua video đến ' + pct + '%');
+    };
+
+    // ==================== CHECKOUT 2-STEP & VIETQR ====================
+    window.goToCheckoutStep2 = function(event) {
+      if (event) event.preventDefault();
+      var name = document.getElementById('enroll-name').value.trim();
+      var phone = document.getElementById('enroll-phone').value.trim();
+      var email = document.getElementById('enroll-email').value.trim();
+
+      if (!name || !phone) {
+        alert('Vui lòng nhập họ tên và số điện thoại / Zalo để nhận mã kích hoạt!');
+        return;
+      }
+
+      // Update Step 2 Memo & QR
+      var cleanPhone = phone.replace(/[^0-9]/g, '');
+      var memoText = 'BPTC ' + (cleanPhone || 'HOCVIEN');
+      var memoEl = document.getElementById('transfer-memo');
+      if (memoEl) memoEl.textContent = memoText;
+
+      var qrImg = document.getElementById('vietqr-image');
+      if (qrImg) {
+        var qrUrl = 'https://img.vietqr.io/image/970422-0981501865-compact2.png?amount=2990000&addInfo=' + encodeURIComponent(memoText) + '&accountName=CONG%20TY%20TNHH%20THINH%20VUONG%20SO';
+        qrImg.src = qrUrl;
+      }
+
+      var step1 = document.getElementById('checkout-step-1');
+      var step2 = document.getElementById('checkout-step-2');
+      var badge1 = document.getElementById('step-badge-1');
+      var badge2 = document.getElementById('step-badge-2');
+
+      if (step1) step1.classList.add('hidden');
+      if (step2) step2.classList.remove('hidden');
+      if (badge1) {
+        badge1.className = 'w-6 h-6 rounded-full bg-green-500/20 text-green-400 text-xs font-mono font-bold flex items-center justify-center';
+        badge1.textContent = '✓';
+      }
+      if (badge2) {
+        badge2.className = 'w-6 h-6 rounded-full bg-cam text-abyssal text-xs font-mono font-bold flex items-center justify-center';
+      }
+      showToast('Đã tạo mã thanh toán VietQR Napas cho bạn!');
+    };
+
+    window.goToCheckoutStep1 = function() {
+      var step1 = document.getElementById('checkout-step-1');
+      var step2 = document.getElementById('checkout-step-2');
+      var badge1 = document.getElementById('step-badge-1');
+      var badge2 = document.getElementById('step-badge-2');
+
+      if (step1) step1.classList.remove('hidden');
+      if (step2) step2.classList.add('hidden');
+      if (badge1) {
+        badge1.className = 'w-6 h-6 rounded-full bg-cam text-abyssal text-xs font-mono font-bold flex items-center justify-center';
+        badge1.textContent = '1';
+      }
+      if (badge2) {
+        badge2.className = 'w-6 h-6 rounded-full bg-kem/15 text-yen text-xs font-mono font-bold flex items-center justify-center';
+      }
+    };
+
+    window.copyTextToClipboard = function(text, successMsg) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function() {
+          showToast(successMsg || 'Đã sao chép!');
+        }).catch(function() {
+          fallbackCopyText(text, successMsg);
+        });
+      } else {
+        fallbackCopyText(text, successMsg);
+      }
+    };
+
+    function fallbackCopyText(text, successMsg) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast(successMsg || 'Đã sao chép!');
+      } catch (e) {
+        alert('Nội dung: ' + text);
+      }
+      document.body.removeChild(ta);
+    }
+
+    window.copyMemoContent = function() {
+      var memoEl = document.getElementById('transfer-memo');
+      var text = memoEl ? memoEl.textContent.trim() : 'BPTC 0981501865';
+      window.copyTextToClipboard(text, 'Đã sao chép nội dung chuyển khoản: ' + text);
+    };
+
+    window.confirmTransferCompleted = function() {
+      var msg = document.getElementById('enroll-success-msg');
+      if (msg) {
+        msg.classList.remove('hidden');
+        msg.scrollIntoView({ behavior: 'smooth' });
+      }
+      showToast('Cảm ơn bạn! Đang kết nối trợ giảng xác thực thanh toán.');
     };
 
     // ==================== LEARNING PROGRESS ENGINE ====================
@@ -2434,23 +3010,24 @@
   </script>
 
   <!-- MOBILE STICKY ENROLLMENT BOTTOM BAR -->
-  <div id="mobile-sticky-bar" class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-nen-sau/95 backdrop-blur-md border-t border-kem/20 p-3 flex items-center justify-between gap-3 shadow-2xl">
+  <div id="mobile-sticky-bar" class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-nen-sau/95 backdrop-blur-md border-t border-kem/20 px-4 py-3 flex items-center justify-between gap-3 shadow-2xl">
     <div>
-      <span class="block text-[10px] font-mono text-yen uppercase leading-tight">Bứt Phá Tài Chính</span>
-      <div class="flex items-center gap-1.5 leading-tight">
-        <span class="text-sm sm:text-base font-bold font-mono text-cam">2.990.000 đ</span>
+      <div class="flex items-center gap-1.5 leading-none mb-1">
+        <span class="text-xs font-mono font-bold text-cam uppercase">Bứt Phá Tài Chính</span>
+        <span class="px-1.5 py-0.2 rounded bg-red-500/20 text-red-300 font-mono text-[9px] font-bold border border-red-500/30">-70%</span>
+      </div>
+      <div class="flex items-center gap-1.5 leading-none">
+        <span class="text-base sm:text-lg font-bold font-mono text-kem">2.990.000 đ</span>
         <span class="text-[10px] font-mono text-yen line-through">9.9tr</span>
       </div>
     </div>
     <div class="flex items-center gap-2">
-      <a href="#tien-do-hoc-tap" class="p-2 rounded-lg border border-kem/20 text-kem hover:text-cam bg-abyssal font-mono text-xs" title="Xem tiến độ học tập">
-        <span>📊</span>
-      </a>
-      <button type="button" onclick="window.openCheckoutModal('Bứt Phá Tài Chính · Mentor Trần Nam Hà', '2.990.000 đ')" class="btn-p !py-2.5 !px-4 text-xs font-mono uppercase tracking-wider font-bold shrink-0">
+      <button type="button" onclick="window.playCourseTrailer()" class="p-2.5 rounded-xl border border-kem/20 text-kem hover:text-cam bg-abyssal font-mono text-xs flex items-center gap-1" title="Xem video teaser">
+        <span>⏯</span>
+      </button>
+      <button type="button" onclick="window.openCheckoutModal('Bứt Phá Tài Chính · Mentor Trần Nam Hà', '2.990.000 đ')" class="btn-p !py-2.5 !px-4 text-xs font-mono uppercase tracking-wider font-bold shrink-0 shadow-lg">
         <span>Đăng ký học ↗</span>
       </button>
     </div>
-  </div>
-
-</body>
+  </div></body>
 </html>
