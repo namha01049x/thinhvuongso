@@ -277,13 +277,13 @@
  transform: rotate(180deg);
  }
 
- /* Sticky sidebar positioning */
- @media (min-width: 1024px) {
- .sticky-enroll-card {
- position: sticky;
- top: 6rem;
- }
- }
+ /* Sticky sidebar positioning for tablet (md) and desktop (lg) */
+  @media (min-width: 768px) {
+  .sticky-enroll-card {
+  position: sticky;
+  top: 5.5rem;
+  }
+  }
  </style>
 </head>
 <body class="selection:bg-cam selection:text-abyssal">
@@ -931,10 +931,10 @@
  </div>
 
  <!-- MAIN LAYOUT: 2 COLUMNS (CONTENT + STICKY PURCHASE CARD) -->
- <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+ <div class="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-12 items-start">
  
- <!-- LEFT 8 COLS: COURSE DETAILS, VIDEO, PROBLEMS, BENEFITS, SYLLABUS -->
- <div class="lg:col-span-8 space-y-12">
+ <!-- LEFT CONTENT COLS: COURSE DETAILS, VIDEO, PROBLEMS, BENEFITS, SYLLABUS -->
+ <div class="md:col-span-7 lg:col-span-8 space-y-12">
  
  <!-- 1. VIDEO PREVIEW SECTION WITH INTERACTIVE MODAL TRIGGER -->
  <div class="bg-nen-sau border border-kem/20 rounded-2xl p-4 sm:p-6 space-y-4 shadow-xl">
@@ -2331,8 +2331,10 @@
 
   </div>
 
-  <!-- RIGHT 4 COLS: STICKY PURCHASE ENROLLMENT CARD (Inspired by songdoingoaihang.com & reviewkhoahoc.net) -->
- <aside class="lg:col-span-4 sticky-enroll-card space-y-6">
+  </div>
+
+  <!-- RIGHT COLS: STICKY PURCHASE ENROLLMENT CARD (Inspired by songdoingoaihang.com & reviewkhoahoc.net) -->
+  <aside class="md:col-span-5 lg:col-span-4 sticky-enroll-card space-y-6">
  <div class="bg-nen-sau border-2 border-cam/60 rounded-2xl p-6 space-y-6 shadow-2xl">
  
  <!-- Thumbnail preview inside card -->
