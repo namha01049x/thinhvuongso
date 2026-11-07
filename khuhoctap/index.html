@@ -272,7 +272,7 @@
             <span class="font-sans font-bold text-base sm:text-lg tracking-wide text-kem uppercase leading-none">
               Thịnh Vượng Số
             </span>
-            <span class="px-1.5 py-0.5 rounded bg-kem/10 border border-kem/20 font-mono text-[9px] font-semibold text-yen tracking-widest uppercase leading-none">TVS</span>
+            <span onclick="event.preventDefault(); event.stopPropagation(); window.handleSecretAdminClick();" class="px-1.5 py-0.5 rounded bg-kem/10 border border-kem/20 font-mono text-[9px] font-semibold text-yen tracking-widest uppercase leading-none cursor-pointer hover:border-cam/50 transition-colors" title="Thịnh Vượng Số">TVS</span>
           </div>
           <span class="font-mono text-[9px] sm:text-[10px] tracking-wider text-cam uppercase mt-1 leading-tight font-medium">
             Khu Học Tập · Cổng Học Viên
@@ -674,17 +674,17 @@
             <!-- Status Banner -->
             <div id="login-status-msg" class="hidden p-3.5 rounded-lg text-xs leading-relaxed transition-all"></div>
 
-            <!-- Widget Quản Trị CSDL Học Viên (Live Database Inspector) -->
-            <div class="p-3.5 rounded-xl bg-abyssal/90 border border-kem/15 space-y-2.5">
+            <!-- Widget Quản Trị CSDL Học Viên (Dành riêng cho Quản Trị Viên / Admin - Ẩn mặc định với học viên) -->
+            <div id="admin-db-widget" class="hidden p-3.5 rounded-xl bg-abyssal/95 border-2 border-cam/40 space-y-2.5 shadow-xl">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-1.5">
-                  <span class="text-cam text-xs">💾</span>
-                  <span class="font-mono text-xs font-bold text-kem uppercase tracking-wider">Cơ Sở Dữ Liệu Học Viên Đã Lưu:</span>
+                  <span class="text-cam text-xs">🛡️</span>
+                  <span class="font-mono text-xs font-bold text-kem uppercase tracking-wider">Bảng Quản Trị CSDL (Admin Only):</span>
                 </div>
                 <span id="db-total-count-badge" class="px-2 py-0.5 rounded bg-cam/20 border border-cam/40 text-cam font-mono text-[11px] font-bold">1 học viên</span>
               </div>
               <p class="text-[11px] text-yen leading-relaxed">
-                Dữ liệu được lưu trữ vĩnh viễn trên thiết bị. Bạn có thể kiểm tra danh sách, đối soát trùng lặp hoặc sao lưu file.
+                Khu vực quản trị nội bộ dành riêng cho Mentor Trần Nam Hà / Ban quản trị. Học viên thông thường tuyệt đối không nhìn thấy khu vực này.
               </p>
               <div class="flex flex-wrap items-center gap-2 pt-0.5">
                 <button type="button" onclick="window.toggleDbInspector()" class="px-2.5 py-1 rounded bg-xanh/40 hover:bg-xanh/60 border border-kem/20 text-kem font-mono text-[11px] transition-colors cursor-pointer">
@@ -2293,14 +2293,58 @@
       }
     }
 
+    // Kiểm tra quyền Quản trị viên bí mật (Admin Secret Access)
+    function checkAdminAccess() {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var isAdminParam = params.get('admin') === 'true' || params.get('admin') === '1' || params.get('quantri') === '1';
+        var isAdminSession = sessionStorage.getItem('tvs_admin_unlocked') === 'true';
+        var widget = document.getElementById('admin-db-widget');
+
+        if (widget) {
+          if (isAdminParam || isAdminSession) {
+            widget.classList.remove('hidden');
+            sessionStorage.setItem('tvs_admin_unlocked', 'true');
+            renderDbInspector();
+          } else {
+            widget.classList.add('hidden');
+          }
+        }
+      } catch (e) {}
+    }
+
+    // Secret Admin Toggle (Click 3 lần vào logo TVS để mở bảng quản trị)
+    var tvsLogoClicks = 0;
+    var tvsLogoTimer = null;
+    window.handleSecretAdminClick = function() {
+      tvsLogoClicks++;
+      clearTimeout(tvsLogoTimer);
+      tvsLogoTimer = setTimeout(function() { tvsLogoClicks = 0; }, 1000);
+      if (tvsLogoClicks >= 3) {
+        tvsLogoClicks = 0;
+        var enteredPin = prompt('Nhập mã bí mật Quản trị viên (Admin PIN) để mở bảng CSDL:');
+        if (enteredPin === 'admin888' || enteredPin === 'tvsadmin' || enteredPin === '123456') {
+          sessionStorage.setItem('tvs_admin_unlocked', 'true');
+          var widget = document.getElementById('admin-db-widget');
+          if (widget) {
+            widget.classList.remove('hidden');
+            renderDbInspector();
+            widget.scrollIntoView({ behavior: 'smooth' });
+          }
+          alert('Đã xác thực Quản trị viên thành công! Bảng Quản Trị CSDL học viên đã mở.');
+        } else if (enteredPin) {
+          alert('Mã PIN quản trị viên không chính xác!');
+        }
+      }
+    };
+
     // KHỞI CHẠY HỆ THỐNG VÀ KHÔI PHỤC DỮ LIỆU TỰ ĐỘNG KHI TẢI LẠI TRANG (F5)
     document.addEventListener('DOMContentLoaded', function() {
       syncThemeUI();
       syncKhuHocTapProgress();
 
-      // Nạp CSDL học viên
-      var db = getStudentsDatabase();
-      renderDbInspector();
+      // Kiểm tra quyền quản trị viên bí mật
+      checkAdminAccess();
 
       // Kiểm tra học viên đang đăng nhập và khôi phục 100% dữ liệu
       var currentStudent = getActiveStudent();
