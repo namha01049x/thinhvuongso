@@ -288,13 +288,14 @@
       </a>
 
       <!-- Desktop Nav -->
-      <nav class="hidden lg:flex items-center gap-5 xl:gap-7 text-xs font-medium" aria-label="Điều hướng Khu Học Tập">
+      <nav class="hidden lg:flex items-center gap-5 xl:gap-7 text-xs font-medium" aria-label="Điều hướng Cổng Học Viên">
         <a href="./" class="text-yen hover:text-cam transition-colors">Trang chủ TVS</a>
-        <a href="#khoa-hoc" class="text-yen hover:text-cam transition-colors">3 Tầng Khóa Học</a>
-        <a href="#ban-ghi-zoom" class="text-yen hover:text-cam transition-colors">Kho Bản Ghi Zoom</a>
-        <a href="#bieu-mau" class="text-yen hover:text-cam transition-colors">Biểu Mẫu Thực Chiến</a>
-        <a href="#nop-bai" class="text-yen hover:text-cam transition-colors">Cổng Nộp Bài</a>
-        <a href="chuyensan" class="text-cam font-semibold hover:underline">Chuyên San TVS ↗</a>
+        <a href="#dang-nhap" class="text-cam font-semibold hover:underline">Cổng Đăng Nhập</a>
+        <a href="lophoc" target="_blank" class="text-yen hover:text-cam transition-colors flex items-center gap-1">
+          <span>Lớp Học Thực Chiến</span>
+          <span class="text-cam font-mono text-[10px]">↗</span>
+        </a>
+        <a href="chuyensan" class="text-yen hover:text-cam transition-colors">Chuyên San TVS ↗</a>
       </nav>
 
       <!-- Action & Theme Switch -->
@@ -304,14 +305,14 @@
           <span>0981501865</span>
         </a>
 
-        <!-- Nút chuyển theme sáng/tối (hiện trên tablet và desktop, trên mobile đã có ở footer) -->
+        <!-- Nút chuyển theme sáng/tối -->
         <button type="button" id="header-theme-toggle" onclick="window.toggleSiteTheme()" aria-label="Chuyển giao diện sáng tối" class="hidden sm:inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full border border-kem/30 hover:border-cam text-kem hover:text-cam text-xs font-medium transition-all bg-transparent cursor-pointer">
           <svg id="header-theme-sun" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
           <svg id="header-theme-moon" class="w-3.5 h-3.5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           <span id="header-theme-label" class="hidden md:inline font-mono text-[11px]">Nền sáng</span>
         </button>
 
-        <a href="#student-portal-hub" class="btn-p !py-1.5 sm:!py-2 !px-3 sm:!px-3.5 text-xs font-mono uppercase tracking-wider">
+        <a href="#dang-nhap" class="btn-p !py-1.5 sm:!py-2 !px-3 sm:!px-3.5 text-xs font-mono uppercase tracking-wider">
           <span>Vào học</span>
         </a>
 
@@ -325,12 +326,9 @@
     <!-- Mobile Drawer for khuhoctap.html -->
     <div id="kht-mobile-drawer" class="hidden lg:hidden bg-nen-sau border-b border-kem/15 p-4 space-y-2">
       <a href="./" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">← Quay về Trang chủ Thịnh Vượng Số</a>
-      <a href="#khoa-hoc" onclick="window.toggleKhuHocTapMobileNav()" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">3 Tầng Khóa Học Thực Chiến</a>
-      <a href="#ban-ghi-zoom" onclick="window.toggleKhuHocTapMobileNav()" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">Kho Bản Ghi Zoom Bài Giảng</a>
-      <a href="#bieu-mau" onclick="window.toggleKhuHocTapMobileNav()" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">Biểu Mẫu Tài Chính (.xlsx, .pdf)</a>
-      <a href="#nop-bai" onclick="window.toggleKhuHocTapMobileNav()" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">Cổng Nộp Bài Tập Số Thật</a>
-      <a href="chuyensan" class="block px-3 py-2 rounded bg-cam/20 text-cam text-xs font-semibold">Chuyên San Thịnh Vượng Số ↗</a>
-      <a href="#faq" onclick="window.toggleKhuHocTapMobileNav()" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">Hỏi Đáp Kỹ Thuật & Trợ Giảng</a>
+      <a href="#dang-nhap" onclick="window.toggleKhuHocTapMobileNav()" class="block px-3 py-2 rounded bg-cam/20 text-cam text-xs font-semibold">Cổng Học Viên & Đăng Nhập</a>
+      <a href="lophoc" target="_blank" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">Lớp Học Thực Chiến (Trang Mới) ↗</a>
+      <a href="chuyensan" class="block px-3 py-2 rounded bg-xanh/30 text-kem hover:text-cam text-xs font-medium">Chuyên San Thịnh Vượng Số ↗</a>
     </div>
   </header>
 
@@ -658,14 +656,19 @@
               </div>
 
               <div class="space-y-2 pt-1">
-                <a href="#ban-ghi-zoom" class="btn-p w-full justify-center text-xs !py-2.5">
-                  <span>Xem Kho Bản Ghi Zoom Bài Giảng ↓</span>
-                </a>
-                <a href="#bieu-mau" class="btn-o w-full justify-center text-xs !py-2.5">
-                  <span>Tải Bộ Biểu Mẫu Tài Chính (.xlsx) ↓</span>
-                </a>
-                <a href="#nop-bai" class="btn-o w-full justify-center text-xs !py-2.5 text-yen hover:text-cam">
-                  <span>Đến Cổng Nộp Bài Tập Số Thật ↓</span>
+                <button type="button" onclick="window.openClassroomPage()" class="btn-p w-full justify-center text-xs !py-3 shadow-lg shadow-cam/25 cursor-pointer font-bold">
+                  <span>🚀 Bật Mở Không Gian Lớp Học (Trang Mới) ↗</span>
+                </button>
+                <div class="grid grid-cols-2 gap-2">
+                  <a href="lophoc.html#ban-ghi-zoom" target="_blank" rel="noopener noreferrer" class="btn-o w-full justify-center text-[11px] !py-2 text-center">
+                    <span>📹 Bản Ghi Zoom ↗</span>
+                  </a>
+                  <a href="lophoc.html#bieu-mau" target="_blank" rel="noopener noreferrer" class="btn-o w-full justify-center text-[11px] !py-2 text-center">
+                    <span>📊 Thư Viện Biểu Mẫu ↗</span>
+                  </a>
+                </div>
+                <a href="lophoc.html#nop-bai" target="_blank" rel="noopener noreferrer" class="btn-o w-full justify-center text-[11px] !py-2 text-yen hover:text-cam text-center">
+                  <span>📝 Cổng Nộp Bài Tập Số Thật ↗</span>
                 </a>
               </div>
 
@@ -731,553 +734,6 @@
       </div>
 
     </div>
-  </section>
-
-  <!-- ==================== DASHBOARD / LEARNING SPACE PREVIEW ==================== -->
-  <section id="khoa-hoc" class="py-14 sm:py-20 max-w-dtv mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-    
-    <div class="text-center max-w-2xl mx-auto space-y-3">
-      <div class="nhan text-cam">Không gian Khu Học Tập</div>
-      <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-kem">
-        3 Tầng Chương Trình Huấn Luyện Thực Chiến
-      </h2>
-      <p class="text-sm sm:text-base text-yen leading-relaxed">
-        Bạn đăng ký chương trình nào, hệ thống sẽ tự động mở khóa toàn bộ tài nguyên, bản ghi Zoom và bài tập của chương trình đó.
-      </p>
-    </div>
-
-    <!-- Course Program Tabs -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      
-      <!-- Card 1: Bình Dân Học Vụ Tài Chính -->
-      <div class="bg-nen-sau border border-kem/20 hover:border-cam/50 rounded-xl p-6 flex flex-col justify-between transition-all group">
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <span class="px-2.5 py-1 rounded bg-xanh/50 border border-kem/20 font-mono text-[10px] uppercase font-semibold text-kem">Tầng 1 · Nền tảng</span>
-            <span class="text-xs font-mono text-cam font-medium">4 Chặng Rèn Luyện</span>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-kem group-hover:text-cam transition-colors">Bình Dân Học Vụ Tài Chính</h3>
-            <p class="text-xs text-yen mt-1.5 leading-relaxed">
-              Xây dựng nền tảng tài chính cá nhân vững chắc: kiểm kê tài sản, bóc tách nợ xấu, kỷ luật dòng tiền và lập ngân sách sống còn.
-            </p>
-          </div>
-          <div class="space-y-2 py-3 border-y border-kem/15 text-xs text-yen">
-            <div class="flex justify-between items-center">
-              <span>Bản ghi video:</span>
-              <strong class="text-kem font-mono">12 Bài học Full HD</strong>
-            </div>
-            <div class="flex justify-between items-center">
-              <span>Bộ biểu mẫu đính kèm:</span>
-              <strong class="text-kem font-mono">03 File Excel chuẩn</strong>
-            </div>
-            <div class="flex justify-between items-center">
-              <span>Bài tập thực hành:</span>
-              <strong class="text-kem font-mono">4 Bài kiểm kê số thật</strong>
-            </div>
-          </div>
-        </div>
-        <div class="pt-5">
-          <button type="button" onclick="window.viewProgramDetails('binh-dan')" class="btn-o w-full justify-center text-xs !py-2.5">
-            <span>Mở kho tài liệu Tầng 1 →</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Card 2: Bứt Phá Tài Chính (Flagship Course with Mentor Trần Nam Hà) -->
-      <div class="bg-nen-sau border-2 border-cam/50 rounded-xl p-6 flex flex-col justify-between transition-all relative shadow-xl">
-        <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-cam text-abyssal font-mono text-[10px] font-bold uppercase tracking-wider">
-          Chương trình trọng điểm Zoom
-        </div>
-        <div class="space-y-4 pt-2">
-          <div class="flex items-center justify-between">
-            <span class="px-2.5 py-1 rounded bg-cam/20 text-cam border border-cam/30 font-mono text-[10px] uppercase font-semibold">Tầng 2 · Thực chiến</span>
-            <span class="text-xs font-mono text-cam font-medium">6 Buổi Zoom Trực Tiếp</span>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-kem">Bứt Phá Tài Chính</h3>
-            <p class="text-xs text-cam font-mono mt-0.5">Cùng Mentor Trần Nam Hà</p>
-            <p class="text-xs text-yen mt-2 leading-relaxed">
-              Huấn luyện chuyên sâu mổ xẻ bức tranh thu nhập, vá lỗ rò rỉ dòng tiền, tái cấu trúc đòn bẩy và nâng trần thu nhập trên chính công việc của bạn.
-            </p>
-          </div>
-          <div class="space-y-2 py-3 border-y border-kem/15 text-xs text-yen">
-            <div class="flex justify-between items-center">
-              <span>Bản ghi Zoom trực tiếp:</span>
-              <strong class="text-kem font-mono">6 Buổi chuyên sâu (12h)</strong>
-            </div>
-            <div class="flex justify-between items-center">
-              <span>Hội thảo Q&A riêng:</span>
-              <strong class="text-kem font-mono">Trực tiếp qua Zoom</strong>
-            </div>
-            <div class="flex justify-between items-center">
-              <span>Chữa bài tập cá nhân:</span>
-              <strong class="text-kem font-mono">Mentor phản hồi 1-1</strong>
-            </div>
-          </div>
-          <!-- Mini Progress Indicator Syncing with khoahoc.html -->
-          <div id="kht-card-progress" class="p-2.5 rounded-lg bg-abyssal/90 border border-cam/30 text-xs space-y-1.5 shadow-inner">
-            <div class="flex items-center justify-between">
-              <span class="text-yen font-mono text-[11px] flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-cam animate-ping"></span>
-                Tiến độ thực hành:
-              </span>
-              <span id="kht-progress-val" class="font-mono text-cam font-bold text-xs">0%</span>
-            </div>
-            <div class="w-full bg-kem/10 rounded-full h-1.5 overflow-hidden">
-              <div id="kht-progress-bar" class="bg-gradient-to-r from-cam to-vang h-full rounded-full transition-all duration-500" style="width: 0%"></div>
-            </div>
-            <div class="flex justify-between items-center text-[10px] text-yen/80 font-mono">
-              <span id="kht-tasks-count">0/18 nhiệm vụ</span>
-              <a href="khoahoc?course=but-pha#tien-do-hoc-tap" class="text-cam hover:underline font-sans font-medium">Bảng theo dõi ↗</a>
-            </div>
-          </div>
-        </div>
-        <div class="pt-4 space-y-2">
-          <button type="button" onclick="window.viewProgramDetails('but-pha')" class="btn-p w-full justify-center text-xs !py-2.5">
-            <span>Mở kho bản ghi Bứt Phá Tài Chính ↓</span>
-          </button>
-          <a href="khoahoc?course=but-pha#tien-do-hoc-tap" class="btn-o w-full justify-center text-xs !py-1.5 text-yen hover:text-cam">
-            <span>📊 Xem 18 Nhiệm Vụ & Bảng Tiến Độ ↗</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Card 3: Tinh Hoa Thịnh Vượng -->
-      <div class="bg-nen-sau border border-kem/20 hover:border-cam/50 rounded-xl p-6 flex flex-col justify-between transition-all group">
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <span class="px-2.5 py-1 rounded bg-xanh/50 border border-kem/20 font-mono text-[10px] uppercase font-semibold text-kem">Tầng 3 · Quản trị vốn</span>
-            <span class="text-xs font-mono text-cam font-medium">Mastery Club</span>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-kem group-hover:text-cam transition-colors">Tinh Hoa Thịnh Vượng</h3>
-            <p class="text-xs text-yen mt-1.5 leading-relaxed">
-              Không gian quản trị cấu trúc vốn, Khung 5 lớp ra quyết định đầu tư, phòng vệ danh mục và kiến tạo di sản tài chính cho chủ doanh nghiệp.
-            </p>
-          </div>
-          <div class="space-y-2 py-3 border-y border-kem/15 text-xs text-yen">
-            <div class="flex justify-between items-center">
-              <span>Hội đồng cố vấn:</span>
-              <strong class="text-kem font-mono">Trần Nam Hà & Ban chuyên gia</strong>
-            </div>
-            <div class="flex justify-between items-center">
-              <span>Khung phân tích đầu tư:</span>
-              <strong class="text-kem font-mono">Khung 5 Lớp độc quyền</strong>
-            </div>
-            <div class="flex justify-between items-center">
-              <span>Thời gian đồng hành:</span>
-              <strong class="text-kem font-mono">12 Tháng thực chiến</strong>
-            </div>
-          </div>
-        </div>
-        <div class="pt-5 space-y-2">
-          <button type="button" onclick="window.viewProgramDetails('tinh-hoa')" class="btn-o w-full justify-center text-xs !py-2.5">
-            <span>Mở kho tài liệu & Biểu mẫu Khung 5 Lớp ↓</span>
-          </button>
-        </div>
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- ==================== ZOOM VIDEO ARCHIVE SECTION ==================== -->
-  <section id="ban-ghi-zoom" class="py-14 sm:py-20 bg-nen-sau/70 border-y border-kem/15">
-    <div class="max-w-dtv mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-      
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <div class="space-y-2">
-          <div class="nhan text-cam">Kho bản ghi bài giảng</div>
-          <h2 class="text-2xl sm:text-3xl font-bold text-kem">Bản Ghi Zoom Chất Lượng Cao Theo Buổi</h2>
-          <p class="text-xs sm:text-sm text-yen max-w-xl">
-            Toàn bộ các buổi học trực tiếp đều được biên tập lại, lọc bỏ tạp âm, gắn mốc thời gian (timestamps) và chia theo từng chủ đề cụ thể để học viên xem lại thuận tiện nhất.
-          </p>
-        </div>
-
-        <!-- Filter tags -->
-        <div class="flex flex-wrap gap-2" role="tablist" aria-label="Bộ lọc bản ghi Zoom">
-          <button type="button" onclick="window.filterVideos('all')" class="vid-tab-btn px-3 py-1.5 rounded text-xs font-mono font-semibold bg-cam text-abyssal cursor-pointer">Tất cả bản ghi</button>
-          <button type="button" onclick="window.filterVideos('but-pha')" class="vid-tab-btn px-3 py-1.5 rounded text-xs font-mono text-yen hover:text-kem bg-xanh/40 border border-kem/15 cursor-pointer">Bứt Phá Tài Chính</button>
-          <button type="button" onclick="window.filterVideos('binh-dan')" class="vid-tab-btn px-3 py-1.5 rounded text-xs font-mono text-yen hover:text-kem bg-xanh/40 border border-kem/15 cursor-pointer">Bình Dân Học Vụ</button>
-          <button type="button" onclick="window.filterVideos('qa')" class="vid-tab-btn px-3 py-1.5 rounded text-xs font-mono text-yen hover:text-kem bg-xanh/40 border border-kem/15 cursor-pointer">Hỏi đáp cùng Mentor</button>
-        </div>
-      </div>
-
-      <!-- Video Grid -->
-      <div id="video-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        
-        <!-- Video 1: Mentor Trần Nam Hà giảng dạy -->
-        <div class="vid-card bg-abyssal border border-kem/20 rounded-xl overflow-hidden hover:border-cam/50 transition-all flex flex-col justify-between" data-category="but-pha">
-          <div>
-            <div class="relative aspect-video bg-nen-chan flex items-center justify-center group cursor-pointer" onclick="window.playSampleVideo('Buổi 01 · Bứt Phá Tài Chính: Mổ xẻ bức tranh thu nhập và vá lỗ hổng rò rỉ')">
-              <img src="anh/c05-nam-mic.webp" alt="Mentor Trần Nam Hà giảng dạy trực tiếp" width="825" height="1100" class="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity" />
-              <div class="absolute inset-0 bg-gradient-to-t from-abyssal via-transparent to-transparent"></div>
-              <div class="absolute w-12 h-12 rounded-full bg-cam text-abyssal flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <svg class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              </div>
-              <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-kem">1 giờ 52 phút</span>
-            </div>
-            <div class="p-5 space-y-2.5">
-              <div class="flex items-center justify-between text-[11px] font-mono text-yen">
-                <span class="text-cam font-semibold">Bứt Phá Tài Chính</span>
-                <span>Buổi 1 / 6</span>
-              </div>
-              <h3 class="text-base font-bold text-kem leading-snug">
-                Mổ xẻ bức tranh thu nhập & Vá lỗ hổng rò rỉ dòng tiền
-              </h3>
-              <ul class="text-xs text-yen space-y-1 pt-1 leading-relaxed">
-                <li class="flex items-start gap-1.5">
-                  <span class="text-cam font-bold">•</span>
-                  <span>Nhận diện 4 khoản chi phí ẩn khiến người thu nhập cao vẫn không tích lũy được.</span>
-                </li>
-                <li class="flex items-start gap-1.5">
-                  <span class="text-cam font-bold">•</span>
-                  <span>Phương pháp thiết lập ngân sách sống còn và quỹ thanh khoản an toàn.</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="px-5 py-2.5 bg-nen-sau/50 border-t border-kem/10 flex items-center justify-between text-xs">
-            <button 
-              type="button" 
-              onclick="window.toggleLessonComplete('zoom-01', 'Buổi 01 · Bứt Phá Tài Chính')" 
-              id="btn-lesson-zoom-01"
-              class="lesson-check-btn flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-kem/20 text-yen hover:text-cam hover:border-cam/40 transition-colors font-mono text-[11px] cursor-pointer"
-            >
-              <span id="lesson-icon-zoom-01">○</span>
-              <span id="lesson-label-zoom-01">Đánh dấu đã học</span>
-            </button>
-            <span id="lesson-status-zoom-01" class="font-mono text-[10px] text-yen/80">Chưa hoàn thành</span>
-          </div>
-          <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-kem/10 text-xs">
-            <button type="button" onclick="window.downloadTemplate('Bang_Kiem_Ke_Dong_Tien_12_Thang_TVS.xlsx')" class="text-yen hover:text-cam font-mono text-[11px] flex items-center gap-1 cursor-pointer">
-              <span>📥 Tải file .xlsx</span>
-            </button>
-            <button type="button" onclick="window.playSampleVideo('Buổi 01 · Bứt Phá Tài Chính')" class="text-cam hover:underline font-semibold font-mono text-xs">
-              Xem bản ghi ↗
-            </button>
-          </div>
-        </div>
-
-        <!-- Video 2: Hội trường học viên Bứt Phá Tài Chính -->
-        <div class="vid-card bg-abyssal border border-kem/20 rounded-xl overflow-hidden hover:border-cam/50 transition-all flex flex-col justify-between" data-category="but-pha">
-          <div>
-            <div class="relative aspect-video bg-nen-chan flex items-center justify-center group cursor-pointer" onclick="window.playSampleVideo('Buổi 02 · Bứt Phá Tài Chính: Tái cấu trúc đòn bẩy và nâng trần thu nhập')">
-              <img src="anh/c04-hoi-truong.webp" alt="Hội trường học viên Bứt Phá Tài Chính" width="825" height="1100" class="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity" />
-              <div class="absolute inset-0 bg-gradient-to-t from-abyssal via-transparent to-transparent"></div>
-              <div class="absolute w-12 h-12 rounded-full bg-cam text-abyssal flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <svg class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              </div>
-              <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-kem">2 giờ 10 phút</span>
-            </div>
-            <div class="p-5 space-y-2.5">
-              <div class="flex items-center justify-between text-[11px] font-mono text-yen">
-                <span class="text-cam font-semibold">Bứt Phá Tài Chính</span>
-                <span>Buổi 2 / 6</span>
-              </div>
-              <h3 class="text-base font-bold text-kem leading-snug">
-                Tái cấu trúc đòn bẩy & Thiết lập trần thu nhập cá nhân
-              </h3>
-              <ul class="text-xs text-yen space-y-1 pt-1 leading-relaxed">
-                <li class="flex items-start gap-1.5">
-                  <span class="text-cam font-bold">•</span>
-                  <span>Định giá lại năng lực chuyên môn và cách thức chuyển đổi thời gian thành giá trị.</span>
-                </li>
-                <li class="flex items-start gap-1.5">
-                  <span class="text-cam font-bold">•</span>
-                  <span>Kỹ thuật cơ cấu lại nợ và nâng trần thu nhập theo chu kỳ 90 ngày.</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="px-5 py-2.5 bg-nen-sau/50 border-t border-kem/10 flex items-center justify-between text-xs">
-            <button 
-              type="button" 
-              onclick="window.toggleLessonComplete('zoom-02', 'Buổi 02 · Bứt Phá Tài Chính')" 
-              id="btn-lesson-zoom-02"
-              class="lesson-check-btn flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-kem/20 text-yen hover:text-cam hover:border-cam/40 transition-colors font-mono text-[11px] cursor-pointer"
-            >
-              <span id="lesson-icon-zoom-02">○</span>
-              <span id="lesson-label-zoom-02">Đánh dấu đã học</span>
-            </button>
-            <span id="lesson-status-zoom-02" class="font-mono text-[10px] text-yen/80">Chưa hoàn thành</span>
-          </div>
-          <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-kem/10 text-xs">
-            <button type="button" onclick="window.downloadTemplate('Ke_Hoach_Nang_Tran_Thu_Nhap_90_Ngay_TVS.xlsx')" class="text-yen hover:text-cam font-mono text-[11px] flex items-center gap-1 cursor-pointer">
-              <span>📥 Tải Khung 90 Ngày</span>
-            </button>
-            <button type="button" onclick="window.playSampleVideo('Buổi 02 · Bứt Phá Tài Chính')" class="text-cam hover:underline font-semibold font-mono text-xs">
-              Xem bản ghi ↗
-            </button>
-          </div>
-        </div>
-
-        <!-- Video 3: Học viên thảo luận tài chính & thực hành -->
-        <div class="vid-card bg-abyssal border border-kem/20 rounded-xl overflow-hidden hover:border-cam/50 transition-all flex flex-col justify-between" data-category="binh-dan">
-          <div>
-            <div class="relative aspect-video bg-nen-chan flex items-center justify-center group cursor-pointer" onclick="window.playSampleVideo('Chặng 02 · Bình Dân Học Vụ: Bảng cân đối tài sản và nợ ròng')">
-              <img src="anh/c02-hoc-vien-cafe.webp" alt="Học viên thảo luận và thực hành tài chính" width="825" height="1100" class="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity" />
-              <div class="absolute inset-0 bg-gradient-to-t from-abyssal via-transparent to-transparent"></div>
-              <div class="absolute w-12 h-12 rounded-full bg-cam text-abyssal flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <svg class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              </div>
-              <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-kem">1 giờ 35 phút</span>
-            </div>
-            <div class="p-5 space-y-2.5">
-              <div class="flex items-center justify-between text-[11px] font-mono text-yen">
-                <span class="text-cam font-semibold">Bình Dân Học Vụ</span>
-                <span>Chặng 2</span>
-              </div>
-              <h3 class="text-base font-bold text-kem leading-snug">
-                Bảng cân đối tài sản & Nợ ròng (Net Worth Cá Nhân)
-              </h3>
-              <ul class="text-xs text-yen space-y-1 pt-1 leading-relaxed">
-                <li class="flex items-start gap-1.5">
-                  <span class="text-cam font-bold">•</span>
-                  <span>Bóc tách tài sản thanh khoản cao vs tiêu sản ngốn chi phí sinh hoạt.</span>
-                </li>
-                <li class="flex items-start gap-1.5">
-                  <span class="text-cam font-bold">•</span>
-                  <span>Lộ trình dập tắt các khoản nợ độc hại và bảo vệ số dư tài sản ròng.</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="px-5 py-2.5 bg-nen-sau/50 border-t border-kem/10 flex items-center justify-between text-xs">
-            <button 
-              type="button" 
-              onclick="window.toggleLessonComplete('zoom-03', 'Chặng 02 · Bình Dân Học Vụ')" 
-              id="btn-lesson-zoom-03"
-              class="lesson-check-btn flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-kem/20 text-yen hover:text-cam hover:border-cam/40 transition-colors font-mono text-[11px] cursor-pointer"
-            >
-              <span id="lesson-icon-zoom-03">○</span>
-              <span id="lesson-label-zoom-03">Đánh dấu đã học</span>
-            </button>
-            <span id="lesson-status-zoom-03" class="font-mono text-[10px] text-yen/80">Chưa hoàn thành</span>
-          </div>
-          <div class="px-5 pb-5 pt-3 flex items-center justify-between border-t border-kem/10 text-xs">
-            <button type="button" onclick="window.downloadTemplate('Bang_Can_Doi_Tai_San_NetWorth_TVS.xlsx')" class="text-yen hover:text-cam font-mono text-[11px] flex items-center gap-1 cursor-pointer">
-              <span>📥 Tải NetWorth.xlsx</span>
-            </button>
-            <button type="button" onclick="window.playSampleVideo('Chặng 02 · Bình Dân Học Vụ')" class="text-cam hover:underline font-semibold font-mono text-xs">
-              Xem bản ghi ↗
-            </button>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== TEMPLATES & WORKSHEETS SECTION ==================== -->
-  <section id="bieu-mau" class="py-14 sm:py-20 max-w-dtv mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-    
-    <div class="space-y-3 max-w-2xl">
-      <div class="nhan text-cam">Học liệu độc quyền</div>
-      <h2 class="text-2xl sm:text-3xl font-bold text-kem">
-        Thư Viện Biểu Mẫu & Bảng Tính Dòng Tiền Thực Chiến
-      </h2>
-      <p class="text-sm text-yen leading-relaxed">
-        Toàn bộ biểu mẫu được xây dựng dựa trên kinh nghiệm điều hành và quản trị vốn hơn 15 năm của Mentor Trần Nam Hà, tinh gọn và sẵn sàng áp dụng ngay.
-      </p>
-    </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-      
-      <!-- Template 1 -->
-      <div class="bg-nen-sau border border-kem/20 rounded-xl p-5 flex flex-col justify-between hover:border-cam/60 transition-all">
-        <div class="space-y-3">
-          <div class="w-10 h-10 rounded-lg bg-cam/20 text-cam flex items-center justify-center font-mono font-bold text-sm">
-            .XLS
-          </div>
-          <h3 class="text-base font-bold text-kem">Bảng Kiểm Kê Dòng Tiền 12 Tháng</h3>
-          <p class="text-xs text-yen leading-relaxed">
-            Tự động tính tỷ lệ tiết kiệm, tỷ lệ nợ, điểm hòa vốn cá nhân và dòng tiền tự do hàng tháng.
-          </p>
-        </div>
-        <div class="pt-4 border-t border-kem/15 mt-4">
-          <button type="button" onclick="window.downloadTemplate('Bang_Kiem_Ke_Dong_Tien_12_Thang_TVS.xlsx')" class="btn-p w-full justify-center text-xs !py-2">
-            <span>Tải Biểu Mẫu (.xlsx) ↓</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Template 2 -->
-      <div class="bg-nen-sau border border-kem/20 rounded-xl p-5 flex flex-col justify-between hover:border-cam/60 transition-all">
-        <div class="space-y-3">
-          <div class="w-10 h-10 rounded-lg bg-cam/20 text-cam flex items-center justify-center font-mono font-bold text-sm">
-            .XLS
-          </div>
-          <h3 class="text-base font-bold text-kem">Bảng Cân Đối Tài Sản & Nợ Ròng</h3>
-          <p class="text-xs text-yen leading-relaxed">
-            Phân loại rạch ròi tài sản sinh tiền vs tiêu sản ngốn chi phí; tính toán Net Worth và quỹ khẩn cấp.
-          </p>
-        </div>
-        <div class="pt-4 border-t border-kem/15 mt-4">
-          <button type="button" onclick="window.downloadTemplate('Bang_Can_Doi_Tai_San_NetWorth_TVS.xlsx')" class="btn-p w-full justify-center text-xs !py-2">
-            <span>Tải Biểu Mẫu (.xlsx) ↓</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Template 3 -->
-      <div class="bg-nen-sau border border-kem/20 rounded-xl p-5 flex flex-col justify-between hover:border-cam/60 transition-all">
-        <div class="space-y-3">
-          <div class="w-10 h-10 rounded-lg bg-cam/20 text-cam flex items-center justify-center font-mono font-bold text-sm">
-            .PDF
-          </div>
-          <h3 class="text-base font-bold text-kem">Khung 5 Lớp Ra Quyết Định</h3>
-          <p class="text-xs text-yen leading-relaxed">
-            Bộ checklist 5 lớp độc quyền của Mentor Trần Nam Hà giúp lọc sạch rủi ro trước khi rót vốn hoặc đầu tư.
-          </p>
-        </div>
-        <div class="pt-4 border-t border-kem/15 mt-4">
-          <button type="button" onclick="window.downloadTemplate('Khung_5_Lop_Ra_Quyet_Dinh_TVS.pdf')" class="btn-p w-full justify-center text-xs !py-2">
-            <span>Tải Cẩm Nang (.pdf) ↓</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Template 4 -->
-      <div class="bg-nen-sau border border-kem/20 rounded-xl p-5 flex flex-col justify-between hover:border-cam/60 transition-all">
-        <div class="space-y-3">
-          <div class="w-10 h-10 rounded-lg bg-cam/20 text-cam flex items-center justify-center font-mono font-bold text-sm">
-            .XLS
-          </div>
-          <h3 class="text-base font-bold text-kem">Kế Hoạch Nâng Trần Thu Nhập 90 Ngày</h3>
-          <p class="text-xs text-yen leading-relaxed">
-            Bản đồ lộ trình từng tuần bứt phá doanh số kinh doanh, cải thiện vị thế nghề nghiệp và mở rộng kênh tạo giá trị.
-          </p>
-        </div>
-        <div class="pt-4 border-t border-kem/15 mt-4">
-          <button type="button" onclick="window.downloadTemplate('Ke_Hoach_Nang_Tran_Thu_Nhap_90_Ngay_TVS.xlsx')" class="btn-p w-full justify-center text-xs !py-2">
-            <span>Tải Biểu Mẫu (.xlsx) ↓</span>
-          </button>
-        </div>
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- ==================== HOMEWORK SUBMISSION SECTION ==================== -->
-  <section id="nop-bai" class="py-14 sm:py-20 bg-nen-sau/70 border-y border-kem/15">
-    <div class="max-w-dtv mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="max-w-3xl mx-auto bg-nen-sau border-2 border-cam/40 rounded-2xl p-6 sm:p-10 shadow-2xl space-y-6">
-        
-        <div class="border-b border-kem/15 pb-4">
-          <div class="nhan text-cam mb-2">Cổng nộp bài tập thực hành</div>
-          <h2 class="text-2xl sm:text-3xl font-bold text-kem">Nộp Bài Tập Số Thật Để Nhận Phản Hồi</h2>
-          <p class="text-xs sm:text-sm text-yen mt-2 leading-relaxed">
-            Học viên điền số liệu thực tế của bản thân theo mẫu. Mentor Trần Nam Hà và ban trợ giảng sẽ xem xét từng con số và phản hồi phương án điều chỉnh trong vòng 48 giờ.
-          </p>
-        </div>
-
-        <form id="homework-submit-form" onsubmit="window.handleHomeworkSubmit(event)" class="space-y-4">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label for="hw-name" class="block font-mono text-xs uppercase text-yen mb-1 font-medium">Họ và tên học viên *</label>
-              <input type="text" id="hw-name" required placeholder="Họ và tên của bạn" class="w-full px-4 py-2.5 rounded bg-abyssal border border-kem/20 text-kem text-sm focus:border-cam focus:outline-none" />
-            </div>
-            <div>
-              <label for="hw-phone" class="block font-mono text-xs uppercase text-yen mb-1 font-medium">Số điện thoại đăng ký *</label>
-              <input type="tel" id="hw-phone" required placeholder="0981501865" class="w-full px-4 py-2.5 rounded bg-abyssal border border-kem/20 text-kem text-sm focus:border-cam focus:outline-none font-mono" />
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label for="hw-program" class="block font-mono text-xs uppercase text-yen mb-1 font-medium">Chương trình theo học *</label>
-              <select id="hw-program" required class="w-full px-4 py-2.5 rounded bg-abyssal border border-kem/20 text-kem text-sm focus:border-cam focus:outline-none">
-                <option value="but-pha">Bứt Phá Tài Chính (Mentor Trần Nam Hà)</option>
-                <option value="binh-dan">Bình Dân Học Vụ Tài Chính</option>
-                <option value="tinh-hoa">Tinh Hoa Thịnh Vượng</option>
-              </select>
-            </div>
-            <div>
-              <label for="hw-lesson" class="block font-mono text-xs uppercase text-yen mb-1 font-medium">Nội dung bài tập nộp *</label>
-              <select id="hw-lesson" required class="w-full px-4 py-2.5 rounded bg-abyssal border border-kem/20 text-kem text-sm focus:border-cam focus:outline-none">
-                <option value="b1">Bài tập Buổi 1: Kiểm kê dòng tiền & Vá lỗ rò rỉ</option>
-                <option value="b2">Bài tập Buổi 2: Tái cấu trúc đòn bẩy & Bảng Net Worth</option>
-                <option value="b3">Bài tập Buổi 3: Lập kế hoạch nâng trần thu nhập 90 ngày</option>
-                <option value="b4">Bài tập Buổi 4: Đánh giá cơ hội theo Khung 5 Lớp</option>
-                <option value="khac">Bài tập bổ trợ & Tình huống thực tế khác</option>
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <label for="hw-link" class="block font-mono text-xs uppercase text-yen mb-1 font-medium">Link Google Sheets bài tập hoặc link tài liệu lưu trữ *</label>
-            <input type="url" id="hw-link" required placeholder="https://docs.google.com/spreadsheets/d/..." class="w-full px-4 py-2.5 rounded bg-abyssal border border-kem/20 text-kem text-sm focus:border-cam focus:outline-none font-mono" />
-            <p class="text-[11px] text-yen mt-1">Lưu ý: Mở quyền xem (Anyone with the link can view) cho địa chỉ email đào tạo của Thịnh Vượng Số.</p>
-          </div>
-
-          <div>
-            <label for="hw-notes" class="block font-mono text-xs uppercase text-yen mb-1 font-medium">Câu hỏi / Điểm bạn đang vướng mắc cần Mentor hỗ trợ:</label>
-            <textarea id="hw-notes" rows="3" placeholder="Ghi chú cụ thể phần con số hoặc tình huống bạn đang băn khoăn nhất..." class="w-full px-4 py-2.5 rounded bg-abyssal border border-kem/20 text-kem text-sm focus:border-cam focus:outline-none"></textarea>
-          </div>
-
-          <!-- Privacy Commitment -->
-          <div class="p-3 bg-xanh/40 rounded border border-kem/15 flex items-start gap-2.5 text-xs text-yen">
-            <span class="text-cam font-bold text-sm leading-none mt-0.5">🛡</span>
-            <span>
-              <strong>Cam kết bảo mật 100%:</strong> Mọi con số thu nhập, nợ và tài sản của bạn chỉ được dùng cho mục đích chữa bài và cố vấn cá nhân, tuyệt đối không bao giờ được chia sẻ ra ngoài (tuân thủ Nghị định 13/2023/NĐ-CP).
-            </span>
-          </div>
-
-          <div class="pt-2">
-            <button type="submit" id="btn-hw-submit" class="btn-p w-full justify-center text-sm !py-3">
-              <span>Gửi Bài Tập Thực Hành Đến Mentor Trần Nam Hà ↗</span>
-            </button>
-          </div>
-
-          <div id="hw-status-msg" class="hidden p-3 rounded text-xs leading-relaxed"></div>
-        </form>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== FAQ & HELPDESK ==================== -->
-  <section id="faq" class="py-14 sm:py-20 max-w-dtv mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-    
-    <div class="text-center max-w-2xl mx-auto space-y-3">
-      <div class="nhan text-cam">Hỗ trợ học viên</div>
-      <h2 class="text-2xl sm:text-3xl font-bold text-kem">Câu Hỏi Thường Gặp Khi Truy Cập Khu Học Tập</h2>
-      <p class="text-xs sm:text-sm text-yen">
-        Nếu bạn gặp bất kỳ trở ngại nào trong quá trình đăng nhập và học tập, hãy tham khảo các giải đáp dưới đây hoặc liên hệ trực tiếp bộ phận trợ giảng.
-      </p>
-    </div>
-
-    <div class="max-w-3xl mx-auto space-y-4">
-      
-      <div class="bg-nen-sau border border-kem/20 rounded-xl p-5 space-y-2">
-        <h3 class="text-base font-bold text-kem">1. Tôi quên mã học viên hoặc không đăng nhập được thì xử lý thế nào?</h3>
-        <p class="text-xs sm:text-sm text-yen leading-relaxed">
-          Bạn chỉ cần sử dụng số điện thoại đã dùng để đăng ký khóa học với Thịnh Vượng Số để đăng nhập. Nếu vẫn không vào được, hãy bấm nút "Quên mã học viên" hoặc nhắn tin trực tiếp qua Zalo <strong class="text-kem">0981501865</strong> để được trợ lý cấp lại mã tức thì trong 5 phút.
-        </p>
-      </div>
-
-      <div class="bg-nen-sau border border-kem/20 rounded-xl p-5 space-y-2">
-        <h3 class="text-base font-bold text-kem">2. Bản ghi Zoom được lưu trữ trong bao lâu và có thể xem trên điện thoại không?</h3>
-        <p class="text-xs sm:text-sm text-yen leading-relaxed">
-          Toàn bộ bản ghi Zoom và học liệu được lưu trữ trên nền tảng đám mây tốc độ cao. Bạn có thể xem mượt mà trên cả máy tính, máy tính bảng (iPad) và điện thoại di động thông minh bất kỳ lúc nào, không giới hạn số lần xem.
-        </p>
-      </div>
-
-      <div class="bg-nen-sau border border-kem/20 rounded-xl p-5 space-y-2">
-        <h3 class="text-base font-bold text-kem">3. Bài tập nộp lên có được Mentor Trần Nam Hà chữa trực tiếp không?</h3>
-        <p class="text-xs sm:text-sm text-yen leading-relaxed">
-          Đúng vậy. Với học viên chương trình Bứt Phá Tài Chính và Tinh Hoa Thịnh Vượng, Mentor Trần Nam Hà cùng ban trợ giảng cao cấp sẽ trực tiếp mổ xẻ bảng số liệu, chỉ rõ lỗ hổng rò rỉ và định hướng lộ trình trong các phiên chữa bài Zoom hoặc phản hồi văn bản chi tiết trong 48h.
-        </p>
-      </div>
-
-    </div>
-
   </section>
 
   <!-- ==================== FOOTER ==================== -->
@@ -1357,20 +813,20 @@
         <span class="font-mono text-[9px] text-cam">TVS</span>
         <span class="font-medium leading-tight">Trang chủ</span>
       </a>
-      <a href="#khoa-hoc" class="py-1.5 px-0.5 rounded text-[10.5px] text-yen hover:text-cam flex flex-col items-center justify-center">
-        <span class="font-mono text-[9px] text-cam">3 Tầng</span>
-        <span class="font-medium leading-tight">Khóa học</span>
-      </a>
-      <a href="#ban-ghi-zoom" class="py-1.5 px-0.5 rounded text-[10.5px] text-yen hover:text-cam flex flex-col items-center justify-center">
-        <span class="font-mono text-[9px] text-cam">Zoom</span>
-        <span class="font-medium leading-tight">Bản ghi</span>
-      </a>
-      <a href="#bieu-mau" class="py-1.5 px-0.5 rounded text-[10.5px] text-yen hover:text-cam flex flex-col items-center justify-center">
-        <span class="font-mono text-[9px] text-cam">Excel</span>
-        <span class="font-medium leading-tight">Biểu mẫu</span>
-      </a>
-      <button type="button" onclick="window.handleMobileBottomAction(event)" class="py-1.5 px-1 rounded bg-cam text-abyssal font-bold text-[11px] flex flex-col items-center justify-center shadow-md cursor-pointer">
-        <span class="font-mono text-[9px] uppercase">Học viên</span>
+      <button type="button" onclick="window.switchAuthTab('login')" class="py-1.5 px-0.5 rounded text-[10.5px] text-yen hover:text-cam flex flex-col items-center justify-center cursor-pointer">
+        <span class="font-mono text-[9px] text-cam">Cổng</span>
+        <span class="font-medium leading-tight">Đăng nhập</span>
+      </button>
+      <button type="button" onclick="window.switchAuthTab('register')" class="py-1.5 px-0.5 rounded text-[10.5px] text-yen hover:text-cam flex flex-col items-center justify-center cursor-pointer">
+        <span class="font-mono text-[9px] text-cam">Mới</span>
+        <span class="font-medium leading-tight">Đăng ký</span>
+      </button>
+      <button type="button" onclick="window.openForgotModal()" class="py-1.5 px-0.5 rounded text-[10.5px] text-yen hover:text-cam flex flex-col items-center justify-center cursor-pointer">
+        <span class="font-mono text-[9px] text-cam">Hỗ trợ</span>
+        <span class="font-medium leading-tight">Quên mã</span>
+      </button>
+      <button type="button" onclick="window.openClassroomPage()" class="py-1.5 px-1 rounded bg-cam text-abyssal font-bold text-[11px] flex flex-col items-center justify-center shadow-md cursor-pointer">
+        <span class="font-mono text-[9px] uppercase">Lớp học</span>
         <span class="leading-tight">Vào học ↗</span>
       </button>
     </div>
@@ -1820,8 +1276,7 @@
         if (errorBox) errorBox.classList.add('hidden');
 
         setTimeout(function() {
-          var target = document.getElementById('khoa-hoc');
-          if (target) target.scrollIntoView({ behavior: 'smooth' });
+          window.openClassroomPage();
         }, 700);
 
       }, 500);
@@ -1935,9 +1390,8 @@
         }
 
         setTimeout(function() {
-          var target = document.getElementById('khoa-hoc');
-          if (target) target.scrollIntoView({ behavior: 'smooth' });
-        }, 500);
+          window.openClassroomPage();
+        }, 600);
       }, 350);
     };
 
@@ -2230,9 +1684,16 @@
       }
 
       setTimeout(function() {
-        var target = document.getElementById('khoa-hoc');
-        if (target) target.scrollIntoView({ behavior: 'smooth' });
-      }, 500);
+        window.openClassroomPage();
+      }, 600);
+    };
+
+    // Mở Không Gian Lớp Học Thực Chiến (Trang mới)
+    window.openClassroomPage = function() {
+      var win = window.open('lophoc.html', '_blank');
+      if (!win || win.closed || typeof win.closed === 'undefined') {
+        window.location.href = 'lophoc.html';
+      }
     };
 
     // Đăng xuất
@@ -2257,8 +1718,7 @@
       if (e) e.preventDefault();
       var active = getActiveStudent();
       if (active) {
-        var target = document.getElementById('khoa-hoc');
-        if (target) target.scrollIntoView({ behavior: 'smooth' });
+        window.openClassroomPage();
         return;
       }
 
