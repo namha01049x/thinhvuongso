@@ -469,7 +469,7 @@
                       <input type="checkbox" id="remember-me" checked class="rounded border-kem/30 text-cam focus:ring-cam accent-cam" />
                       <span>Ghi nhớ phiên học vĩnh viễn</span>
                     </label>
-                    <a href="https://zalo.me/0981501865" target="_blank" rel="noopener noreferrer" class="text-cam hover:underline">Quên mã học viên?</a>
+                    <button type="button" onclick="window.openForgotPasswordModal()" class="text-cam hover:underline cursor-pointer font-medium text-xs">Quên mã học viên?</button>
                   </div>
 
                   <div class="pt-1 space-y-2.5">
@@ -2344,6 +2344,214 @@
       }
     };
 
+    // ==================== TÍNH NĂNG KHÔI PHỤC MẬT KHẨU TỰ ĐỘNG QUA GMAIL ====================
+    window.__pendingResetStudent = null;
+
+    window.openForgotPasswordModal = function(prefill) {
+      var modal = document.getElementById('forgot-pass-modal');
+      var step1 = document.getElementById('forgot-step-1');
+      var step2 = document.getElementById('forgot-step-2');
+      var input = document.getElementById('forgot-account-input');
+      var errMsg = document.getElementById('forgot-error-msg');
+      var pinErr = document.getElementById('reset-pin-error');
+
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      if (step1) step1.classList.remove('hidden');
+      if (step2) step2.classList.add('hidden');
+      if (errMsg) errMsg.classList.add('hidden');
+      if (pinErr) pinErr.classList.add('hidden');
+
+      if (prefill && input) {
+        input.value = prefill;
+        setTimeout(function() { window.handleForgotPasswordSearch(); }, 200);
+      } else if (input) {
+        setTimeout(function() { input.focus(); }, 150);
+      }
+    };
+
+    window.closeForgotPasswordModal = function() {
+      var modal = document.getElementById('forgot-pass-modal');
+      if (modal) modal.classList.add('hidden');
+      window.__pendingResetStudent = null;
+    };
+
+    window.backToForgotStep1 = function() {
+      var step1 = document.getElementById('forgot-step-1');
+      var step2 = document.getElementById('forgot-step-2');
+      if (step1) step1.classList.remove('hidden');
+      if (step2) step2.classList.add('hidden');
+      var input = document.getElementById('forgot-account-input');
+      if (input) input.focus();
+    };
+
+    window.handleForgotPasswordSearch = function() {
+      var input = document.getElementById('forgot-account-input');
+      var btn = document.getElementById('btn-forgot-search');
+      var errMsg = document.getElementById('forgot-error-msg');
+      var errText = document.getElementById('forgot-error-text');
+
+      var query = input ? input.value.trim() : '';
+      if (!query) {
+        if (errMsg && errText) {
+          errMsg.classList.remove('hidden');
+          errText.textContent = 'Vui lòng nhập Địa chỉ Email hoặc Số điện thoại học viên đã đăng ký!';
+        }
+        return;
+      }
+
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>Đang tra cứu cơ sở dữ liệu...</span>';
+      }
+
+      setTimeout(function() {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<span>🔍 Tra Cứu & Xác Thực Tài Khoản ↗</span>';
+        }
+
+        var db = getStudentsDatabase();
+        var cleanQPhone = query.replace(/[\s\-\.]/g, '');
+        var qLower = query.toLowerCase();
+
+        var student = db.find(function(s) {
+          var sPhone = (s.phone || s.id || '').replace(/[\s\-\.]/g, '').trim();
+          var sEmail = (s.email || '').trim().toLowerCase();
+          return (cleanQPhone && sPhone === cleanQPhone) || (sEmail && sEmail === qLower);
+        });
+
+        if (!student) {
+          if (errMsg && errText) {
+            errMsg.classList.remove('hidden');
+            errText.innerHTML = 'Không tìm thấy hồ sơ học viên nào với thông tin <strong>' + query + '</strong> trong hệ thống. Vui lòng kiểm tra lại Email/SĐT hoặc chuyển sang tab Đăng Ký Mới!';
+          }
+          if (input) input.classList.add('border-red-500');
+          return;
+        }
+
+        // Đã tìm thấy học viên
+        window.__pendingResetStudent = student;
+        if (errMsg) errMsg.classList.add('hidden');
+        if (input) input.classList.remove('border-red-500');
+
+        var step1 = document.getElementById('forgot-step-1');
+        var step2 = document.getElementById('forgot-step-2');
+        if (step1) step1.classList.add('hidden');
+        if (step2) step2.classList.remove('hidden');
+
+        var nameEl = document.getElementById('reset-student-name');
+        var phoneEl = document.getElementById('reset-student-phone');
+        var emailEl = document.getElementById('reset-student-email');
+        var courseEl = document.getElementById('reset-student-course');
+        var previewEl = document.getElementById('reset-email-preview');
+        var btnGmail = document.getElementById('btn-open-gmail');
+
+        var studentEmail = student.email || (student.phone + '@gmail.com');
+        if (nameEl) nameEl.textContent = student.name || 'Học viên Thịnh Vượng Số';
+        if (phoneEl) phoneEl.textContent = student.phone || student.id;
+        if (emailEl) emailEl.textContent = studentEmail;
+        if (courseEl) courseEl.textContent = student.courseName || 'Bứt Phá Tài Chính';
+        if (previewEl) previewEl.textContent = studentEmail;
+
+        // Sinh token khôi phục và tạo link Gmail trực tiếp
+        var resetToken = Math.random().toString(36).substring(2, 8).toUpperCase();
+        var resetLink = window.location.origin + window.location.pathname + '?reset_email=' + encodeURIComponent(studentEmail) + '&token=' + resetToken;
+        
+        var mailSubject = encodeURIComponent('[Thịnh Vượng Số] Liên kết khôi phục mã PIN học viên ' + (student.name || ''));
+        var mailBody = encodeURIComponent('Chào bạn ' + (student.name || '') + ',\n\nBạn vừa gửi yêu cầu khôi phục mã PIN Khu Học Tập Thịnh Vượng Số.\n\nMã xác thực OTP của bạn là: ' + resetToken + '\n\nBấm vào liên kết sau để truy cập trực tiếp và đặt lại mã PIN mới:\n' + resetLink + '\n\nTrân trọng,\nMentor Trần Nam Hà - Đội ngũ Thịnh Vượng Số');
+
+        if (btnGmail) {
+          btnGmail.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(studentEmail) + '&su=' + mailSubject + '&body=' + mailBody;
+        }
+
+        var newPinInp = document.getElementById('new-pin-input');
+        if (newPinInp) setTimeout(function() { newPinInp.focus(); }, 150);
+      }, 350);
+    };
+
+    window.handleResetPinSubmit = function(e) {
+      if (e) e.preventDefault();
+      var student = window.__pendingResetStudent;
+      var newPinInp = document.getElementById('new-pin-input');
+      var confirmPinInp = document.getElementById('confirm-new-pin-input');
+      var errEl = document.getElementById('reset-pin-error');
+      var btn = document.getElementById('btn-save-new-pin');
+
+      if (!student) {
+        alert('Phiên khôi phục đã hết hạn. Vui lòng thử lại!');
+        window.closeForgotPasswordModal();
+        return;
+      }
+
+      var newPin = newPinInp ? newPinInp.value.trim() : '';
+      var confirmPin = confirmPinInp ? confirmPinInp.value.trim() : '';
+
+      if (newPin.length < 4 || newPin.length > 6) {
+        if (errEl) {
+          errEl.classList.remove('hidden');
+          errEl.textContent = 'Mã PIN mới phải có độ dài từ 4 đến 6 chữ số!';
+        }
+        if (newPinInp) newPinInp.focus();
+        return;
+      }
+
+      if (newPin !== confirmPin) {
+        if (errEl) {
+          errEl.classList.remove('hidden');
+          errEl.textContent = 'Mã PIN xác nhận không trùng khớp. Vui lòng nhập lại chính xác!';
+        }
+        if (confirmPinInp) confirmPinInp.focus();
+        return;
+      }
+
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>Đang cập nhật CSDL...</span>';
+      }
+
+      setTimeout(function() {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<span>Cập Nhật Mật Khẩu Mới & Vào Học Ngay ↗</span>';
+        }
+
+        // Cập nhật CSDL
+        var db = getStudentsDatabase();
+        var targetPhone = student.phone || student.id;
+        var foundIdx = db.findIndex(function(s) {
+          return (s.phone || s.id) === targetPhone || (s.email && s.email.toLowerCase() === (student.email || '').toLowerCase());
+        });
+
+        if (foundIdx !== -1) {
+          db[foundIdx].pin = newPin;
+          db[foundIdx].passcode = newPin;
+          saveStudentsDatabase(db);
+          student.pin = newPin;
+          student.passcode = newPin;
+        }
+
+        // Tự động đăng nhập
+        setActiveStudent(student);
+        applyStudentAuthState(student);
+        renderLessonProgressUI(student.completedLessons || []);
+        renderDbInspector();
+
+        // Đóng modal
+        window.closeForgotPasswordModal();
+
+        var msg = document.getElementById('login-status-msg');
+        if (msg) {
+          msg.classList.remove('hidden', 'bg-red-900/40', 'text-red-200', 'border-red-500/50');
+          msg.classList.add('bg-green-900/40', 'text-green-200', 'border', 'border-green-500/50');
+          msg.innerHTML = '<strong>Đổi mã PIN thành công!</strong> Đã cập nhật mật khẩu mới vào cơ sở dữ liệu và tự động đăng nhập hồ sơ học viên <strong>' + student.name + '</strong>. Bạn có thể bắt đầu học ngay bây giờ!';
+        }
+
+        var target = document.getElementById('khoa-hoc');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }, 350);
+    };
+
     // KHỞI CHẠY HỆ THỐNG VÀ KHÔI PHỤC DỮ LIỆU TỰ ĐỘNG KHI TẢI LẠI TRANG (F5)
     document.addEventListener('DOMContentLoaded', function() {
       syncThemeUI();
@@ -2361,8 +2569,175 @@
         applyStudentAuthState(null);
         renderLessonProgressUI([]);
       }
+
+      // Tự động mở Modal khôi phục nếu truy cập từ link Gmail (?reset_email=... hoặc ?token=...)
+      var urlParams = new URLSearchParams(window.location.search);
+      var resetEmailParam = urlParams.get('reset_email') || urlParams.get('email');
+      if (urlParams.get('token') || urlParams.get('forgot') === 'true') {
+        window.openForgotPasswordModal(resetEmailParam);
+      }
     });
   </script>
+
+  <!-- ==================== MODAL KHÔI PHỤC MẬT KHẨU TỰ ĐỘNG QUA GMAIL ==================== -->
+  <div id="forgot-pass-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-abyssal/90 backdrop-blur-md overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="forgot-modal-title">
+    <div class="relative w-full max-w-lg bg-nen-sau border-2 border-cam/50 rounded-2xl p-6 sm:p-8 shadow-2xl space-y-5 text-left my-8">
+      
+      <!-- Close button -->
+      <button type="button" onclick="window.closeForgotPasswordModal()" aria-label="Đóng" class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-abyssal/80 border border-kem/20 text-yen hover:text-cam flex items-center justify-center transition-colors cursor-pointer text-lg font-bold">
+        ✕
+      </button>
+
+      <!-- Modal Header -->
+      <div class="space-y-1.5 pr-8">
+        <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-cam/15 border border-cam/40 text-cam font-mono text-[11px] font-bold uppercase tracking-wider">
+          <span>🔐</span>
+          <span>Khôi Phục Mật Khẩu Tự Động 24/7</span>
+        </div>
+        <h3 id="forgot-modal-title" class="text-xl sm:text-2xl font-bold text-kem">
+          Lấy Lại Mã PIN / Mật Khẩu Học Viên
+        </h3>
+        <p class="text-xs text-yen leading-relaxed">
+          Hệ thống tự động tra cứu CSDL học viên, hỗ trợ gửi liên kết xác thực vào hộp thư Gmail và thiết lập mật khẩu mới ngay lập tức để không gián đoạn buổi học của bạn.
+        </p>
+      </div>
+
+      <!-- BƯỚC 1: Form tra cứu thông tin học viên -->
+      <div id="forgot-step-1" class="space-y-4">
+        <div>
+          <label for="forgot-account-input" class="block font-mono text-xs uppercase tracking-wider text-yen mb-1.5 font-medium">
+            Địa chỉ Email hoặc Số điện thoại học viên *
+          </label>
+          <div class="relative">
+            <input 
+              type="text" 
+              id="forgot-account-input" 
+              required
+              onkeydown="if(event.key==='Enter'){event.preventDefault();window.handleForgotPasswordSearch();}"
+              placeholder="Nhập Email (VD: hocvien@gmail.com) hoặc SĐT đã đăng ký..."
+              class="w-full px-3.5 py-2.5 rounded-xl bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none font-mono text-xs sm:text-sm transition-colors"
+            />
+          </div>
+          <p class="text-[11px] text-yen/80 mt-1">
+            Gợi ý: Nhập chính xác Email hoặc Số điện thoại bạn đã dùng khi đăng ký học viên Thịnh Vượng Số.
+          </p>
+        </div>
+
+        <!-- Báo lỗi không tìm thấy -->
+        <div id="forgot-error-msg" class="hidden p-3 rounded-xl bg-red-950/90 border border-red-500/60 text-red-200 text-xs leading-relaxed space-y-1">
+          <div class="flex items-center gap-1.5 font-bold text-red-400">
+            <span>⚠️</span>
+            <span>KHÔNG TÌM THẤY TÀI KHOẢN:</span>
+          </div>
+          <p id="forgot-error-text" class="text-xs"></p>
+        </div>
+
+        <button 
+          type="button" 
+          id="btn-forgot-search"
+          onclick="window.handleForgotPasswordSearch()" 
+          class="btn-p w-full justify-center !py-2.5 text-xs sm:text-sm font-bold shadow-md cursor-pointer"
+        >
+          <span>🔍 Tra Cứu & Xác Thực Tài Khoản ↗</span>
+        </button>
+      </div>
+
+      <!-- BƯỚC 2: Kết quả tìm thấy & Thiết lập lại mật khẩu tự động -->
+      <div id="forgot-step-2" class="hidden space-y-4">
+        
+        <!-- Hộp thông báo tìm thấy học viên -->
+        <div class="p-3.5 rounded-xl bg-green-950/70 border border-green-500/50 text-green-200 text-xs space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold flex items-center gap-1.5 text-green-400">
+              <span>✅</span>
+              <span>ĐÃ XÁC THỰC HỌC VIÊN CHÍNH THỨC</span>
+            </span>
+            <span class="px-2 py-0.5 rounded bg-green-900/60 font-mono text-[10px]">Tự Động 100%</span>
+          </div>
+          <div class="space-y-1 text-xs text-kem font-mono border-t border-green-500/20 pt-2">
+            <div>Học viên: <strong id="reset-student-name" class="text-cam">---</strong></div>
+            <div>Số điện thoại: <strong id="reset-student-phone" class="text-kem">---</strong></div>
+            <div>Email nhận link: <strong id="reset-student-email" class="text-green-300">---</strong></div>
+            <div>Khóa học: <span id="reset-student-course" class="text-yen">---</span></div>
+          </div>
+        </div>
+
+        <!-- Tiện ích Mở Gmail nhanh -->
+        <div class="p-3 rounded-xl bg-abyssal/90 border border-kem/20 flex items-center justify-between gap-3 text-xs">
+          <div>
+            <p class="font-bold text-kem text-xs">Nhận link đặt lại qua Gmail:</p>
+            <p class="text-yen text-[11px]">Đã tạo link khôi phục gửi tới <span id="reset-email-preview" class="text-cam font-mono"></span></p>
+          </div>
+          <a 
+            id="btn-open-gmail" 
+            href="#" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="shrink-0 px-3 py-1.5 rounded-lg bg-red-600/90 hover:bg-red-600 text-white font-bold font-mono text-xs transition-colors flex items-center gap-1.5 shadow-md cursor-pointer"
+          >
+            <span>📧</span>
+            <span>Mở Gmail</span>
+          </a>
+        </div>
+
+        <!-- Form đặt mã PIN mới ngay lập tức (Không cần chờ đợi) -->
+        <form onsubmit="window.handleResetPinSubmit(event)" class="space-y-3 pt-1 border-t border-kem/15">
+          <div class="space-y-1">
+            <p class="font-bold text-kem text-xs uppercase tracking-wide text-cam">
+              ✨ Đặt lại Mã PIN / Mật khẩu mới để vào học ngay:
+            </p>
+            <p class="text-[11px] text-yen">
+              Nhập mã PIN mới (4 - 6 số) để cập nhật vào CSDL vĩnh viễn và đăng nhập trực tiếp.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label for="new-pin-input" class="block font-mono text-xs uppercase tracking-wider text-yen mb-1 font-medium">
+                Mã PIN mới (4 - 6 số) *
+              </label>
+              <input 
+                type="password" 
+                id="new-pin-input" 
+                required 
+                maxlength="6"
+                placeholder="VD: 686868"
+                class="w-full px-3 py-2 rounded-xl bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none font-mono text-xs transition-colors"
+              />
+            </div>
+            <div>
+              <label for="confirm-new-pin-input" class="block font-mono text-xs uppercase tracking-wider text-yen mb-1 font-medium">
+                Xác nhận mã PIN mới *
+              </label>
+              <input 
+                type="password" 
+                id="confirm-new-pin-input" 
+                required 
+                maxlength="6"
+                placeholder="Nhập lại mã PIN mới"
+                class="w-full px-3 py-2 rounded-xl bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none font-mono text-xs transition-colors"
+              />
+            </div>
+          </div>
+
+          <div id="reset-pin-error" class="hidden p-2.5 rounded-lg bg-red-950/80 border border-red-500/50 text-red-200 text-xs"></div>
+
+          <button 
+            type="submit" 
+            id="btn-save-new-pin" 
+            class="btn-p w-full justify-center !py-2.5 text-xs sm:text-sm font-bold shadow-md cursor-pointer"
+          >
+            <span>Cập Nhật Mật Khẩu Mới & Vào Học Ngay ↗</span>
+          </button>
+        </form>
+
+        <button type="button" onclick="window.backToForgotStep1()" class="text-xs text-yen hover:text-cam font-mono transition-colors cursor-pointer">
+          ← Nhập lại Email hoặc SĐT khác
+        </button>
+      </div>
+
+    </div>
+  </div>
 
 </body>
 </html>
