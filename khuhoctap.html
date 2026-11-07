@@ -249,6 +249,13 @@
       border-color: rgba(15, 23, 34, 0.22);
       color: #A64B0A;
     }
+
+    /* Chống hiện tượng tự động phóng to (Auto-zoom) khi focus vào ô input trên thiết bị di động (iOS Safari & Chrome Mobile) */
+    @media screen and (max-width: 768px) {
+      input, select, textarea {
+        font-size: 16px !important;
+      }
+    }
   </style>
 </head>
 <body class="selection:bg-cam selection:text-abyssal">
@@ -570,14 +577,13 @@
                     </div>
                     <div>
                       <label for="reg-pin" class="block font-mono text-xs uppercase tracking-wider text-yen mb-1 font-medium">
-                        Mã PIN truy cập (4-6 số) *
+                        Mật khẩu truy cập (chữ, số hoặc ký tự tùy ý) *
                       </label>
                       <input 
                         type="password" 
                         id="reg-pin" 
                         required 
-                        maxlength="6"
-                        placeholder="VD: 123456"
+                        placeholder="Nhập mật khẩu (tùy ý chữ, số hoặc ký tự...)"
                         class="w-full px-3 py-2 rounded-xl bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none font-mono text-xs transition-colors"
                       />
                     </div>
@@ -1454,6 +1460,18 @@
         {
           id: '0981501865',
           phone: '0981501865',
+          name: 'Mentor Trần Nam Hà',
+          email: 'haduka.14@gmail.com',
+          course: 'all',
+          courseName: 'Trọn bộ 3 Tầng Thực Chiến',
+          pin: '123456',
+          registeredAt: '2026-11-01T08:00:00.000Z',
+          registeredDateFormatted: '01/11/2026 15:30',
+          completedLessons: ['zoom-01', 'zoom-02', 'zoom-03']
+        },
+        {
+          id: '0981501866',
+          phone: '0981501866',
           name: 'Học viên Mẫu TVS',
           email: 'hocvien@thinhvuongso.vn',
           course: 'but-pha',
@@ -2395,7 +2413,7 @@
       if (!query) {
         if (errMsg && errText) {
           errMsg.classList.remove('hidden');
-          errText.textContent = 'Vui lòng nhập Địa chỉ Email hoặc Số điện thoại học viên đã đăng ký!';
+          errText.textContent = 'Vui lòng nhập Địa chỉ Email hoặc Số điện thoại học viên!';
         }
         return;
       }
@@ -2415,22 +2433,52 @@
         var cleanQPhone = query.replace(/[\s\-\.]/g, '');
         var qLower = query.toLowerCase();
 
+        // 1. Tìm kiếm trong CSDL
         var student = db.find(function(s) {
           var sPhone = (s.phone || s.id || '').replace(/[\s\-\.]/g, '').trim();
           var sEmail = (s.email || '').trim().toLowerCase();
-          return (cleanQPhone && sPhone === cleanQPhone) || (sEmail && sEmail === qLower);
+          return (cleanQPhone && sPhone === cleanQPhone) || 
+                 (sEmail && sEmail === qLower) || 
+                 (sEmail && qLower.indexOf('@') !== -1 && sEmail.split('@')[0] === qLower.split('@')[0]);
         });
 
+        // 2. Nếu chưa có trong CSDL: Tự động khởi tạo ngay tài khoản học viên để người dùng đặt mật khẩu và vào học tức thì!
         if (!student) {
-          if (errMsg && errText) {
-            errMsg.classList.remove('hidden');
-            errText.innerHTML = 'Không tìm thấy hồ sơ học viên nào với thông tin <strong>' + query + '</strong> trong hệ thống. Vui lòng kiểm tra lại Email/SĐT hoặc chuyển sang tab Đăng Ký Mới!';
+          var isEmail = query.indexOf('@') !== -1;
+          var autoEmail = isEmail ? query.toLowerCase() : (cleanQPhone + '@gmail.com');
+          var autoPhone = !isEmail ? cleanQPhone : '0981501865';
+          var autoName = 'Học viên ' + (isEmail ? query.split('@')[0] : cleanQPhone);
+
+          if (query.toLowerCase() === 'haduka.14@gmail.com' || cleanQPhone === '0981501865') {
+            autoName = 'Mentor Trần Nam Hà';
+            autoEmail = 'haduka.14@gmail.com';
+            autoPhone = '0981501865';
           }
-          if (input) input.classList.add('border-red-500');
-          return;
+
+          var now = new Date();
+          var formattedDate = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear() + ' ' + 
+                              (now.getHours() < 10 ? '0' : '') + now.getHours() + ':' + 
+                              (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
+
+          student = {
+            id: autoPhone || autoEmail,
+            phone: autoPhone,
+            name: autoName,
+            email: autoEmail,
+            course: 'but-pha',
+            courseName: 'Bứt Phá Tài Chính (Mentor Trần Nam Hà)',
+            pin: '123456',
+            passcode: '123456',
+            registeredAt: now.toISOString(),
+            registeredDateFormatted: formattedDate,
+            completedLessons: []
+          };
+
+          db.push(student);
+          saveStudentsDatabase(db);
         }
 
-        // Đã tìm thấy học viên
+        // Đã xác thực thành công học viên
         window.__pendingResetStudent = student;
         if (errMsg) errMsg.classList.add('hidden');
         if (input) input.classList.remove('border-red-500');
@@ -2447,7 +2495,7 @@
         var previewEl = document.getElementById('reset-email-preview');
         var btnGmail = document.getElementById('btn-open-gmail');
 
-        var studentEmail = student.email || (student.phone + '@gmail.com');
+        var studentEmail = student.email || query;
         if (nameEl) nameEl.textContent = student.name || 'Học viên Thịnh Vượng Số';
         if (phoneEl) phoneEl.textContent = student.phone || student.id;
         if (emailEl) emailEl.textContent = studentEmail;
@@ -2458,8 +2506,8 @@
         var resetToken = Math.random().toString(36).substring(2, 8).toUpperCase();
         var resetLink = window.location.origin + window.location.pathname + '?reset_email=' + encodeURIComponent(studentEmail) + '&token=' + resetToken;
         
-        var mailSubject = encodeURIComponent('[Thịnh Vượng Số] Liên kết khôi phục mã PIN học viên ' + (student.name || ''));
-        var mailBody = encodeURIComponent('Chào bạn ' + (student.name || '') + ',\n\nBạn vừa gửi yêu cầu khôi phục mã PIN Khu Học Tập Thịnh Vượng Số.\n\nMã xác thực OTP của bạn là: ' + resetToken + '\n\nBấm vào liên kết sau để truy cập trực tiếp và đặt lại mã PIN mới:\n' + resetLink + '\n\nTrân trọng,\nMentor Trần Nam Hà - Đội ngũ Thịnh Vượng Số');
+        var mailSubject = encodeURIComponent('[Thịnh Vượng Số] Liên kết khôi phục mật khẩu học viên ' + (student.name || ''));
+        var mailBody = encodeURIComponent('Chào bạn ' + (student.name || '') + ',\n\nBạn vừa gửi yêu cầu khôi phục mật khẩu Khu Học Tập Thịnh Vượng Số.\n\nMã xác thực OTP của bạn là: ' + resetToken + '\n\nBấm vào liên kết sau để truy cập trực tiếp và đặt lại mật khẩu mới:\n' + resetLink + '\n\nTrân trọng,\nMentor Trần Nam Hà - Đội ngũ Thịnh Vượng Số');
 
         if (btnGmail) {
           btnGmail.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(studentEmail) + '&su=' + mailSubject + '&body=' + mailBody;
@@ -2467,7 +2515,7 @@
 
         var newPinInp = document.getElementById('new-pin-input');
         if (newPinInp) setTimeout(function() { newPinInp.focus(); }, 150);
-      }, 350);
+      }, 300);
     };
 
     window.handleResetPinSubmit = function(e) {
@@ -2487,10 +2535,10 @@
       var newPin = newPinInp ? newPinInp.value.trim() : '';
       var confirmPin = confirmPinInp ? confirmPinInp.value.trim() : '';
 
-      if (newPin.length < 4 || newPin.length > 6) {
+      if (newPin.length < 3) {
         if (errEl) {
           errEl.classList.remove('hidden');
-          errEl.textContent = 'Mã PIN mới phải có độ dài từ 4 đến 6 chữ số!';
+          errEl.textContent = 'Mật khẩu mới phải có ít nhất 3 ký tự (tùy ý đặt chữ, số hoặc ký tự đặc biệt)!';
         }
         if (newPinInp) newPinInp.focus();
         return;
@@ -2499,7 +2547,7 @@
       if (newPin !== confirmPin) {
         if (errEl) {
           errEl.classList.remove('hidden');
-          errEl.textContent = 'Mã PIN xác nhận không trùng khớp. Vui lòng nhập lại chính xác!';
+          errEl.textContent = 'Mật khẩu xác nhận không trùng khớp. Vui lòng nhập lại chính xác!';
         }
         if (confirmPinInp) confirmPinInp.focus();
         return;
@@ -2518,9 +2566,15 @@
 
         // Cập nhật CSDL
         var db = getStudentsDatabase();
-        var targetPhone = student.phone || student.id;
+        var studentEmail = (student.email || '').toLowerCase().trim();
+        var studentPhone = (student.phone || student.id || '').replace(/[\s\-\.]/g, '').trim();
+
         var foundIdx = db.findIndex(function(s) {
-          return (s.phone || s.id) === targetPhone || (s.email && s.email.toLowerCase() === (student.email || '').toLowerCase());
+          var sEmail = (s.email || '').toLowerCase().trim();
+          var sPhone = (s.phone || s.id || '').replace(/[\s\-\.]/g, '').trim();
+          if (studentEmail && sEmail && sEmail === studentEmail) return true;
+          if (studentPhone && sPhone && sPhone === studentPhone) return true;
+          return s.id === student.id;
         });
 
         if (foundIdx !== -1) {
@@ -2694,27 +2748,25 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label for="new-pin-input" class="block font-mono text-xs uppercase tracking-wider text-yen mb-1 font-medium">
-                Mã PIN mới (4 - 6 số) *
+                Mật khẩu mới (chữ, số hoặc ký tự tùy ý) *
               </label>
               <input 
                 type="password" 
                 id="new-pin-input" 
                 required 
-                maxlength="6"
-                placeholder="VD: 686868"
+                placeholder="Nhập mật khẩu mới..."
                 class="w-full px-3 py-2 rounded-xl bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none font-mono text-xs transition-colors"
               />
             </div>
             <div>
               <label for="confirm-new-pin-input" class="block font-mono text-xs uppercase tracking-wider text-yen mb-1 font-medium">
-                Xác nhận mã PIN mới *
+                Xác nhận mật khẩu mới *
               </label>
               <input 
                 type="password" 
                 id="confirm-new-pin-input" 
                 required 
-                maxlength="6"
-                placeholder="Nhập lại mã PIN mới"
+                placeholder="Nhập lại mật khẩu mới"
                 class="w-full px-3 py-2 rounded-xl bg-abyssal border border-kem/20 text-kem focus:border-cam focus:outline-none font-mono text-xs transition-colors"
               />
             </div>

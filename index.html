@@ -1410,6 +1410,13 @@
         bottom: 4.5rem !important;
       }
     }
+
+    /* Chống hiện tượng tự động phóng to (Auto-zoom) khi focus vào ô input trên thiết bị di động (iOS Safari & Chrome Mobile) */
+    @media screen and (max-width: 768px) {
+      input, select, textarea {
+        font-size: 16px !important;
+      }
+    }
   </style>
 
   <!-- Structured JSON-LD Schema (@graph chuẩn Google Search & Google AI Overviews - Agent 2) -->
