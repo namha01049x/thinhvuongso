@@ -370,14 +370,14 @@
         </a>
 
         <!-- Nút quay lại Danh Mục Khóa Học nổi bật -->
-        <a href="khoahoc.html" class="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-cam/35 hover:border-cam text-cam hover:text-kem text-xs font-semibold bg-cam/10 hover:bg-cam/20 transition-all whitespace-nowrap shrink-0">
+        <a href="khoahoc.html" class="hidden md:inline-flex xl:hidden items-center gap-1.5 px-3 py-1.5 rounded-lg border border-cam/35 hover:border-cam text-cam hover:text-kem text-xs font-semibold bg-cam/10 hover:bg-cam/20 transition-all whitespace-nowrap shrink-0">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
           <span>Danh Mục Khóa Học</span>
         </a>
       </div>
 
       <!-- Desktop Nav -->
-      <nav class="hidden xl:flex items-center gap-4 text-xs font-medium" aria-label="Điều hướng Khóa Học">
+      <nav class="hidden xl:flex items-center gap-3.5 xl:gap-4 text-xs font-medium whitespace-nowrap" aria-label="Điều hướng Khóa Học">
         <a href="./" class="text-yen hover:text-cam transition-colors">Trang chủ</a>
         <a href="khoahoc.html" class="text-yen hover:text-cam transition-colors">Danh Mục</a>
         <a href="#loi-ich" class="text-yen hover:text-cam transition-colors">Giá Trị Nhận Được</a>
@@ -446,7 +446,7 @@
     </div>
   </div>
 
- <section id="but-pha-tai-chinh" class="py-8 sm:py-14 bg-abyssal border-b border-kem/15 scroll-mt-28">
+ <section id="but-pha-tai-chinh" class="pt-6 sm:pt-8 pb-8 sm:pb-10 bg-abyssal border-b border-kem/15 scroll-mt-28">
   <div class="max-w-dtv mx-auto px-4 sm:px-6 lg:px-8">
     
     <!-- MAIN 2-COLUMN LAYOUT: BẮT ĐẦU TỪ ĐẦU TRANG VÀ STICKY XUYÊN SUỐT -->
@@ -876,7 +876,7 @@
  </div>
 
            <!-- BẢNG DANH MỤC BÀI HỌC CHUẨN LMS VỚI BIỂU TƯỢNG ĐÔI MẮT VÀ CÁI KHÓA (THEO MẪU REVIEWKHOAHOC.NET) -->
-          <div class="bg-nen-sau border-2 border-cam/30 rounded-2xl p-4 sm:p-6 space-y-4 shadow-xl mb-6">
+          <div class="bg-nen-sau border-2 border-cam/30 rounded-2xl p-4 sm:p-6 space-y-4 shadow-xl mb-0">
             <!-- Header danh mục bài học & Thanh công tắc trạng thái học viên -->
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pb-4 border-b border-kem/10">
               <div>
@@ -1762,155 +1762,133 @@
     </div> <!-- Đóng thẻ lg:col-span-8 (Cột trái hoàn chỉnh) -->
 
       <!-- RIGHT COLS: STICKY PURCHASE ENROLLMENT CARD (Cột phải chạy từ đầu trang) -->
-  <aside class="lg:col-span-4 sticky-enroll-card space-y-6">
-        <!-- ==================== THEO DÕI TIẾN ĐỘ HỌC TẬP & CHỨNG NHẬN (CỐ ĐỊNH Ở ĐỈNH CỘT PHẢI, TRÊN ƯU ĐÃI THÁNG 11/2026) ==================== -->
-        <div id="tien-do-hoc-tap" class="bg-gradient-to-br from-[#16212E] via-[#0E1520] to-[#121A24] border-2 border-cam/60 rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-2xl relative overflow-hidden scroll-mt-24">
+      <aside class="lg:col-span-4 sticky-enroll-card">
+        
+        <!-- MASTER ENROLLMENT & PROGRESS FRAME (KHUNG CỘT PHẢI LIỀN MẠCH KÉO DÀI KỊCH ĐẾN CUỐI) -->
+        <div class="bg-gradient-to-b from-[#141E2B] via-nen-sau to-[#101722] border-2 border-cam/60 rounded-2xl shadow-2xl relative overflow-hidden flex flex-col justify-between">
+          
           <!-- Background subtle gold glow accent -->
           <div class="absolute -top-12 -right-12 w-32 h-32 bg-cam/15 rounded-full blur-2xl pointer-events-none"></div>
 
-          <!-- Header: Level Badge & Percent -->
-          <div class="flex items-center justify-between gap-2 relative z-10">
-            <div class="space-y-0.5 min-w-0">
-              <span class="text-[10px] font-mono text-yen uppercase tracking-wider block font-semibold">Theo Dõi Tiến Độ Học Tập</span>
-              <span id="tier-badge" class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-cam/20 border border-cam/40 font-mono text-[10px] font-bold text-cam truncate">
-                Học viên Cấp 2 · Bịt Kín Rò Rỉ Dòng Tiền
-              </span>
+          <!-- PHẦN 1: THEO DÕI TIẾN ĐỘ HỌC TẬP (Ở ĐỈNH KHUNG) -->
+          <div id="tien-do-hoc-tap" class="p-3.5 sm:p-4 border-b border-kem/15 bg-abyssal/60 space-y-2.5 relative z-10 scroll-mt-24">
+            <div class="flex items-center justify-between gap-2">
+              <div class="space-y-0.5 min-w-0">
+                <span class="text-[10px] font-mono text-yen uppercase tracking-wider block font-semibold">Theo Dõi Tiến Độ Học Tập</span>
+                <span id="tier-badge" class="inline-flex items-center px-2 py-0.5 rounded-full bg-cam/20 border border-cam/40 font-mono text-[10px] font-bold text-cam truncate">
+                  Học viên Cấp 2 · Bịt Kín Rò Rỉ Dòng Tiền
+                </span>
+              </div>
+              <div class="text-right shrink-0">
+                <span id="progress-percent" class="font-mono text-xl sm:text-2xl font-extrabold text-cam leading-none">50%</span>
+              </div>
             </div>
-            <div class="text-right shrink-0">
-              <span id="progress-percent" class="font-mono text-2xl sm:text-3xl font-extrabold text-cam leading-none">50%</span>
-            </div>
-          </div>
 
-          <!-- Smooth Progress Bar -->
-          <div class="space-y-1.5 relative z-10">
-            <div class="h-2.5 rounded-full bg-abyssal p-0.5 border border-kem/20 overflow-hidden">
-              <div id="progress-fill" class="h-full rounded-full bg-gradient-to-r from-yellow-500 via-cam to-amber-400 transition-all duration-500 shadow-md" style="width: 50%;"></div>
+            <!-- Smooth Progress Bar -->
+            <div class="space-y-1">
+              <div class="h-2 rounded-full bg-abyssal p-0.5 border border-kem/20 overflow-hidden">
+                <div id="progress-fill" class="h-full rounded-full bg-gradient-to-r from-yellow-500 via-cam to-amber-400 transition-all duration-500 shadow-md" style="width: 50%;"></div>
+              </div>
+              <div class="flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-yen">
+                <span id="progress-status-desc">3 / 6 Buổi hoàn thành</span>
+                <span id="cert-condition-text" class="text-amber-300 font-medium">Cần thêm 3 buổi</span>
+              </div>
             </div>
-            <div class="flex items-center justify-between text-[11px] font-mono text-yen">
-              <span id="progress-status-desc">3 / 6 Buổi hoàn thành</span>
-              <span id="cert-condition-text" class="text-amber-300 font-medium">Cần thêm 3 buổi</span>
-            </div>
-          </div>
 
-          <!-- Primary Action: Open Certificate Button (Gold border & subtle shine) -->
-          <div class="pt-0.5 relative z-10">
-            <button type="button" onclick="window.openCertificateModal()" class="btn-p w-full justify-center !py-2.5 !px-4 text-xs font-mono uppercase tracking-wider font-bold shadow-lg shadow-cam/25 cursor-pointer flex items-center gap-1.5">
+            <!-- Primary Action: Open Certificate Button -->
+            <button type="button" onclick="window.openCertificateModal()" class="btn-p w-full justify-center !py-2 !px-3 text-xs font-mono uppercase tracking-wider font-bold shadow-md shadow-cam/20 cursor-pointer flex items-center gap-1.5">
               <span>Mở Giấy Chứng Nhận Tốt Nghiệp 🎓</span>
             </button>
+
+            <!-- Quick Actions: Mark 100% & Reset -->
+            <div class="flex items-center justify-between text-[10px] font-mono text-yen/80 pt-0.5">
+              <button type="button" onclick="window.markAllLessonsComplete()" class="hover:text-cam cursor-pointer transition-colors">
+                ✓ Hoàn thành 100%
+              </button>
+              <button type="button" onclick="window.resetLessonProgress()" class="hover:text-red-400 cursor-pointer transition-colors">
+                ↺ Đặt lại tiến độ
+              </button>
+            </div>
           </div>
 
-          <!-- Quick Actions: Mark 100% & Reset (Quiet & Clean) -->
-          <div class="flex items-center justify-between text-[10px] font-mono text-yen/80 pt-1.5 border-t border-kem/10 relative z-10">
-            <button type="button" onclick="window.markAllLessonsComplete()" class="hover:text-cam cursor-pointer transition-colors">
-              ✓ Đánh dấu hoàn thành 100%
-            </button>
-            <button type="button" onclick="window.resetLessonProgress()" class="hover:text-red-400 cursor-pointer transition-colors">
-              ↺ Đặt lại tiến độ
-            </button>
+          <!-- PHẦN 2: THÔNG TIN ƯU ĐÃI & ĐĂNG KÝ HỌC (Ở GIỮA KHUNG) -->
+          <div class="p-3.5 sm:p-5 space-y-3.5 relative z-10">
+            <!-- Header Tag & Pricing -->
+            <div class="space-y-1 text-center">
+              <div class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-cam/20 border border-cam/40 text-cam font-mono text-[10px] font-bold uppercase">
+                ⚡ Ưu Đãi Tháng 11/2026 (-70%)
+              </div>
+              <div class="flex items-baseline justify-center gap-2.5 pt-0.5">
+                <span class="text-2xl sm:text-3xl font-extrabold font-mono text-cam leading-tight">
+                  2.990.000 đ
+                </span>
+                <span class="font-mono text-xs text-yen line-through">9.900.000 đ</span>
+              </div>
+              <p class="text-[10px] sm:text-[11px] text-yen">Áp dụng cho 20 suất đăng ký sớm nhất đợt này</p>
+            </div>
+
+            <!-- Countdown Timer -->
+            <div class="p-2 rounded-lg bg-abyssal/90 border border-kem/15 text-center space-y-1">
+              <span class="font-mono text-[9px] uppercase text-cam font-semibold tracking-wider block">Ưu đãi kết thúc sau:</span>
+              <div class="flex justify-center items-center gap-1.5 font-mono text-xs font-bold text-kem">
+                <span id="timer-days" class="px-1.5 py-0.5 rounded bg-xanh/50">03 Ngày</span>
+                <span>:</span>
+                <span id="timer-hours" class="px-1.5 py-0.5 rounded bg-xanh/50">14 Giờ</span>
+                <span>:</span>
+                <span id="timer-mins" class="px-1.5 py-0.5 rounded bg-xanh/50">28 Phút</span>
+              </div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="space-y-2">
+              <button type="button" onclick="window.openCheckoutModal('Bứt Phá Tài Chính · Mentor Trần Nam Hà', '2.990.000 đ')" class="font-sans font-bold text-sm text-abyssal bg-gradient-to-r from-[#FFB162] via-[#FFA84D] to-[#FF9E3D] hover:from-[#FFBA75] hover:to-[#FFA74F] w-full justify-center py-3 px-5 rounded-xl shadow-lg shadow-cam/25 hover:shadow-cam/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 border border-amber-300/40 inline-flex items-center gap-2 cursor-pointer">
+                <span>Đăng ký khóa học ngay ↗</span>
+              </button>
+              <a href="tel:0981501865" class="font-sans font-medium text-xs text-kem hover:text-cam bg-abyssal/60 hover:bg-abyssal border border-kem/25 hover:border-cam/50 w-full justify-center py-2 px-3 rounded-lg transition-all duration-300 inline-flex items-center gap-1.5 cursor-pointer">
+                <span>Hotline cố vấn: 0981501865</span>
+              </a>
+            </div>
+
+            <!-- Summary checklist -->
+            <div class="space-y-1.5 pt-2 border-t border-kem/10 text-[11px] text-yen">
+              <div class="flex items-center justify-between">
+                <span>Hình thức:</span>
+                <strong class="text-kem font-medium">Zoom 2 chiều trực tiếp</strong>
+              </div>
+              <div class="flex items-center justify-between">
+                <span>Lịch học:</span>
+                <strong class="text-kem font-medium">6 Buổi (20:00 tối Chủ nhật)</strong>
+              </div>
+              <div class="flex items-center justify-between">
+                <span>Biểu mẫu:</span>
+                <strong class="text-cam font-mono font-medium">Full bộ Excel TVS</strong>
+              </div>
+              <div class="flex items-center justify-between">
+                <span>Kèm sát:</span>
+                <strong class="text-cam font-medium">1-1 trên số thật của học viên</strong>
+              </div>
+            </div>
           </div>
+
+          <!-- PHẦN 3: MENTOR TRẦN NAM HÀ & PHÁP NHÂN TVS (KÉO DÀI KỊCH ĐẾN CUỐI KHUNG) -->
+          <div id="mentor" class="p-3.5 sm:p-4 bg-abyssal/80 border-t border-kem/15 space-y-2 relative z-10 scroll-mt-24">
+            <div class="flex items-center gap-2.5">
+              <img src="anh/c05-nam-mic.webp" alt="Mentor Trần Nam Hà" width="48" height="48" class="w-10 h-10 rounded-full object-cover border border-cam shrink-0" />
+              <div class="min-w-0">
+                <h4 class="text-xs font-bold text-kem truncate">Mentor Trần Nam Hà</h4>
+                <p class="text-[10px] text-cam font-mono truncate">Chuyên gia Quản trị Dòng tiền</p>
+              </div>
+            </div>
+            <p class="text-[11px] text-yen leading-relaxed">
+              12+ năm kinh nghiệm đồng hành cùng 6.500+ học viên làm chủ dòng tiền và đòn bẩy tài chính.
+            </p>
+            <div class="pt-1.5 border-t border-kem/10 text-[10px] text-yen/80 text-center font-mono">
+              Công ty TNHH Thịnh Vượng Số · MSDN: 0111281148
+            </div>
+          </div>
+
         </div>
-
- <div class="bg-nen-sau border-2 border-cam/60 rounded-2xl p-6 space-y-6 shadow-2xl">
- 
- <!-- Thumbnail preview inside card -->
- <div class="relative aspect-video rounded-xl overflow-hidden bg-nen-chan border border-kem/20 cursor-pointer group" onclick="window.playCourseTrailer()">
- <img src="anh/c05-nam-mic.webp" alt="Khóa học Bứt Phá Tài Chính" width="400" height="225" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
- <div class="absolute inset-0 bg-gradient-to-t from-abyssal via-transparent to-transparent"></div>
- <span class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-cam text-abyssal font-mono text-[10px] font-bold uppercase shadow">
- ⚡ Ưu Đãi Tháng 11/2026
- </span>
- <div class="absolute inset-0 flex items-center justify-center">
- <div class="w-10 h-10 rounded-full bg-cam/90 text-abyssal flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
- <svg class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
- </div>
- </div>
- </div>
-
- <!-- Pricing Box -->
- <div class="space-y-1.5 text-center py-2 border-b border-kem/10">
- <div class="flex items-center justify-center gap-3">
- <span class="font-mono text-sm text-yen line-through">9.900.000 đ</span>
- <span class="px-2.5 py-0.5 rounded bg-red-500/20 text-red-400 font-mono text-xs font-bold border border-red-500/30">Tiết kiệm 70%</span>
- </div>
- <div class="text-3xl sm:text-4xl font-extrabold font-mono text-cam leading-tight">
- 2.990.000 đ
- </div>
- <p class="text-[11px] text-yen">Áp dụng cho 20 suất đăng ký sớm nhất đợt này</p>
- </div>
-
- <!-- Countdown Timer -->
- <div class="p-3 rounded-lg bg-abyssal/90 border border-kem/15 text-center space-y-1.5">
- <span class="font-mono text-[10px] uppercase text-cam font-semibold tracking-wider">Thời gian ưu đãi còn lại:</span>
- <div class="flex justify-center items-center gap-2 font-mono text-xs font-bold text-kem">
- <span id="timer-days" class="px-2 py-1 rounded bg-xanh/50">03 Ngày</span>
- <span>:</span>
- <span id="timer-hours" class="px-2 py-1 rounded bg-xanh/50">14 Giờ</span>
- <span>:</span>
- <span id="timer-mins" class="px-2 py-1 rounded bg-xanh/50">28 Phút</span>
- </div>
- </div>
-
- <!-- CTA Buttons -->
- <div class="space-y-2.5">
- <button type="button" onclick="window.openCheckoutModal('Bứt Phá Tài Chính · Mentor Trần Nam Hà', '2.990.000 đ')" class="font-sans font-bold text-sm sm:text-base text-abyssal bg-gradient-to-r from-[#FFB162] via-[#FFA84D] to-[#FF9E3D] hover:from-[#FFBA75] hover:to-[#FFA74F] w-full justify-center py-3.5 px-6 rounded-xl shadow-lg shadow-cam/25 hover:shadow-cam/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 border border-amber-300/40 inline-flex items-center gap-2 cursor-pointer">
- <span>Đăng ký khóa học ngay ↗</span>
- </button>
- <a href="tel:0981501865" class="font-sans font-medium text-xs sm:text-sm text-kem hover:text-cam bg-abyssal/60 hover:bg-abyssal border border-kem/25 hover:border-cam/50 w-full justify-center py-2.5 px-4 rounded-xl transition-all duration-300 inline-flex items-center gap-1.5 cursor-pointer">
- <span>Gọi cố vấn trực tiếp: 0981501865</span>
- </a>
- </div>
-
- <!-- Summary checklist -->
- <div class="space-y-2 pt-2 border-t border-kem/10 text-xs text-yen">
- <div class="flex items-center justify-between">
- <span>Hình thức học:</span>
- <strong class="text-kem font-medium">Zoom 2 chiều trực tiếp</strong>
- </div>
- <div class="flex items-center justify-between">
- <span>Lịch học:</span>
- <strong class="text-kem font-medium">20:00 tối Chủ nhật</strong>
- </div>
- <div class="flex items-center justify-between">
- <span>Số buổi:</span>
- <strong class="text-kem font-medium">6 Buổi (12 giờ kèm sát)</strong>
- </div>
- <div class="flex items-center justify-between">
- <span>Biểu mẫu đính kèm:</span>
- <strong class="text-cam font-mono font-medium">Full bộ Excel TVS</strong>
- </div>
- <div class="flex items-center justify-between">
- <span>Hình thức huấn luyện:</span>
-                  <strong class="text-cam font-medium">Kèm sát số thật 1-1</strong>
- </div>
- </div>
-
- <!-- Trust badge -->
- <div class="p-3 rounded-lg bg-green-500/10 border border-green-500/30 text-center text-xs text-green-300">
- ⭐ Đồng hành thực chiến cùng Mentor Trần Nam Hà: Cầm tay chỉ việc trên số thật của học viên.
- </div>
-
- <!-- Legal Credential Pill -->
- <div class="p-2.5 rounded-lg bg-abyssal/80 border border-kem/10 text-[10px] text-yen text-center font-mono space-y-0.5">
- <span class="text-kem font-bold">Công ty TNHH Thịnh Vượng Số</span>
- <div>MSDN: 0111281148 · VietQR Napas 24/7</div>
- </div>
-
- </div>
-
- <!-- Mentor Card Shortcut -->
- <div id="mentor" class="bg-nen-sau border border-kem/20 rounded-xl p-5 space-y-3 scroll-mt-24">
- <div class="flex items-center gap-3">
- <img src="anh/c05-nam-mic.webp" alt="Mentor Trần Nam Hà" width="60" height="60" class="w-12 h-12 rounded-full object-cover border border-cam" />
- <div>
- <h4 class="text-sm font-bold text-kem">Mentor Trần Nam Hà</h4>
- <p class="text-xs text-cam font-mono">Chuyên gia Quản trị Dòng tiền</p>
- </div>
- </div>
- <p class="text-xs text-yen leading-relaxed">
- 12+ năm kinh nghiệm tư vấn tái cấu trúc dòng tiền cho doanh chủ và hơn 6.500 học viên đã tốt nghiệp tại Thịnh Vượng Số.
- </p>
- </div>
- </aside>
+      </aside>
 
     </div>
   </div>
