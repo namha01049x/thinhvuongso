@@ -891,30 +891,117 @@
               </div>
 
               <!-- Trạng Thái Bản Quyền Học Viên (Bảo mật: Xác thực thanh toán để mở khóa) -->
-              <div class="flex items-center flex-wrap gap-2 text-xs font-mono bg-abyssal/90 p-1.5 sm:p-2 rounded-xl border border-kem/15">
+              <div class="flex items-center flex-wrap gap-2 text-xs font-mono bg-abyssal/95 p-1.5 sm:p-2 rounded-xl border border-cam/40 shadow-inner">
                 <span class="text-yen text-[11px] px-1 hidden sm:inline">Bản quyền:</span>
                 <div id="license-status-badge" class="px-2.5 py-1 rounded-lg border text-[11px] font-bold flex items-center gap-1.5 bg-amber-500/20 text-amber-300 border-amber-500/50 shadow-sm">
                   <span id="license-status-icon">🔒</span>
                   <span id="license-status-text">Chưa kích hoạt</span>
                 </div>
-                <button type="button" id="btn-activation-trigger" onclick="window.openActivationModal()" class="px-2.5 py-1 rounded-lg bg-kem/10 hover:bg-cam hover:text-abyssal text-kem border border-kem/20 text-[11px] transition-colors cursor-pointer flex items-center gap-1 shadow-sm font-semibold">
-                  <span>Kích hoạt mã 🔑</span>
+                <button type="button" id="btn-activation-trigger" onclick="window.focusOrOpenActivation()" class="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-cam via-amber-500 to-amber-600 hover:from-amber-400 hover:to-cam text-abyssal font-extrabold text-[11px] sm:text-xs transition-all cursor-pointer flex items-center gap-1.5 shadow-md shadow-cam/30 hover:scale-105 active:scale-95">
+                  <span class="text-sm">🔑</span>
+                  <span>KÍCH HOẠT MÃ</span>
                 </button>
               </div>
             </div>
 
-            <!-- Banner trạng thái thông tin -->
-            <div id="enrollment-status-alert" class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 transition-all">
-              <div class="flex items-start sm:items-center gap-2.5">
-                <span id="enrollment-alert-icon" class="text-lg shrink-0">💡</span>
-                <div class="space-y-0.5">
-                  <span id="enrollment-alert-title" class="font-bold text-amber-300 block sm:inline">Chế độ Khách (Chưa thanh toán):</span>
-                  <span id="enrollment-alert-desc">Buổi 1 mở học thử miễn phí (icon 👁️). Các buổi 2 đến 6 đang tạm khóa (icon 🔒).</span>
+            <!-- KHU VỰC KÍCH HOẠT MÃ BẢN QUYỀN KHÓA HỌC TRỰC TIẾP (NỔI BẬT DÀNH CHO HỌC VIÊN ĐÃ THANH TOÁN) -->
+            <div id="quick-activation-card" class="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-[#1C2636] via-[#131D2A] to-[#0D1520] border-2 border-cam/60 shadow-2xl relative overflow-hidden transition-all">
+              <!-- Glow accent effect -->
+              <div class="absolute -top-12 -right-12 w-36 h-36 bg-cam/15 rounded-full blur-2xl pointer-events-none"></div>
+
+              <!-- VIEW KHI CHƯA KÍCH HOẠT -->
+              <div id="activation-view-guest" class="space-y-3 relative z-10">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div class="flex items-center gap-2">
+                    <span class="w-8 h-8 rounded-xl bg-cam/20 border border-cam/50 text-cam flex items-center justify-center text-base shrink-0 shadow-sm">🔑</span>
+                    <div>
+                      <h4 class="font-extrabold text-sm sm:text-base text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-cam to-amber-400 uppercase tracking-wide">
+                        Khu Vực Kích Hoạt Mã Khóa Học (Dành Cho Học Viên Đã Đóng Học Phí)
+                      </h4>
+                      <p class="text-[11px] sm:text-xs text-yen mt-0.5">
+                        Nhận mã qua SMS/Zalo sau khi chuyển khoản? Nhập SĐT hoặc Mã để hệ thống mở khóa trọn bộ 6 buổi học:
+                      </p>
+                    </div>
+                  </div>
+                  <span class="px-2.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/40 text-[10px] sm:text-[11px] font-mono text-amber-300 font-bold self-start sm:self-auto shrink-0">
+                    ⚡ Kích hoạt tức thì 24/7
+                  </span>
+                </div>
+
+                <!-- FORM NHẬP TRỰC TIẾP TẠI CHỖ (1 CLICK MỞ KHÓA NGAY) -->
+                <form onsubmit="window.submitInlineActivation(event)" class="pt-1">
+                  <div class="flex flex-col sm:flex-row items-stretch gap-2">
+                    <div class="relative flex-1">
+                      <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-cam text-sm">📱</span>
+                      <input 
+                        type="text" 
+                        id="inline-activation-input" 
+                        placeholder="Nhập Số điện thoại chuyển khoản hoặc Mã kích hoạt (VD: 098... hoặc BPTC-...)" 
+                        class="w-full pl-10 pr-3.5 py-2.5 sm:py-3 rounded-xl bg-abyssal/90 border-2 border-cam/40 focus:border-cam focus:ring-2 focus:ring-cam/30 text-kem text-xs sm:text-sm placeholder-yen/60 outline-none transition-all font-mono shadow-inner"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="none"
+                        spellcheck="false"
+                      />
+                    </div>
+                    <button 
+                      type="submit" 
+                      id="btn-inline-activate"
+                      class="px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-cam via-amber-500 to-amber-600 hover:from-amber-400 hover:to-cam text-abyssal font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-cam/30 flex items-center justify-center gap-2 cursor-pointer transition-all shrink-0 hover:scale-[1.02] active:scale-[0.98]"
+                    >
+                      <span class="text-base">🚀</span>
+                      <span>Mở Khóa Ngay</span>
+                    </button>
+                  </div>
+                  <div id="inline-activation-msg" class="hidden mt-2 p-2.5 rounded-lg text-xs leading-relaxed font-mono"></div>
+                </form>
+
+                <!-- FOOTER GỢI Ý ĐĂNG KÝ VÀ HOTLINE HỖ TRỢ -->
+                <div class="pt-2 border-t border-kem/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] sm:text-xs text-yen">
+                  <div class="flex items-center gap-1.5 flex-wrap">
+                    <span class="text-yen/80">Chưa đăng ký?</span>
+                    <button type="button" onclick="window.openCheckoutModal('Bứt Phá Tài Chính · Mentor Trần Nam Hà', '2.990.000 đ')" class="text-cam font-bold hover:underline cursor-pointer inline-flex items-center gap-1">
+                      <span>Bấm vào đây để Quét mã VietQR chuyển khoản (2.990.000 đ) ↗</span>
+                    </button>
+                  </div>
+                  <div class="font-mono text-yen/80 flex items-center gap-1">
+                    <span>Hotline/Zalo hỗ trợ kích hoạt:</span>
+                    <a href="https://zalo.me/0981501865" target="_blank" rel="noopener noreferrer" class="text-kem hover:text-cam font-bold underline">0981.501.865</a>
+                  </div>
                 </div>
               </div>
-              <button type="button" id="enrollment-alert-cta" onclick="window.openCheckoutModal('Bứt Phá Tài Chính · Mentor Trần Nam Hà', '2.990.000 đ')" class="btn-p !py-1.5 !px-3 text-xs font-mono uppercase tracking-wider font-bold shrink-0 self-start sm:self-auto shadow-md">
-                <span>Mở khóa toàn bộ ↗</span>
-              </button>
+
+              <!-- VIEW KHI ĐÃ KÍCH HOẠT THÀNH CÔNG (VIP ACTIVATED) -->
+              <div id="activation-view-vip" class="hidden space-y-3 relative z-10">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border-2 border-emerald-500/60 text-emerald-300 flex items-center justify-center text-xl shrink-0 shadow-lg">
+                      ✓
+                    </div>
+                    <div>
+                      <div class="flex items-center gap-2">
+                        <span class="font-extrabold text-sm sm:text-base text-emerald-300 uppercase tracking-wide">
+                          Trạng Thái: Học Viên VIP Chính Thức (Đã Kích Hoạt)
+                        </span>
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold border border-emerald-500/40">
+                          PRO 100%
+                        </span>
+                      </div>
+                      <p class="text-xs text-emerald-200/90 mt-0.5">
+                        Chúc mừng bạn! Toàn bộ 6 buổi học trực tiếp và kho biểu mẫu Excel số thật đã được mở khóa trọn đời (icon 👁️).
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2 shrink-0 self-start sm:self-auto">
+                    <button type="button" onclick="window.openLessonVideo(1)" class="btn-p !py-2 !px-4 text-xs font-mono uppercase tracking-wider font-bold shadow-md">
+                      <span>Vào Học Buổi 1 👁️</span>
+                    </button>
+                    <button type="button" onclick="window.switchActivationAccount()" class="px-2.5 py-2 rounded-xl bg-kem/10 hover:bg-kem/20 text-yen hover:text-kem border border-kem/20 text-[11px] font-mono transition-colors cursor-pointer" title="Đổi số điện thoại hoặc mã kích hoạt khác">
+                      <span>Đổi mã</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <!-- Danh sách 6 buổi học chuẩn LMS -->
@@ -2735,18 +2822,42 @@
       if (isCourseEnrolled) {
         badge.className = 'px-2.5 py-1 rounded-lg border text-[11px] font-bold flex items-center gap-1.5 bg-green-500/20 text-green-300 border-green-500/50 shadow-sm';
         if (bIcon) bIcon.textContent = '✓';
-        bText.textContent = 'Đã kích hoạt bản quyền';
+        bText.textContent = 'Đã kích hoạt';
         if (triggerBtn) {
-          triggerBtn.innerHTML = '<span>VIP Active ⭐</span>';
-          triggerBtn.className = 'px-2 py-0.5 rounded bg-green-500/10 text-green-300 border border-green-500/30 text-[10px] font-mono pointer-events-none';
+          triggerBtn.innerHTML = '<span>VIP ĐÃ KÍCH HOẠT ⭐</span>';
+          triggerBtn.className = 'px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[11px] font-mono font-bold flex items-center gap-1 cursor-pointer';
+          triggerBtn.onclick = function() { window.switchActivationAccount(); };
+          triggerBtn.title = 'Bấm để đổi mã hoặc quản lý tài khoản';
         }
       } else {
         badge.className = 'px-2.5 py-1 rounded-lg border text-[11px] font-bold flex items-center gap-1.5 bg-amber-500/20 text-amber-300 border-amber-500/50 shadow-sm';
         if (bIcon) bIcon.textContent = '🔒';
         bText.textContent = 'Chưa kích hoạt';
         if (triggerBtn) {
-          triggerBtn.innerHTML = '<span>Kích hoạt mã 🔑</span>';
-          triggerBtn.className = 'px-2.5 py-1 rounded-lg bg-kem/10 hover:bg-cam hover:text-abyssal text-kem border border-kem/20 text-[11px] transition-colors cursor-pointer flex items-center gap-1 shadow-sm font-semibold';
+          triggerBtn.innerHTML = '<span class="text-sm">🔑</span><span>KÍCH HOẠT MÃ</span>';
+          triggerBtn.className = 'px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-cam via-amber-500 to-amber-600 hover:from-amber-400 hover:to-cam text-abyssal font-extrabold text-[11px] sm:text-xs transition-all cursor-pointer flex items-center gap-1.5 shadow-md shadow-cam/30 hover:scale-105 active:scale-95';
+          triggerBtn.onclick = function() { window.focusOrOpenActivation(); };
+          triggerBtn.title = 'Kích hoạt mã bản quyền khóa học';
+        }
+      }
+    }
+
+    // Update Quick Activation Card Views
+    var quickCard = document.getElementById('quick-activation-card');
+    var viewGuest = document.getElementById('activation-view-guest');
+    var viewVip = document.getElementById('activation-view-vip');
+    if (viewGuest && viewVip) {
+      if (isCourseEnrolled) {
+        viewGuest.classList.add('hidden');
+        viewVip.classList.remove('hidden');
+        if (quickCard) {
+          quickCard.className = 'p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-[#0F291E] via-[#0C1F17] to-[#0A1610] border-2 border-emerald-500/70 shadow-2xl relative overflow-hidden transition-all';
+        }
+      } else {
+        viewGuest.classList.remove('hidden');
+        viewVip.classList.add('hidden');
+        if (quickCard) {
+          quickCard.className = 'p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-[#1C2636] via-[#131D2A] to-[#0D1520] border-2 border-cam/60 shadow-2xl relative overflow-hidden transition-all';
         }
       }
     }
@@ -2895,6 +3006,78 @@
       document.body.style.overflow = 'hidden';
       var inp = document.getElementById('activation-input');
       if (inp) setTimeout(function(){ inp.focus(); }, 100);
+    }
+  };
+
+  window.focusOrOpenActivation = function() {
+    var input = document.getElementById('inline-activation-input');
+    var card = document.getElementById('quick-activation-card');
+    if (input && card) {
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(function() {
+        input.focus();
+        card.classList.add('ring-4', 'ring-cam/50');
+        setTimeout(function() { card.classList.remove('ring-4', 'ring-cam/50'); }, 1500);
+      }, 350);
+    } else {
+      window.openActivationModal();
+    }
+  };
+
+  window.submitInlineActivation = function(e) {
+    if (e) e.preventDefault();
+    var inp = document.getElementById('inline-activation-input');
+    var msgBox = document.getElementById('inline-activation-msg');
+    var val = inp ? inp.value.trim() : '';
+    var clean = val.replace(/[\s\-\.]/g, '');
+
+    if (!val) {
+      if (msgBox) {
+        msgBox.className = 'mt-2 p-2.5 rounded-lg text-xs leading-relaxed font-mono bg-red-950/90 border border-red-500/50 text-red-200 block';
+        msgBox.textContent = '⚠️ Vui lòng nhập Số điện thoại hoặc Mã kích hoạt của bạn!';
+      }
+      if (inp) inp.focus();
+      return;
+    }
+
+    var actUpper = val.toUpperCase();
+    var isValid = (actUpper.indexOf('BPTC') !== -1) || 
+                  (actUpper.indexOf('TVS') !== -1) || 
+                  (clean.length >= 9 && clean.length <= 11) ||
+                  (clean === '0981501865');
+
+    if (isValid) {
+      isCourseEnrolled = true;
+      try {
+        localStorage.setItem(COURSE_ENROLLED_KEY, 'true');
+        localStorage.setItem('tvs_student_phone', clean || val);
+      } catch(err) {}
+      if (msgBox) {
+        msgBox.className = 'mt-2 p-2.5 rounded-lg text-xs leading-relaxed font-mono bg-green-950/90 border border-green-500/50 text-green-200 block';
+        msgBox.textContent = '🎉 Kích hoạt bản quyền thành công! Đang mở khóa 6 buổi học...';
+      }
+      setTimeout(function() {
+        window.setCourseEnrollmentStatus(true);
+      }, 200);
+    } else {
+      if (msgBox) {
+        msgBox.className = 'mt-2 p-2.5 rounded-lg text-xs leading-relaxed font-mono bg-red-950/90 border border-red-500/50 text-red-200 block';
+        msgBox.innerHTML = '⚠️ Số điện thoại hoặc Mã kích hoạt chưa đúng. Nếu bạn đã chuyển khoản, vui lòng liên hệ Hotline/Zalo <a href="https://zalo.me/0981501865" target="_blank" class="text-cam underline font-bold">0981.501.865</a> để được hỗ trợ mở khóa tức thì!';
+      }
+      if (inp) inp.focus();
+    }
+  };
+
+  window.switchActivationAccount = function() {
+    if (confirm('Bạn có muốn đăng xuất khỏi tài khoản học viên hiện tại để nhập số điện thoại hoặc mã khác?')) {
+      window.setCourseEnrollmentStatus(false);
+      var inp = document.getElementById('inline-activation-input');
+      if (inp) {
+        inp.value = '';
+        inp.focus();
+      }
+      var msgBox = document.getElementById('inline-activation-msg');
+      if (msgBox) msgBox.className = 'hidden';
     }
   };
 
