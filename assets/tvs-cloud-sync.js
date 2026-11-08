@@ -52,6 +52,9 @@
       TVS_CLOUD.isInitialized = true;
       console.log('✅ [TVS Cloud] Đã kết nối thành công tới Google Firebase Firestore (Dự án: ' + cfg.projectId + ')');
       updateCloudIndicator(true, cfg.projectId);
+      try {
+        TVS_CLOUD.seedDefaultLicenseKeysAsync();
+      } catch(e) {}
       return true;
     } catch(err) {
       console.error('❌ [TVS Cloud] Lỗi khởi tạo Firebase:', err);
@@ -192,6 +195,267 @@
       }, function(err) {
         console.warn('⚠️ [TVS Cloud] Lỗi Realtime Listener Firestore:', err);
       });
+  };
+
+  // =========================================================================
+  // 6A. MẬT KHẨU AN TOÀN & BĂM BẢO MẬT (SHA-256 SECURE HASHING)
+  // =========================================================================
+  TVS_CLOUD.hashPinAsync = function(pin) {
+    var str = String(pin || '').trim();
+    if (!str) return Promise.resolve('');
+    if (typeof window.crypto !== 'undefined' && window.crypto.subtle && typeof TextEncoder !== 'undefined') {
+      try {
+        var buffer = new TextEncoder().encode(str + '_tvs_secure_salt_2026');
+        return window.crypto.subtle.digest('SHA-256', buffer).then(function(hash) {
+          var hashArray = Array.from(new Uint8Array(hash));
+          return hashArray.map(function(b) { return b.toString(16).padStart(2, '0'); }).join('');
+        }).catch(function() { return str; });
+      } catch(e) { return Promise.resolve(str); }
+    }
+    return Promise.resolve(str);
+  };
+
+  TVS_CLOUD.verifyPinAsync = function(enteredPin, storedPin) {
+    var rawEntered = String(enteredPin || '').trim();
+    var rawStored = String(storedPin || '').trim();
+    if (!rawEntered || !rawStored) return Promise.resolve(false);
+
+    // 1. Khớp thẳng (Legacy plaintext pin)
+    if (rawEntered === rawStored) return Promise.resolve(true);
+
+    // 2. So khớp theo SHA-256 hash
+    return TVS_CLOUD.hashPinAsync(rawEntered).then(function(hash) {
+      return (hash === rawStored);
+    });
+  };
+
+  // =========================================================================
+  // 6B. ĐỒNG BỘ HỒ SƠ HỌC VIÊN LÊN CLOUD (COLLECTION tvs_students)
+  // =========================================================================
+  TVS_CLOUD.getStudentAsync = function(accountId) {
+    var acc = String(accountId || '').replace(/[\s\-\.]/g, '').trim();
+    if (!acc) return Promise.resolve(null);
+
+    function getFromLocalCache() {
+      try {
+        var raw = localStorage.getItem('tvs_students_database') || localStorage.getItem('tvs_students_database_v2');
+        if (raw) {
+          var list = JSON.parse(raw);
+          if (Array.isArray(list)) {
+            var found = list.find(function(s) {
+              var sPhone = (s.phone || s.id || '').replace(/[\s\-\.]/g, '').trim();
+              return sPhone === acc;
+            });
+            if (found) return found;
+          }
+        }
+      } catch(e) {}
+      return null;
+    }
+
+    if (!TVS_CLOUD.isReady()) {
+      return Promise.resolve(getFromLocalCache());
+    }
+
+    return TVS_CLOUD.db.collection('tvs_students').doc(acc).get()
+      .then(function(doc) {
+        if (doc.exists) {
+          var cloudData = doc.data() || {};
+          TVS_CLOUD.syncStudentToLocalCache(cloudData);
+          return cloudData;
+        } else {
+          return getFromLocalCache();
+        }
+      })
+      .catch(function(err) {
+        console.warn('⚠️ [TVS Cloud] Lỗi đọc học viên từ Firestore, dùng local cache:', err);
+        return getFromLocalCache();
+      });
+  };
+
+  TVS_CLOUD.saveStudentAsync = function(student) {
+    if (!student) return Promise.resolve();
+    var acc = String(student.phone || student.id || '').replace(/[\s\-\.]/g, '').trim();
+    if (!acc) return Promise.resolve();
+
+    // Luôn cập nhật local cache trước
+    TVS_CLOUD.syncStudentToLocalCache(student);
+
+    if (!TVS_CLOUD.isReady()) {
+      return Promise.resolve(student);
+    }
+
+    var payload = {
+      id: acc,
+      phone: acc,
+      name: String(student.name || '').trim(),
+      email: String(student.email || '').trim().toLowerCase(),
+      course: String(student.course || 'but-pha').trim(),
+      courseName: String(student.courseName || 'Bứt Phá Tài Chính (Mentor Trần Nam Hà)').trim(),
+      pin: String(student.pin || student.passcode || '').trim(),
+      isActivated: (student.isActivated !== false),
+      licenseCode: String(student.licenseCode || '').trim(),
+      registeredAt: student.registeredAt || new Date().toISOString(),
+      registeredDateFormatted: student.registeredDateFormatted || '',
+      completedLessons: Array.isArray(student.completedLessons) ? student.completedLessons : [],
+      role: String(student.role || (acc === '0981501865' ? 'mentor' : 'student')).trim(),
+      updatedAt: window.firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    return TVS_CLOUD.db.collection('tvs_students').doc(acc).set(payload, { merge: true })
+      .then(function() {
+        console.log('☁️ [TVS Cloud] Đã đồng bộ hồ sơ học viên lên Google Cloud:', acc);
+        return payload;
+      })
+      .catch(function(err) {
+        console.error('❌ [TVS Cloud] Lỗi đồng bộ hồ sơ học viên lên Firestore:', err);
+        return payload;
+      });
+  };
+
+  TVS_CLOUD.syncStudentToLocalCache = function(student) {
+    if (!student) return;
+    var acc = String(student.phone || student.id || '').replace(/[\s\-\.]/g, '').trim();
+    if (!acc) return;
+    try {
+      var keys = ['tvs_students_database', 'tvs_students_database_v2'];
+      keys.forEach(function(k) {
+        var list = [];
+        var raw = localStorage.getItem(k);
+        if (raw) {
+          try { list = JSON.parse(raw); } catch(e) {}
+        }
+        if (!Array.isArray(list)) list = [];
+        var idx = list.findIndex(function(s) {
+          var sPhone = (s.phone || s.id || '').replace(/[\s\-\.]/g, '').trim();
+          return sPhone === acc;
+        });
+        if (idx !== -1) {
+          list[idx] = Object.assign({}, list[idx], student);
+        } else {
+          list.push(student);
+        }
+        localStorage.setItem(k, JSON.stringify(list));
+      });
+    } catch(e) {}
+  };
+
+  // =========================================================================
+  // 6C. XÁC THỰC & KÍCH HOẠT MÃ BẢN QUYỀN TRÊN CLOUD (COLLECTION tvs_license_keys)
+  // =========================================================================
+  TVS_CLOUD.verifyAndClaimLicenseKeyAsync = function(rawCode, studentPhone, studentName) {
+    var code = String(rawCode || '').trim().toUpperCase();
+    var cleanPhone = String(studentPhone || '').replace(/[\s\-\.]/g, '').trim();
+    var name = String(studentName || '').trim();
+
+    if (!code) {
+      return Promise.resolve({ success: false, error: 'Vui lòng nhập Mã kích hoạt khóa học bản quyền!' });
+    }
+
+    // Đặc quyền vĩnh viễn: Mentor Trần Nam Hà
+    if (cleanPhone === '0981501865') {
+      return Promise.resolve({
+        success: true,
+        item: {
+          code: 'TVS-MASTER-NAMHA',
+          course: 'all',
+          courseName: 'Trọn bộ 3 Tầng Thực Chiến'
+        }
+      });
+    }
+
+    // Nếu Cloud chưa kết nối -> Fallback local
+    if (!TVS_CLOUD.isReady()) {
+      if (typeof window._legacyVerifyLicenseKey === 'function') {
+        return Promise.resolve(window._legacyVerifyLicenseKey(code, cleanPhone, name));
+      }
+      return Promise.resolve({ success: false, error: 'Chưa thể kết nối máy chủ xác thực bản quyền. Vui lòng thử lại!' });
+    }
+
+    // Tra cứu trực tiếp trên Firestore
+    return TVS_CLOUD.db.collection('tvs_license_keys').doc(code).get()
+      .then(function(doc) {
+        if (!doc.exists) {
+          return {
+            success: false,
+            error: 'Mã kích hoạt "' + code + '" không tồn tại trên hệ thống. Vui lòng kiểm tra lại từng ký tự hoặc liên hệ Mentor Trần Nam Hà (0981 501 865)!'
+          };
+        }
+
+        var keyData = doc.data() || {};
+        if (keyData.isUsed) {
+          var usedPhone = String(keyData.usedByPhone || '').replace(/[\s\-\.]/g, '').trim();
+          if (usedPhone === cleanPhone) {
+            return {
+              success: true,
+              item: keyData,
+              alreadyYours: true
+            };
+          }
+          return {
+            success: false,
+            error: 'Mã kích hoạt "' + code + '" đã được kích hoạt cho học viên khác (' + (keyData.usedByName ? keyData.usedByName + ' - ' : '') + 'SĐT ' + keyData.usedByPhone + '). Mỗi mã chỉ kích hoạt 1 lần cho đúng 1 học viên duy nhất!'
+          };
+        }
+
+        // Mã hợp lệ và chưa ai dùng -> Khóa chết vào SĐT học viên này
+        var claimPayload = {
+          code: code,
+          course: keyData.course || 'but-pha',
+          courseName: keyData.courseName || 'Bứt Phá Tài Chính (Mentor Trần Nam Hà)',
+          createdAt: keyData.createdAt || new Date().toISOString(),
+          isUsed: true,
+          usedByPhone: cleanPhone,
+          usedByName: name || ('Học viên ' + cleanPhone),
+          usedAt: new Date().toISOString(),
+          updatedAt: window.firebase.firestore.FieldValue.serverTimestamp()
+        };
+
+        return TVS_CLOUD.db.collection('tvs_license_keys').doc(code).set(claimPayload, { merge: true })
+          .then(function() {
+            console.log('☁️ [TVS Cloud] Đã kích hoạt mã bản quyền trên Cloud thành công:', code, 'cho SĐT:', cleanPhone);
+            return {
+              success: true,
+              item: claimPayload
+            };
+          })
+          .catch(function(claimErr) {
+            console.error('❌ [TVS Cloud] Lỗi lưu kích hoạt bản quyền:', claimErr);
+            return {
+              success: false,
+              error: 'Không thể xác thực mã trên máy chủ. Lỗi: ' + (claimErr.message || claimErr)
+            };
+          });
+      })
+      .catch(function(err) {
+        console.error('❌ [TVS Cloud] Lỗi tra cứu bản quyền trên Firestore:', err);
+        return {
+          success: false,
+          error: 'Lỗi kết nối máy chủ xác thực bản quyền: ' + (err.message || err)
+        };
+      });
+  };
+
+  // Khởi tạo các mã bản quyền gốc ban đầu lên Firestore nếu chưa có
+  TVS_CLOUD.seedDefaultLicenseKeysAsync = function() {
+    if (!TVS_CLOUD.isReady()) return Promise.resolve();
+    var defaultKeys = [
+      { code: 'TVS-BP-8899-2026', course: 'but-pha', courseName: 'Bứt Phá Tài Chính (Mentor Trần Nam Hà)', createdAt: '2026-11-01T08:00:00.000Z', isUsed: false, usedByPhone: null, usedByName: null, usedAt: null },
+      { code: 'TVS-BP-7766-2026', course: 'but-pha', courseName: 'Bứt Phá Tài Chính (Mentor Trần Nam Hà)', createdAt: '2026-11-01T08:00:00.000Z', isUsed: false, usedByPhone: null, usedByName: null, usedAt: null },
+      { code: 'TVS-BD-1234-2026', course: 'binh-dan', courseName: 'Bình Dân Học Vụ Tài Chính', createdAt: '2026-11-01T08:00:00.000Z', isUsed: false, usedByPhone: null, usedByName: null, usedAt: null },
+      { code: 'TVS-VIP-9999-2026', course: 'all', courseName: 'Trọn bộ 3 Tầng Thực Chiến', createdAt: '2026-11-01T08:00:00.000Z', isUsed: false, usedByPhone: null, usedByName: null, usedAt: null },
+      { code: 'TVS-MASTER-NAMHA', course: 'all', courseName: 'Trọn bộ 3 Tầng Thực Chiến', createdAt: '2026-11-01T08:00:00.000Z', isUsed: true, usedByPhone: '0981501865', usedByName: 'Mentor Trần Nam Hà', usedAt: '2026-11-01T08:00:00.000Z' }
+    ];
+
+    var promises = defaultKeys.map(function(k) {
+      var ref = TVS_CLOUD.db.collection('tvs_license_keys').doc(k.code);
+      return ref.get().then(function(d) {
+        if (!d.exists) {
+          return ref.set(k);
+        }
+      }).catch(function() {});
+    });
+    return Promise.all(promises);
   };
 
   // 7. Cập nhật nhãn trạng thái đám mây trên Header / Dashboard

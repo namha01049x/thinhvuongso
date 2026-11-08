@@ -1289,6 +1289,9 @@
             localStorage.setItem('tvs_students_database', JSON.stringify(db));
           }
         }
+        if (window.TVS_CLOUD && typeof window.TVS_CLOUD.saveStudentAsync === 'function') {
+          window.TVS_CLOUD.saveStudentAsync(student);
+        }
       } catch (e) {}
     }
 

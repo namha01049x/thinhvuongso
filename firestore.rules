@@ -37,6 +37,20 @@ rules_version = '2';
 //      - role: string (tùy chọn: student, mentor, admin)
 //      - updatedAt: timestamp | number | string (tùy chọn)
 //
+// 3. Collection: tvs_license_keys/{licenseCode}
+//    Document ID: licenseCode (Mã bản quyền, VD: "TVS-BP-8899-2026", "TVS-VIP-9999-2026")
+//    Mô tả: Quản lý mã bản quyền khóa học độc quyền Thịnh Vượng Số
+//    Fields:
+//      - code: string (bắt buộc, trùng khớp với licenseCode document ID, 6-64 ký tự)
+//      - course: string (bắt buộc: 'but-pha', 'binh-dan', 'tinh-hoa', 'all')
+//      - courseName: string (bắt buộc, tên hiển thị khóa học)
+//      - createdAt: timestamp | string (bắt buộc, thời điểm khởi tạo mã)
+//      - isUsed: bool (bắt buộc, trạng thái đã kích hoạt)
+//      - usedByPhone: string | null (tùy chọn, SĐT học viên kích hoạt, 8-20 ký tự)
+//      - usedByName: string | null (tùy chọn, họ tên học viên kích hoạt, 2-100 ký tự)
+//      - usedAt: timestamp | string | null (tùy chọn, thời điểm kích hoạt)
+//      - updatedAt: timestamp | string | number | null (tùy chọn)
+//
 // ===============================================================
 
 service cloud.firestore {
@@ -209,6 +223,59 @@ service cloud.firestore {
     }
 
     // ===============================================================
+    // Helper Functions: License Key Validation
+    // ===============================================================
+
+    // Kiểm tra định dạng licenseCode an toàn (6-64 ký tự alphanumeric kèm dấu gạch ngang/dưới)
+    function isValidLicenseCode(licenseCode) {
+      return licenseCode is string &&
+        licenseCode.size() >= 6 &&
+        licenseCode.size() <= 64 &&
+        licenseCode.matches('^[0-9A-Za-z_-]+$');
+    }
+
+    // Domain Validator: Kiểm tra tính toàn vẹn của License Key
+    function isValidLicenseKey(data, licenseCode) {
+      return data.keys().hasAll(['code', 'course', 'courseName', 'createdAt', 'isUsed']) &&
+        data.keys().hasOnly([
+          'code', 'course', 'courseName', 'createdAt', 'isUsed',
+          'usedByPhone', 'usedByName', 'usedAt', 'updatedAt'
+        ]) &&
+        data.code is string &&
+        data.code == licenseCode &&
+        isValidLicenseCode(data.code) &&
+        data.course is string &&
+        data.course in ['but-pha', 'binh-dan', 'tinh-hoa', 'all'] &&
+        data.courseName is string &&
+        data.courseName.size() >= 2 &&
+        data.courseName.size() <= 100 &&
+        (data.createdAt is timestamp || (data.createdAt is string && data.createdAt.size() <= 50)) &&
+        data.isUsed is bool &&
+        (!('usedByPhone' in data) || data.usedByPhone == null || (data.usedByPhone is string && data.usedByPhone.size() >= 8 && data.usedByPhone.size() <= 20)) &&
+        (!('usedByName' in data) || data.usedByName == null || (data.usedByName is string && data.usedByName.size() >= 2 && data.usedByName.size() <= 100)) &&
+        (!('usedAt' in data) || data.usedAt == null || data.usedAt is timestamp || (data.usedAt is string && data.usedAt.size() <= 50)) &&
+        (!('updatedAt' in data) || data.updatedAt == null || data.updatedAt is timestamp || (data.updatedAt is string && data.updatedAt.size() <= 50) || data.updatedAt is number);
+    }
+
+    // Kiểm tra học viên kích hoạt mã bản quyền hợp lệ (Claiming)
+    function isStudentClaimingLicense() {
+      return resource.data.isUsed == false &&
+        request.resource.data.isUsed == true &&
+        request.resource.data.code == resource.data.code &&
+        request.resource.data.course == resource.data.course &&
+        request.resource.data.courseName == resource.data.courseName &&
+        request.resource.data.createdAt == resource.data.createdAt &&
+        ('usedByPhone' in request.resource.data) &&
+        request.resource.data.usedByPhone is string &&
+        request.resource.data.usedByPhone.size() >= 8 &&
+        request.resource.data.usedByPhone.size() <= 20 &&
+        ('usedByName' in request.resource.data) &&
+        request.resource.data.usedByName is string &&
+        request.resource.data.usedByName.size() >= 2 &&
+        request.resource.data.usedByName.size() <= 100;
+    }
+
+    // ===============================================================
     // Rules: Collection tvs_device_registries/{accountId}
     // ===============================================================
     match /tvs_device_registries/{accountId} {
@@ -307,6 +374,42 @@ service cloud.firestore {
         );
 
       // Chỉ Admin mới được phép xóa học viên
+      allow delete: if isAdmin();
+    }
+
+    // ===============================================================
+    // Rules: Collection tvs_license_keys/{licenseCode}
+    // ===============================================================
+    match /tvs_license_keys/{licenseCode} {
+
+      // Tra cứu từng mã bản quyền cụ thể: Bất kỳ ai cũng có thể tra cứu mã theo ID chính xác
+      // (để học viên/client kiểm tra và kích hoạt mã được cấp).
+      // NGHIÊM CẤM liệt kê toàn bộ collection (chống cào quét / vét trộm mã bản quyền).
+      allow get: if isValidLicenseCode(licenseCode);
+
+      allow list: if isAdmin();
+
+      // Chỉ quản trị viên mới có quyền tạo mới mã bản quyền
+      allow create: if isAdmin() &&
+        isValidLicenseCode(licenseCode) &&
+        isValidLicenseKey(request.resource.data, licenseCode);
+
+      // Cập nhật mã bản quyền:
+      // 1. Quản trị viên có toàn quyền cập nhật
+      // 2. Học viên kích hoạt mã bản quyền chưa sử dụng:
+      //    - Trạng thái hiện tại: chưa dùng (isUsed == false)
+      //    - Trạng thái mới: chuyển thành đã dùng (isUsed == true)
+      //    - Không được thay đổi mã, khóa học, tên khóa học, ngày tạo
+      //    - Bắt buộc cung cấp SĐT (8-20 ký tự) và họ tên học viên (2-100 ký tự)
+      //    - Khi mã đã kích hoạt (isUsed == true), người dùng thường không thể sửa đổi tiếp
+      allow update: if isValidLicenseCode(licenseCode) &&
+        isValidLicenseKey(request.resource.data, licenseCode) &&
+        (
+          isAdmin() ||
+          isStudentClaimingLicense()
+        );
+
+      // Chỉ quản trị viên mới có quyền xóa mã bản quyền
       allow delete: if isAdmin();
     }
 

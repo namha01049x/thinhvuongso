@@ -2665,60 +2665,21 @@
       if (!student) return;
       var msg = document.getElementById('login-status-msg');
 
-        // KIỂM TRA ĐỊNH MỨC THIẾT BỊ (TỐI ĐA 1 MÁY TÍNH, 2 TABLET, 2 ĐIỆN THOẠI, 1 TAB)
-        var finalizeLogin = function() {
-          window.registerCurrentDevice(student.phone || student.id);
-          setActiveStudent(student);
-          applyStudentAuthState(student);
-          renderLessonProgressUI(student.completedLessons || []);
-          renderDbInspector();
-
-          if (window.TVS_CLOUD && window.TVS_CLOUD.isReady()) {
-            window.TVS_CLOUD.listenToDeviceChanges(student.phone || student.id);
-          }
-
-          if (msg) {
-            msg.classList.remove('hidden', 'bg-red-900/40', 'text-red-200', 'border-red-500/50');
-            msg.classList.add('bg-green-900/40', 'text-green-200', 'border', 'border-green-500/50');
-            msg.innerHTML = '<strong>Đăng nhập thành công!</strong> Chào mừng trở lại, học viên <strong>' + student.name + '</strong>. Đã khôi phục toàn bộ tiến độ học tập của bạn.';
-          }
-
-          setTimeout(function() {
-            var target = document.getElementById('protected-learning-space');
-            if (target) {
-              target.scrollIntoView({ behavior: 'smooth' });
-            }
-          }, 500);
-        };
+      var completeSession = function() {
+        window.registerCurrentDevice(student.phone || student.id);
+        setActiveStudent(student);
+        applyStudentAuthState(student);
+        renderLessonProgressUI(student.completedLessons || []);
+        renderDbInspector();
 
         if (window.TVS_CLOUD && window.TVS_CLOUD.isReady()) {
-          window.TVS_CLOUD.getDeviceRegistryAsync(student.phone || student.id)
-            .then(function(cloudReg) {
-              var devCheck = window.checkDeviceLoginAllowed(student.phone || student.id, cloudReg);
-              if (!devCheck.allowed) {
-                window._pendingStudentLogin = student;
-                window.openDeviceManagementModal(student.phone || student.id, devCheck.reasonMsg);
-                return;
-              }
-              finalizeLogin();
-            })
-            .catch(function() {
-              var devCheck = window.checkDeviceLoginAllowed(student.phone || student.id);
-              if (!devCheck.allowed) {
-                window._pendingStudentLogin = student;
-                window.openDeviceManagementModal(student.phone || student.id, devCheck.reasonMsg);
-                return;
-              }
-              finalizeLogin();
-            });
-        } else {
-          var devCheck = window.checkDeviceLoginAllowed(student.phone || student.id);
-          if (!devCheck.allowed) {
-            window._pendingStudentLogin = student;
-            window.openDeviceManagementModal(student.phone || student.id, devCheck.reasonMsg);
-            return;
-          }
-          finalizeLogin();
+          window.TVS_CLOUD.listenToDeviceChanges(student.phone || student.id);
+        }
+
+        if (msg) {
+          msg.classList.remove('hidden', 'bg-red-900/40', 'text-red-200', 'border-red-500/50');
+          msg.classList.add('bg-green-900/40', 'text-green-200', 'border', 'border-green-500/50');
+          msg.innerHTML = '<strong>Đăng nhập thành công!</strong> Chào mừng trở lại, học viên <strong>' + student.name + '</strong>. Đã khôi phục toàn bộ tiến độ học tập của bạn.';
         }
 
         setTimeout(function() {
@@ -2727,7 +2688,37 @@
             target.scrollIntoView({ behavior: 'smooth' });
           }
         }, 500);
-      }, 350);
+      };
+
+      if (window.TVS_CLOUD && window.TVS_CLOUD.isReady()) {
+        window.TVS_CLOUD.getDeviceRegistryAsync(student.phone || student.id)
+          .then(function(cloudReg) {
+            var devCheck = window.checkDeviceLoginAllowed(student.phone || student.id, cloudReg);
+            if (!devCheck.allowed) {
+              window._pendingStudentLogin = student;
+              window.openDeviceManagementModal(student.phone || student.id, devCheck.reasonMsg);
+              return;
+            }
+            completeSession();
+          })
+          .catch(function() {
+            var devCheck = window.checkDeviceLoginAllowed(student.phone || student.id);
+            if (!devCheck.allowed) {
+              window._pendingStudentLogin = student;
+              window.openDeviceManagementModal(student.phone || student.id, devCheck.reasonMsg);
+              return;
+            }
+            completeSession();
+          });
+      } else {
+        var devCheck = window.checkDeviceLoginAllowed(student.phone || student.id);
+        if (!devCheck.allowed) {
+          window._pendingStudentLogin = student;
+          window.openDeviceManagementModal(student.phone || student.id, devCheck.reasonMsg);
+          return;
+        }
+        completeSession();
+      }
     };
 
     // Áp dụng trạng thái Học viên lên Dashboard và Không Gian Bài Học
@@ -2879,6 +2870,11 @@
       }
       saveStudentsDatabase(db);
       setActiveStudent(activeStudent);
+
+      // Đồng bộ tiến độ bài học lên Google Cloud Firestore
+      if (window.TVS_CLOUD && typeof window.TVS_CLOUD.saveStudentAsync === 'function') {
+        window.TVS_CLOUD.saveStudentAsync(activeStudent);
+      }
 
       // Cập nhật UI & CSDL Inspector
       renderLessonProgressUI(activeStudent.completedLessons);
@@ -3236,59 +3232,73 @@
       }
 
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span>Đang xác thực mã bản quyền...</span>';
+      submitBtn.innerHTML = '<span>Đang xác thực với máy chủ Google Cloud...</span>';
 
-      setTimeout(function() {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<span>⚡ Kích Hoạt Khóa Học Ngay ↗</span>';
+      Promise.resolve(window.verifyAndClaimLicenseKey(code, activeStudent.phone, activeStudent.name))
+        .then(function(claimRes) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span>⚡ Kích Hoạt Khóa Học Ngay ↗</span>';
 
-        var claimRes = window.verifyAndClaimLicenseKey(code, activeStudent.phone, activeStudent.name);
-        if (!claimRes.success) {
+          if (!claimRes || !claimRes.success) {
+            if (statusBox) {
+              statusBox.className = 'p-3 rounded-xl bg-red-950/80 border border-red-500/50 text-red-200 text-xs';
+              statusBox.classList.remove('hidden');
+              statusBox.innerHTML = (claimRes && claimRes.error) || 'Mã kích hoạt không hợp lệ!';
+            }
+            if (input) input.focus();
+            return;
+          }
+
+          // Cập nhật học viên thành công
+          var db = getStudentsDatabase();
+          var studentInDb = db.find(function(s) {
+            return (s.phone && s.phone === activeStudent.phone) || (s.id && s.id === activeStudent.id);
+          });
+
+          activeStudent.isActivated = true;
+          activeStudent.licenseCode = (claimRes.item && claimRes.item.code) || code;
+          if (claimRes.item && claimRes.item.course) {
+            activeStudent.course = claimRes.item.course;
+            activeStudent.courseName = claimRes.item.courseName || activeStudent.courseName;
+          }
+
+          if (studentInDb) {
+            studentInDb.isActivated = true;
+            studentInDb.licenseCode = activeStudent.licenseCode;
+            studentInDb.course = activeStudent.course;
+            studentInDb.courseName = activeStudent.courseName;
+          }
+
+          saveStudentsDatabase(db);
+          setActiveStudent(activeStudent);
+          applyStudentAuthState(activeStudent);
+
+          // Đồng bộ hồ sơ mới cập nhật lên Google Cloud Firestore
+          if (window.TVS_CLOUD && typeof window.TVS_CLOUD.saveStudentAsync === 'function') {
+            window.TVS_CLOUD.saveStudentAsync(activeStudent);
+          }
+
+          renderDbInspector();
+
+          if (statusBox) {
+            statusBox.className = 'p-3 rounded-xl bg-green-950/80 border border-green-500/50 text-green-200 text-xs';
+            statusBox.classList.remove('hidden');
+            statusBox.innerHTML = '🎉 <strong>Kích hoạt thành công!</strong> Khóa học "' + activeStudent.courseName + '" đã được mở khóa vĩnh viễn và đồng bộ lên đám mây.';
+          }
+
+          setTimeout(function() {
+            window.closeLicenseModal();
+          }, 1500);
+        })
+        .catch(function(err) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span>⚡ Kích Hoạt Khóa Học Ngay ↗</span>';
           if (statusBox) {
             statusBox.className = 'p-3 rounded-xl bg-red-950/80 border border-red-500/50 text-red-200 text-xs';
             statusBox.classList.remove('hidden');
-            statusBox.innerHTML = claimRes.error;
+            statusBox.innerHTML = 'Lỗi kết nối máy chủ: ' + (err.message || err);
           }
-          if (input) input.focus();
-          return;
-        }
-
-        // Cập nhật học viên thành công
-        var db = getStudentsDatabase();
-        var studentInDb = db.find(function(s) {
-          return (s.phone && s.phone === activeStudent.phone) || (s.id && s.id === activeStudent.id);
         });
-
-        activeStudent.isActivated = true;
-        activeStudent.licenseCode = (claimRes.item && claimRes.item.code) || code;
-        if (claimRes.item && claimRes.item.course) {
-          activeStudent.course = claimRes.item.course;
-          activeStudent.courseName = claimRes.item.courseName || activeStudent.courseName;
-        }
-
-        if (studentInDb) {
-          studentInDb.isActivated = true;
-          studentInDb.licenseCode = activeStudent.licenseCode;
-          studentInDb.course = activeStudent.course;
-          studentInDb.courseName = activeStudent.courseName;
-        }
-
-        saveStudentsDatabase(db);
-        setActiveStudent(activeStudent);
-        applyStudentAuthState(activeStudent);
-        renderDbInspector();
-
-        if (statusBox) {
-          statusBox.className = 'p-3 rounded-xl bg-green-950/80 border border-green-500/50 text-green-200 text-xs';
-          statusBox.classList.remove('hidden');
-          statusBox.innerHTML = '🎉 <strong>Kích hoạt thành công!</strong> Khóa học "' + activeStudent.courseName + '" đã được mở khóa vĩnh viễn cho tài khoản của bạn.';
-        }
-
-        setTimeout(function() {
-          window.closeLicenseModal();
-        }, 1500);
-
-      }, 400);
     };
 
     // Đăng nhập nhanh vào bất kỳ học viên nào từ danh sách CSDL để test
