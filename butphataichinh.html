@@ -864,122 +864,7 @@
           </div>
         </div>
 
-        <div id="tien-do-hoc-tap" class="bg-nen-sau border-2 border-cam/50 rounded-2xl p-5 sm:p-7 space-y-6 shadow-2xl scroll-mt-24 relative overflow-hidden">
- 
- <!-- Background glow decorative accent -->
- <div class="absolute -top-24 -right-24 w-60 h-60 bg-cam/10 rounded-full blur-3xl pointer-events-none"></div>
-
- <!-- Header bar with level badge & graduation link -->
- <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-kem/15 relative z-10">
- <div class="space-y-1">
- <div class="flex items-center gap-2 flex-wrap">
- <span class="nhan text-cam border-cam/30 bg-cam/10">Bảng điều khiển cá nhân</span>
- <span id="tier-badge" class="px-2.5 py-0.5 rounded-full bg-cam/20 border border-cam/40 font-mono text-[11px] font-bold text-cam">
- Học viên Cấp 3 · Đang rèn luyện
- </span>
- </div>
- <h3 class="text-xl sm:text-2xl font-bold text-kem">
- Theo Dõi Tiến Độ Học Tập & Chuyển Hóa Tài Chính
- </h3>
- <p class="text-xs text-yen leading-relaxed">
- Đánh dấu các bài giảng, bảng tính Excel và bài tập số thật đã làm. Hệ thống tự động ghi nhận, tích lũy điểm rèn luyện và lưu an toàn trên thiết bị của bạn.
- </p>
- </div>
-
- <!-- Action buttons -->
- <div class="flex items-center gap-2 shrink-0">
- <button type="button" onclick="window.openCertificateModal()" class="btn-p !py-2 !px-3.5 text-xs font-mono uppercase tracking-wider flex items-center gap-1.5 shadow">
- <span>Mở Chứng Nhận Tốt Nghiệp 🎓</span>
- </button>
- </div>
- </div>
-
- <!-- Big Progress Bar & Metrics -->
- <div class="space-y-3 relative z-10">
- <div class="flex items-end justify-between gap-3">
- <div>
- <span class="text-xs font-mono uppercase text-yen block font-semibold">Tỷ lệ hoàn thành chương trình:</span>
- <span id="progress-status-desc" class="text-xs text-kem font-medium">Đã hoàn thành 3 / 6 buổi học và 2 bài tập số thật</span>
- </div>
- <div class="text-right shrink-0">
- <span id="progress-percent" class="font-mono text-3xl sm:text-4xl font-extrabold text-cam leading-none">50%</span>
- </div>
- </div>
-
- <!-- Multi-segment visual progress track -->
- <div class="h-3.5 rounded-full bg-abyssal p-0.5 border border-kem/20 overflow-hidden relative">
- <div id="progress-fill" class="h-full rounded-full bg-gradient-to-r from-yellow-500 via-cam to-amber-400 transition-all duration-500 shadow-md" style="width: 50%;"></div>
- </div>
-
- <!-- 6 Milestone Checkpoint labels -->
- <div class="grid grid-cols-6 text-center text-[10px] sm:text-[11px] font-mono text-yen pt-1 gap-1">
- <span id="step-lbl-1" class="text-cam font-bold">Buổi 1 ✓</span>
- <span id="step-lbl-2" class="text-cam font-bold">Buổi 2 ✓</span>
- <span id="step-lbl-3" class="text-cam font-bold">Buổi 3 ✓</span>
- <span id="step-lbl-4" class="opacity-70">Buổi 4</span>
- <span id="step-lbl-5" class="opacity-70">Buổi 5</span>
- <span id="step-lbl-6" class="opacity-70">Buổi 6 🎓</span>
- </div>
- </div>
-
- <!-- 4 Financial Transformation Impact Metrics (Real-number KPIs) -->
- <div class="space-y-2 relative z-10">
- <div class="flex items-center justify-between text-xs font-mono text-yen">
- <span class="font-semibold text-cam uppercase tracking-wider">Chỉ số chuyển hóa tài chính đạt được:</span>
- <span id="cert-condition-text" class="text-[11px] text-yen">Cần thêm 3 buổi để mở khóa Chứng nhận chính thức</span>
- </div>
-
- <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
- <div class="p-3.5 rounded-xl bg-abyssal/90 border border-kem/15 space-y-1">
- <div class="flex items-center gap-1.5 text-xs font-mono text-yen">
- <span>🛡️ Rò rỉ đã chặn:</span>
- </div>
- <div id="kpi-leak" class="font-mono text-sm sm:text-base font-bold text-green-400">+4.800.000 đ/tháng</div>
- <p class="text-[10px] text-yen leading-tight">Vá 3 khoản chi vô thức</p>
- </div>
-
- <div class="p-3.5 rounded-xl bg-abyssal/90 border border-kem/15 space-y-1">
- <div class="flex items-center gap-1.5 text-xs font-mono text-yen">
- <span>🏦 Quỹ khẩn cấp:</span>
- </div>
- <div id="kpi-fund" class="font-mono text-sm sm:text-base font-bold text-cam">3 / 6 Tháng</div>
- <p class="text-[10px] text-yen leading-tight">Sinh hoạt phí an toàn</p>
- </div>
-
- <div class="p-3.5 rounded-xl bg-abyssal/90 border border-kem/15 space-y-1">
- <div class="flex items-center gap-1.5 text-xs font-mono text-yen">
- <span>⚖️ Tỷ lệ nợ DTI:</span>
- </div>
- <div id="kpi-dti" class="font-mono text-sm sm:text-base font-bold text-kem">&lt; 35% Thu nhập</div>
- <p class="text-[10px] text-yen leading-tight">Đòn bẩy trong tầm kiểm soát</p>
- </div>
-
- <div class="p-3.5 rounded-xl bg-abyssal/90 border border-kem/15 space-y-1">
- <div class="flex items-center gap-1.5 text-xs font-mono text-yen">
- <span>📈 Điểm tài chính:</span>
- </div>
- <div id="kpi-score" class="font-mono text-sm sm:text-base font-bold text-cam">85 / 100 Điểm</div>
- <p class="text-[10px] text-yen leading-tight">Năng lực rèn luyện vững vàng</p>
- </div>
- </div>
- </div>
-
- <!-- Quick reset & demo buttons -->
- <div class="flex flex-wrap items-center justify-between gap-3 pt-3 text-xs font-mono text-yen border-t border-kem/10 relative z-10">
- <div class="flex items-center gap-3">
- <button type="button" onclick="window.markAllLessonsComplete()" class="hover:text-cam underline cursor-pointer">
- [Đánh dấu hoàn thành 100%]
- </button>
- <button type="button" onclick="window.resetLessonProgress()" class="hover:text-red-400 underline cursor-pointer">
- [Đặt lại tiến độ từ đầu]
- </button>
- </div>
- <span class="text-[11px] italic text-yen/80">Hệ thống tự động lưu trên trình duyệt của bạn</span>
- </div>
-
- </div>
-
- <!-- 4."NỘI DUNG KHÓA HỌC CHI TIẾT & BẢNG KIỂM TIẾN ĐỘ" -->
+        <!-- 4."NỘI DUNG KHÓA HỌC CHI TIẾT & BẢNG KIỂM TIẾN ĐỘ" -->
  <div id="noi-dung" class="space-y-6 scroll-mt-24">
  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
  <div>
@@ -1878,6 +1763,53 @@
 
       <!-- RIGHT COLS: STICKY PURCHASE ENROLLMENT CARD (Cột phải chạy từ đầu trang) -->
   <aside class="lg:col-span-4 sticky-enroll-card space-y-6">
+        <!-- ==================== THEO DÕI TIẾN ĐỘ HỌC TẬP & CHỨNG NHẬN (CỐ ĐỊNH Ở ĐỈNH CỘT PHẢI, TRÊN ƯU ĐÃI THÁNG 11/2026) ==================== -->
+        <div id="tien-do-hoc-tap" class="bg-gradient-to-br from-[#16212E] via-[#0E1520] to-[#121A24] border-2 border-cam/60 rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-2xl relative overflow-hidden scroll-mt-24">
+          <!-- Background subtle gold glow accent -->
+          <div class="absolute -top-12 -right-12 w-32 h-32 bg-cam/15 rounded-full blur-2xl pointer-events-none"></div>
+
+          <!-- Header: Level Badge & Percent -->
+          <div class="flex items-center justify-between gap-2 relative z-10">
+            <div class="space-y-0.5 min-w-0">
+              <span class="text-[10px] font-mono text-yen uppercase tracking-wider block font-semibold">Theo Dõi Tiến Độ Học Tập</span>
+              <span id="tier-badge" class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-cam/20 border border-cam/40 font-mono text-[10px] font-bold text-cam truncate">
+                Học viên Cấp 2 · Bịt Kín Rò Rỉ Dòng Tiền
+              </span>
+            </div>
+            <div class="text-right shrink-0">
+              <span id="progress-percent" class="font-mono text-2xl sm:text-3xl font-extrabold text-cam leading-none">50%</span>
+            </div>
+          </div>
+
+          <!-- Smooth Progress Bar -->
+          <div class="space-y-1.5 relative z-10">
+            <div class="h-2.5 rounded-full bg-abyssal p-0.5 border border-kem/20 overflow-hidden">
+              <div id="progress-fill" class="h-full rounded-full bg-gradient-to-r from-yellow-500 via-cam to-amber-400 transition-all duration-500 shadow-md" style="width: 50%;"></div>
+            </div>
+            <div class="flex items-center justify-between text-[11px] font-mono text-yen">
+              <span id="progress-status-desc">3 / 6 Buổi hoàn thành</span>
+              <span id="cert-condition-text" class="text-amber-300 font-medium">Cần thêm 3 buổi</span>
+            </div>
+          </div>
+
+          <!-- Primary Action: Open Certificate Button (Gold border & subtle shine) -->
+          <div class="pt-0.5 relative z-10">
+            <button type="button" onclick="window.openCertificateModal()" class="btn-p w-full justify-center !py-2.5 !px-4 text-xs font-mono uppercase tracking-wider font-bold shadow-lg shadow-cam/25 cursor-pointer flex items-center gap-1.5">
+              <span>Mở Giấy Chứng Nhận Tốt Nghiệp 🎓</span>
+            </button>
+          </div>
+
+          <!-- Quick Actions: Mark 100% & Reset (Quiet & Clean) -->
+          <div class="flex items-center justify-between text-[10px] font-mono text-yen/80 pt-1.5 border-t border-kem/10 relative z-10">
+            <button type="button" onclick="window.markAllLessonsComplete()" class="hover:text-cam cursor-pointer transition-colors">
+              ✓ Đánh dấu hoàn thành 100%
+            </button>
+            <button type="button" onclick="window.resetLessonProgress()" class="hover:text-red-400 cursor-pointer transition-colors">
+              ↺ Đặt lại tiến độ
+            </button>
+          </div>
+        </div>
+
  <div class="bg-nen-sau border-2 border-cam/60 rounded-2xl p-6 space-y-6 shadow-2xl">
  
  <!-- Thumbnail preview inside card -->
@@ -1963,21 +1895,6 @@
  <div>MSDN: 0111281148 · VietQR Napas 24/7</div>
  </div>
 
- </div>
-
- <!-- Mini Progress Tracker inside Sidebar -->
- <div class="bg-nen-sau border border-kem/20 rounded-xl p-4 space-y-3">
- <div class="flex items-center justify-between text-xs font-mono">
- <span class="text-yen font-semibold">Tiến độ cá nhân:</span>
- <span id="sidebar-progress-percent" class="text-cam font-bold">50%</span>
- </div>
- <div class="h-2 rounded-full bg-abyssal border border-kem/15 overflow-hidden">
- <div id="sidebar-progress-fill" class="h-full bg-gradient-to-r from-cam to-amber-400 transition-all duration-300" style="width: 50%;"></div>
- </div>
- <div class="flex items-center justify-between text-[11px] text-yen">
- <span id="sidebar-lessons-done">3/6 Buổi hoàn thành</span>
- <a href="#tien-do-hoc-tap" class="text-cam hover:underline font-mono">Bảng chi tiết ↗</a>
- </div>
  </div>
 
  <!-- Mentor Card Shortcut -->
