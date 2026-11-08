@@ -344,27 +344,27 @@
 
   <!-- ==================== HEADER ==================== -->
   <header class="sticky top-0 z-40 bg-abyssal/90 backdrop-blur-md border-b border-kem/15 transition-colors">
-    <div class="max-w-dtv mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between gap-3 sm:gap-4">
+    <div class="max-w-dtv 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between gap-2 xl:gap-3">
       
       <!-- Brand Logo & Back to Catalog Button -->
-      <div class="flex items-center gap-3 sm:gap-4">
-        <a href="./" class="flex items-center gap-3 group shrink-0" aria-label="Trang chủ Thịnh Vượng Số">
-          <div class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 flex items-center justify-center rounded border border-kem/20 bg-xanh/40">
-            <svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M5.7 28V24.5L9.1 21.7V28H5.7Z" fill="#E5B879" />
-              <path d="M12 28V19.8L15.4 17V28H12Z" fill="#D38A4A" />
+      <div class="flex items-center gap-3 sm:gap-4 shrink-0">
+        <a href="./" class="flex items-center gap-2.5 sm:gap-3 group shrink-0" aria-label="Thịnh Vượng Số · Trang chủ">
+          <div class="w-10 h-10 sm:w-11 sm:h-11 shrink-0 rounded-lg bg-[#141C25] border border-kem/20 flex items-center justify-center relative overflow-hidden group-hover:border-cam/60 transition-all">
+            <svg viewBox="0 0 40 40" class="w-6 h-6 sm:w-7 sm:h-7 shrink-0" fill="none" aria-hidden="true">
+              <rect x="4.5" y="4.5" width="31" height="31" rx="6" stroke="#E5B879" stroke-opacity="0.35" stroke-width="1" />
+              <path d="M12 28V19.8L15.4 17V28H12Z" fill="#C9C1B1" />
               <path d="M18.3 28V15L21.7 12.2V28H18.3Z" fill="#EEE9DF" />
               <path d="M24.6 28V10.2L28 7.4V28H24.6Z" fill="#E5B879" />
             </svg>
           </div>
-          <div class="flex flex-col">
-            <div class="flex items-center gap-2">
-              <span class="font-sans font-bold text-base sm:text-lg tracking-wide text-kem uppercase leading-none">
+          <div class="flex flex-col shrink-0">
+            <div class="flex items-center gap-1.5 sm:gap-2">
+              <span class="font-sans font-bold text-[15px] sm:text-[17.5px] tracking-wide text-kem uppercase leading-none whitespace-nowrap">
                 Thịnh Vượng Số
               </span>
-              <span class="px-1.5 py-0.5 rounded bg-kem/10 border border-kem/20 font-mono text-[9px] font-semibold text-yen tracking-widest uppercase leading-none">TVS</span>
+              <span class="inline-block px-1.5 py-0.5 rounded bg-kem/[0.06] border border-kem/20 font-mono text-[9px] font-semibold text-yen tracking-widest uppercase leading-none shrink-0">TVS</span>
             </div>
-            <span class="font-mono text-[9px] sm:text-[10px] tracking-wider text-cam uppercase mt-1 leading-tight font-medium">
+            <span class="font-mono text-[9px] sm:text-[8.5px] tracking-[0.05em] text-cam uppercase mt-1 leading-tight whitespace-nowrap font-medium">
               Bứt Phá Tài Chính
             </span>
           </div>
@@ -378,8 +378,7 @@
       </div>
 
       <!-- Desktop Nav -->
-      <nav class="hidden xl:flex items-center gap-3.5 xl:gap-4 text-xs font-medium whitespace-nowrap" aria-label="Điều hướng Khóa Học">
-        <a href="./" class="text-yen hover:text-cam transition-colors">Trang chủ</a>
+      <nav class="hidden xl:flex items-center gap-2.5 xl:gap-3 2xl:gap-4 text-xs font-medium whitespace-nowrap shrink-0" aria-label="Điều hướng Khóa Học">
         <a href="khoahoc.html" class="text-yen hover:text-cam transition-colors">Danh Mục</a>
         <a href="#loi-ich" class="text-yen hover:text-cam transition-colors">Giá Trị Nhận Được</a>
         <a href="#gioi-thieu" class="text-yen hover:text-cam transition-colors">Giới Thiệu</a>
@@ -394,8 +393,8 @@
       </nav>
 
       <!-- Action & Theme Switch -->
-      <div class="flex items-center gap-2 sm:gap-3">
-        <a href="tel:0981501865" class="hidden md:inline-flex items-center gap-1.5 font-mono text-xs text-yen hover:text-cam transition-colors px-3 py-1.5 rounded border border-kem/20 bg-xanh/30 whitespace-nowrap shrink-0">
+      <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
+        <a href="tel:0981501865" class="hidden 2xl:inline-flex items-center gap-1.5 font-mono text-xs text-yen hover:text-cam transition-colors px-3 py-1.5 rounded border border-kem/20 bg-xanh/30 whitespace-nowrap shrink-0">
           <svg class="w-3.5 h-3.5 text-cam" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
           <span>0981501865</span>
         </a>
@@ -407,8 +406,9 @@
           <span id="theme-label" class="hidden md:inline font-mono text-[11px]">Nền sáng</span>
         </button>
 
-        <button type="button" onclick="window.openCheckoutModal('Bứt Phá Tài Chính · Mentor Trần Nam Hà', '2.990.000 đ')" class="btn-p !py-1.5 sm:!py-2 !px-3 sm:!px-4 text-xs font-mono uppercase tracking-wider whitespace-nowrap cursor-pointer">
-          <span>Đăng ký học</span>
+        <button type="button" onclick="window.openCheckoutModal('Bứt Phá Tài Chính · Mentor Trần Nam Hà', '2.990.000 đ')" class="btn-p !py-1 sm:!py-2 !px-2 sm:!px-4 text-[10.5px] sm:text-xs font-mono uppercase tracking-wider whitespace-nowrap cursor-pointer">
+          <span class="sm:hidden">Đăng ký</span>
+          <span class="hidden sm:inline">Đăng ký học</span>
         </button>
 
         <!-- Mobile hamburger button -->
@@ -2115,9 +2115,23 @@
  <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
  
  <div class="space-y-3 md:col-span-2">
- <div class="flex items-center gap-2">
- <span class="font-bold text-base text-kem uppercase">Thịnh Vượng Số</span>
- <span class="px-1.5 py-0.5 rounded bg-kem/10 text-[9px] font-mono text-yen">TVS</span>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-[#141C25] border border-kem/20 flex items-center justify-center shrink-0">
+            <svg viewBox="0 0 40 40" class="w-6 h-6" fill="none" aria-hidden="true">
+              <rect x="4.5" y="4.5" width="31" height="31" rx="6" stroke="#E5B879" stroke-opacity="0.35" stroke-width="1" />
+              <path d="M12 28V19.8L15.4 17V28H12Z" fill="#C9C1B1" />
+              <path d="M18.3 28V15L21.7 12.2V28H18.3Z" fill="#EEE9DF" />
+              <path d="M24.6 28V10.2L28 7.4V28H24.6Z" fill="#E5B879" />
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-sans font-bold text-base sm:text-lg text-kem uppercase tracking-wider">Thịnh Vượng Số</span>
+              <span class="px-1.5 py-0.5 rounded bg-kem/[0.06] border border-kem/20 font-mono text-[9px] font-semibold text-yen tracking-widest uppercase leading-none">TVS</span>
+            </div>
+            <p class="font-mono text-[9.5px] uppercase tracking-[0.12em] text-cam mt-0.5 font-medium">Bứt Phá Tài Chính</p>
+          </div>
+        </div>
  </div>
  <p class="text-xs text-yen leading-relaxed max-w-md">
  Hệ sinh thái giáo dục và huấn luyện tài chính thực chiến độc quyền. Đồng hành cùng hàng ngàn cá nhân và gia đình làm chủ dòng tiền, xây dựng đòn bẩy và tích sản vững vàng.
@@ -4041,7 +4055,7 @@
           <span class="font-mono text-xs text-yen line-through block">9.900.000 đ</span>
           <span class="font-mono text-lg sm:text-xl font-extrabold text-cam leading-none block">2.990.000 đ</span>
         </div>
-        <a href="tel:0981501865" class="hidden md:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-kem/25 hover:border-cam text-kem hover:text-cam font-mono text-xs transition-colors bg-xanh/30">
+        <a href="tel:0981501865" class="hidden 2xl:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-kem/25 hover:border-cam text-kem hover:text-cam font-mono text-xs transition-colors bg-xanh/30">
           <svg class="w-3.5 h-3.5 text-cam" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
           <span>0981501865</span>
         </a>
