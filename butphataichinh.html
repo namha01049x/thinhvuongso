@@ -1860,42 +1860,42 @@
           <!-- Background subtle gold glow accent -->
           <div class="absolute -top-12 -right-12 w-32 h-32 bg-cam/15 rounded-full blur-2xl pointer-events-none"></div>
 
-          <!-- PHẦN 1: THEO DÕI TIẾN ĐỘ HỌC TẬP (Ở ĐỈNH KHUNG - TÔNG XANH SAPPHIRE / SLATE HỌC THUẬT, KHÔNG DÙNG MÀU CAM) -->
-          <div id="tien-do-hoc-tap" class="p-3.5 sm:p-4 border-b border-slate-700/60 bg-[#0B131E] space-y-2.5 relative z-10 scroll-mt-24">
+          <!-- PHẦN 1: THEO DÕI TIẾN ĐỘ HỌC TẬP (Ở ĐỈNH KHUNG - THIẾT KẾ QUIET LUXURY TRẦM TINH TẾ) -->
+          <div id="tien-do-hoc-tap" class="p-3.5 sm:p-4 border-b border-kem/15 bg-black/35 backdrop-blur-sm space-y-2.5 relative z-10 scroll-mt-24">
             <div class="flex items-center justify-between gap-2">
               <div class="space-y-0.5 min-w-0">
-                <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block font-semibold">Theo Dõi Tiến Độ Học Tập</span>
-                <span id="tier-badge" class="inline-flex items-center px-2 py-0.5 rounded-full bg-blue-950/70 border border-blue-500/40 font-mono text-[10px] font-bold text-blue-300 truncate">
+                <span class="text-[10px] font-mono text-yen/80 uppercase tracking-wider block font-semibold">Theo Dõi Tiến Độ Học Tập</span>
+                <span id="tier-badge" class="inline-flex items-center px-2 py-0.5 rounded-full bg-white/5 border border-kem/20 font-mono text-[10px] font-medium text-kem truncate">
                   Học viên Cấp 2 · Bịt Kín Rò Rỉ Dòng Tiền
                 </span>
               </div>
               <div class="text-right shrink-0">
-                <span id="progress-percent" class="font-mono text-xl sm:text-2xl font-extrabold text-blue-400 leading-none">50%</span>
+                <span id="progress-percent" class="font-mono text-xl sm:text-2xl font-extrabold text-kem leading-none">50%</span>
               </div>
             </div>
 
-            <!-- Smooth Progress Bar (Tông Xanh Cyan / Sapphire) -->
+            <!-- Smooth Progress Bar (Tông Xanh Ngọc Lục Bảo Mờ Điềm Tĩnh) -->
             <div class="space-y-1">
-              <div class="h-2 rounded-full bg-slate-900 p-0.5 border border-slate-700 overflow-hidden">
-                <div id="progress-fill" class="h-full rounded-full bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 transition-all duration-500 shadow-md" style="width: 50%;"></div>
+              <div class="h-1.5 rounded-full bg-black/60 p-0.5 border border-kem/10 overflow-hidden">
+                <div id="progress-fill" class="h-full rounded-full bg-gradient-to-r from-emerald-600/80 to-emerald-400/90 transition-all duration-500 shadow-sm" style="width: 50%;"></div>
               </div>
-              <div class="flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-slate-400">
+              <div class="flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-yen/80">
                 <span id="progress-status-desc">3 / 6 Buổi hoàn thành</span>
-                <span id="cert-condition-text" class="text-blue-300 font-medium">Cần thêm 3 buổi</span>
+                <span id="cert-condition-text" class="text-kem/90 font-medium">Cần thêm 3 buổi</span>
               </div>
             </div>
 
-            <!-- Primary Action: Open Certificate Button (Màu Xanh Sapphire Đậm, Không Dùng Màu Cam) -->
-            <button type="button" onclick="window.openCertificateModal()" style="background: linear-gradient(135deg, #101F33, #0A1624) !important; color: #93C5FD !important; border: 1.5px solid #2563EB !important;" class="w-full justify-center py-2 px-3 rounded-xl hover:!border-blue-400 hover:!text-white text-xs font-mono uppercase tracking-wider font-bold shadow-sm transition-all duration-200 cursor-pointer flex items-center gap-1.5">
+            <!-- Primary Action: Open Certificate Button (Kính Khói Trầm Tinh Tế, Viền Thanh Nhã) -->
+            <button type="button" onclick="window.openCertificateModal()" class="w-full justify-center py-2 px-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-kem hover:text-white border border-kem/20 hover:border-kem/40 text-xs font-mono uppercase tracking-wider font-semibold shadow-sm transition-all duration-200 cursor-pointer flex items-center gap-1.5">
               <span>Mở Giấy Chứng Nhận Tốt Nghiệp 🎓</span>
             </button>
 
             <!-- Quick Actions: Mark 100% & Reset -->
-            <div class="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-0.5">
-              <button type="button" onclick="window.markAllLessonsComplete()" class="hover:text-blue-300 cursor-pointer transition-colors">
+            <div class="flex items-center justify-between text-[10px] font-mono text-yen/70 pt-0.5">
+              <button type="button" onclick="window.markAllLessonsComplete()" class="hover:text-kem cursor-pointer transition-colors">
                 ✓ Hoàn thành 100%
               </button>
-              <button type="button" onclick="window.resetLessonProgress()" class="hover:text-red-400 cursor-pointer transition-colors">
+              <button type="button" onclick="window.resetLessonProgress()" class="hover:text-red-400/80 cursor-pointer transition-colors">
                 ↺ Đặt lại tiến độ
               </button>
             </div>
