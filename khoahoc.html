@@ -264,6 +264,37 @@
  color: #A64B0A;
  }
 
+ /* Light theme high-contrast & readability refinements */
+ html.theme-light .course-card {
+ background-color: #FFFFFF !important;
+ border-color: rgba(15, 23, 34, 0.16) !important;
+ box-shadow: 0 4px 20px rgba(15, 23, 34, 0.08) !important;
+ }
+ html.theme-light .course-card:hover {
+ border-color: #A64B0A !important;
+ box-shadow: 0 8px 30px rgba(166, 75, 10, 0.12) !important;
+ }
+ html.theme-light .text-amber-300,
+ html.theme-light .text-amber-200 {
+ color: #8C3B00 !important;
+ font-weight: 700 !important;
+ }
+ html.theme-light .text-amber-400 {
+ color: #B45309 !important;
+ font-weight: 700 !important;
+ }
+ html.theme-light .bg-amber-500\/20,
+ html.theme-light .bg-amber-500\/15,
+ html.theme-light .bg-amber-500\/10 {
+ background-color: rgba(184, 86, 15, 0.14) !important;
+ border-color: rgba(184, 86, 15, 0.35) !important;
+ color: #8C3B00 !important;
+ }
+ html.theme-light [class*="bg-black"],
+ html.theme-light [class*="bg-black"] * {
+ color: #FFFFFF !important;
+ }
+
  /* Course card styles inspired by reference image */
  .course-card {
  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
@@ -533,12 +564,12 @@
  </div>
 
  <!-- Top right Bookmark Button -->
- <button type="button" aria-label="Lưu vào danh sách yêu thích" onclick="event.stopPropagation(); window.toggleBookmark(this)" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 hover:bg-cam hover:text-abyssal text-kem border border-kem/20 flex items-center justify-center transition-colors">
+ <button type="button" aria-label="Lưu vào danh sách yêu thích" onclick="event.stopPropagation(); window.toggleBookmark(this)" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 hover:bg-cam hover:text-abyssal text-white border border-white/20 flex items-center justify-center transition-colors">
  <svg class="w-4 h-4 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
  </button>
 
  <!-- Bottom length badge -->
- <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-kem border border-kem/10">6 Buổi Zoom · 12 Giờ</span>
+ <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-white border border-white/20">6 Buổi Zoom · 12 Giờ</span>
  </div>
 
  <!-- Content Area -->
@@ -603,11 +634,11 @@
  </div>
  </div>
 
- <button type="button" aria-label="Lưu vào yêu thích" onclick="event.stopPropagation(); window.toggleBookmark(this)" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 hover:bg-cam hover:text-abyssal text-kem border border-kem/20 flex items-center justify-center transition-colors">
+ <button type="button" aria-label="Lưu vào yêu thích" onclick="event.stopPropagation(); window.toggleBookmark(this)" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 hover:bg-cam hover:text-abyssal text-white border border-white/20 flex items-center justify-center transition-colors">
  <svg class="w-4 h-4 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
  </button>
 
- <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-kem border border-kem/10">6 Chặng · Video HD + Excel</span>
+ <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-white border border-white/20">6 Chặng · Video HD + Excel</span>
  </div>
 
  <div class="p-5 space-y-3">
@@ -671,11 +702,11 @@
  </div>
  </div>
 
- <button type="button" aria-label="Lưu vào yêu thích" onclick="event.stopPropagation(); window.toggleBookmark(this)" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 hover:bg-cam hover:text-abyssal text-kem border border-kem/20 flex items-center justify-center transition-colors">
+ <button type="button" aria-label="Lưu vào yêu thích" onclick="event.stopPropagation(); window.toggleBookmark(this)" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 hover:bg-cam hover:text-abyssal text-white border border-white/20 flex items-center justify-center transition-colors">
  <svg class="w-4 h-4 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
  </button>
 
- <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-kem border border-kem/10">Trực Tiếp 20h30 Thứ Năm</span>
+ <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-white border border-white/20">Trực Tiếp 20h30 Thứ Năm</span>
  </div>
 
  <div class="p-5 space-y-3">
@@ -727,11 +758,11 @@
  </div>
  </div>
 
- <button type="button" aria-label="Lưu vào yêu thích" onclick="event.stopPropagation(); window.toggleBookmark(this)" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 hover:bg-cam hover:text-abyssal text-kem border border-kem/20 flex items-center justify-center transition-colors">
+ <button type="button" aria-label="Lưu vào yêu thích" onclick="event.stopPropagation(); window.toggleBookmark(this)" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 hover:bg-cam hover:text-abyssal text-white border border-white/20 flex items-center justify-center transition-colors">
  <svg class="w-4 h-4 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
  </button>
 
- <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-kem border border-kem/10">12 Tháng Đồng Hành · Cố Vấn 1-1</span>
+ <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-white border border-white/20">12 Tháng Đồng Hành · Cố Vấn 1-1</span>
  </div>
 
  <div class="p-5 space-y-3">
@@ -791,11 +822,11 @@
  </div>
  </div>
 
- <button type="button" aria-label="Lưu vào yêu thích" onclick="event.stopPropagation(); window.toggleBookmark(this)" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 hover:bg-cam hover:text-abyssal text-kem border border-kem/20 flex items-center justify-center transition-colors">
+ <button type="button" aria-label="Lưu vào yêu thích" onclick="event.stopPropagation(); window.toggleBookmark(this)" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 hover:bg-cam hover:text-abyssal text-white border border-white/20 flex items-center justify-center transition-colors">
  <svg class="w-4 h-4 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
  </button>
 
- <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-kem border border-kem/10">3 Buổi · Kèm bảng tính Snowball</span>
+ <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-white border border-white/20">3 Buổi · Kèm bảng tính Snowball</span>
  </div>
 
  <div class="p-5 space-y-3">
@@ -855,11 +886,11 @@
  </div>
  </div>
 
- <button type="button" aria-label="Lưu vào yêu thích" onclick="event.stopPropagation(); window.toggleBookmark(this)" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 hover:bg-cam hover:text-abyssal text-kem border border-kem/20 flex items-center justify-center transition-colors">
+ <button type="button" aria-label="Lưu vào yêu thích" onclick="event.stopPropagation(); window.toggleBookmark(this)" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 hover:bg-cam hover:text-abyssal text-white border border-white/20 flex items-center justify-center transition-colors">
  <svg class="w-4 h-4 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
  </button>
 
- <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-kem border border-kem/10">Workshop Thực Hành 4 Buổi</span>
+ <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-black/80 font-mono text-[10px] text-white border border-white/20">Workshop Thực Hành 4 Buổi</span>
  </div>
 
  <div class="p-5 space-y-3">
@@ -1085,7 +1116,7 @@
  </section>
 
  <!-- ==================== FOOTER ==================== -->
- <footer class="bg-nen-chan text-yen text-xs py-12 border-t border-kem/15">
+ <footer class="bg-nen-chan text-yen text-xs pt-12 pb-24 sm:pb-28 border-t border-kem/15">
  <div class="max-w-dtv mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
  <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
  

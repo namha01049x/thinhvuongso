@@ -259,6 +259,116 @@
  color: #A64B0A;
  }
 
+ /* Light theme high-contrast & readability refinements */
+ html.theme-light .related-course-card {
+ background: #FFFFFF !important;
+ border-color: rgba(15, 23, 34, 0.16) !important;
+ box-shadow: 0 4px 20px rgba(15, 23, 34, 0.08) !important;
+ }
+ html.theme-light .related-course-card:hover {
+ border-color: #A64B0A !important;
+ box-shadow: 0 8px 30px rgba(166, 75, 10, 0.12) !important;
+ }
+ html.theme-light .related-course-card a {
+ background-color: #F8F5EE !important;
+ border-color: rgba(15, 23, 34, 0.2) !important;
+ color: #0F1722 !important;
+ }
+ html.theme-light .related-course-card a:hover {
+ background-color: #B8560F !important;
+ border-color: #B8560F !important;
+ color: #FFFFFF !important;
+ }
+ html.theme-light .course-card {
+ background-color: #FFFFFF !important;
+ border-color: rgba(15, 23, 34, 0.16) !important;
+ box-shadow: 0 4px 20px rgba(15, 23, 34, 0.08) !important;
+ }
+ html.theme-light .course-card:hover {
+ border-color: #A64B0A !important;
+ box-shadow: 0 8px 30px rgba(166, 75, 10, 0.12) !important;
+ }
+ html.theme-light .sticky-enroll-card > div {
+ background: #FFFFFF !important;
+ border-color: rgba(166, 75, 10, 0.45) !important;
+ box-shadow: 0 10px 30px rgba(15, 23, 34, 0.1) !important;
+ }
+ html.theme-light .sticky-enroll-card #tien-do-hoc-tap,
+ html.theme-light .sticky-enroll-card #mentor {
+ background-color: #FAF8F3 !important;
+ }
+ html.theme-light #countdown-timer-box {
+ background-color: #FAF8F3 !important;
+ border-color: rgba(166, 75, 10, 0.3) !important;
+ }
+ html.theme-light #countdown-timer-box [id^="timer-"] {
+ background-color: #FFFFFF !important;
+ border-color: rgba(15, 23, 34, 0.15) !important;
+ color: #0F1722 !important;
+ }
+ html.theme-light #countdown-timer-box #timer-secs {
+ background-color: rgba(166, 75, 10, 0.12) !important;
+ border-color: rgba(166, 75, 10, 0.4) !important;
+ color: #8C3B00 !important;
+ }
+ html.theme-light #lms-lesson-list > div {
+ background-color: #FFFFFF !important;
+ border-color: rgba(15, 23, 34, 0.16) !important;
+ box-shadow: 0 2px 10px rgba(15, 23, 34, 0.04) !important;
+ }
+ html.theme-light #lms-lesson-list > div > div:first-child {
+ background: #FAF8F3 !important;
+ border-color: rgba(15, 23, 34, 0.12) !important;
+ }
+ html.theme-light .text-amber-300,
+ html.theme-light .text-amber-200 {
+ color: #8C3B00 !important;
+ font-weight: 700 !important;
+ }
+ html.theme-light .text-amber-400 {
+ color: #B45309 !important;
+ font-weight: 700 !important;
+ }
+ html.theme-light .bg-amber-500\/20,
+ html.theme-light .bg-amber-500\/15,
+ html.theme-light .bg-amber-500\/10 {
+ background-color: rgba(184, 86, 15, 0.14) !important;
+ border-color: rgba(184, 86, 15, 0.35) !important;
+ color: #8C3B00 !important;
+ }
+ html.theme-light .text-green-300,
+ html.theme-light .text-green-400,
+ html.theme-light .text-emerald-300,
+ html.theme-light .text-emerald-400 {
+ color: #15803D !important;
+ font-weight: 600 !important;
+ }
+ html.theme-light .bg-green-500\/20,
+ html.theme-light .bg-green-500\/10,
+ html.theme-light .bg-emerald-500\/20,
+ html.theme-light .bg-emerald-500\/10 {
+ background-color: rgba(22, 101, 52, 0.12) !important;
+ border-color: rgba(22, 101, 52, 0.3) !important;
+ color: #15803D !important;
+ }
+ html.theme-light .text-red-300,
+ html.theme-light .text-red-400 {
+ color: #B91C1C !important;
+ font-weight: 600 !important;
+ }
+ html.theme-light .bg-red-950\/20 {
+ background-color: rgba(220, 38, 38, 0.08) !important;
+ border-color: rgba(220, 38, 38, 0.25) !important;
+ }
+ html.theme-light .bg-green-950\/20 {
+ background-color: rgba(22, 101, 52, 0.08) !important;
+ border-color: rgba(22, 101, 52, 0.25) !important;
+ }
+ html.theme-light [class*="bg-black"],
+ html.theme-light [class*="bg-black"] * {
+ color: #FFFFFF !important;
+ }
+
  /* Course card styles inspired by reference image */
  .course-card {
  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
@@ -1965,7 +2075,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
       <!-- Khóa 1: Bình Dân Học Vụ Tài Chính (Tầng 1) -->
-      <div class="group bg-gradient-to-b from-[#15202B] to-[#0F1722] rounded-2xl border border-kem/15 hover:border-cam/50 p-4 sm:p-5 transition-all duration-300 hover:shadow-xl hover:shadow-cam/10 flex flex-col justify-between">
+      <div class="related-course-card group bg-gradient-to-b from-[#15202B] to-[#0F1722] rounded-2xl border border-kem/15 hover:border-cam/50 p-4 sm:p-5 transition-all duration-300 hover:shadow-xl hover:shadow-cam/10 flex flex-col justify-between">
         <div>
           <!-- Ảnh đại diện tỷ lệ 16:10 có hiệu ứng phóng to nhẹ khi rê chuột -->
           <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-abyssal mb-4 border border-kem/10">
@@ -2012,7 +2122,7 @@
       </div>
 
       <!-- Khóa 2: Tinh Hoa Thịnh Vượng (Tầng 3) -->
-      <div class="group bg-gradient-to-b from-[#15202B] to-[#0F1722] rounded-2xl border border-kem/15 hover:border-cam/50 p-4 sm:p-5 transition-all duration-300 hover:shadow-xl hover:shadow-cam/10 flex flex-col justify-between">
+      <div class="related-course-card group bg-gradient-to-b from-[#15202B] to-[#0F1722] rounded-2xl border border-kem/15 hover:border-cam/50 p-4 sm:p-5 transition-all duration-300 hover:shadow-xl hover:shadow-cam/10 flex flex-col justify-between">
         <div>
           <!-- Ảnh đại diện tỷ lệ 16:10 -->
           <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-abyssal mb-4 border border-kem/10">
@@ -2059,7 +2169,7 @@
       </div>
 
       <!-- Khóa 3: Ứng Dụng AI & Báo Cáo Dữ Liệu Tài Chính Cá Nhân Số Thật -->
-      <div class="group bg-gradient-to-b from-[#15202B] to-[#0F1722] rounded-2xl border border-kem/15 hover:border-cam/50 p-4 sm:p-5 transition-all duration-300 hover:shadow-xl hover:shadow-cam/10 flex flex-col justify-between">
+      <div class="related-course-card group bg-gradient-to-b from-[#15202B] to-[#0F1722] rounded-2xl border border-kem/15 hover:border-cam/50 p-4 sm:p-5 transition-all duration-300 hover:shadow-xl hover:shadow-cam/10 flex flex-col justify-between">
         <div>
           <!-- Ảnh đại diện tỷ lệ 16:10 -->
           <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-abyssal mb-4 border border-kem/10">
@@ -2110,7 +2220,7 @@
 </section>
 
  <!-- ==================== FOOTER ==================== -->
- <footer class="bg-nen-chan text-yen text-xs py-12 border-t border-kem/15">
+ <footer class="bg-nen-chan text-yen text-xs pt-12 pb-28 sm:pb-32 border-t border-kem/15">
  <div class="max-w-dtv mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
  <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
  
@@ -2137,7 +2247,8 @@
  Hệ sinh thái giáo dục và huấn luyện tài chính thực chiến độc quyền. Đồng hành cùng hàng ngàn cá nhân và gia đình làm chủ dòng tiền, xây dựng đòn bẩy và tích sản vững vàng.
  </p>
  <p class="font-mono text-[11px] text-yen">
- Đơn vị chủ quản: Công ty TNHH Thịnh Vượng Số<br />
+ Đơn vị chủ quản: Công ty TNHH Thịnh Vượng Số · MSDN: 0111281148<br />
+ Nhà sáng lập & Mentor: <strong class="text-kem font-semibold">Trần Nam Hà</strong> · Đại diện pháp luật: Phan Trọng Quỳnh<br />
  Địa chỉ: Tầng 6, Tháp Tây, Tòa nhà Golden Palace, Đường Mễ Trì, Phường Mễ Trì, Quận Nam Từ Liêm, Hà Nội.<br />
  Hotline: <strong class="text-cam">0981501865</strong> · Email: contact@thinhvuongso.vn
  </p>
@@ -2277,7 +2388,7 @@
           </div>
 
           <!-- Top live badge -->
-          <div class="absolute top-3 left-3 flex items-center gap-2 px-2.5 py-1 rounded bg-black/75 border border-kem/20 font-mono text-[11px] text-kem backdrop-blur-sm">
+          <div class="absolute top-3 left-3 flex items-center gap-2 px-2.5 py-1 rounded bg-black/75 border border-white/20 font-mono text-[11px] text-white backdrop-blur-sm">
             <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
             <span>Phòng Zoom Thịnh Vượng Số Private · Giảng viên: Trần Nam Hà</span>
           </div>
