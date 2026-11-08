@@ -1479,11 +1479,531 @@
       }, 600);
     };
 
+
+    /* ============================================================
+       THỊNH VƯỢNG SỐ · HỆ THỐNG BẢO VỆ THIẾT BỊ & PHIÊN ĐĂNG NHẬP
+       Quy định: Tối đa 1 Máy tính, 2 Điện thoại, 1 Tab trình duyệt
+       ============================================================ */
+    var TVS_DEV_ID_KEY = 'tvs_device_id_v2';
+    var TVS_DEV_REG_KEY = 'tvs_device_registry_v2';
+    var TVS_TAB_ACTIVE_KEY = 'tvs_tab_active_session_';
+    var MAX_DESKTOPS = 1;
+    var MAX_MOBILES = 2;
+    var MAX_TABS = 1;
+
+    var currentTabId = 'tab_' + Date.now().toString(36) + '_' + Math.random().toString(36).substr(2, 6);
+    sessionStorage.setItem('tvs_current_tab_id', currentTabId);
+
+    var tabChannel = null;
+    try {
+      if (typeof BroadcastChannel !== 'undefined') {
+        tabChannel = new BroadcastChannel('tvs_student_tab_coordination');
+      }
+    } catch(e) {}
+
+    // 1. Nhận diện thiết bị (Device Detection)
+    window.detectDeviceType = function() {
+      var ua = navigator.userAgent || '';
+      var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) || 
+                     (navigator.maxTouchPoints > 1 && /Macintosh/i.test(ua)) || 
+                     window.innerWidth <= 768;
+      return isMobile ? 'mobile' : 'desktop';
+    };
+
+    window.getOrGenerateDeviceId = function() {
+      var devId = localStorage.getItem(TVS_DEV_ID_KEY);
+      if (!devId) {
+        var type = window.detectDeviceType();
+        devId = 'dev_' + type + '_' + Date.now().toString(36) + '_' + Math.random().toString(36).substr(2, 6);
+        localStorage.setItem(TVS_DEV_ID_KEY, devId);
+      }
+      return devId;
+    };
+
+    window.getFriendlyDeviceName = function() {
+      var ua = navigator.userAgent || '';
+      var type = window.detectDeviceType();
+      var os = 'Thiết bị';
+      if (/iPhone/i.test(ua)) os = 'iPhone';
+      else if (/iPad/i.test(ua)) os = 'iPad';
+      else if (/Android/i.test(ua)) os = 'Android Phone';
+      else if (/Macintosh|Mac OS X/i.test(ua)) os = 'Mac / MacBook';
+      else if (/Windows/i.test(ua)) os = 'Windows PC';
+      else if (/Linux/i.test(ua)) os = 'Linux PC';
+
+      var browser = 'Browser';
+      if (/Edg/i.test(ua)) browser = 'Edge';
+      else if (/Chrome/i.test(ua) && !/Edg/i.test(ua)) browser = 'Chrome';
+      else if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) browser = 'Safari';
+      else if (/Firefox/i.test(ua)) browser = 'Firefox';
+
+      return (type === 'desktop' ? '💻 ' : '📱 ') + os + ' · ' + browser;
+    };
+
+    // 2. Cơ sở dữ liệu Registry thiết bị theo từng học viên
+    window.getDeviceRegistry = function(accountId) {
+      var acc = String(accountId || '').trim();
+      if (!acc) return { desktops: [], mobiles: [] };
+      try {
+        var raw = localStorage.getItem(TVS_DEV_REG_KEY);
+        if (raw) {
+          var parsed = JSON.parse(raw);
+          if (parsed && parsed[acc]) {
+            var reg = parsed[acc];
+            if (!Array.isArray(reg.desktops)) reg.desktops = [];
+            if (!Array.isArray(reg.mobiles)) reg.mobiles = [];
+            return reg;
+          }
+        }
+      } catch(e) {}
+      return { desktops: [], mobiles: [] };
+    };
+
+    window.saveDeviceRegistry = function(accountId, regData) {
+      var acc = String(accountId || '').trim();
+      if (!acc) return;
+      try {
+        var raw = localStorage.getItem(TVS_DEV_REG_KEY);
+        var all = raw ? JSON.parse(raw) : {};
+        all[acc] = regData;
+        localStorage.setItem(TVS_DEV_REG_KEY, JSON.stringify(all));
+      } catch(e) {}
+    };
+
+    // 3. Kiểm tra định mức thiết bị khi đăng nhập
+    window.checkDeviceLoginAllowed = function(accountId) {
+      var acc = String(accountId || '').trim();
+      if (!acc) return { allowed: true };
+
+      var reg = window.getDeviceRegistry(acc);
+      var curDevId = window.getOrGenerateDeviceId();
+      var curType = window.detectDeviceType();
+
+      if (curType === 'desktop') {
+        var exists = reg.desktops.some(function(d) { return d.id === curDevId; });
+        if (exists) {
+          return { allowed: true, type: 'desktop', exists: true, registry: reg };
+        }
+        if (reg.desktops.length >= MAX_DESKTOPS) {
+          return { 
+            allowed: false, 
+            type: 'desktop', 
+            reason: 'EXCEED_DESKTOP', 
+            limit: MAX_DESKTOPS,
+            currentCount: reg.desktops.length,
+            registry: reg 
+          };
+        }
+        return { allowed: true, type: 'desktop', exists: false, registry: reg };
+      } else {
+        var existsM = reg.mobiles.some(function(m) { return m.id === curDevId; });
+        if (existsM) {
+          return { allowed: true, type: 'mobile', exists: true, registry: reg };
+        }
+        if (reg.mobiles.length >= MAX_MOBILES) {
+          return { 
+            allowed: false, 
+            type: 'mobile', 
+            reason: 'EXCEED_MOBILE', 
+            limit: MAX_MOBILES,
+            currentCount: reg.mobiles.length,
+            registry: reg 
+          };
+        }
+        return { allowed: true, type: 'mobile', exists: false, registry: reg };
+      }
+    };
+
+    // 4. Đăng ký thiết bị hiện tại vào CSDL học viên
+    window.registerCurrentDevice = function(accountId) {
+      var acc = String(accountId || '').trim();
+      if (!acc) return;
+
+      var reg = window.getDeviceRegistry(acc);
+      var curDevId = window.getOrGenerateDeviceId();
+      var curType = window.detectDeviceType();
+      var curName = window.getFriendlyDeviceName();
+      var now = new Date();
+      var timeFormatted = (now.getHours() < 10 ? '0' : '') + now.getHours() + ':' +
+                          (now.getMinutes() < 10 ? '0' : '') + now.getMinutes() + ' ' +
+                          now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear();
+
+      var devObj = {
+        id: curDevId,
+        name: curName,
+        type: curType,
+        loginAt: timeFormatted,
+        lastActive: Date.now()
+      };
+
+      if (curType === 'desktop') {
+        var idx = reg.desktops.findIndex(function(d) { return d.id === curDevId; });
+        if (idx >= 0) {
+          reg.desktops[idx].lastActive = Date.now();
+          reg.desktops[idx].loginAt = timeFormatted;
+          reg.desktops[idx].name = curName;
+        } else {
+          reg.desktops.push(devObj);
+        }
+      } else {
+        var idxM = reg.mobiles.findIndex(function(m) { return m.id === curDevId; });
+        if (idxM >= 0) {
+          reg.mobiles[idxM].lastActive = Date.now();
+          reg.mobiles[idxM].loginAt = timeFormatted;
+          reg.mobiles[idxM].name = curName;
+        } else {
+          reg.mobiles.push(devObj);
+        }
+      }
+
+      window.saveDeviceRegistry(acc, reg);
+      window.updateDeviceUI();
+    };
+
+    // 5. Thu hồi quyền thiết bị cụ thể
+    window.revokeSpecificDevice = function(devId) {
+      var active = (typeof getActiveStudent === 'function') ? getActiveStudent() : null;
+      var acc = active ? (active.phone || active.id) : (window._pendingStudentLogin ? (window._pendingStudentLogin.phone || window._pendingStudentLogin.id) : null);
+      if (!acc) return;
+
+      var reg = window.getDeviceRegistry(acc);
+      reg.desktops = reg.desktops.filter(function(d) { return d.id !== devId; });
+      reg.mobiles = reg.mobiles.filter(function(m) { return m.id !== devId; });
+      window.saveDeviceRegistry(acc, reg);
+
+      var curDevId = window.getOrGenerateDeviceId();
+      if (devId === curDevId && typeof window.studentLogout === 'function') {
+        window.studentLogout();
+        return;
+      }
+
+      window.renderDeviceManagementList(acc);
+      window.updateDeviceUI();
+    };
+
+    // 6. Tự động đăng xuất thiết bị cũ nhất và cho phép thiết bị hiện tại
+    window.replaceOldestDeviceAndContinue = function() {
+      var student = window._pendingStudentLogin || ((typeof getActiveStudent === 'function') ? getActiveStudent() : null);
+      if (!student) {
+        window.closeDeviceLimitModal();
+        return;
+      }
+      var acc = student.phone || student.id;
+      var reg = window.getDeviceRegistry(acc);
+      var curType = window.detectDeviceType();
+
+      if (curType === 'desktop') {
+        if (reg.desktops.length > 0) {
+          reg.desktops.sort(function(a, b) { return (a.lastActive || 0) - (b.lastActive || 0); });
+          reg.desktops.shift();
+        }
+      } else {
+        if (reg.mobiles.length > 0) {
+          reg.mobiles.sort(function(a, b) { return (a.lastActive || 0) - (b.lastActive || 0); });
+          reg.mobiles.shift();
+        }
+      }
+
+      window.saveDeviceRegistry(acc, reg);
+      window.registerCurrentDevice(acc);
+      window.closeDeviceLimitModal();
+
+      if (window._pendingStudentLogin) {
+        var p = window._pendingStudentLogin;
+        window._pendingStudentLogin = null;
+        if (typeof setActiveStudent === 'function') {
+          setActiveStudent(p);
+        }
+        if (typeof applyStudentAuthState === 'function') {
+          applyStudentAuthState(p);
+        }
+        if (typeof renderLessonProgressUI === 'function') {
+          renderLessonProgressUI(p.completedLessons || []);
+        }
+        var msg = document.getElementById('login-status-msg');
+        if (msg) {
+          msg.classList.remove('hidden', 'bg-red-900/40', 'text-red-200');
+          msg.classList.add('bg-green-900/40', 'text-green-200', 'border', 'border-green-500/50');
+          msg.innerHTML = '<strong>Đăng nhập thành công!</strong> Đã liên kết thiết bị này và kích hoạt phiên học tập cho học viên <strong>' + p.name + '</strong>.';
+        }
+      }
+    };
+
+    // 7. Đặt lại tất cả thiết bị cho tài khoản
+    window.resetAllDevicesForAccount = function() {
+      var student = window._pendingStudentLogin || ((typeof getActiveStudent === 'function') ? getActiveStudent() : null);
+      if (!student) return;
+      var acc = student.phone || student.id;
+      if (confirm('Bạn có chắc chắn muốn đặt lại (xóa toàn bộ liên kết thiết bị cũ) để đăng nhập lại từ đầu trên thiết bị này?')) {
+        window.saveDeviceRegistry(acc, { desktops: [], mobiles: [] });
+        window.registerCurrentDevice(acc);
+        window.renderDeviceManagementList(acc);
+        window.updateDeviceUI();
+        alert('Đã đặt lại toàn bộ thiết bị liên kết thành công!');
+        if (window._pendingStudentLogin) {
+          window.replaceOldestDeviceAndContinue();
+        }
+      }
+    };
+
+    // 8. Giả lập thiết bị để thử nghiệm (Simulator)
+    window.simulateExceedDevice = function(type) {
+      var student = (typeof getActiveStudent === 'function') ? getActiveStudent() : null;
+      if (!student) {
+        student = { id: '0981501865', phone: '0981501865', name: 'Mentor Trần Nam Hà' };
+      }
+      var acc = student.phone || student.id;
+      var reg = window.getDeviceRegistry(acc);
+
+      var dummyTime = '10:00 08/11/2026';
+      if (type === 'desktop') {
+        reg.desktops.push({
+          id: 'dev_desktop_sim_' + Date.now(),
+          name: '💻 Laptop ASUS Zenbook · Windows 11 (Giả lập)',
+          type: 'desktop',
+          loginAt: dummyTime,
+          lastActive: Date.now() - 3600000
+        });
+      } else {
+        reg.mobiles.push({
+          id: 'dev_mobile_sim_' + Date.now(),
+          name: '📱 iPhone 14 Pro Max · iOS Safari (Giả lập)',
+          type: 'mobile',
+          loginAt: dummyTime,
+          lastActive: Date.now() - 7200000
+        });
+      }
+
+      window.saveDeviceRegistry(acc, reg);
+      window.openDeviceManagementModal(acc, type === 'desktop' ? 'Mô phỏng vượt quá 1 máy tính' : 'Mô phỏng vượt quá 2 điện thoại');
+    };
+
+    // 9. Mở & Đóng Modal Cảnh Báo Thiết Bị
+    window.openDeviceManagementModal = function(specificAcc, customReason) {
+      var modal = document.getElementById('device-limit-warning-modal');
+      if (!modal) return;
+
+      var student = (typeof getActiveStudent === 'function') ? getActiveStudent() : null;
+      var acc = specificAcc || (student ? (student.phone || student.id) : (window._pendingStudentLogin ? (window._pendingStudentLogin.phone || window._pendingStudentLogin.id) : '0981501865'));
+
+      window.renderDeviceManagementList(acc, customReason);
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.closeDeviceLimitModal = function() {
+      var modal = document.getElementById('device-limit-warning-modal');
+      if (modal) modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    };
+
+    // 10. Render danh sách thiết bị trong modal
+    window.renderDeviceManagementList = function(accountId, customAlertReason) {
+      var reg = window.getDeviceRegistry(accountId);
+      var curDevId = window.getOrGenerateDeviceId();
+      var curType = window.detectDeviceType();
+
+      var quotaDesktop = document.getElementById('quota-val-desktop');
+      var quotaMobile = document.getElementById('quota-val-mobile');
+      var quotaStatusDesk = document.getElementById('quota-status-desktop');
+      var quotaStatusMob = document.getElementById('quota-status-mobile');
+      var quotaBoxDesk = document.getElementById('quota-box-desktop');
+      var quotaBoxMob = document.getElementById('quota-box-mobile');
+      var badgeCount = document.getElementById('device-count-badge');
+
+      var deskCount = reg.desktops.length;
+      var mobCount = reg.mobiles.length;
+
+      if (quotaDesktop) quotaDesktop.textContent = deskCount + ' / ' + MAX_DESKTOPS;
+      if (quotaMobile) quotaMobile.textContent = mobCount + ' / ' + MAX_MOBILES;
+      if (badgeCount) badgeCount.textContent = (deskCount + mobCount) + ' / 3 thiết bị';
+
+      if (quotaStatusDesk && quotaBoxDesk) {
+        if (deskCount > MAX_DESKTOPS) {
+          quotaStatusDesk.textContent = 'Vượt quá quy định!';
+          quotaStatusDesk.className = 'text-[9.5px] text-red-400 font-bold';
+          quotaBoxDesk.className = 'p-2 sm:p-2.5 rounded-lg bg-red-950/40 border-2 border-red-500/80 space-y-1';
+        } else if (deskCount === MAX_DESKTOPS) {
+          quotaStatusDesk.textContent = 'Đã đạt tối đa';
+          quotaStatusDesk.className = 'text-[9.5px] text-amber-300 font-semibold';
+          quotaBoxDesk.className = 'p-2 sm:p-2.5 rounded-lg bg-nen-sau border border-amber-500/40 space-y-1';
+        } else {
+          quotaStatusDesk.textContent = 'Còn trống ' + (MAX_DESKTOPS - deskCount);
+          quotaStatusDesk.className = 'text-[9.5px] text-green-400 font-semibold';
+          quotaBoxDesk.className = 'p-2 sm:p-2.5 rounded-lg bg-nen-sau border border-kem/15 space-y-1';
+        }
+      }
+
+      if (quotaStatusMob && quotaBoxMob) {
+        if (mobCount > MAX_MOBILES) {
+          quotaStatusMob.textContent = 'Vượt quá quy định!';
+          quotaStatusMob.className = 'text-[9.5px] text-red-400 font-bold';
+          quotaBoxMob.className = 'p-2 sm:p-2.5 rounded-lg bg-red-950/40 border-2 border-red-500/80 space-y-1';
+        } else if (mobCount === MAX_MOBILES) {
+          quotaStatusMob.textContent = 'Đã đạt tối đa';
+          quotaStatusMob.className = 'text-[9.5px] text-amber-300 font-semibold';
+          quotaBoxMob.className = 'p-2 sm:p-2.5 rounded-lg bg-nen-sau border border-amber-500/40 space-y-1';
+        } else {
+          quotaStatusMob.textContent = 'Còn trống ' + (MAX_MOBILES - mobCount);
+          quotaStatusMob.className = 'text-[9.5px] text-green-400 font-semibold';
+          quotaBoxMob.className = 'p-2 sm:p-2.5 rounded-lg bg-nen-sau border border-kem/15 space-y-1';
+        }
+      }
+
+      var alertBox = document.getElementById('device-exceed-alert');
+      var alertDetail = document.getElementById('device-exceed-detail');
+      if (alertBox && alertDetail) {
+        if (customAlertReason || (curType === 'desktop' && deskCount >= MAX_DESKTOPS && !reg.desktops.some(function(d){ return d.id === curDevId; })) ||
+                                  (curType === 'mobile' && mobCount >= MAX_MOBILES && !reg.mobiles.some(function(m){ return m.id === curDevId; }))) {
+          alertBox.classList.remove('hidden');
+          var msg = customAlertReason;
+          if (!msg) {
+            if (curType === 'desktop') {
+              msg = 'Tài khoản của bạn đã đạt giới hạn 1 máy tính. Thiết bị máy tính mới này chưa được liên kết. Vui lòng bấm [Đăng Xuất Thiết Bị Cũ & Đăng Nhập Trên Thiết Bị Này] để tiếp tục.';
+            } else {
+              msg = 'Tài khoản của bạn đã đạt giới hạn 2 điện thoại. Thiết bị điện thoại mới này chưa được liên kết. Vui lòng bấm [Đăng Xuất Thiết Bị Cũ & Đăng Nhập Trên Thiết Bị Này] để tiếp tục.';
+            }
+          }
+          alertDetail.textContent = msg;
+        } else {
+          alertBox.classList.add('hidden');
+        }
+      }
+
+      var listEl = document.getElementById('registered-devices-list');
+      if (!listEl) return;
+
+      var allDevs = [];
+      reg.desktops.forEach(function(d) { allDevs.push(d); });
+      reg.mobiles.forEach(function(m) { allDevs.push(m); });
+
+      if (allDevs.length === 0) {
+        listEl.innerHTML = '<div class="p-3 rounded-lg bg-abyssal/60 border border-kem/10 text-xs text-yen text-center">Chưa có thiết bị nào được liên kết. Thiết bị hiện tại sẽ được tự động kích hoạt.</div>';
+        return;
+      }
+
+      var html = '';
+      allDevs.forEach(function(dev) {
+        var isCurrent = (dev.id === curDevId);
+        html += '<div class="p-2.5 sm:p-3 rounded-xl ' + (isCurrent ? 'bg-cam/10 border-cam/60' : 'bg-abyssal/90 border-kem/15') + ' border flex items-center justify-between gap-3 text-xs">';
+        html += '  <div class="space-y-0.5 min-w-0 flex-1">';
+        html += '    <div class="flex items-center gap-1.5 flex-wrap">';
+        html += '      <strong class="text-kem text-xs sm:text-[13px] truncate">' + dev.name + '</strong>';
+        if (isCurrent) {
+          html += '    <span class="px-1.5 py-0.2 rounded bg-cam text-abyssal font-mono text-[9px] font-bold uppercase">Hiện tại</span>';
+        }
+        html += '    </div>';
+        html += '    <div class="text-[10.5px] font-mono text-yen">';
+        html += '      <span>Loại: ' + (dev.type === 'desktop' ? 'Máy tính' : 'Điện thoại') + '</span> · ';
+        html += '      <span>Đăng nhập: ' + (dev.loginAt || 'Hôm nay') + '</span>';
+        html += '    </div>';
+        html += '  </div>';
+        html += '  <button type="button" onclick="window.revokeSpecificDevice(&quot;\' + dev.id + \'&quot;)" class="px-2.5 py-1 rounded-lg bg-red-950/60 hover:bg-red-900 border border-red-500/40 text-red-300 hover:text-white font-mono text-[10px] shrink-0 cursor-pointer transition-colors" title="Thu hồi / Đăng xuất thiết bị này">';
+        html += '    Đăng xuất ✕';
+        html += '  </button>';
+        html += '</div>';
+      });
+
+      listEl.innerHTML = html;
+    };
+
+    // 11. Cập nhật nhãn tóm tắt thiết bị ở Dashboard
+    window.updateDeviceUI = function() {
+      var student = (typeof getActiveStudent === 'function') ? getActiveStudent() : null;
+      if (!student) return;
+      var acc = student.phone || student.id;
+      var reg = window.getDeviceRegistry(acc);
+
+      var el = document.getElementById('dash-device-summary');
+      if (el) {
+        el.textContent = '💻 ' + reg.desktops.length + '/1 · 📱 ' + reg.mobiles.length + '/2 · 📑 1 Tab';
+      }
+    };
+
+    // 12. HỆ THỐNG ĐIỀU PHỐI 1 TAB DUY NHẤT (SINGLE TAB COORDINATOR)
+    window.initSingleTabCoordinator = function() {
+      var student = (typeof getActiveStudent === 'function') ? getActiveStudent() : null;
+      if (!student) return;
+      var acc = student.phone || student.id;
+
+      var now = Date.now();
+      var heartbeatData = { tabId: currentTabId, time: now, acc: acc };
+      localStorage.setItem(TVS_TAB_ACTIVE_KEY + acc, JSON.stringify(heartbeatData));
+
+      if (tabChannel) {
+        tabChannel.postMessage({ action: 'CLAIM_TAB', tabId: currentTabId, acc: acc });
+      }
+
+      if (tabChannel) {
+        tabChannel.onmessage = function(ev) {
+          if (!ev || !ev.data) return;
+          var data = ev.data;
+          if (data.acc === acc && data.action === 'CLAIM_TAB' && data.tabId !== currentTabId) {
+            window.showSingleTabWarning();
+          }
+        };
+      }
+
+      window.addEventListener('storage', function(e) {
+        if (e.key === TVS_TAB_ACTIVE_KEY + acc && e.newValue) {
+          try {
+            var data = JSON.parse(e.newValue);
+            if (data.tabId && data.tabId !== currentTabId) {
+              window.showSingleTabWarning();
+            }
+          } catch(err) {}
+        }
+      });
+
+      setInterval(function() {
+        var curSt = (typeof getActiveStudent === 'function') ? getActiveStudent() : null;
+        if (curSt) {
+          var cAcc = curSt.phone || curSt.id;
+          var modal = document.getElementById('single-tab-warning-modal');
+          if (!modal || modal.classList.contains('hidden')) {
+            localStorage.setItem(TVS_TAB_ACTIVE_KEY + cAcc, JSON.stringify({ tabId: currentTabId, time: Date.now(), acc: cAcc }));
+          }
+        }
+      }, 3000);
+    };
+
+    window.showSingleTabWarning = function() {
+      var modal = document.getElementById('single-tab-warning-modal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        var vids = document.querySelectorAll('video');
+        vids.forEach(function(v) { if (v && !v.paused) v.pause(); });
+      }
+    };
+
+    window.claimActiveTabSession = function() {
+      var student = (typeof getActiveStudent === 'function') ? getActiveStudent() : null;
+      if (!student) return;
+      var acc = student.phone || student.id;
+
+      var heartbeatData = { tabId: currentTabId, time: Date.now(), acc: acc };
+      localStorage.setItem(TVS_TAB_ACTIVE_KEY + acc, JSON.stringify(heartbeatData));
+
+      if (tabChannel) {
+        tabChannel.postMessage({ action: 'CLAIM_TAB', tabId: currentTabId, acc: acc });
+      }
+
+      var modal = document.getElementById('single-tab-warning-modal');
+      if (modal) modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    };
+
+
     // Khởi chạy khi tải trang
     document.addEventListener('DOMContentLoaded', function() {
       syncThemeUI();
       var student = getActiveStudent();
       renderStudentData(student);
+      if (student) {
+        window.registerCurrentDevice(student.phone || student.id);
+        window.initSingleTabCoordinator();
+      }
     });
   </script>
 
@@ -1560,6 +2080,158 @@
     </div>
   </div>
 
+
+
+<!-- ==================== CẢNH BÁO ĐĂNG NHẬP NHIỀU THIẾT BỊ (TỐI ĐA 1 MÁY TÍNH, 2 ĐIỆN THOẠI, 1 TAB) ==================== -->
+<div id="device-limit-warning-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-abyssal/90 backdrop-blur-md overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="device-modal-title">
+  <div class="relative w-full max-w-lg bg-nen-sau border-2 border-cam/60 rounded-2xl p-5 sm:p-7 shadow-2xl space-y-4 sm:space-y-5 text-left my-6 animate-fade-in">
+    
+    <!-- Nút Đóng -->
+    <button type="button" onclick="window.closeDeviceLimitModal()" aria-label="Đóng" class="absolute top-4 right-4 w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-abyssal/80 border border-kem/20 text-yen hover:text-cam flex items-center justify-center transition-colors cursor-pointer text-base sm:text-lg font-bold">
+      ✕
+    </button>
+
+    <!-- Header Modal -->
+    <div class="space-y-2 pr-8">
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cam/15 border border-cam/40 text-cam font-mono text-[10.5px] font-bold uppercase tracking-wider">
+        <span>🛡️</span>
+        <span>Bảo Vệ Tài Khoản Học Viên · Thịnh Vượng Số</span>
+      </div>
+      <h3 id="device-modal-title" class="text-lg sm:text-2xl font-bold text-kem leading-snug">
+        Cảnh Báo Thiết Bị Đăng Nhập
+      </h3>
+      <p id="device-modal-desc" class="text-xs sm:text-[12.5px] text-yen leading-relaxed">
+        Chính sách bảo mật Thịnh Vượng Số quy định mỗi tài khoản học viên chỉ được liên kết tối đa <strong class="text-cam">1 máy tính</strong>, <strong class="text-cam">2 điện thoại</strong> và <strong class="text-cam">1 tab trình duyệt</strong> hoạt động cùng lúc.
+      </p>
+    </div>
+
+    <!-- Hộp Thống Kê Định Mức Thiết Bị (Device Quota Overview Grid) -->
+    <div class="grid grid-cols-3 gap-2 sm:gap-2.5 p-3 rounded-xl bg-abyssal/90 border border-kem/15 text-center font-mono text-xs">
+      <!-- Cột Máy Tính -->
+      <div id="quota-box-desktop" class="p-2 sm:p-2.5 rounded-lg bg-nen-sau border border-kem/15 space-y-1">
+        <div class="text-base sm:text-lg">💻</div>
+        <div class="text-[10px] text-yen uppercase font-medium">Máy Tính</div>
+        <div id="quota-val-desktop" class="font-bold text-xs sm:text-sm text-kem">1 / 1</div>
+        <div id="quota-status-desktop" class="text-[9.5px] text-green-400 font-semibold">Tối đa 1 máy</div>
+      </div>
+      <!-- Cột Điện Thoại -->
+      <div id="quota-box-mobile" class="p-2 sm:p-2.5 rounded-lg bg-nen-sau border border-kem/15 space-y-1">
+        <div class="text-base sm:text-lg">📱</div>
+        <div class="text-[10px] text-yen uppercase font-medium">Điện Thoại</div>
+        <div id="quota-val-mobile" class="font-bold text-xs sm:text-sm text-kem">2 / 2</div>
+        <div id="quota-status-mobile" class="text-[9.5px] text-green-400 font-semibold">Tối đa 2 máy</div>
+      </div>
+      <!-- Cột Tab Trình Duyệt -->
+      <div id="quota-box-tab" class="p-2 sm:p-2.5 rounded-lg bg-nen-sau border border-kem/15 space-y-1">
+        <div class="text-base sm:text-lg">📑</div>
+        <div class="text-[10px] text-yen uppercase font-medium">Tab Trình Duyệt</div>
+        <div id="quota-val-tab" class="font-bold text-xs sm:text-sm text-cam">1 / 1</div>
+        <div id="quota-status-tab" class="text-[9.5px] text-cam font-semibold">Duy nhất 1 tab</div>
+      </div>
+    </div>
+
+    <!-- Thông báo lỗi vượt quá số lượng -->
+    <div id="device-exceed-alert" class="hidden p-3 rounded-xl bg-amber-500/15 border border-amber-500/40 text-xs text-amber-200/95 leading-relaxed space-y-1">
+      <div class="flex items-center gap-1.5 font-bold text-cam">
+        <span>⚠️</span>
+        <span id="device-exceed-title">VƯỢT QUÁ GIỚI HẠN THIẾT BỊ CHO PHÉP:</span>
+      </div>
+      <p id="device-exceed-detail" class="text-xs"></p>
+    </div>
+
+    <!-- Danh Sách Các Thiết Bị Đang Liên Kết -->
+    <div class="space-y-2">
+      <div class="flex items-center justify-between text-xs font-mono">
+        <span class="text-yen uppercase tracking-wider font-semibold">Danh sách thiết bị liên kết:</span>
+        <span id="device-count-badge" class="text-cam font-bold text-[11px]">3 / 3 thiết bị</span>
+      </div>
+      <div id="registered-devices-list" class="space-y-2 max-h-56 overflow-y-auto pr-1">
+        <!-- Render động danh sách thiết bị -->
+      </div>
+    </div>
+
+    <!-- Các Nút Hành Động Xử Lý -->
+    <div class="space-y-2 pt-1 border-t border-kem/10">
+      <!-- Nút Đăng xuất thiết bị cũ để tiếp tục trên máy này -->
+      <button type="button" id="btn-device-replace-continue" onclick="window.replaceOldestDeviceAndContinue()" class="btn-p w-full justify-center !py-2.5 sm:!py-3 text-xs sm:text-sm font-bold shadow-md cursor-pointer flex items-center gap-2">
+        <span>⚡ Đăng Xuất Thiết Bị Cũ & Đăng Nhập Trên Thiết Bị Này ↗</span>
+      </button>
+
+      <div class="flex items-center justify-between gap-2">
+        <button type="button" onclick="window.closeDeviceLimitModal()" class="btn-o flex-1 justify-center text-xs !py-2 text-yen hover:text-kem cursor-pointer">
+          <span>Đóng / Giữ nguyên</span>
+        </button>
+        <button type="button" onclick="window.resetAllDevicesForAccount()" class="text-yen hover:text-red-400 font-mono text-[11px] underline cursor-pointer p-1" title="Xóa tất cả liên kết thiết bị và đăng nhập lại từ đầu">
+          <span>Đặt lại tất cả thiết bị</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Hộp Thử Nghiệm Mô Phỏng (Dành cho kiểm thử trực tiếp) -->
+    <div class="p-2.5 rounded-lg bg-abyssal/60 border border-kem/10 space-y-1.5 text-[11px] font-mono text-yen">
+      <div class="flex items-center justify-between font-semibold text-cam text-[10px] uppercase">
+        <span>🧪 Chế Độ Thử Nghiệm Giới Hạn:</span>
+        <span class="text-[9.5px] text-yen">Bấm thử để xem cảnh báo</span>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <button type="button" onclick="window.simulateExceedDevice('desktop')" class="px-2 py-1 rounded bg-abyssal border border-kem/20 hover:border-cam text-kem text-[10px] cursor-pointer">
+          + Giả lập Máy tính thứ 2
+        </button>
+        <button type="button" onclick="window.simulateExceedDevice('mobile')" class="px-2 py-1 rounded bg-abyssal border border-kem/20 hover:border-cam text-kem text-[10px] cursor-pointer">
+          + Giả lập Điện thoại thứ 3
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== CẢNH BÁO 1 TAB DUY NHẤT (SINGLE TAB COLLISION MODAL) ==================== -->
+<div id="single-tab-warning-modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-4 bg-abyssal/90 backdrop-blur-lg overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="tab-modal-title">
+  <div class="relative w-full max-w-md bg-nen-sau border-2 border-cam/60 rounded-2xl p-6 sm:p-8 shadow-2xl text-center space-y-5 my-6 animate-fade-in">
+    
+    <!-- Icon Cảnh Báo Lớn -->
+    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-cam/20 border-2 border-cam/50 text-cam flex items-center justify-center mx-auto text-3xl sm:text-4xl shadow-xl shadow-cam/20 animate-bounce">
+      📑
+    </div>
+
+    <!-- Tiêu đề & Nội dung -->
+    <div class="space-y-2">
+      <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-red-500/20 border border-red-500/40 text-red-300 font-mono text-[10.5px] font-bold uppercase tracking-wider">
+        <span>⚠️ PHÁT HIỆN ĐA TAB HOẠT ĐỘNG</span>
+      </div>
+      <h3 id="tab-modal-title" class="text-xl sm:text-2xl font-bold text-kem leading-snug">
+        Tài Khoản Đang Mở Tại Một Tab Khác
+      </h3>
+      <p class="text-xs sm:text-[13px] text-yen leading-relaxed">
+        Để bảo vệ an toàn phiên học tập, tránh xung đột bài làm và ngăn chặn chia sẻ tài khoản trái phép, hệ thống Thịnh Vượng Số chỉ cho phép <strong class="text-cam font-bold">duy nhất 1 tab</strong> hoạt động đồng thời.
+      </p>
+    </div>
+
+    <!-- Hộp trạng thái -->
+    <div class="p-3 rounded-xl bg-abyssal border border-kem/15 text-xs text-yen font-mono space-y-1 text-left">
+      <div class="flex items-center justify-between">
+        <span>Quy định hệ thống:</span>
+        <strong class="text-cam">Tối đa 1 tab</strong>
+      </div>
+      <div class="flex items-center justify-between">
+        <span>Trạng thái tab này:</span>
+        <span class="text-amber-300 font-semibold">Tạm dừng hoạt động</span>
+      </div>
+    </div>
+
+    <!-- Hành động -->
+    <div class="space-y-2.5 pt-1">
+      <button type="button" onclick="window.claimActiveTabSession()" class="btn-p w-full justify-center !py-3 text-xs sm:text-sm font-bold shadow-lg shadow-cam/25 cursor-pointer flex items-center gap-2">
+        <span>👉 Sử Dụng Tab Này (Chuyển Phiên Học Về Đây) ↗</span>
+      </button>
+      <a href="./" class="btn-o w-full justify-center !py-2.5 text-xs text-yen hover:text-kem cursor-pointer block">
+        <span>Về Trang Chủ Thịnh Vượng Số</span>
+      </a>
+    </div>
+
+  </div>
+</div>
 
 </body>
 </html>
