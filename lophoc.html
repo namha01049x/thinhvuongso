@@ -216,6 +216,12 @@
 
       <!-- Action & Student State -->
       <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
+        <!-- Đám mây Google Status Badge -->
+        <button type="button" onclick="window.openFirebaseSetupModal()" class="tvs-cloud-badge hidden lg:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-950/40 border border-amber-500/30 text-amber-300 font-mono text-[10.5px] cursor-pointer hover:border-amber-400 transition-all" title="Bấm để cài đặt hoặc kiểm tra kết nối Đám mây Google Firebase">
+          <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+          <span>Đám mây: Chưa nạp mã</span>
+        </button>
+
         <!-- Badge Học viên đang hoạt động -->
         <div id="nav-student-badge" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-cam/15 border border-cam/40 text-cam text-xs font-mono font-bold">
           <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
@@ -1187,6 +1193,12 @@
     </div>
   </nav>
 
+  <!-- ==================== GOOGLE FIREBASE CLOUD REALTIME SDK ==================== -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="assets/tvs-cloud-sync.js"></script>
+
   <!-- ==================== INTERACTIVE JAVASCRIPT LOGIC ==================== -->
   <script>
     var TVS_DB_KEY = 'tvs_students_database_v2';
@@ -1660,11 +1672,11 @@
     };
 
     // 3. Kiểm tra định mức thiết bị khi đăng nhập
-    window.checkDeviceLoginAllowed = function(accountId) {
+    window.checkDeviceLoginAllowed = function(accountId, optionalReg) {
       var acc = String(accountId || '').trim();
       if (!acc) return { allowed: true };
 
-      var reg = window.getDeviceRegistry(acc);
+      var reg = optionalReg || window.getDeviceRegistry(acc);
       var curDevId = window.getOrGenerateDeviceId();
       var curType = window.detectDeviceType();
 
@@ -1672,10 +1684,14 @@
         var exists = reg.desktops.some(function(d) { return d.id === curDevId; });
         if (exists) return { allowed: true, type: 'desktop', exists: true, registry: reg };
         if (reg.desktops.length >= MAX_DESKTOPS) {
+          var otherDesk = reg.desktops[0] || {};
+          var otherName = otherDesk.name || 'Máy tính khác';
+          var otherTime = otherDesk.loginAt ? ' (' + otherDesk.loginAt + ')' : '';
           return { 
             allowed: false, 
             type: 'desktop', 
             reason: 'EXCEED_DESKTOP', 
+            reasonMsg: 'Tài khoản của bạn đã đạt giới hạn 1 máy tính. Hiện đang đăng nhập trên: ' + otherName + otherTime + '. Vui lòng bấm [Đăng Xuất Thiết Bị Cũ & Đăng Nhập Trên Thiết Bị Này] để tiếp tục.',
             limit: MAX_DESKTOPS,
             currentCount: reg.desktops.length,
             registry: reg 
@@ -1690,6 +1706,7 @@
             allowed: false, 
             type: 'tablet', 
             reason: 'EXCEED_TABLET', 
+            reasonMsg: 'Tài khoản của bạn đã đạt giới hạn 2 máy tính bảng (Tablet). Vui lòng bấm [Đăng Xuất Thiết Bị Cũ & Đăng Nhập Trên Thiết Bị Này] để tiếp tục.',
             limit: MAX_TABLETS,
             currentCount: reg.tablets.length,
             registry: reg 
@@ -1704,6 +1721,7 @@
             allowed: false, 
             type: 'mobile', 
             reason: 'EXCEED_MOBILE', 
+            reasonMsg: 'Tài khoản của bạn đã đạt giới hạn 2 điện thoại di động. Vui lòng bấm [Đăng Xuất Thiết Bị Cũ & Đăng Nhập Trên Thiết Bị Này] để tiếp tục.',
             limit: MAX_MOBILES,
             currentCount: reg.mobiles.length,
             registry: reg 
@@ -1765,6 +1783,9 @@
       }
 
       window.saveDeviceRegistry(acc, reg);
+      if (window.TVS_CLOUD && window.TVS_CLOUD.isReady()) {
+        window.TVS_CLOUD.saveDeviceRegistryAsync(acc, reg);
+      }
       window.updateDeviceUI();
     };
 
@@ -1779,6 +1800,10 @@
       reg.tablets = reg.tablets.filter(function(t) { return t.id !== devId; });
       reg.mobiles = reg.mobiles.filter(function(m) { return m.id !== devId; });
       window.saveDeviceRegistry(acc, reg);
+
+      if (window.TVS_CLOUD && window.TVS_CLOUD.isReady()) {
+        window.TVS_CLOUD.saveDeviceRegistryAsync(acc, reg);
+      }
 
       var curDevId = window.getOrGenerateDeviceId();
       if (devId === curDevId && typeof window.studentLogout === 'function') {
@@ -1819,6 +1844,9 @@
       }
 
       window.saveDeviceRegistry(acc, reg);
+      if (window.TVS_CLOUD && window.TVS_CLOUD.isReady()) {
+        window.TVS_CLOUD.saveDeviceRegistryAsync(acc, reg);
+      }
       window.registerCurrentDevice(acc);
       window.closeDeviceLimitModal();
       window.updateDeviceUI();
@@ -1831,6 +1859,9 @@
       var acc = student.phone || student.id;
       if (confirm('Bạn có chắc chắn muốn đặt lại (xóa toàn bộ liên kết thiết bị cũ) để đăng nhập lại từ đầu trên thiết bị này?')) {
         window.saveDeviceRegistry(acc, { desktops: [], tablets: [], mobiles: [] });
+        if (window.TVS_CLOUD && window.TVS_CLOUD.isReady()) {
+          window.TVS_CLOUD.saveDeviceRegistryAsync(acc, { desktops: [], tablets: [], mobiles: [] });
+        }
         window.registerCurrentDevice(acc);
         window.renderDeviceManagementList(acc);
         window.updateDeviceUI();
@@ -2202,6 +2233,9 @@
       window.registerCurrentDevice(student.phone || student.id);
       window.initSingleTabCoordinator();
       window.updateDeviceUI();
+      if (window.TVS_CLOUD && window.TVS_CLOUD.isReady()) {
+        window.TVS_CLOUD.listenToDeviceChanges(student.phone || student.id);
+      }
     });
   </script>
 

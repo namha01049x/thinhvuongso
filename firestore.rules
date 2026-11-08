@@ -1,0 +1,320 @@
+rules_version = '2';
+
+// ===============================================================
+// Assumed Data Model & Security Architecture
+// ===============================================================
+//
+// Ứng dụng: Thịnh Vượng Số (Học viện Tài chính & Đầu tư Thực chiến)
+// Bản quyền & Mentor: Trần Nam Hà (haduka.14@gmail.com / 0981501865)
+//
+// 1. Collection: tvs_device_registries/{accountId}
+//    Document ID: accountId (SĐT học viên, VD: "0981501865")
+//    Mô tả: Quản lý thiết bị đăng nhập tập trung (tối đa 1 PC, 2 Tablet, 2 Điện thoại, 1 Tab hoạt động)
+//    Fields:
+//      - accountId: string (bắt buộc, trùng khớp với document ID, độ dài 6-32 ký tự)
+//      - desktops: list (bắt buộc, tối đa 1 phần tử thiết bị map {id, name, type, loginAt, lastActive})
+//      - tablets: list (bắt buộc, tối đa 2 phần tử thiết bị map {id, name, type, loginAt, lastActive})
+//      - mobiles: list (bắt buộc, tối đa 2 phần tử thiết bị map {id, name, type, loginAt, lastActive})
+//      - activeTab: map (tùy chọn, đối tượng {tabId, lastHeartbeat})
+//      - updatedAt: timestamp | number | string (tùy chọn, thời điểm đồng bộ gần nhất)
+//      - createdAt: timestamp | number | string (tùy chọn, thời điểm khởi tạo)
+//
+// 2. Collection: tvs_students/{accountId}
+//    Document ID: accountId (SĐT học viên, VD: "0981501865")
+//    Mô tả: Quản lý hồ sơ học viên, khóa học đã đăng ký, mã kích hoạt và tiến độ
+//    Fields:
+//      - id: string (bắt buộc, trùng khớp với accountId)
+//      - phone: string (bắt buộc, SĐT định danh học viên)
+//      - name: string (bắt buộc, họ tên học viên, 2-100 ký tự)
+//      - email: string (tùy chọn, email học viên)
+//      - course: string (bắt buộc, mã khóa học: all, but-pha, tinh-hoa, binh-dan...)
+//      - courseName: string (tùy chọn, tên hiển thị khóa học)
+//      - pin: string (tùy chọn, mã PIN bảo mật)
+//      - isActivated: bool (bắt buộc, trạng thái kích hoạt)
+//      - licenseCode: string (tùy chọn, mã bản quyền học viện)
+//      - registeredAt: string | timestamp (tùy chọn)
+//      - completedLessons: list (tùy chọn, danh sách ID bài học đã hoàn thành)
+//      - role: string (tùy chọn: student, mentor, admin)
+//      - updatedAt: timestamp | number | string (tùy chọn)
+//
+// ===============================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Helper Functions: Authentication & Authorization
+    // ===============================================================
+
+    // Kiểm tra người dùng đã xác thực Firebase Auth
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Kiểm tra quyền Quản trị viên (Admin / Mentor Trần Nam Hà)
+    // Dựa trên custom claims hoặc email/SĐT bootstrap được xác minh
+    function isAdmin() {
+      return isAuthenticated() && (
+        (request.auth.token.keys().hasAny(['admin']) && request.auth.token.admin == true) ||
+        (request.auth.token.keys().hasAny(['role']) && request.auth.token.role == 'admin') ||
+        (request.auth.token.keys().hasAny(['email']) && request.auth.token.email == 'haduka.14@gmail.com') ||
+        (request.auth.token.keys().hasAny(['phone_number']) && (
+          request.auth.token.phone_number == '+84981501865' ||
+          request.auth.token.phone_number == '0981501865'
+        ))
+      );
+    }
+
+    // Kiểm tra người dùng sở hữu tài khoản (UID hoặc SĐT trùng khớp accountId)
+    function isAccountOwner(accountId) {
+      return isAuthenticated() && (
+        request.auth.uid == accountId ||
+        (request.auth.token.keys().hasAny(['phone_number']) && (
+          request.auth.token.phone_number == accountId ||
+          request.auth.token.phone_number == ('+84' + accountId) ||
+          ('+84' + request.auth.token.phone_number) == accountId
+        ))
+      );
+    }
+
+    // Kiểm tra định dạng accountId an toàn (chuỗi SĐT hoặc mã học viên hợp lệ, chống path traversal)
+    function isValidAccountId(accountId) {
+      return accountId is string &&
+        accountId.size() >= 6 &&
+        accountId.size() <= 32 &&
+        accountId.matches('^[0-9+A-Za-z_-]+$');
+    }
+
+    // Kiểm tra hồ sơ có thuộc sở hữu của Mentor Trần Nam Hà hay không
+    function isMentorProfile(accountId) {
+      return accountId == '0981501865' ||
+        (resource != null && (
+          (resource.data.keys().hasAny(['phone']) && resource.data.phone == '0981501865') ||
+          (resource.data.keys().hasAny(['email']) && resource.data.email == 'haduka.14@gmail.com') ||
+          (resource.data.keys().hasAny(['licenseCode']) && resource.data.licenseCode == 'TVS-MASTER-NAMHA')
+        ));
+    }
+
+    // Kiểm tra hành vi mạo danh tài khoản hoặc đặc quyền Mentor Trần Nam Hà
+    function isAttemptingMentorSpoof() {
+      return (request.resource.data.keys().hasAny(['phone']) && request.resource.data.phone == '0981501865') ||
+        (request.resource.data.keys().hasAny(['email']) && request.resource.data.email == 'haduka.14@gmail.com') ||
+        (request.resource.data.keys().hasAny(['licenseCode']) && request.resource.data.licenseCode == 'TVS-MASTER-NAMHA') ||
+        (request.resource.data.keys().hasAny(['role']) && request.resource.data.role in ['admin', 'mentor']);
+    }
+
+    // ===============================================================
+    // Helper Functions: Device Registry Validation
+    // ===============================================================
+
+    // Kiểm tra cấu trúc 1 thiết bị hợp lệ (desktop, tablet hoặc mobile)
+    function isValidDeviceMap(dev) {
+      return dev is map &&
+        dev.keys().hasAll(['id', 'name', 'type']) &&
+        dev.keys().hasOnly(['id', 'name', 'type', 'loginAt', 'lastActive', 'browser', 'os']) &&
+        dev.id is string && dev.id.size() > 0 && dev.id.size() <= 128 &&
+        dev.name is string && dev.name.size() > 0 && dev.name.size() <= 128 &&
+        dev.type is string && dev.type.size() > 0 && dev.type.size() <= 32 &&
+        (!('loginAt' in dev) || dev.loginAt is timestamp || dev.loginAt is string || dev.loginAt is number) &&
+        (!('lastActive' in dev) || dev.lastActive is timestamp || dev.lastActive is string || dev.lastActive is number);
+    }
+
+    // Ràng buộc danh sách Desktop: tối đa 1 máy tính
+    function isValidDesktopList(list) {
+      return list is list &&
+        list.size() <= 1 &&
+        (list.size() == 0 || isValidDeviceMap(list[0]));
+    }
+
+    // Ràng buộc danh sách Tablet: tối đa 2 máy tính bảng
+    function isValidTabletList(list) {
+      return list is list &&
+        list.size() <= 2 &&
+        (list.size() == 0 || isValidDeviceMap(list[0])) &&
+        (list.size() <= 1 || isValidDeviceMap(list[1]));
+    }
+
+    // Ràng buộc danh sách Mobile: tối đa 2 điện thoại
+    function isValidMobileList(list) {
+      return list is list &&
+        list.size() <= 2 &&
+        (list.size() == 0 || isValidDeviceMap(list[0])) &&
+        (list.size() <= 1 || isValidDeviceMap(list[1]));
+    }
+
+    // Ràng buộc cấu trúc ActiveTab (tối đa 1 tab)
+    function isValidActiveTab(tab) {
+      return tab is map &&
+        tab.keys().hasAll(['tabId', 'lastHeartbeat']) &&
+        tab.keys().hasOnly(['tabId', 'lastHeartbeat', 'title', 'url', 'openedAt']) &&
+        tab.tabId is string && tab.tabId.size() > 0 && tab.tabId.size() <= 128 &&
+        (tab.lastHeartbeat is timestamp || tab.lastHeartbeat is number || tab.lastHeartbeat is string);
+    }
+
+    // Domain Validator: Kiểm tra tính toàn vẹn của Registry thiết bị
+    function isValidDeviceRegistry(data, accountId) {
+      return data.keys().hasAll(['accountId', 'desktops', 'tablets', 'mobiles']) &&
+        data.keys().hasOnly(['accountId', 'desktops', 'tablets', 'mobiles', 'activeTab', 'updatedAt', 'createdAt']) &&
+        data.accountId is string &&
+        data.accountId == accountId &&
+        isValidAccountId(data.accountId) &&
+        isValidDesktopList(data.desktops) &&
+        isValidTabletList(data.tablets) &&
+        isValidMobileList(data.mobiles) &&
+        (!('activeTab' in data) || isValidActiveTab(data.activeTab)) &&
+        (!('updatedAt' in data) || data.updatedAt is timestamp || data.updatedAt is number || data.updatedAt is string) &&
+        (!('createdAt' in data) || data.createdAt is timestamp || data.createdAt is number || data.createdAt is string);
+    }
+
+    // ===============================================================
+    // Helper Functions: Student Profile Validation
+    // ===============================================================
+
+    // Kiểm tra định dạng email
+    function isValidEmail(email) {
+      return email is string &&
+        email.size() <= 128 &&
+        email.matches('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
+    }
+
+    // Kiểm tra danh sách bài học đã hoàn thành
+    function isValidCompletedLessons(lessons) {
+      return lessons is list && lessons.size() <= 300;
+    }
+
+    // Domain Validator: Kiểm tra hồ sơ học viên
+    function isValidStudent(data, accountId) {
+      return data.keys().hasAll(['id', 'phone', 'name', 'course', 'isActivated']) &&
+        data.keys().hasOnly([
+          'id', 'phone', 'name', 'email', 'course', 'courseName',
+          'pin', 'isActivated', 'licenseCode', 'registeredAt',
+          'registeredDateFormatted', 'completedLessons', 'role',
+          'updatedAt', 'lastLogin'
+        ]) &&
+        data.id is string && data.id == accountId && isValidAccountId(data.id) &&
+        data.phone is string && data.phone.size() >= 8 && data.phone.size() <= 20 &&
+        data.name is string && data.name.size() >= 2 && data.name.size() <= 100 &&
+        data.course is string && data.course.size() >= 2 && data.course.size() <= 50 &&
+        data.isActivated is bool &&
+        (!('email' in data) || isValidEmail(data.email)) &&
+        (!('courseName' in data) || (data.courseName is string && data.courseName.size() <= 100)) &&
+        (!('pin' in data) || (data.pin is string && data.pin.size() >= 4 && data.pin.size() <= 32)) &&
+        (!('licenseCode' in data) || (data.licenseCode is string && data.licenseCode.size() <= 64)) &&
+        (!('role' in data) || (data.role is string && data.role in ['student', 'mentor', 'admin'])) &&
+        (!('completedLessons' in data) || isValidCompletedLessons(data.completedLessons)) &&
+        (!('registeredAt' in data) || data.registeredAt is timestamp || data.registeredAt is string) &&
+        (!('registeredDateFormatted' in data) || (data.registeredDateFormatted is string && data.registeredDateFormatted.size() <= 50)) &&
+        (!('updatedAt' in data) || data.updatedAt is timestamp || data.updatedAt is number || data.updatedAt is string) &&
+        (!('lastLogin' in data) || data.lastLogin is timestamp || data.lastLogin is number || data.lastLogin is string);
+    }
+
+    // ===============================================================
+    // Rules: Collection tvs_device_registries/{accountId}
+    // ===============================================================
+    match /tvs_device_registries/{accountId} {
+
+      // Cho phép đọc đơn lẻ theo mã học viên cụ thể nếu hợp lệ hoặc chính chủ/Admin
+      // Nghiêm cấm liệt kê toàn bộ collection (chống lộ danh bạ thiết bị học viên)
+      allow get: if isValidAccountId(accountId) && (
+        isAdmin() ||
+        isAccountOwner(accountId) ||
+        (request.auth != null && request.auth.token.firebase.sign_in_provider == 'anonymous') ||
+        request.auth == null
+      );
+
+      allow list: if isAdmin();
+
+      // Cho phép đăng ký thiết bị mới khi dữ liệu thỏa mãn chính xác các giới hạn
+      allow create: if isValidAccountId(accountId) &&
+        isValidDeviceRegistry(request.resource.data, accountId) &&
+        (
+          isAdmin() ||
+          isAccountOwner(accountId) ||
+          (request.auth != null && request.auth.token.firebase.sign_in_provider == 'anonymous') ||
+          request.auth == null
+        );
+
+      // Cập nhật danh sách thiết bị: bắt buộc dữ liệu mới tiếp tục hợp lệ và không được tráo đổi accountId
+      allow update: if isValidAccountId(accountId) &&
+        isValidDeviceRegistry(request.resource.data, accountId) &&
+        request.resource.data.accountId == resource.data.accountId &&
+        (
+          isAdmin() ||
+          isAccountOwner(accountId) ||
+          (request.auth != null && request.auth.token.firebase.sign_in_provider == 'anonymous') ||
+          request.auth == null
+        );
+
+      // Chỉ quản trị viên mới có quyền xóa tài liệu quản lý thiết bị
+      allow delete: if isAdmin();
+    }
+
+    // ===============================================================
+    // Rules: Collection tvs_students/{accountId}
+    // ===============================================================
+    match /tvs_students/{accountId} {
+
+      // Đọc thông tin học viên: Cho phép xem theo ID cụ thể nếu hợp lệ
+      // Nghiêm cấm liệt kê danh sách toàn bộ học viên nếu không phải Admin (Bảo vệ PII)
+      allow get: if isValidAccountId(accountId) && (
+        isAdmin() ||
+        isAccountOwner(accountId) ||
+        (request.auth != null && request.auth.token.firebase.sign_in_provider == 'anonymous') ||
+        request.auth == null
+      );
+
+      allow list: if isAdmin();
+
+      // Tạo hồ sơ học viên mới:
+      // Tuyệt đối không cho phép tạo đè hoặc mạo danh tài khoản Mentor Trần Nam Hà nếu không phải Admin
+      allow create: if isValidAccountId(accountId) &&
+        isValidStudent(request.resource.data, accountId) &&
+        (
+          isAdmin() ||
+          (
+            !isMentorProfile(accountId) &&
+            !isAttemptingMentorSpoof() &&
+            (!('role' in request.resource.data) || request.resource.data.role == 'student') &&
+            (
+              isAccountOwner(accountId) ||
+              (request.auth != null && request.auth.token.firebase.sign_in_provider == 'anonymous') ||
+              request.auth == null
+            )
+          )
+        );
+
+      // Cập nhật hồ sơ học viên:
+      // 1. Không cho phép ghi đè tài khoản Mentor Trần Nam Hà nếu không có quyền Admin
+      // 2. Không cho phép thay đổi ID định danh (accountId) hoặc tự phong vai trò Admin/Mentor
+      // 3. Toàn bộ dữ liệu sau cập nhật phải tuân thủ nghiêm ngặt schema
+      allow update: if isValidAccountId(accountId) &&
+        isValidStudent(request.resource.data, accountId) &&
+        request.resource.data.id == resource.data.id &&
+        (
+          isAdmin() ||
+          (
+            !isMentorProfile(accountId) &&
+            !isAttemptingMentorSpoof() &&
+            (!('role' in request.resource.data) || request.resource.data.role == resource.data.role) &&
+            (!('isActivated' in request.resource.data) || request.resource.data.isActivated == resource.data.isActivated) &&
+            (!('course' in request.resource.data) || request.resource.data.course == resource.data.course) &&
+            (
+              isAccountOwner(accountId) ||
+              (request.auth != null && request.auth.token.firebase.sign_in_provider == 'anonymous') ||
+              request.auth == null
+            )
+          )
+        );
+
+      // Chỉ Admin mới được phép xóa học viên
+      allow delete: if isAdmin();
+    }
+
+    // ===============================================================
+    // Default Deny: Mọi collection và đường dẫn khác đều bị từ chối
+    // ===============================================================
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
