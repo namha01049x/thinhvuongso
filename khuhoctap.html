@@ -2060,23 +2060,69 @@
       };
     };
 
-    // Khởi tạo hoặc Lấy cơ sở dữ liệu học viên
+    // Khởi tạo hoặc Lấy cơ sở dữ liệu học viên (Tự động bảo vệ & đồng bộ tài khoản Nhà Sáng Lập)
     function getStudentsDatabase() {
+      var db = [];
       try {
         var raw = localStorage.getItem(TVS_DB_KEY);
         if (raw) {
           var parsed = JSON.parse(raw);
           if (Array.isArray(parsed) && parsed.length > 0) {
-            return parsed;
+            db = parsed;
           }
         }
       } catch (e) {
         console.warn('Lỗi đọc CSDL học viên:', e);
       }
 
-      // Dữ liệu mẫu ban đầu để kiểm tra hệ thống và đối soát trùng lặp
-      var defaultDB = [
-        {
+      if (db.length === 0) {
+        db = [
+          {
+            id: '0981501865',
+            phone: '0981501865',
+            name: 'Mentor Trần Nam Hà',
+            email: 'haduka.14@gmail.com',
+            course: 'all',
+            courseName: 'Trọn bộ 3 Tầng Thực Chiến',
+            pin: '123456',
+            isActivated: true,
+            licenseCode: 'TVS-MASTER-NAMHA',
+            registeredAt: '2026-11-01T08:00:00.000Z',
+            registeredDateFormatted: '01/11/2026 15:30',
+            completedLessons: ['zoom-01', 'zoom-02', 'zoom-03']
+          },
+          {
+            id: '0981501866',
+            phone: '0981501866',
+            name: 'Học viên Mẫu TVS',
+            email: 'hocvien@thinhvuongso.vn',
+            course: 'but-pha',
+            courseName: 'Bứt Phá Tài Chính (Mentor Trần Nam Hà)',
+            pin: '123456',
+            isActivated: true,
+            licenseCode: 'TVS-BP-8899-2026',
+            registeredAt: '2026-11-01T08:00:00.000Z',
+            registeredDateFormatted: '01/11/2026 15:30',
+            completedLessons: ['zoom-01']
+          }
+        ];
+      }
+
+      // LUÔN BẢO VỆ VĨNH VIỄN: Đảm bảo tài khoản Mentor Trần Nam Hà luôn có mặt trong CSDL trên mọi thiết bị
+      var mentorIdx = -1;
+      for (var i = 0; i < db.length; i++) {
+        var p = (db[i].phone || db[i].id || '').replace(/[\s\-\.]/g, '').trim();
+        if (p === '0981501865') {
+          mentorIdx = i;
+          db[i].email = 'haduka.14@gmail.com';
+          db[i].name = 'Mentor Trần Nam Hà';
+          db[i].isActivated = true;
+          break;
+        }
+      }
+
+      if (mentorIdx === -1) {
+        db.unshift({
           id: '0981501865',
           phone: '0981501865',
           name: 'Mentor Trần Nam Hà',
@@ -2089,25 +2135,20 @@
           registeredAt: '2026-11-01T08:00:00.000Z',
           registeredDateFormatted: '01/11/2026 15:30',
           completedLessons: ['zoom-01', 'zoom-02', 'zoom-03']
-        },
-        {
-          id: '0981501866',
-          phone: '0981501866',
-          name: 'Học viên Mẫu TVS',
-          email: 'hocvien@thinhvuongso.vn',
-          course: 'but-pha',
-          courseName: 'Bứt Phá Tài Chính (Mentor Trần Nam Hà)',
-          pin: '123456',
-          isActivated: true,
-          licenseCode: 'TVS-BP-8899-2026',
-          registeredAt: '2026-11-01T08:00:00.000Z',
-          registeredDateFormatted: '01/11/2026 15:30',
-          completedLessons: ['zoom-01']
-        }
-      ];
+        });
+      }
 
-      saveStudentsDatabase(defaultDB);
-      return defaultDB;
+      // DỌN DẸP TỰ ĐỘNG TRIỆT ĐỂ: Nếu có bất kỳ tài khoản học viên nào khác (SĐT khác 0981501865) mà lại gán email haduka.14@gmail.com
+      // thì đổi ngay email tài khoản đó để giải phóng độc quyền cho Mentor Trần Nam Hà
+      db.forEach(function(s) {
+        var p = (s.phone || s.id || '').replace(/[\s\-\.]/g, '').trim();
+        if (p !== '0981501865' && s.email && s.email.trim().toLowerCase() === 'haduka.14@gmail.com') {
+          s.email = 'hocvien.' + p + '@thinhvuongso.vn';
+        }
+      });
+
+      saveStudentsDatabase(db);
+      return db;
     }
 
     // Lưu cơ sở dữ liệu học viên
@@ -2280,10 +2321,12 @@
       }
     };
 
-    // Kiểm tra trùng lặp Email Realtime (Bảo mật: Không để lộ danh tính người khác)
+    // Kiểm tra trùng lặp Email Realtime (Bảo mật: Không để lộ danh tính người khác & Bảo vệ email sáng lập)
     window.validateEmailLive = function(val) {
       var email = (val || '').trim().toLowerCase();
       var input = document.getElementById('reg-email');
+      var phoneInp = document.getElementById('reg-phone');
+      var rawPhone = phoneInp ? phoneInp.value.trim().replace(/[\s\-\.]/g, '') : '';
       var errorBox = document.getElementById('reg-error-msg');
       var errorText = document.getElementById('reg-error-text');
 
@@ -2292,16 +2335,29 @@
         return true;
       }
 
+      // 1. KHÓA CỨNG BẢO VỆ: Email haduka.14@gmail.com là email độc quyền của Mentor Trần Nam Hà (0981501865)
+      if (email === 'haduka.14@gmail.com') {
+        if (input) input.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
+        if (errorBox && errorText) {
+          errorBox.classList.remove('hidden');
+          errorText.innerHTML = 'Địa chỉ Email <strong>haduka.14@gmail.com</strong> là Email độc quyền của Nhà sáng lập & Mentor Trần Nam Hà (gắn với SĐT 0981 501 865). Tuyệt đối không thể dùng email này để đăng ký tài khoản học viên khác!';
+        }
+        return false;
+      }
+
+      // 2. Kiểm tra trùng lặp trong CSDL học viên
       var db = getStudentsDatabase();
       var duplicate = db.find(function(s) {
-        return s.email && s.email.trim().toLowerCase() === email;
+        var sEmail = (s.email || '').trim().toLowerCase();
+        var sPhone = (s.phone || s.id || '').replace(/[\s\-\.]/g, '').trim();
+        return sEmail === email && (!rawPhone || sPhone !== rawPhone);
       });
 
       if (duplicate) {
         if (input) input.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
         if (errorBox && errorText) {
           errorBox.classList.remove('hidden');
-          errorText.innerHTML = 'Địa chỉ Email này đã được đăng ký tài khoản trong hệ thống. Vui lòng chuyển sang tab Đăng Nhập để vào học!';
+          errorText.innerHTML = 'Địa chỉ Email <strong>' + email + '</strong> đã được đăng ký tài khoản trong hệ thống. Vui lòng chuyển sang tab Đăng Nhập để vào học!';
         }
         return false;
       } else {
@@ -2432,15 +2488,28 @@
         return;
       }
 
-      // Kiểm tra trùng Email
+      // 3. KHÓA CỨNG BẢO VỆ: Email haduka.14@gmail.com là email độc quyền của Mentor Trần Nam Hà (0981501865)
+      if (email === 'haduka.14@gmail.com' && phone !== '0981501865') {
+        if (emailInp) emailInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/30');
+        if (errorBox && errorText) {
+          errorBox.classList.remove('hidden');
+          errorText.innerHTML = 'Địa chỉ Email <strong>haduka.14@gmail.com</strong> là Email độc quyền của Nhà sáng lập & Mentor Trần Nam Hà (gắn với SĐT 0981 501 865). Tuyệt đối không thể dùng email này để đăng ký tài khoản học viên khác!';
+        }
+        emailInp.focus();
+        return;
+      }
+
+      // 4. Kiểm tra trùng Email trong CSDL
       var dupEmail = db.find(function(s) {
-        return s.email && s.email.trim().toLowerCase() === email;
+        var sEmail = (s.email || '').trim().toLowerCase();
+        var sPhone = (s.phone || s.id || '').replace(/[\s\-\.]/g, '').trim();
+        return sEmail === email && sPhone !== phone;
       });
       if (dupEmail) {
         if (emailInp) emailInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/30');
         if (errorBox && errorText) {
           errorBox.classList.remove('hidden');
-          errorText.innerHTML = 'Địa chỉ Email này đã được đăng ký tài khoản trong hệ thống. Vui lòng chuyển sang tab Đăng Nhập!';
+          errorText.innerHTML = 'Địa chỉ Email <strong>' + email + '</strong> đã được đăng ký tài khoản trong hệ thống. Vui lòng chuyển sang tab Đăng Nhập!';
         }
         emailInp.focus();
         return;
