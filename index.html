@@ -801,15 +801,9 @@
       z-index: 3;
     }
 
-    /* Static Hero Fallback (Only for prefers-reduced-motion) */
+    /* Static Hero Fallback (Vo hieu hoa fallback bi lech noi dung) */
     .static-hero {
-      display: none;
-      position: relative;
-      padding: 4.5rem 1.25rem 3.5rem;
-      background:
-        linear-gradient(180deg, rgba(22, 33, 44, 0.78) 0%, rgba(27, 38, 50, 0.96) 100%),
-        url('assets/hero-poster.jpg') center/cover no-repeat;
-      border-bottom: 1px solid rgba(238, 233, 223, 0.1);
+      display: none !important;
     }
 
     /* Mobile & Tablet Responsive Calibration for Single-Screen Hero */
@@ -838,10 +832,15 @@
 
     @media (prefers-reduced-motion: reduce) {
       .hero-pin {
-        display: none !important;
+        display: block !important;
       }
       .static-hero {
-        display: block !important;
+        display: none !important;
+      }
+      .poster-layer,
+      .ending-layer,
+      .band {
+        transition: none !important;
       }
     }
 
@@ -2045,31 +2044,6 @@
       </div>
     </section>
 
-    <!-- =======================================================================
-         STATIC HERO (Designed for Mobile, Portrait Tablet & Reduced Motion)
-         ======================================================================= -->
-    <section class="static-hero" aria-label="Giới thiệu Thịnh Vượng Số">
-      <div class="max-w-dtv mx-auto space-y-6">
-        <div class="chip">
-          <span class="w-2 h-2 rounded-full bg-cam"></span>
-          <span>Thịnh Vượng Số · Hệ sinh thái huấn luyện thực chất</span>
-        </div>
-        <p class="text-3xl sm:text-4xl font-bold text-kem leading-snug" style="max-width: 22ch">
-          Phát triển năng lực làm chủ đời sống, công việc và tài chính.
-        </p>
-        <p class="text-base text-yen leading-relaxed" style="max-width: 60ch">
-          Kết nối 4 trụ cột <strong class="text-kem">Phát triển bản thân, Tài chính, Kinh doanh và Đầu tư</strong> giúp bạn nhìn rõ thực trạng, tháo gỡ đúng nút thắt gốc và xây dựng sự thịnh vượng bền vững trên chính con số thật của mình.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-3 pt-2">
-          <a href="#bai-test" class="btn-p text-sm w-full sm:w-auto">
-            <span>Làm bài test 3 câu chọn điểm bắt đầu</span>
-          </a>
-          <a href="#chuong-trinh" class="btn-o text-sm w-full sm:w-auto">
-            <span>Khám phá 5 tầng chương trình</span>
-          </a>
-        </div>
-      </div>
-    </section>
 
     <!-- =======================================================================
          2. 6 QUICK-ACTION SHORTCUTS (#loi-tat), 5 STATS (#dtv-dem) & TICKER
