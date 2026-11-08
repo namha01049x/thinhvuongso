@@ -4281,11 +4281,6 @@
         window.addEventListener('touchend', endHold);
       }
 
-      /* Reduced motion completes hold state automatically */
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        holdVal = 1;
-        renderHoldState();
-      }
 
       /* =====================================================================
          6. AUTHENTIC DTV DATA & INTERACTIVE SECTIONS
