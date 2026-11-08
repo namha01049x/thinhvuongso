@@ -462,18 +462,9 @@
   function updateCloudIndicator(isConnected, projectId) {
     var badges = document.querySelectorAll('.tvs-cloud-badge');
     badges.forEach(function(badge) {
-      if (isConnected) {
-        badge.innerHTML = '<span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span><span class="text-green-300 font-mono text-[10.5px]">Đám mây Google: Đã kết nối (' + projectId + ')</span>';
-        badge.className = 'tvs-cloud-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-950/40 border border-green-500/40 cursor-pointer hover:border-green-400';
-      } else {
-        badge.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-400"></span><span class="text-amber-300 font-mono text-[10.5px]">Đám mây: Chưa nạp mã (Cài đặt)</span>';
-        badge.className = 'tvs-cloud-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-950/40 border border-amber-500/30 cursor-pointer hover:border-amber-400';
-      }
-      badge.onclick = function() {
-        if (typeof window.openFirebaseSetupModal === 'function') {
-          window.openFirebaseSetupModal();
-        }
-      };
+      // Ẩn hoàn toàn nhãn kỹ thuật đám mây để đảm bảo giao diện học viện tinh gọn, chuyên nghiệp
+      badge.style.display = 'none';
+      badge.classList.add('hidden');
     });
   }
 

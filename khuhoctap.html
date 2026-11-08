@@ -136,6 +136,13 @@
       --nen-chan: #E4DCCE;
     }
 
+    html, body {
+      overflow-x: hidden !important;
+      max-width: 100vw;
+      width: 100%;
+      position: relative;
+    }
+
     body {
       background-color: var(--abyssal);
       color: var(--kem);
@@ -143,6 +150,11 @@
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Ẩn hoàn toàn nhãn kỹ thuật đám mây theo yêu cầu thương mại */
+    .tvs-cloud-badge {
+      display: none !important;
     }
 
     .btn-p {
@@ -298,30 +310,30 @@
   }
 </style>
 </head>
-<body class="selection:bg-cam selection:text-abyssal">
+<body class="selection:bg-cam selection:text-abyssal pb-16 lg:pb-0">
 
   <!-- ==================== HEADER ==================== -->
   <header class="sticky top-0 z-40 bg-abyssal/90 backdrop-blur-md border-b border-kem/15 transition-colors">
     <div class="max-w-dtv 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 h-18 sm:h-20 flex items-center justify-between gap-2.5 xl:gap-4">
       
       <!-- Brand Logo -->
-      <a href="./" class="flex items-center gap-2.5 sm:gap-3 group shrink-0" aria-label="Thịnh Vượng Số · Trang chủ">
-        <div class="w-10 h-10 sm:w-11 sm:h-11 shrink-0 rounded-lg bg-[#141C25] border border-kem/20 flex items-center justify-center relative overflow-hidden group-hover:border-cam/60 transition-all">
-          <svg viewBox="0 0 40 40" class="w-6 h-6 sm:w-7 sm:h-7 shrink-0" fill="none" aria-hidden="true">
+      <a href="./" class="flex items-center gap-2 sm:gap-3 group shrink min-w-0" aria-label="Thịnh Vượng Số · Trang chủ">
+        <div class="w-9 h-9 sm:w-11 sm:h-11 shrink-0 rounded-lg bg-[#141C25] border border-kem/20 flex items-center justify-center relative overflow-hidden group-hover:border-cam/60 transition-all">
+          <svg viewBox="0 0 40 40" class="w-5 h-5 sm:w-7 sm:h-7 shrink-0" fill="none" aria-hidden="true">
             <rect x="4.5" y="4.5" width="31" height="31" rx="6" stroke="#E5B879" stroke-opacity="0.35" stroke-width="1" />
             <path d="M12 28V19.8L15.4 17V28H12Z" fill="#C9C1B1" />
             <path d="M18.3 28V15L21.7 12.2V28H18.3Z" fill="#EEE9DF" />
             <path d="M24.6 28V10.2L28 7.4V28H24.6Z" fill="#E5B879" />
           </svg>
         </div>
-        <div class="flex flex-col shrink-0">
-          <div class="flex items-center gap-1.5 sm:gap-2">
-            <span class="font-sans font-bold text-[15px] sm:text-[17.5px] tracking-wide text-kem uppercase leading-none whitespace-nowrap">
+        <div class="flex flex-col shrink min-w-0">
+          <div class="flex items-center gap-1 sm:gap-2">
+            <span class="font-sans font-bold text-[14px] sm:text-[17.5px] tracking-wide text-kem uppercase leading-none whitespace-nowrap">
               Thịnh Vượng Số
             </span>
             <span onclick="event.preventDefault(); event.stopPropagation(); window.handleSecretAdminClick();" class="inline-block px-1.5 py-0.5 rounded bg-kem/[0.06] border border-kem/20 font-mono text-[9px] font-semibold text-yen tracking-widest uppercase leading-none shrink-0 cursor-pointer hover:border-cam/50 transition-colors" title="Thịnh Vượng Số">TVS</span>
           </div>
-          <span class="font-mono text-[9px] sm:text-[8.5px] tracking-[0.05em] text-cam uppercase mt-1 leading-tight whitespace-nowrap font-medium">
+          <span class="font-mono text-[8px] sm:text-[8.5px] tracking-[0.05em] text-cam uppercase mt-0.5 sm:mt-1 leading-tight whitespace-nowrap font-medium">
             Khu Học Tập · Cổng Học Viên
           </span>
         </div>
@@ -341,11 +353,6 @@
 
       <!-- Action & Theme Switch -->
       <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
-        <!-- Đám mây Google Firebase Status Badge -->
-        <button type="button" onclick="window.openFirebaseSetupModal()" class="tvs-cloud-badge hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-950/40 border border-amber-500/30 text-amber-300 font-mono text-[10.5px] cursor-pointer hover:border-amber-400 transition-all" title="Bấm để cài đặt hoặc kiểm tra kết nối Đám mây Google Firebase">
-          <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-          <span>Đám mây: Chưa nạp mã</span>
-        </button>
 
         <a href="tel:0981501865" class="hidden sm:inline-flex items-center gap-1.5 font-mono text-xs text-yen hover:text-cam transition-colors px-3 py-1.5 rounded border border-kem/20 bg-xanh/30">
           <svg class="w-3.5 h-3.5 text-cam" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
@@ -384,7 +391,7 @@
     <div class="max-w-dtv mx-auto px-4 sm:px-6 lg:px-8">
       
       <!-- Breadcrumb -->
-      <nav class="flex items-center gap-2 font-mono text-xs text-yen mb-6" aria-label="Breadcrumb">
+      <nav class="flex flex-wrap items-center gap-2 font-mono text-xs text-yen mb-6" aria-label="Breadcrumb">
         <a href="./" class="hover:text-cam transition-colors">Trang chủ Thịnh Vượng Số</a>
         <span>/</span>
         <span class="text-cam font-semibold">Cổng Học Viên & Khu Học Tập</span>
@@ -906,7 +913,7 @@
     <div class="max-w-dtv mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
       
       <!-- Breadcrumb -->
-      <nav class="flex items-center gap-2 font-mono text-xs text-yen" aria-label="Breadcrumb">
+      <nav class="flex flex-wrap items-center gap-2 font-mono text-xs text-yen" aria-label="Breadcrumb">
         <a href="./" class="hover:text-cam transition-colors">Trang chủ Thịnh Vượng Số</a>
         <span>/</span>
         <a href="khuhoctap" class="hover:text-cam transition-colors">Cổng Học Viên</a>
@@ -935,7 +942,7 @@
         </div>
 
         <!-- Quick Progress Box -->
-        <div class="shrink-0 p-5 rounded-xl bg-abyssal/90 border border-kem/20 min-w-[280px] space-y-3 shadow-inner">
+        <div class="w-full lg:w-auto lg:min-w-[280px] p-4 sm:p-5 rounded-xl bg-abyssal/90 border border-kem/20 space-y-3 shadow-inner">
           <div class="flex items-center justify-between">
             <span class="font-mono text-xs uppercase tracking-wider text-yen font-semibold">Tiến độ hoàn thành:</span>
             <span id="welcome-progress-badge" class="font-mono text-cam font-bold text-sm">0 / 3 Buổi (0%)</span>
@@ -1800,7 +1807,7 @@
   </footer>
 
   <!-- Mobile Bottom Sticky Navigation for khuhoctap.html -->
-  <nav id="kht-mobile-bottom-nav" aria-label="Điều hướng nhanh Khu Học Tập" class="lg:hidden sticky bottom-0 left-0 right-0 z-40 bg-nen-chan/95 backdrop-blur-md border-t border-kem/15 px-2 py-1.5">
+  <nav id="kht-mobile-bottom-nav" aria-label="Điều hướng nhanh Khu Học Tập" class="lg:hidden fixed bottom-0 inset-x-0 w-full max-w-full z-40 bg-nen-chan/95 backdrop-blur-md border-t border-kem/15 px-2 py-1.5">
     <div class="grid grid-cols-5 gap-1 max-w-md mx-auto text-center items-stretch">
       <a href="./" class="py-1.5 px-0.5 rounded text-[10.5px] text-yen hover:text-cam flex flex-col items-center justify-center">
         <span class="font-mono text-[9px] text-cam">TVS</span>
