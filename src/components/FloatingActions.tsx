@@ -52,7 +52,7 @@ export const FloatingActions: React.FC = () => {
           href="https://zalo.me/84985878672"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Nhắn Zalo Đạo Thịnh Vượng 0985.878.672"
+          aria-label="Nhắn Zalo Thịnh Vượng Số 0985.878.672"
           className="group relative flex items-center gap-2.5 bg-cam text-abyssal font-semibold px-4 py-3 rounded-full shadow-xl hover:bg-[#ffc07d] transition-all"
         >
           <span

@@ -29,7 +29,7 @@ export const Footer: React.FC<FooterProps> = ({
               </div>
               <div>
                 <p className="font-sans font-bold text-lg text-kem uppercase tracking-wider">
-                  Đạo Thịnh Vượng
+                  Thịnh Vượng Số
                 </p>
                 <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-cam">
                   Phát triển bản thân · Tài chính · Kinh doanh · Đầu tư
@@ -48,7 +48,7 @@ export const Footer: React.FC<FooterProps> = ({
               <div className="flex items-start gap-2.5">
                 <Building2 className="w-4 h-4 text-cam shrink-0 mt-0.5" />
                 <span>
-                  <strong className="text-kem">Công ty TNHH Đạo Thịnh Vượng</strong> · Mã số
+                  <strong className="text-kem">Công ty TNHH Thịnh Vượng Số</strong> · Mã số
                   thuế: <span className="font-mono text-kem">0111281148</span>
                 </span>
               </div>
@@ -75,10 +75,10 @@ export const Footer: React.FC<FooterProps> = ({
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-cam shrink-0" />
                 <a
-                  href="mailto:support@daothinhvuong.vn"
+                  href="mailto:support@thinhvuongso.vn"
                   className="text-kem hover:text-cam font-mono"
                 >
-                  support@daothinhvuong.vn
+                  support@thinhvuongso.vn
                 </a>
               </div>
             </div>
@@ -203,17 +203,17 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <a
-                  href="https://daothinhvuong.vn/ve-dtv"
+                  href="https://thinhvuongso.vn/ve-dtv"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-cam transition-colors"
                 >
-                  Về Đạo Thịnh Vượng
+                  Về Thịnh Vượng Số
                 </a>
               </li>
               <li>
                 <a
-                  href="https://daothinhvuong.vn/dieu-khoan"
+                  href="https://thinhvuongso.vn/dieu-khoan"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-cam transition-colors"
@@ -223,7 +223,7 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <a
-                  href="https://daothinhvuong.vn/bao-mat"
+                  href="https://thinhvuongso.vn/bao-mat"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-cam transition-colors"
@@ -238,7 +238,7 @@ export const Footer: React.FC<FooterProps> = ({
         {/* Bottom Copyright & Disclaimer */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-yen/70">
           <p>
-            © {new Date().getFullYear()} Công ty TNHH Đạo Thịnh Vượng (MST: 0111281148). Bảo
+            © {new Date().getFullYear()} Công ty TNHH Thịnh Vượng Số (MST: 0111281148). Bảo
             lưu mọi quyền.
           </p>
           <p className="text-center sm:text-right">
@@ -247,13 +247,13 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
       </div>
 
-      {/* Giant Background Watermark matching daothinhvuong.vn */}
+      {/* Giant Background Watermark matching thinhvuongso.vn */}
       <div
         className="pointer-events-none select-none text-center font-sans font-extrabold uppercase tracking-[0.18em] text-kem/[0.025] leading-none mt-8"
         style={{ fontSize: 'clamp(2.8rem, 9.5vw, 8.5rem)' }}
         aria-hidden="true"
       >
-        ĐẠO THỊNH VƯỢNG
+        THỊNH VƯỢNG SỐ
       </div>
     </footer>
   );

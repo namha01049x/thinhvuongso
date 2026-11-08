@@ -157,7 +157,7 @@ export const ConsultationForm: React.FC = () => {
               </div>
               <p className="text-xs sm:text-sm text-kem leading-relaxed">
                 Nếu bạn cần trao đổi gấp về lịch học hoặc thủ tục đăng ký, có thể nhắn trực
-                tiếp qua Zalo chính thức của Đạo Thịnh Vượng:
+                tiếp qua Zalo chính thức của Thịnh Vượng Số:
               </p>
               <div className="flex flex-wrap items-center gap-3 pt-1">
                 <a
@@ -170,10 +170,10 @@ export const ConsultationForm: React.FC = () => {
                   <span>Nhắn Zalo: 0985.878.672</span>
                 </a>
                 <a
-                  href="mailto:support@daothinhvuong.vn"
+                  href="mailto:support@thinhvuongso.vn"
                   className="text-xs font-mono text-yen hover:text-kem underline"
                 >
-                  support@daothinhvuong.vn
+                  support@thinhvuongso.vn
                 </a>
               </div>
             </div>
@@ -192,7 +192,7 @@ export const ConsultationForm: React.FC = () => {
                       Đăng ký thành công
                     </span>
                     <h3 className="text-2xl font-bold text-kem">
-                      Cảm ơn {submittedData.fullName}, Đạo Thịnh Vượng đã nhận được yêu cầu!
+                      Cảm ơn {submittedData.fullName}, Thịnh Vượng Số đã nhận được yêu cầu!
                     </h3>
                     <p className="text-sm text-yen leading-relaxed">
                       Người phụ trách chuyên môn sẽ liên hệ với bạn qua{' '}
@@ -458,7 +458,7 @@ export const ConsultationForm: React.FC = () => {
             <div className="lg:col-span-6 space-y-2">
               <div className="inline-flex items-center gap-2 text-cam font-mono text-xs uppercase tracking-wider">
                 <BookOpen className="w-4 h-4" />
-                <span>Tài liệu nền tảng miễn phí · Đạo Thịnh Vượng</span>
+                <span>Tài liệu nền tảng miễn phí · Thịnh Vượng Số</span>
               </div>
               <h3 className="text-xl sm:text-2xl font-bold text-kem">
                 Nhận Cẩm nang: “Tích sản từ đâu? · 4 quy trình chuẩn bị trước khi xuống tiền”

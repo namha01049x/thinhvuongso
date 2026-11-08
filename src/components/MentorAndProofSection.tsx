@@ -27,8 +27,8 @@ export const MentorAndProofSection: React.FC = () => {
             <div className="lg:col-span-5">
               <div className="relative rounded-lg overflow-hidden border-2 border-abyssal/15 bg-xanh shadow-2xl">
                 <img
-                  src="https://daothinhvuong.vn/anh/mentor-vo-hoai-nam.webp"
-                  alt="Mentor Trần Nam Hà - Nhà sáng lập Đạo Thịnh Vượng"
+                  src="https://thinhvuongso.vn/anh/mentor-vo-hoai-nam.webp"
+                  alt="Mentor Trần Nam Hà - Nhà sáng lập Thịnh Vượng Số"
                   className="w-full h-[440px] sm:h-[500px] object-cover object-top"
                 />
                 <div className="p-5 bg-abyssal text-kem space-y-2">
@@ -37,7 +37,7 @@ export const MentorAndProofSection: React.FC = () => {
                       Nhà sáng lập & Người dẫn đường
                     </span>
                     <span className="font-mono text-[11px] text-yen">
-                      Đạo Thịnh Vượng
+                      Thịnh Vượng Số
                     </span>
                   </div>
                   <h3 className="text-2xl font-bold text-kem">Mentor Trần Nam Hà</h3>
@@ -69,7 +69,7 @@ export const MentorAndProofSection: React.FC = () => {
                 <strong>Aston Business School (Birmingham, UK)</strong>, ông Trần Nam Hà
                 trực tiếp sáng lập, điều hành và tham gia quản trị vốn tại nhiều doanh
                 nghiệp trong lĩnh vực đầu tư, thương mại và nông nghiệp công nghệ cao trước
-                khi sáng lập <strong>Đạo Thịnh Vượng</strong> cùng đồng sáng lập & CEO{' '}
+                khi sáng lập <strong>Thịnh Vượng Số</strong> cùng đồng sáng lập & CEO{' '}
                 <strong>Phan Trọng Quỳnh</strong>.
               </p>
 
@@ -108,7 +108,7 @@ export const MentorAndProofSection: React.FC = () => {
               <div className="p-5 rounded bg-abyssal text-kem space-y-3 shadow-lg">
                 <div className="flex items-center gap-2 text-cam font-mono text-xs uppercase tracking-wider">
                   <Quote className="w-4 h-4" />
-                  <span>Nguyên tắc đồng hành tại Đạo Thịnh Vượng</span>
+                  <span>Nguyên tắc đồng hành tại Thịnh Vượng Số</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                   <div className="flex items-start gap-2">
@@ -147,7 +147,7 @@ export const MentorAndProofSection: React.FC = () => {
               </em>
             </h2>
             <p className="text-yen text-base sm:text-lg leading-relaxed">
-              Những khoảnh khắc đối thoại thẳng thắn tại Hội trường Đạo Thịnh Vượng, các buổi
+              Những khoảnh khắc đối thoại thẳng thắn tại Hội trường Thịnh Vượng Số, các buổi
               mổ xẻ bài toán tại Hội Quán Tinh Hoa và những tối thứ Năm cùng LIVE Người Dẫn
               Đường.
             </p>
@@ -274,7 +274,7 @@ export const MentorAndProofSection: React.FC = () => {
         </div>
       </section>
 
-      {/* PART 3: Chuyên san Đạo Thịnh Vượng (3 Featured Deep-Dive Articles) */}
+      {/* PART 3: Chuyên san Thịnh Vượng Số (3 Featured Deep-Dive Articles) */}
       <section
         id="chuyen-san"
         className="py-20 lg:py-24 bg-nen-sau/50 border-b border-kem/10"
@@ -283,7 +283,7 @@ export const MentorAndProofSection: React.FC = () => {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div className="space-y-3 max-w-2xl">
               <div className="nhan">
-                <span>Chuyên san Đạo Thịnh Vượng · Đọc chậm · Ngẫm sâu</span>
+                <span>Chuyên san Thịnh Vượng Số · Đọc chậm · Ngẫm sâu</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold text-kem">
                 Những bài viết bóc tách bản chất từ thực tiễn

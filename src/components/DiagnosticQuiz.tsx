@@ -401,7 +401,7 @@ export const DiagnosticQuiz: React.FC<DiagnosticQuizProps> = ({
                             <span>Đã ghi nhận thông tin của {leadSubmitted.name}!</span>
                           </div>
                           <p className="text-xs text-yen leading-relaxed">
-                            Đội ngũ Đạo Thịnh Vượng sẽ gửi bản tóm tắt lộ trình{' '}
+                            Đội ngũ Thịnh Vượng Số sẽ gửi bản tóm tắt lộ trình{' '}
                             <strong className="text-kem">{recommendation.headline}</strong>{' '}
                             qua số Zalo <strong className="text-cam">{leadSubmitted.zalo}</strong>.
                           </p>

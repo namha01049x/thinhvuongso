@@ -1,13 +1,13 @@
-# Brand Guidelines: Đạo Thịnh Vượng
+# Brand Guidelines: Thịnh Vượng Số
 
 ## 1. Brand Overview
-- **Brand Name:** Đạo Thịnh Vượng
-- **Legal Entity:** Công ty TNHH Đạo Thịnh Vượng (MST: `0111281148`)
+- **Brand Name:** Thịnh Vượng Số
+- **Legal Entity:** Công ty TNHH Thịnh Vượng Số (MST: `0111281148`)
 - **Founder & Mentor:** Trần Nam Hà (Aston Business School, Birmingham, UK)
 - **Co-founder & CEO:** Phan Trọng Quỳnh
 - **Address:** Số 28, ngõ 81 Đông Ngạc, Phường Đông Ngạc, TP Hà Nội
 - **Hotline / Zalo:** `0985.878.672` (`https://zalo.me/84985878672`)
-- **Email:** `support@daothinhvuong.vn`
+- **Email:** `support@thinhvuongso.vn`
 - **Core Philosophy:** Phát triển năng lực làm chủ đời sống, công việc và tài chính. Lấy **Phát triển bản thân** làm gốc cho 3 trụ cột **Tài chính, Kinh doanh và Đầu tư**.
 
 ## 2. Color System (3-Layer Architecture)

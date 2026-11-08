@@ -187,7 +187,7 @@ export const AcademyAndMethodSection: React.FC<AcademyAndMethodSectionProps> = (
                 </h3>
                 <p className="text-sm text-yen leading-relaxed">
                   Trước khi mua một tài sản, góp vốn cùng bạn bè hay mở thêm cửa hàng mới,
-                  học viên Đạo Thịnh Vượng luôn đặt khoản tiền đó đi qua 5 màng lọc kỷ luật
+                  học viên Thịnh Vượng Số luôn đặt khoản tiền đó đi qua 5 màng lọc kỷ luật
                   này. Chỉ cần tắc ở 1 lớp, quyết định sẽ được dừng lại để bảo toàn vốn gốc.
                 </p>
               </div>

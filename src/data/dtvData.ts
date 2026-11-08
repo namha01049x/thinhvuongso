@@ -429,7 +429,7 @@ export const ROLE_LENSES: RoleLens[] = [
       person: 'Anh Tuấn & Chị Mai (Gia đình có 3,5 tỷ vốn tích lũy)',
       roleDetail: 'Từng kẹt vốn 2 năm ở đất nền vùng ven và danh mục cổ phiếu phân tán 14 mã',
       before: 'Ra quyết định dựa theo cảm xúc sợ bỏ lỡ (FOMO) và lời khuyên từ môi giới mà không gắn với kế hoạch tài chính 5-10 năm của gia đình.',
-      shift: 'Làm việc qua Khung 5 lớp ra quyết định vốn tại Đạo Thịnh Vượng để tái cơ cấu danh mục theo mục tiêu đời sống thực.',
+      shift: 'Làm việc qua Khung 5 lớp ra quyết định vốn tại Thịnh Vượng Số để tái cơ cấu danh mục theo mục tiêu đời sống thực.',
       after: 'Rút gọn về 3 lớp tài sản cốt lõi có dòng tiền nuôi nhau, tỷ suất sinh lời ổn định và hoàn toàn chủ động tâm thế.',
     },
   },
@@ -443,7 +443,7 @@ export const ROADMAP_STATIONS: RoadmapStation[] = [
     headline: 'Nghe đúng ngôn ngữ, soi chiếu lại thực trạng của chính mình',
     description:
       'Tham gia các buổi Zoom LIVE tối thứ Năm hàng tuần (20h30), đọc Chuyên san chuyên sâu và nhận Cẩm nang Tích sản để bắt đầu tháo gỡ những ngộ nhận phổ biến về tiền bạc.',
-    programs: ['LIVE Người Dẫn Đường (20h30 Thứ 5)', 'Cẩm nang Tích sản từ đâu?', 'Chuyên san Đạo Thịnh Vượng'],
+    programs: ['LIVE Người Dẫn Đường (20h30 Thứ 5)', 'Cẩm nang Tích sản từ đâu?', 'Chuyên san Thịnh Vượng Số'],
     targetAudience: 'Người mới biết đến ĐTV, muốn kiểm chứng triết lý và cách tiếp cận trước khi học sâu.',
     status: 'free',
     ctaLabel: 'Tham gia Cộng đồng & LIVE',
@@ -542,7 +542,7 @@ export const PROGRAMS_DATA: ProgramItem[] = [
     },
     previewUrl: 'https://butphataichinh.vn',
     externalUrl: 'https://butphataichinh.vn',
-    previewImage: 'https://daothinhvuong.vn/anh/trang-ban-but-pha.webp',
+    previewImage: 'https://thinhvuongso.vn/anh/trang-ban-but-pha.webp',
     forWhom: [
       'Người đi làm nhiều năm có thu nhập khá nhưng cuối năm nhìn lại không thấy tài sản tích lũy tương xứng',
       'Người tự doanh, kinh doanh nhỏ có doanh thu nhưng tiền mặt luôn căng thẳng, lẫn lộn tiền công và tiền tư',
@@ -611,7 +611,7 @@ export const PROGRAMS_DATA: ProgramItem[] = [
     },
     previewUrl: 'https://tinhhoathinhvuong.vn',
     externalUrl: 'https://tinhhoathinhvuong.vn',
-    previewImage: 'https://daothinhvuong.vn/anh/trang-ban-tinh-hoa.webp',
+    previewImage: 'https://thinhvuongso.vn/anh/trang-ban-tinh-hoa.webp',
     forWhom: [
       'Người tự doanh, chủ doanh nghiệp nhỏ, quản lý cấp cao hoặc nhà đầu tư cá nhân cần một hệ quy chiếu chuẩn để ra quyết định',
       'Người đã học nhiều nơi nhưng thiếu môi trường kỷ luật và người dẫn đường giữ nhịp hàng tuần để làm tới cùng',
@@ -681,12 +681,12 @@ export const PROGRAMS_DATA: ProgramItem[] = [
     format: 'Học liệu cấu trúc 6 chặng + Bài tập thực hành trên con số thật',
     schedule: 'Bắt đầu ngay theo nhịp độ cá nhân kết hợp hỗ trợ từ ĐTV',
     priceInfo: {
-      standard: 'Chương trình nền tảng cốt lõi của hệ sinh thái Đạo Thịnh Vượng',
+      standard: 'Chương trình nền tảng cốt lõi của hệ sinh thái Thịnh Vượng Số',
       note: 'Bước khởi đầu bắt buộc cho người muốn xây móng tài chính vững chắc',
     },
-    previewUrl: 'https://daothinhvuong.vn/chuong-trinh/binh-dan-hoc-vu-tai-chinh',
-    externalUrl: 'https://daothinhvuong.vn/chuong-trinh/binh-dan-hoc-vu-tai-chinh',
-    previewImage: 'https://daothinhvuong.vn/anh/trang-ban-binh-dan.webp',
+    previewUrl: 'https://thinhvuongso.vn/chuong-trinh/binh-dan-hoc-vu-tai-chinh',
+    externalUrl: 'https://thinhvuongso.vn/chuong-trinh/binh-dan-hoc-vu-tai-chinh',
+    previewImage: 'https://thinhvuongso.vn/anh/trang-ban-binh-dan.webp',
     forWhom: [
       'Người chưa từng ghi chép hoặc từng ghi chép chi tiêu nhiều lần nhưng bỏ cuộc vì không biết đọc số để làm gì',
       'Gia đình trẻ muốn thống nhất cách quản lý thu nhập chung – riêng và chuẩn bị quỹ tương lai cho con cái',
@@ -747,7 +747,7 @@ export const PROGRAMS_DATA: ProgramItem[] = [
     roles: ['lam-cong', 'tu-doanh', 'chu-doanh-nghiep', 'nha-dau-tu'],
     tagline: 'Buổi trò chuyện và gỡ bài toán thực tế tối thứ Năm hàng tuần qua Zoom.',
     description:
-      'Điểm chạm mở hàng tuần để bạn lắng nghe cách tiếp cận của Đạo Thịnh Vượng trước các chủ đề đời sống, công việc, quản lý tiền bạc và kinh doanh. Không bán hàng ồn ào, tập trung vào việc nhìn thẳng bản chất và trả lời câu hỏi thật của người tham dự.',
+      'Điểm chạm mở hàng tuần để bạn lắng nghe cách tiếp cận của Thịnh Vượng Số trước các chủ đề đời sống, công việc, quản lý tiền bạc và kinh doanh. Không bán hàng ồn ào, tập trung vào việc nhìn thẳng bản chất và trả lời câu hỏi thật của người tham dự.',
     format: 'Trực tuyến qua Zoom · 20h30 tối thứ Năm hàng tuần',
     schedule: 'Định kỳ tối thứ Năm hàng tuần',
     priceInfo: {
@@ -879,7 +879,7 @@ export const ACADEMY_SCREENS: AcademyScreen[] = [
     subtitle: 'Không sợ bỏ lỡ buổi học hay quên kiến thức quan trọng',
     description:
       'Toàn bộ các buổi học trực tiếp đều được biên tập, chia theo từng chặng và chủ đề cụ thể trên Khu Học Tập Thịnh Vượng Số để học viên dễ dàng nghe lại đúng phần mình đang vướng.',
-    image: 'https://daothinhvuong.vn/anh/hv-ban-ghi-zoom.webp',
+    image: 'https://thinhvuongso.vn/anh/hv-ban-ghi-zoom.webp',
     highlights: ['Phân loại theo từng buổi & từng chặng', 'Tốc độ phát mượt mà trên cả điện thoại và máy tính', 'Kèm tóm tắt nội dung trọng tâm của từng buổi'],
   },
   {
@@ -889,7 +889,7 @@ export const ACADEMY_SCREENS: AcademyScreen[] = [
     subtitle: 'Sẵn sàng áp dụng ngay vào con số của cá nhân và gia đình',
     description:
       'Cung cấp đầy đủ các bảng tính dòng tiền, khung kiểm kê tài sản, mẫu lập kế hoạch 6 chặng và tài liệu đọc thêm được thiết kế tối giản, dễ điền và dễ theo dõi.',
-    image: 'https://daothinhvuong.vn/anh/hv-tai-nguyen.webp',
+    image: 'https://thinhvuongso.vn/anh/hv-tai-nguyen.webp',
     highlights: ['Biểu mẫu thu - chi - nợ - tài sản thực tế', 'Tài liệu hướng dẫn từng bước rõ ràng', 'Cập nhật liên tục theo các chương trình mới'],
   },
   {
@@ -899,7 +899,7 @@ export const ACADEMY_SCREENS: AcademyScreen[] = [
     subtitle: 'Không kiểm tra lý thuyết suông · làm trực tiếp trên tình huống thật',
     description:
       'Sau mỗi chặng học, bạn thực hiện bài tập ứng dụng ngay trên dữ liệu thu nhập, chi phí và mục tiêu của chính mình để tạo ra kết quả hữu hình ngay trong khóa học.',
-    image: 'https://daothinhvuong.vn/anh/hv-bai-thuc-hanh.webp',
+    image: 'https://thinhvuongso.vn/anh/hv-bai-thuc-hanh.webp',
     highlights: ['Câu hỏi gợi mở giúp nhìn thẳng vào điểm nghẽn', 'Lưu trữ lịch sử bài làm qua từng giai đoạn', 'Nhận phản hồi để hiệu chỉnh kịp thời'],
   },
   {
@@ -909,7 +909,7 @@ export const ACADEMY_SCREENS: AcademyScreen[] = [
     subtitle: 'Biết rõ mình đã đi tới đâu và việc tiếp theo cần hoàn thành là gì',
     description:
       'Hệ thống theo dõi tỷ lệ hoàn thành bài học, số buổi đã tham gia và các mốc thực hành giúp bạn duy trì kỷ luật cá nhân xuyên suốt nhiều tháng.',
-    image: 'https://daothinhvuong.vn/anh/hv-tong-quan-tien-do.webp',
+    image: 'https://thinhvuongso.vn/anh/hv-tong-quan-tien-do.webp',
     highlights: ['Hiển thị rõ tỷ lệ hoàn thành từng học phần', 'Nhắc việc thông minh cho chặng tiếp theo', 'Đồng bộ xuyên suốt lộ trình từ Tầng 1 đến Tầng 3'],
   },
 ];
@@ -1023,22 +1023,22 @@ export const CHUYEN_SAN_ARTICLES: ChuyenSanArticle[] = [
 
 export const COMMUNITY_PHOTOS_ROW_1: CommunityPhoto[] = [
   {
-    src: 'https://daothinhvuong.vn/anh/c04-hoi-truong.webp',
-    caption: 'Không gian học tập và đối thoại sâu tại hội trường Đạo Thịnh Vượng',
+    src: 'https://thinhvuongso.vn/anh/c04-hoi-truong.webp',
+    caption: 'Không gian học tập và đối thoại sâu tại hội trường Thịnh Vượng Số',
     tag: 'Hội trường ĐTV',
   },
   {
-    src: 'https://daothinhvuong.vn/anh/c10-gio-tay.webp',
+    src: 'https://thinhvuongso.vn/anh/c10-gio-tay.webp',
     caption: 'Học viên trực tiếp đặt câu hỏi và mổ xẻ bài toán thực tế',
     tag: 'Thảo luận trực tiếp',
   },
   {
-    src: 'https://daothinhvuong.vn/anh/c01-ban-dai.webp',
+    src: 'https://thinhvuongso.vn/anh/c01-ban-dai.webp',
     caption: 'Bàn tròn thảo luận chuyên sâu tại Hội Quán Tinh Hoa',
     tag: 'Hội Quán Tinh Hoa',
   },
   {
-    src: 'https://daothinhvuong.vn/anh/c05-nam-mic.webp',
+    src: 'https://thinhvuongso.vn/anh/c05-nam-mic.webp',
     caption: 'Mentor Trần Nam Hà phân tích từng tình huống tài chính & kinh doanh',
     tag: 'Mentor Trần Nam Hà',
   },
@@ -1046,22 +1046,22 @@ export const COMMUNITY_PHOTOS_ROW_1: CommunityPhoto[] = [
 
 export const COMMUNITY_PHOTOS_ROW_2: CommunityPhoto[] = [
   {
-    src: 'https://daothinhvuong.vn/anh/c06-ket-noi.webp',
+    src: 'https://thinhvuongso.vn/anh/c06-ket-noi.webp',
     caption: 'Kết nối chân thành giữa những người cùng chung hệ giá trị học thật – làm thật',
     tag: 'Kết nối học viên',
   },
   {
-    src: 'https://daothinhvuong.vn/anh/c08-cau-hoi.webp',
+    src: 'https://thinhvuongso.vn/anh/c08-cau-hoi.webp',
     caption: 'Mỗi câu hỏi của một người là bài học soi chiếu cho cả cộng đồng',
     tag: 'Gỡ nút thắt thật',
   },
   {
-    src: 'https://daothinhvuong.vn/anh/c09-vong-tron.webp',
+    src: 'https://thinhvuongso.vn/anh/c09-vong-tron.webp',
     caption: 'Vòng tròn chia sẻ và giữ nhịp rèn luyện xuyên suốt 12 tháng',
     tag: 'Giữ nhịp dài hạn',
   },
   {
-    src: 'https://daothinhvuong.vn/anh/c02-hoc-vien-cafe.webp',
+    src: 'https://thinhvuongso.vn/anh/c02-hoc-vien-cafe.webp',
     caption: 'Những buổi gặp gỡ ấm cúng tháo gỡ từng bảng số cá nhân và doanh nghiệp',
     tag: 'Đồng hành sâu',
   },
@@ -1184,7 +1184,7 @@ export function getQuizRecommendation(
       actionThisWeek:
         'Liệt kê toàn bộ các tài sản, khoản đầu tư và nguồn thu hiện có ra một trang giấy; đánh dấu rõ khoản nào đang tạo dòng tiền dương, khoản nào đang ngốn thêm tiền mặt.',
       previewDomain: 'tinhhoathinhvuong.vn',
-      previewImage: 'https://daothinhvuong.vn/anh/trang-ban-tinh-hoa.webp',
+      previewImage: 'https://thinhvuongso.vn/anh/trang-ban-tinh-hoa.webp',
     };
   }
 
@@ -1206,7 +1206,7 @@ export function getQuizRecommendation(
       actionThisWeek:
         'Xuất sao kê 90 ngày gần nhất, phân vào 3 nhóm: (1) Chi phí sống thiết yếu, (2) Chi phí tạo ra thu nhập, và (3) Chi phí cảm xúc có thể cắt giảm ngay 20%.',
       previewDomain: 'butphataichinh.vn',
-      previewImage: 'https://daothinhvuong.vn/anh/trang-ban-but-pha.webp',
+      previewImage: 'https://thinhvuongso.vn/anh/trang-ban-but-pha.webp',
     };
   }
 
@@ -1221,7 +1221,7 @@ export function getQuizRecommendation(
         'Nhìn rõ bức tranh thu – chi – nợ hiện tại không né tránh, và xác định con số chi phí sinh hoạt tối thiểu 1 tháng của bản thân/gia đình.',
     actionThisWeek:
       'Mở một tài khoản hoặc hũ tích lũy riêng biệt mang tên "Quỹ Dự Phòng An Toàn" và chuyển ngay 10% khoản thu gần nhất vào đó trước khi chi tiêu bất cứ việc gì.',
-    previewDomain: 'daothinhvuong.vn/chuong-trinh/binh-dan-hoc-vu-tai-chinh',
-    previewImage: 'https://daothinhvuong.vn/anh/trang-ban-binh-dan.webp',
+    previewDomain: 'thinhvuongso.vn/chuong-trinh/binh-dan-hoc-vu-tai-chinh',
+    previewImage: 'https://thinhvuongso.vn/anh/trang-ban-binh-dan.webp',
   };
 }

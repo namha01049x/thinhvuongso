@@ -249,7 +249,7 @@ export const ProgramsSection: React.FC<ProgramsSectionProps> = ({
             <div>
               <div className="flex items-center gap-2 text-cam font-mono text-xs uppercase tracking-wider mb-1">
                 <Filter className="w-3.5 h-3.5" />
-                <span>Tra cứu toàn bộ danh mục 8 chương trình thuộc Đạo Thịnh Vượng</span>
+                <span>Tra cứu toàn bộ danh mục 8 chương trình thuộc Thịnh Vượng Số</span>
               </div>
               <h3 className="text-xl sm:text-2xl font-bold text-kem">
                 Bộ lọc chương trình theo Tầng học tập, Vai trò và Trạng thái

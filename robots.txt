@@ -1,4 +1,4 @@
-# robots.txt cho Hệ sinh thái Thịnh Vượng Số (https://daothinhvuong.vn)
+# robots.txt cho Hệ sinh thái Thịnh Vượng Số (https://thinhvuongso.vn)
 User-agent: *
 Allow: /
 Disallow: /api/
@@ -35,5 +35,5 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://daothinhvuong.vn/sitemap.xml
-Host: https://daothinhvuong.vn
+Sitemap: https://thinhvuongso.vn/sitemap.xml
+Host: https://thinhvuongso.vn

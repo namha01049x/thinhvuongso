@@ -41,7 +41,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPortalModal }) => {
         <a
           href="#"
           className="flex items-center gap-3 group focus:outline-none"
-          aria-label="Đạo Thịnh Vượng - Trang chủ"
+          aria-label="Thịnh Vượng Số - Trang chủ"
         >
           <div className="w-10 h-10 rounded bg-xanh/80 border border-cam/35 flex items-center justify-center relative overflow-hidden group-hover:border-cam transition-colors">
             <svg
@@ -77,7 +77,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenPortalModal }) => {
           </div>
           <div className="flex flex-col">
             <span className="font-sans font-bold text-base sm:text-lg tracking-wider text-kem uppercase leading-none">
-              Đạo Thịnh Vượng
+              Thịnh Vượng Số
             </span>
             <span className="font-mono text-[10px] tracking-[0.18em] text-yen uppercase mt-1">
               Phát triển bản thân · Tài chính · Kinh doanh

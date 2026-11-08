@@ -67,7 +67,7 @@ export const RoadmapSection: React.FC<RoadmapSectionProps> = ({
           <svg
             viewBox="0 0 1200 230"
             className="w-full h-auto overflow-visible"
-            aria-label="Bản đồ 5 tầng học tập Đạo Thịnh Vượng"
+            aria-label="Bản đồ 5 tầng học tập Thịnh Vượng Số"
           >
             <defs>
               <linearGradient id="roadGrad" x1="0%" y1="0%" x2="100%" y2="0%">

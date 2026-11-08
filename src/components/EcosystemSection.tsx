@@ -32,14 +32,14 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({
         <div>
           <div className="max-w-3xl space-y-4">
             <div className="nhan">
-              <span>Về Đạo Thịnh Vượng · Cấu trúc 4 trụ cột</span>
+              <span>Về Thịnh Vượng Số · Cấu trúc 4 trụ cột</span>
             </div>
             <h2 className="text-2xl sm:text-4xl font-bold text-kem leading-tight">
               Một hệ sinh thái.{' '}
               <em className="font-serif italic text-cam font-semibold">Một gốc rễ.</em>
             </h2>
             <p className="text-yen text-base sm:text-lg leading-relaxed">
-              Tại Đạo Thịnh Vượng, chúng tôi không tách rời chuyện tiền bạc khỏi con người.
+              Tại Thịnh Vượng Số, chúng tôi không tách rời chuyện tiền bạc khỏi con người.
               Mọi nút thắt về thu nhập, dòng tiền kinh doanh hay quyết định đầu tư đều bắt
               nguồn từ nhận thức, phẩm chất và năng lực tự làm chủ của chính người đó.
             </p>
@@ -167,7 +167,7 @@ export const EcosystemSection: React.FC<EcosystemSectionProps> = ({
           </div>
         </div>
 
-        {/* Part 3: 4 Role Lenses ("Ai thường tìm đến Đạo Thịnh Vượng?") */}
+        {/* Part 3: 4 Role Lenses ("Ai thường tìm đến Thịnh Vượng Số?") */}
         <div>
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
             <div className="space-y-3 max-w-2xl">

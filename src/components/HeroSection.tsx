@@ -28,8 +28,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenProgramModal }) 
       {/* Background Hall Image with Deep Abyssal Gradient Overlay */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <img
-          src="https://daothinhvuong.vn/anh/c04-hoi-truong.webp"
-          alt="Hội trường học tập Đạo Thịnh Vượng"
+          src="https://thinhvuongso.vn/anh/c04-hoi-truong.webp"
+          alt="Hội trường học tập Thịnh Vượng Số"
           className="w-full h-full object-cover object-center opacity-[0.12] scale-105"
         />
         <div
@@ -47,7 +47,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenProgramModal }) 
           {/* Left Column: Core Value Proposition */}
           <div className="lg:col-span-7 space-y-6">
             <div className="nhan">
-              <span>Đạo Thịnh Vượng · Hệ sinh thái huấn luyện thực chất</span>
+              <span>Thịnh Vượng Số · Hệ sinh thái huấn luyện thực chất</span>
             </div>
 
             <h1 className="text-3xl sm:text-5xl lg:text-[3.35rem] font-bold tracking-tight text-kem leading-[1.14]">
