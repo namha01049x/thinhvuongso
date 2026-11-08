@@ -23,7 +23,10 @@
  })();
  </script>
 
- <!-- Security & Privacy Meta Headers -->
+   <!-- Security & Privacy Meta Headers -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
  <meta name="referrer" content="strict-origin-when-cross-origin" />
  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=()" />
@@ -1770,39 +1773,39 @@
           <!-- Background subtle gold glow accent -->
           <div class="absolute -top-12 -right-12 w-32 h-32 bg-cam/15 rounded-full blur-2xl pointer-events-none"></div>
 
-          <!-- PHẦN 1: THEO DÕI TIẾN ĐỘ HỌC TẬP (Ở ĐỈNH KHUNG) -->
-          <div id="tien-do-hoc-tap" class="p-3.5 sm:p-4 border-b border-kem/15 bg-abyssal/60 space-y-2.5 relative z-10 scroll-mt-24">
+          <!-- PHẦN 1: THEO DÕI TIẾN ĐỘ HỌC TẬP (Ở ĐỈNH KHUNG - TÔNG XANH SAPPHIRE / SLATE HỌC THUẬT, KHÔNG DÙNG MÀU CAM) -->
+          <div id="tien-do-hoc-tap" class="p-3.5 sm:p-4 border-b border-slate-700/60 bg-[#0B131E] space-y-2.5 relative z-10 scroll-mt-24">
             <div class="flex items-center justify-between gap-2">
               <div class="space-y-0.5 min-w-0">
-                <span class="text-[10px] font-mono text-yen uppercase tracking-wider block font-semibold">Theo Dõi Tiến Độ Học Tập</span>
-                <span id="tier-badge" class="inline-flex items-center px-2 py-0.5 rounded-full bg-cam/20 border border-cam/40 font-mono text-[10px] font-bold text-cam truncate">
+                <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block font-semibold">Theo Dõi Tiến Độ Học Tập</span>
+                <span id="tier-badge" class="inline-flex items-center px-2 py-0.5 rounded-full bg-blue-950/70 border border-blue-500/40 font-mono text-[10px] font-bold text-blue-300 truncate">
                   Học viên Cấp 2 · Bịt Kín Rò Rỉ Dòng Tiền
                 </span>
               </div>
               <div class="text-right shrink-0">
-                <span id="progress-percent" class="font-mono text-xl sm:text-2xl font-extrabold text-cam leading-none">50%</span>
+                <span id="progress-percent" class="font-mono text-xl sm:text-2xl font-extrabold text-blue-400 leading-none">50%</span>
               </div>
             </div>
 
-            <!-- Smooth Progress Bar -->
+            <!-- Smooth Progress Bar (Tông Xanh Cyan / Sapphire) -->
             <div class="space-y-1">
-              <div class="h-2 rounded-full bg-abyssal p-0.5 border border-kem/20 overflow-hidden">
-                <div id="progress-fill" class="h-full rounded-full bg-gradient-to-r from-yellow-500 via-cam to-amber-400 transition-all duration-500 shadow-md" style="width: 50%;"></div>
+              <div class="h-2 rounded-full bg-slate-900 p-0.5 border border-slate-700 overflow-hidden">
+                <div id="progress-fill" class="h-full rounded-full bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 transition-all duration-500 shadow-md" style="width: 50%;"></div>
               </div>
-              <div class="flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-yen">
+              <div class="flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-slate-400">
                 <span id="progress-status-desc">3 / 6 Buổi hoàn thành</span>
-                <span id="cert-condition-text" class="text-amber-300 font-medium">Cần thêm 3 buổi</span>
+                <span id="cert-condition-text" class="text-blue-300 font-medium">Cần thêm 3 buổi</span>
               </div>
             </div>
 
-            <!-- Primary Action: Open Certificate Button -->
-            <button type="button" onclick="window.openCertificateModal()" class="w-full justify-center py-2 px-3 rounded-xl border border-amber-400/35 hover:border-amber-300 bg-gradient-to-r from-[#162232] to-[#0E1724] hover:from-[#1E2E42] hover:to-[#142030] text-amber-200 hover:text-white text-xs font-mono uppercase tracking-wider font-bold shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer flex items-center gap-1.5">
+            <!-- Primary Action: Open Certificate Button (Màu Xanh Sapphire Đậm, Không Dùng Màu Cam) -->
+            <button type="button" onclick="window.openCertificateModal()" style="background: linear-gradient(135deg, #101F33, #0A1624) !important; color: #93C5FD !important; border: 1.5px solid #2563EB !important;" class="w-full justify-center py-2 px-3 rounded-xl hover:!border-blue-400 hover:!text-white text-xs font-mono uppercase tracking-wider font-bold shadow-sm transition-all duration-200 cursor-pointer flex items-center gap-1.5">
               <span>Mở Giấy Chứng Nhận Tốt Nghiệp 🎓</span>
             </button>
 
             <!-- Quick Actions: Mark 100% & Reset -->
-            <div class="flex items-center justify-between text-[10px] font-mono text-yen/80 pt-0.5">
-              <button type="button" onclick="window.markAllLessonsComplete()" class="hover:text-cam cursor-pointer transition-colors">
+            <div class="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-0.5">
+              <button type="button" onclick="window.markAllLessonsComplete()" class="hover:text-blue-300 cursor-pointer transition-colors">
                 ✓ Hoàn thành 100%
               </button>
               <button type="button" onclick="window.resetLessonProgress()" class="hover:text-red-400 cursor-pointer transition-colors">
