@@ -256,7 +256,43 @@
         font-size: 16px !important;
       }
     }
-  </style>
+    /* In ấn và xuất PDF Giấy Chứng Nhận Tốt Nghiệp A4 */
+  @media print {
+    body * {
+      visibility: hidden !important;
+    }
+    #certificate-modal,
+    #certificate-modal * {
+      visibility: visible !important;
+    }
+    #certificate-modal {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background: #0B1017 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      z-index: 99999 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    #certificate-print-area {
+      width: 100% !important;
+      max-width: 96% !important;
+      background: #0F1722 !important;
+      border: 3px solid #D4AF37 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .cert-no-print {
+      display: none !important;
+    }
+  }
+</style>
 </head>
 <body class="selection:bg-cam selection:text-abyssal">
 
@@ -703,6 +739,9 @@
                     <span>📊 Thư Viện Biểu Mẫu ↓</span>
                   </a>
                 </div>
+                <button type="button" onclick="window.openCertificateModal()" class="w-full !py-2.5 !px-3 text-xs rounded-xl bg-gradient-to-r from-[#D4AF37]/20 via-cam/20 to-amber-500/20 border border-[#D4AF37]/60 hover:border-[#D4AF37] text-[#FFB162] hover:text-kem font-mono font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-md">
+                  <span>🎓 Nhận Giấy Chứng Nhận Tốt Nghiệp</span>
+                </button>
                 <div class="flex items-center justify-between gap-2 pt-0.5">
                   <a href="#nop-bai" class="btn-o flex-1 justify-center text-[11px] !py-2 text-yen hover:text-cam text-center">
                     <span>📝 Nộp Bài Tập Số Thật ↓</span>
@@ -823,6 +862,9 @@
               <span>Tải biểu mẫu ↓</span>
             </a>
           </div>
+          <button type="button" onclick="window.openCertificateModal()" class="w-full !py-2 !px-3 text-xs rounded-xl bg-gradient-to-r from-[#D4AF37]/20 via-cam/20 to-amber-500/20 border border-[#D4AF37]/50 hover:border-[#D4AF37] text-[#FFB162] hover:text-kem font-mono font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-md">
+            <span>🎓 Nhận Giấy Chứng Nhận Tốt Nghiệp</span>
+          </button>
         </div>
       </div>
 
@@ -3210,7 +3252,100 @@
         window.openForgotPasswordModal(resetEmailParam);
       }
     });
-  </script>
+  
+    // Certificate Modal & Dynamic Student Name Sync
+    function getActiveStudentNameForCert() {
+      try {
+        var savedName = localStorage.getItem('tvs_student_name');
+        if (savedName && savedName.trim()) return savedName.trim();
+
+        var activeRaw = localStorage.getItem('tvs_active_student');
+        if (activeRaw) {
+          var activeObj = JSON.parse(activeRaw);
+          if (activeObj && activeObj.name && activeObj.name.trim()) return activeObj.name.trim();
+        }
+
+        var authRaw = localStorage.getItem('tvs_student_auth');
+        if (authRaw) {
+          var authObj = JSON.parse(authRaw);
+          if (authObj && authObj.name && authObj.name.trim()) return authObj.name.trim();
+        }
+
+        var phone = localStorage.getItem('tvs_student_phone');
+        if (phone) {
+          var cleanPhone = phone.replace(/[\s\-\.]/g, '');
+          if (cleanPhone === '0981501865') return 'Mentor Trần Nam Hà';
+          var dbRaw = localStorage.getItem('tvs_students_database') || localStorage.getItem('tvs_students_db_v1');
+          if (dbRaw) {
+            var db = JSON.parse(dbRaw);
+            if (Array.isArray(db)) {
+              var found = db.find(function(s) {
+                return (s.phone && s.phone.replace(/[\s\-\.]/g, '') === cleanPhone) || s.id === cleanPhone;
+              });
+              if (found && found.name) return found.name;
+            }
+          }
+          return 'Học viên ' + cleanPhone;
+        }
+      } catch (e) {}
+      return 'Học Viên Thịnh Vượng Số';
+    }
+
+    window.handleCertNameChange = function(input) {
+      if (!input) return;
+      var newName = input.value.trim();
+      if (!newName) return;
+      try {
+        localStorage.setItem('tvs_student_name', newName);
+        var activeRaw = localStorage.getItem('tvs_active_student');
+        if (activeRaw) {
+          var activeObj = JSON.parse(activeRaw);
+          activeObj.name = newName;
+          localStorage.setItem('tvs_active_student', JSON.stringify(activeObj));
+        }
+      } catch (e) {}
+    };
+
+    window.openCertificateModal = function() {
+      var m = document.getElementById('certificate-modal');
+      var nameInp = document.getElementById('cert-student-name');
+      var codeEl = document.getElementById('cert-code');
+      var dateEl = document.getElementById('cert-date');
+
+      // Đồng bộ tên học viên chính xác theo tài khoản đăng nhập
+      var studentName = getActiveStudentNameForCert();
+      if (nameInp) {
+        nameInp.value = studentName.toUpperCase();
+      }
+
+      // Cập nhật ngày cấp thực tế
+      if (dateEl) {
+        var now = new Date();
+        var day = (now.getDate() < 10 ? '0' : '') + now.getDate();
+        var month = (now.getMonth() + 1 < 10 ? '0' : '') + (now.getMonth() + 1);
+        dateEl.textContent = day + '/' + month + '/' + now.getFullYear();
+      }
+
+      // Cập nhật mã chứng chỉ
+      if (codeEl) {
+        var phone = localStorage.getItem('tvs_student_phone') || '8899';
+        var cleanPhone = phone.replace(/[\s\-\.]/g, '');
+        var suffix = cleanPhone.length >= 4 ? cleanPhone.slice(-4) : '8899';
+        codeEl.textContent = 'TVS-BPTC-2026-' + suffix;
+      }
+
+      if (m) m.classList.remove('hidden');
+    };
+
+    window.closeCertificateModal = function() {
+      var m = document.getElementById('certificate-modal');
+      if (m) m.classList.add('hidden');
+    };
+
+    window.printCertificate = function() {
+      window.print();
+    };
+</script>
 
   <!-- ==================== MODAL KHÔI PHỤC MẬT KHẨU TỰ ĐỘNG QUA GMAIL ==================== -->
   <div id="forgot-pass-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-abyssal/90 backdrop-blur-md overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="forgot-modal-title">
@@ -3456,6 +3591,165 @@
             <span>Đóng Trình Phát</span>
           </button>
         </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== LUXURY GRADUATION CERTIFICATE MODAL ==================== -->
+  <div id="certificate-modal" class="hidden fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="cert-main-title">
+    <div class="max-w-4xl w-full max-h-[96vh] overflow-y-auto bg-gradient-to-b from-[#141C25] via-[#101720] to-[#0B1017] border-2 sm:border-4 border-[#D4AF37]/80 rounded-2xl sm:rounded-3xl p-3 sm:p-6 md:p-8 relative shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),0_0_40px_rgba(212,175,55,0.25)] text-center space-y-4 sm:space-y-6">
+      
+      <!-- Close button -->
+      <button type="button" onclick="window.closeCertificateModal()" aria-label="Đóng chứng nhận" class="cert-no-print absolute top-3 right-3 sm:top-5 sm:right-5 text-yen hover:text-cam p-2 rounded-full bg-black/60 border border-kem/20 hover:border-cam/60 transition-colors z-20 cursor-pointer">
+        <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <!-- Certificate Printable Paper Container -->
+      <div id="certificate-print-area" class="border-2 border-[#D4AF37]/60 p-4 sm:p-8 md:p-10 rounded-xl relative overflow-hidden bg-gradient-to-b from-[#141E2B] via-[#0F1722] to-[#0A1018] space-y-4 sm:space-y-6 shadow-inner">
+        
+        <!-- 4 Luxury Golden Filigree Corner Ornaments -->
+        <!-- Top Left -->
+        <svg class="absolute top-2 left-2 sm:top-3 sm:left-3 w-8 h-8 sm:w-12 sm:h-12 text-[#D4AF37]/80 pointer-events-none" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 40V15C5 9.47715 9.47715 5 15 5H40"/>
+          <path d="M12 35V18C12 14.6863 14.6863 12 18 12H35"/>
+          <circle cx="18" cy="18" r="3" fill="currentColor"/>
+          <path d="M2 2L22 22M5 2H2V5"/>
+        </svg>
+        <!-- Top Right -->
+        <svg class="absolute top-2 right-2 sm:top-3 sm:right-3 w-8 h-8 sm:w-12 sm:h-12 text-[#D4AF37]/80 pointer-events-none rotate-90" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 40V15C5 9.47715 9.47715 5 15 5H40"/>
+          <path d="M12 35V18C12 14.6863 14.6863 12 18 12H35"/>
+          <circle cx="18" cy="18" r="3" fill="currentColor"/>
+          <path d="M2 2L22 22M5 2H2V5"/>
+        </svg>
+        <!-- Bottom Left -->
+        <svg class="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 w-8 h-8 sm:w-12 sm:h-12 text-[#D4AF37]/80 pointer-events-none -rotate-90" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 40V15C5 9.47715 9.47715 5 15 5H40"/>
+          <path d="M12 35V18C12 14.6863 14.6863 12 18 12H35"/>
+          <circle cx="18" cy="18" r="3" fill="currentColor"/>
+          <path d="M2 2L22 22M5 2H2V5"/>
+        </svg>
+        <!-- Bottom Right -->
+        <svg class="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 w-8 h-8 sm:w-12 sm:h-12 text-[#D4AF37]/80 pointer-events-none rotate-180" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 40V15C5 9.47715 9.47715 5 15 5H40"/>
+          <path d="M12 35V18C12 14.6863 14.6863 12 18 12H35"/>
+          <circle cx="18" cy="18" r="3" fill="currentColor"/>
+          <path d="M2 2L22 22M5 2H2V5"/>
+        </svg>
+
+        <!-- Subtle Inner Gold Dashed Line -->
+        <div class="border border-dashed border-[#D4AF37]/35 p-3 sm:p-6 md:p-8 rounded-lg relative space-y-4 sm:space-y-6">
+          
+          <!-- Header Emblem: Laurel & Cap Medallion -->
+          <div class="flex items-center justify-center">
+            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-[#D4AF37]/30 via-[#2A2315] to-[#121922] border-2 border-[#D4AF37] flex items-center justify-center shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+              <svg class="w-8 h-8 sm:w-9 sm:h-9 text-[#FFD572]" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L1 7l11 5 9-4.09V17h2V7L12 2zm-7.07 9.88l7.07 3.21 7.07-3.21v4.24l-7.07 3.21-7.07-3.21v-4.24z"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Academy Title & Certificate Heading -->
+          <div class="space-y-1.5">
+            <span class="font-mono text-[10px] sm:text-xs text-[#D4AF37] tracking-[0.25em] uppercase font-bold block">
+              HỌC VIỆN THỊNH VƯỢNG SỐ · BAN CỐ VẤN CHUYÊN MÔN
+            </span>
+            <h2 id="cert-main-title" class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#FFE2A4] via-[#D4AF37] to-[#FFB162] tracking-wider uppercase pt-0.5">
+              GIẤY CHỨNG NHẬN TỐT NGHIỆP
+            </h2>
+            <p class="font-mono text-[10px] sm:text-xs text-yen tracking-[0.2em] uppercase">
+              CERTIFICATE OF FINANCIAL MASTERY · SPECIALIZED LEVEL 2
+            </p>
+          </div>
+
+          <!-- Honoree Section: Dynamic Student Name -->
+          <div class="py-2 sm:py-3 space-y-1.5">
+            <p class="text-xs sm:text-sm text-yen italic font-serif">Trân trọng chứng nhận học viên:</p>
+            <div class="max-w-xl mx-auto px-2">
+              <input 
+                type="text" 
+                id="cert-student-name" 
+                value="HỌC VIÊN THỊNH VƯỢNG SỐ" 
+                oninput="window.handleCertNameChange(this)"
+                title="Bấm vào để đổi họ tên hiển thị trên chứng chỉ"
+                class="w-full bg-transparent text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-[#FFB162] text-center focus:outline-none uppercase tracking-wide cursor-text border-b-2 border-[#D4AF37]/80 hover:border-cam focus:border-cam transition-colors py-1 px-2"
+              />
+            </div>
+            <p class="text-[10px] sm:text-[11px] text-yen/80 italic cert-no-print">
+              (Hệ thống tự động đồng bộ theo tài khoản đăng nhập · Chạm vào tên để chỉnh sửa nếu muốn)
+            </p>
+          </div>
+
+          <!-- Description & Course Achievement -->
+          <div class="max-w-2xl mx-auto space-y-2 text-xs sm:text-sm text-kem leading-relaxed">
+            <p class="text-kem/95">
+              Đã hoàn thành xuất sắc toàn diện 6 buổi huấn luyện thực chiến và bảo vệ thành công Bảng Kế Hoạch Tài Chính Cá Nhân Số Thật trong chương trình đào tạo chuyên sâu:
+            </p>
+            <div class="text-base sm:text-lg md:text-xl font-bold text-[#D4AF37] tracking-wide uppercase pt-0.5">
+              BỨT PHÁ TÀI CHÍNH · TẦNG 2 THỰC CHIẾN
+            </div>
+            <p class="text-[11px] sm:text-xs text-yen leading-relaxed">
+              Vá Lỗ Hổng Rò Rỉ Dòng Tiền · Tái Cấu Trúc Đòn Bẩy Thông Minh · Thiết Lập Khung 5 Lớp Tài Sản An Toàn
+            </p>
+          </div>
+
+          <!-- Seal & Signatures Row (3 Balanced Columns) -->
+          <div class="grid grid-cols-3 gap-2 sm:gap-4 pt-4 sm:pt-6 items-end border-t border-[#D4AF37]/30 text-xs text-yen">
+            
+            <!-- Left: Verification Data -->
+            <div class="text-center sm:text-left space-y-1">
+              <span class="font-mono text-[9px] sm:text-[10px] uppercase text-yen block">Mã chứng chỉ số hóa:</span>
+              <span id="cert-code" class="font-mono text-[11px] sm:text-xs font-bold text-kem block">TVS-BPTC-2026-8899</span>
+              <span class="font-mono text-[9px] sm:text-[10px] text-yen block">
+                Ngày cấp: <strong id="cert-date" class="text-kem">08/11/2026</strong>
+              </span>
+              <span class="text-[9px] sm:text-[10px] text-green-400 block font-semibold">✓ Đăng kiểm học viên TVS</span>
+            </div>
+
+            <!-- Center: Official Gold Foil Seal -->
+            <div class="flex flex-col items-center justify-center">
+              <div class="w-16 h-16 sm:w-20 sm:h-20 md:w-22 md:h-22 rounded-full border-2 border-dashed border-[#D4AF37] flex items-center justify-center p-0.5 sm:p-1 bg-gradient-to-br from-[#2A2315] to-[#121922] shadow-[0_0_20px_rgba(212,175,55,0.35)]">
+                <div class="w-14 h-14 sm:w-18 sm:h-18 md:w-20 md:h-20 rounded-full border border-[#D4AF37]/90 flex flex-col items-center justify-center text-[7px] sm:text-[8px] font-mono font-bold text-[#FFD572] uppercase text-center leading-tight tracking-wider bg-black/40 p-1">
+                  <span class="text-[8px] sm:text-[9px] text-[#D4AF37]">★ ★ ★</span>
+                  <span class="font-extrabold text-[#FFE2A4]">THỊNH VƯỢNG SỐ</span>
+                  <span class="text-[6px] sm:text-[7px] text-[#D4AF37]">CHỨNG THỰC BẢN QUYỀN</span>
+                  <span class="text-[5px] sm:text-[6px] text-green-400">● 2026 CSDL</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Mentor Signature -->
+            <div class="text-center sm:text-right space-y-1">
+              <span class="font-mono text-[9px] sm:text-[10px] uppercase text-yen block">Mentor Trưởng Chương Trình:</span>
+              <!-- Signature SVG -->
+              <div class="py-0.5 flex justify-center sm:justify-end items-center">
+                <svg class="w-24 sm:w-32 md:w-36 h-7 sm:h-9 text-[#FFB162]" viewBox="0 0 160 50" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M15 38 C 25 15, 30 8, 42 12 C 55 16, 45 42, 60 30 C 72 20, 80 15, 95 28 C 105 35, 110 20, 125 18 C 135 16, 145 25, 152 20" />
+                  <path d="M28 28 L 138 28" stroke-width="1.5" stroke-dasharray="2 3"/>
+                  <path d="M10 44 Q 50 40, 110 42" stroke-width="2"/>
+                </svg>
+              </div>
+              <div class="text-xs sm:text-sm md:text-base font-bold text-kem uppercase tracking-wider">Trần Nam Hà</div>
+              <span class="font-mono text-[8px] sm:text-[9px] text-yen/80 block">Chữ ký số xác thực CSDL TVS 2026</span>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Footer Buttons -->
+      <div class="cert-no-print flex flex-wrap items-center justify-center gap-2 sm:gap-3 pt-1">
+        <button type="button" onclick="window.printCertificate()" class="btn-p !py-2.5 !px-5 text-xs font-mono uppercase tracking-wider font-bold cursor-pointer shadow-lg shadow-cam/25">
+          <span>In / Lưu Chứng Nhận (PDF) 📥</span>
+        </button>
+        <button type="button" onclick="var el = document.getElementById('cert-student-name'); if (el) { el.focus(); el.select(); }" class="btn-o !py-2.5 !px-4 text-xs font-mono text-yen hover:text-cam cursor-pointer">
+          <span>Sửa Họ Tên ✍</span>
+        </button>
+        <button type="button" onclick="window.closeCertificateModal()" class="btn-o !py-2.5 !px-4 text-xs font-mono cursor-pointer">
+          <span>Đóng cửa sổ ✕</span>
+        </button>
       </div>
 
     </div>
