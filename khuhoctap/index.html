@@ -2575,6 +2575,7 @@
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<span>Đang xác thực thông tin...</span>';
 
+      setTimeout(function() {
         var checkAndLogin = function(student) {
           if (!student) {
             submitBtn.disabled = false;
