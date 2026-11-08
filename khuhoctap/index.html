@@ -1925,60 +1925,11 @@
       'all': 'Trọn bộ 3 Tầng Thực Chiến'
     };
 
-    // Khởi tạo hoặc Lấy CSDL Mã Bản Quyền Độc Quyền
+    // Khởi tạo hoặc Lấy CSDL Mã Bản Quyền Độc Quyền (Đã chuyển lên Google Cloud Firestore)
     function getDefaultLicenseKeys() {
-      return [
-        {
-          code: 'TVS-BP-8899-2026',
-          course: 'but-pha',
-          courseName: 'Bứt Phá Tài Chính (Mentor Trần Nam Hà)',
-          createdAt: '2026-11-01T08:00:00.000Z',
-          isUsed: false,
-          usedByPhone: null,
-          usedByName: null,
-          usedAt: null
-        },
-        {
-          code: 'TVS-BP-7766-2026',
-          course: 'but-pha',
-          courseName: 'Bứt Phá Tài Chính (Mentor Trần Nam Hà)',
-          createdAt: '2026-11-01T08:00:00.000Z',
-          isUsed: false,
-          usedByPhone: null,
-          usedByName: null,
-          usedAt: null
-        },
-        {
-          code: 'TVS-BD-1234-2026',
-          course: 'binh-dan',
-          courseName: 'Bình Dân Học Vụ Tài Chính',
-          createdAt: '2026-11-01T08:00:00.000Z',
-          isUsed: false,
-          usedByPhone: null,
-          usedByName: null,
-          usedAt: null
-        },
-        {
-          code: 'TVS-VIP-9999-2026',
-          course: 'all',
-          courseName: 'Trọn bộ 3 Tầng Thực Chiến',
-          createdAt: '2026-11-01T08:00:00.000Z',
-          isUsed: false,
-          usedByPhone: null,
-          usedByName: null,
-          usedAt: null
-        },
-        {
-          code: 'TVS-MASTER-NAMHA',
-          course: 'all',
-          courseName: 'Trọn bộ 3 Tầng Thực Chiến',
-          createdAt: '2026-11-01T08:00:00.000Z',
-          isUsed: true,
-          usedByPhone: '0981501865',
-          usedByName: 'Mentor Trần Nam Hà',
-          usedAt: '2026-11-01T08:00:00.000Z'
-        }
-      ];
+      // AN NINH THƯƠNG MẠI: Kho mã bản quyền đã được bảo mật 100% trên Google Cloud Firestore
+      // (Collection: tvs_license_keys). Không lưu mã thô trong HTML của trình duyệt.
+      return [];
     }
 
     function getLicenseKeysDatabase() {
@@ -1988,88 +1939,34 @@
           var parsed = JSON.parse(raw);
           if (Array.isArray(parsed) && parsed.length > 0) return parsed;
         }
-      } catch (e) {
-        console.warn('Lỗi đọc CSDL mã bản quyền:', e);
-      }
-      var defaultKeys = getDefaultLicenseKeys();
-      saveLicenseKeysDatabase(defaultKeys);
-      return defaultKeys;
+      } catch (e) {}
+      return [];
     }
 
     function saveLicenseKeysDatabase(keys) {
       try {
-        localStorage.setItem(TVS_LICENSE_KEY_DB, JSON.stringify(keys));
-      } catch (e) {
-        console.error('Không thể lưu CSDL mã bản quyền:', e);
-      }
+        localStorage.setItem(TVS_LICENSE_KEY_DB, JSON.stringify(keys || []));
+      } catch (e) {}
     }
 
-    // Hàm xác thực & Kích hoạt Mã Bản Quyền độc quyền cho đúng 1 SĐT duy nhất
+    // Hàm xác thực & Kích hoạt Mã Bản Quyền độc quyền (Ưu tiên đám mây Google Cloud Firestore)
     window.verifyAndClaimLicenseKey = function(rawCode, studentPhone, studentName) {
+      if (window.TVS_CLOUD && typeof window.TVS_CLOUD.verifyAndClaimLicenseKeyAsync === 'function') {
+        return window.TVS_CLOUD.verifyAndClaimLicenseKeyAsync(rawCode, studentPhone, studentName);
+      }
+      // Dự phòng cục bộ nếu chưa kết nối mạng
       var code = (rawCode || '').trim().toUpperCase();
       var cleanPhone = (studentPhone || '').replace(/[\s\-\.]/g, '').trim();
-
-      if (!code) {
-        return { success: false, error: 'Vui lòng nhập Mã kích hoạt khóa học bản quyền!' };
-      }
-
-      // Đặc quyền Mentor Trần Nam Hà
       if (cleanPhone === '0981501865') {
-        return {
+        return Promise.resolve({
           success: true,
-          item: {
-            code: 'TVS-MASTER-NAMHA',
-            course: 'all',
-            courseName: 'Trọn bộ 3 Tầng Thực Chiến'
-          }
-        };
+          item: { code: 'TVS-MASTER-NAMHA', course: 'all', courseName: 'Trọn bộ 3 Tầng Thực Chiến' }
+        });
       }
-
-      var keys = getLicenseKeysDatabase();
-      var foundIndex = -1;
-      for (var i = 0; i < keys.length; i++) {
-        if (keys[i].code.toUpperCase() === code) {
-          foundIndex = i;
-          break;
-        }
-      }
-
-      if (foundIndex === -1) {
-        return {
-          success: false,
-          error: 'Mã kích hoạt "' + code + '" không tồn tại hoặc đã nhập sai. Vui lòng kiểm tra lại từng ký tự hoặc liên hệ Mentor Trần Nam Hà (0981 501 865)!'
-        };
-      }
-
-      var targetKey = keys[foundIndex];
-      // Nếu mã đã được sử dụng
-      if (targetKey.isUsed) {
-        var usedPhone = (targetKey.usedByPhone || '').replace(/[\s\-\.]/g, '').trim();
-        if (usedPhone === cleanPhone) {
-          return {
-            success: true,
-            item: targetKey,
-            alreadyYours: true
-          };
-        }
-        return {
-          success: false,
-          error: 'Mã kích hoạt "' + code + '" đã được kích hoạt cho học viên khác (' + (targetKey.usedByName ? targetKey.usedByName + ' - ' : '') + 'SĐT ' + targetKey.usedByPhone + '). Mỗi mã chỉ kích hoạt 1 lần cho đúng 1 học viên duy nhất!'
-        };
-      }
-
-      // Mã hợp lệ và chưa từng sử dụng -> Khóa chết vào SĐT này
-      targetKey.isUsed = true;
-      targetKey.usedByPhone = cleanPhone;
-      targetKey.usedByName = studentName || 'Học viên ' + cleanPhone;
-      targetKey.usedAt = new Date().toISOString();
-      keys[foundIndex] = targetKey;
-      saveLicenseKeysDatabase(keys);
-
-      return {
-        success: true,
-        item: targetKey
-      };
+      return Promise.resolve({
+        success: false,
+        error: 'Chưa thể kết nối tới máy chủ Google Cloud để xác thực mã bản quyền. Vui lòng kiểm tra lại kết nối mạng!'
+      });
     };
 
     // Khởi tạo hoặc Lấy cơ sở dữ liệu học viên (Tự động bảo vệ & đồng bộ tài khoản Nhà Sáng Lập)
@@ -2347,12 +2244,12 @@
         return true;
       }
 
-      // 1. KHÓA CỨNG BẢO VỆ: Email haduka.14@gmail.com là email độc quyền của Mentor Trần Nam Hà (0981501865)
+      // 1. KHÓA CỨNG BẢO VỆ: Email haduka.14@gmail.com là email độc quyền của Mentor Trần Nam Hà
       if (email === 'haduka.14@gmail.com') {
         if (input) input.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
         if (errorBox && errorText) {
           errorBox.classList.remove('hidden');
-          errorText.innerHTML = 'Địa chỉ Email <strong>haduka.14@gmail.com</strong> là Email độc quyền của Nhà sáng lập & Mentor Trần Nam Hà (gắn với SĐT 0981 501 865). Tuyệt đối không thể dùng email này để đăng ký tài khoản học viên khác!';
+          errorText.innerHTML = 'Địa chỉ Email <strong>haduka.14@gmail.com</strong> là Email độc quyền của Nhà sáng lập & Mentor Trần Nam Hà. Tuyệt đối không thể dùng email này để đăng ký!';
         }
         return false;
       }
@@ -2458,142 +2355,170 @@
         return;
       }
 
-      var claimRes = window.verifyAndClaimLicenseKey(licenseCode, phone, name);
-      if (!claimRes.success) {
-        if (licenseInp) licenseInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50');
-        if (errorBox && errorText) {
-          errorBox.classList.remove('hidden');
-          errorText.innerHTML = claimRes.error;
-        }
-        if (licenseInp) licenseInp.focus();
-        return;
-      }
-
-      var db = getStudentsDatabase();
-
-      // Kiểm tra trùng Họ tên (Bảo mật: Không để lộ SĐT người khác)
-      var dupName = db.find(function(s) {
-        return s.name && s.name.trim().toLowerCase() === name.toLowerCase();
-      });
-      if (dupName) {
-        if (nameInp) nameInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/30');
-        if (errorBox && errorText) {
-          errorBox.classList.remove('hidden');
-          errorText.innerHTML = 'Họ và tên <strong>' + name + '</strong> đã tồn tại trong hệ thống. Vui lòng thêm từ phân biệt hoặc chuyển sang tab Đăng Nhập!';
-        }
-        nameInp.focus();
-        return;
-      }
-
-      // Kiểm tra trùng Số điện thoại
-      var dupPhone = db.find(function(s) {
-        var sPhone = (s.phone || s.id || '').replace(/[\s\-\.]/g, '').trim();
-        return sPhone === phone;
-      });
-      if (dupPhone) {
-        if (phoneInp) phoneInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/30');
-        if (errorBox && errorText) {
-          errorBox.classList.remove('hidden');
-          errorText.innerHTML = 'Số điện thoại này đã được đăng ký tài khoản trong hệ thống. Mỗi người chỉ dùng 1 tài khoản riêng, vui lòng chuyển sang tab Đăng Nhập!';
-        }
-        phoneInp.focus();
-        return;
-      }
-
-      // 3. KHÓA CỨNG BẢO VỆ: Email haduka.14@gmail.com là email độc quyền của Mentor Trần Nam Hà (0981501865)
-      if (email === 'haduka.14@gmail.com' && phone !== '0981501865') {
-        if (emailInp) emailInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/30');
-        if (errorBox && errorText) {
-          errorBox.classList.remove('hidden');
-          errorText.innerHTML = 'Địa chỉ Email <strong>haduka.14@gmail.com</strong> là Email độc quyền của Nhà sáng lập & Mentor Trần Nam Hà (gắn với SĐT 0981 501 865). Tuyệt đối không thể dùng email này để đăng ký tài khoản học viên khác!';
-        }
-        emailInp.focus();
-        return;
-      }
-
-      // 4. Kiểm tra trùng Email trong CSDL
-      var dupEmail = db.find(function(s) {
-        var sEmail = (s.email || '').trim().toLowerCase();
-        var sPhone = (s.phone || s.id || '').replace(/[\s\-\.]/g, '').trim();
-        return sEmail === email && sPhone !== phone;
-      });
-      if (dupEmail) {
-        if (emailInp) emailInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/30');
-        if (errorBox && errorText) {
-          errorBox.classList.remove('hidden');
-          errorText.innerHTML = 'Địa chỉ Email <strong>' + email + '</strong> đã được đăng ký tài khoản trong hệ thống. Vui lòng chuyển sang tab Đăng Nhập!';
-        }
-        emailInp.focus();
-        return;
-      }
-
-      // Lưu học viên vào CSDL
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span>Đang xác thực bản quyền & khởi tạo hồ sơ...</span>';
+      submitBtn.innerHTML = '<span>Đang xác thực với đám mây Google Cloud...</span>';
 
-      setTimeout(function() {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<span>Hoàn Tất Đăng Ký & Lưu Vào CSDL ↗</span>';
-
-        var now = new Date();
-        var formattedDate = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear() + ' ' + 
-                            (now.getHours() < 10 ? '0' : '') + now.getHours() + ':' + 
-                            (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
-
-        var newStudent = {
-          id: phone,
-          phone: phone,
-          name: name,
-          email: email,
-          course: (claimRes.item && claimRes.item.course) || 'but-pha',
-          courseName: (claimRes.item && claimRes.item.courseName) || 'Bứt Phá Tài Chính (Mentor Trần Nam Hà)',
-          pin: pin,
-          passcode: pin,
-          isActivated: true,
-          licenseCode: (claimRes.item && claimRes.item.code) || licenseCode,
-          registeredAt: now.toISOString(),
-          registeredDateFormatted: formattedDate,
-          completedLessons: []
-        };
-
-        db.push(newStudent);
-        saveStudentsDatabase(db);
-        setActiveStudent(newStudent);
-
-        // Áp dụng lên giao diện & cập nhật CSDL Inspector
-        applyStudentAuthState(newStudent);
-        renderLessonProgressUI(newStudent.completedLessons);
-        renderDbInspector();
-
-        var msg = document.getElementById('login-status-msg');
-        if (msg) {
-          msg.classList.remove('hidden', 'bg-red-900/40', 'text-red-200', 'border-red-500/50');
-          msg.classList.add('bg-green-900/40', 'text-green-200', 'border', 'border-green-500/50');
-          msg.innerHTML = '<strong>Đăng ký & Kích hoạt bản quyền thành công!</strong> Chào mừng học viên <strong>' + name + '</strong>. Mật khẩu riêng và bản quyền khóa học (' + newStudent.courseName + ') đã được khóa chặt với số điện thoại ' + phone + ' của bạn.';
-        }
-
-        // Tự động điền Cổng nộp bài tập
-        var hwPhone = document.getElementById('hw-phone');
-        var hwName = document.getElementById('hw-name');
-        if (hwPhone) hwPhone.value = phone;
-        if (hwName) hwName.value = name;
-
-        // Reset form đăng ký
-        if (nameInp) nameInp.value = '';
-        if (phoneInp) phoneInp.value = '';
-        if (emailInp) emailInp.value = '';
-        if (pinInp) pinInp.value = '';
-        if (licenseInp) licenseInp.value = '';
-        if (errorBox) errorBox.classList.add('hidden');
-
-        setTimeout(function() {
-          var target = document.getElementById('protected-learning-space');
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
+      Promise.resolve(window.verifyAndClaimLicenseKey(licenseCode, phone, name))
+        .then(function(claimRes) {
+          if (!claimRes || !claimRes.success) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>Hoàn Tất Đăng Ký & Lưu Vào CSDL ↗</span>';
+            if (licenseInp) licenseInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50');
+            if (errorBox && errorText) {
+              errorBox.classList.remove('hidden');
+              errorText.innerHTML = (claimRes && claimRes.error) || 'Mã kích hoạt không hợp lệ!';
+            }
+            if (licenseInp) licenseInp.focus();
+            return;
           }
-        }, 500);
 
-      }, 500);
+          var db = getStudentsDatabase();
+
+          // Kiểm tra trùng Họ tên
+          var dupName = db.find(function(s) {
+            return s.name && s.name.trim().toLowerCase() === name.toLowerCase();
+          });
+          if (dupName) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>Hoàn Tất Đăng Ký & Lưu Vào CSDL ↗</span>';
+            if (nameInp) nameInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/30');
+            if (errorBox && errorText) {
+              errorBox.classList.remove('hidden');
+              errorText.innerHTML = 'Họ và tên <strong>' + name + '</strong> đã tồn tại trong hệ thống. Vui lòng thêm từ phân biệt hoặc chuyển sang tab Đăng Nhập!';
+            }
+            nameInp.focus();
+            return;
+          }
+
+          // Kiểm tra trùng Số điện thoại
+          var dupPhone = db.find(function(s) {
+            var sPhone = (s.phone || s.id || '').replace(/[\s\-\.]/g, '').trim();
+            return sPhone === phone;
+          });
+          if (dupPhone) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>Hoàn Tất Đăng Ký & Lưu Vào CSDL ↗</span>';
+            if (phoneInp) phoneInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/30');
+            if (errorBox && errorText) {
+              errorBox.classList.remove('hidden');
+              errorText.innerHTML = 'Số điện thoại này đã được đăng ký tài khoản trong hệ thống. Mỗi người chỉ dùng 1 tài khoản riêng, vui lòng chuyển sang tab Đăng Nhập!';
+            }
+            phoneInp.focus();
+            return;
+          }
+
+          // 3. KHÓA CỨNG BẢO VỆ: Email haduka.14@gmail.com là email độc quyền của Mentor Trần Nam Hà
+          if (email === 'haduka.14@gmail.com' && phone !== '0981501865') {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>Hoàn Tất Đăng Ký & Lưu Vào CSDL ↗</span>';
+            if (emailInp) emailInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/30');
+            if (errorBox && errorText) {
+              errorBox.classList.remove('hidden');
+              errorText.innerHTML = 'Địa chỉ Email <strong>haduka.14@gmail.com</strong> là Email độc quyền của Nhà sáng lập & Mentor Trần Nam Hà. Tuyệt đối không thể dùng email này để đăng ký!';
+            }
+            emailInp.focus();
+            return;
+          }
+
+          // 4. Kiểm tra trùng Email trong CSDL
+          var dupEmail = db.find(function(s) {
+            var sEmail = (s.email || '').trim().toLowerCase();
+            var sPhone = (s.phone || s.id || '').replace(/[\s\-\.]/g, '').trim();
+            return sEmail === email && sPhone !== phone;
+          });
+          if (dupEmail) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>Hoàn Tất Đăng Ký & Lưu Vào CSDL ↗</span>';
+            if (emailInp) emailInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/30');
+            if (errorBox && errorText) {
+              errorBox.classList.remove('hidden');
+              errorText.innerHTML = 'Địa chỉ Email <strong>' + email + '</strong> đã được đăng ký tài khoản trong hệ thống. Vui lòng chuyển sang tab Đăng Nhập!';
+            }
+            emailInp.focus();
+            return;
+          }
+
+          // Băm mật khẩu SHA-256 an toàn và đẩy lên Cloud
+          var hashPinPromise = (window.TVS_CLOUD && typeof window.TVS_CLOUD.hashPinAsync === 'function')
+            ? window.TVS_CLOUD.hashPinAsync(pin)
+            : Promise.resolve(pin);
+
+          hashPinPromise.then(function(hashedPin) {
+            var now = new Date();
+            var formattedDate = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear() + ' ' + 
+                                (now.getHours() < 10 ? '0' : '') + now.getHours() + ':' + 
+                                (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
+
+            var newStudent = {
+              id: phone,
+              phone: phone,
+              name: name,
+              email: email,
+              course: (claimRes.item && claimRes.item.course) || 'but-pha',
+              courseName: (claimRes.item && claimRes.item.courseName) || 'Bứt Phá Tài Chính (Mentor Trần Nam Hà)',
+              pin: hashedPin || pin,
+              passcode: hashedPin || pin,
+              isActivated: true,
+              licenseCode: (claimRes.item && claimRes.item.code) || licenseCode,
+              registeredAt: now.toISOString(),
+              registeredDateFormatted: formattedDate,
+              completedLessons: []
+            };
+
+            db.push(newStudent);
+            saveStudentsDatabase(db);
+            setActiveStudent(newStudent);
+
+            // Đồng bộ trực tiếp lên Google Cloud Firestore
+            if (window.TVS_CLOUD && typeof window.TVS_CLOUD.saveStudentAsync === 'function') {
+              window.TVS_CLOUD.saveStudentAsync(newStudent);
+            }
+
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>Hoàn Tất Đăng Ký & Lưu Vào CSDL ↗</span>';
+
+            // Áp dụng lên giao diện & cập nhật CSDL Inspector
+            applyStudentAuthState(newStudent);
+            renderLessonProgressUI(newStudent.completedLessons);
+            renderDbInspector();
+
+            var msg = document.getElementById('login-status-msg');
+            if (msg) {
+              msg.classList.remove('hidden', 'bg-red-900/40', 'text-red-200', 'border-red-500/50');
+              msg.classList.add('bg-green-900/40', 'text-green-200', 'border', 'border-green-500/50');
+              msg.innerHTML = '<strong>Đăng ký & Kích hoạt bản quyền thành công!</strong> Chào mừng học viên <strong>' + name + '</strong>. Hồ sơ và bản quyền khóa học (' + newStudent.courseName + ') đã được đồng bộ lên máy chủ Google Cloud.';
+            }
+
+            // Tự động điền Cổng nộp bài tập
+            var hwPhone = document.getElementById('hw-phone');
+            var hwName = document.getElementById('hw-name');
+            if (hwPhone) hwPhone.value = phone;
+            if (hwName) hwName.value = name;
+
+            // Reset form đăng ký
+            if (nameInp) nameInp.value = '';
+            if (phoneInp) phoneInp.value = '';
+            if (emailInp) emailInp.value = '';
+            if (pinInp) pinInp.value = '';
+            if (licenseInp) licenseInp.value = '';
+            if (errorBox) errorBox.classList.add('hidden');
+
+            setTimeout(function() {
+              var target = document.getElementById('protected-learning-space');
+              if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+              }
+            }, 500);
+          });
+        })
+        .catch(function(err) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span>Hoàn Tất Đăng Ký & Lưu Vào CSDL ↗</span>';
+          if (errorBox && errorText) {
+            errorBox.classList.remove('hidden');
+            errorText.innerHTML = 'Lỗi hệ thống: ' + (err.message || err);
+          }
+        });
     };
 
     // ĐĂNG NHẬP HỌC VIÊN (Bảo mật: Xác thực tài khoản và kiểm tra mật khẩu riêng chặt chẽ)
@@ -2643,17 +2568,67 @@
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<span>Đang xác thực thông tin...</span>';
 
-      setTimeout(function() {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<span>Truy Cập Khu Học Tập ↗</span>';
+        var checkAndLogin = function(student) {
+          if (!student) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>Truy Cập Khu Học Tập ↗</span>';
+            if (idInp) {
+              idInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
+              idInp.focus();
+            }
+            if (errBox && errText) {
+              errBox.classList.remove('hidden');
+              errText.innerHTML = 'Tài khoản không tồn tại trên hệ thống máy chủ! Vui lòng kiểm tra lại Số điện thoại hoặc chuyển sang tab <strong>Đăng Ký Mới</strong> (kèm Mã Bản Quyền) để đăng ký tài khoản chính thức.';
+            }
+            return;
+          }
 
-        var db = getStudentsDatabase();
-        var rawId = idInp ? idInp.value.trim() : '';
-        var cleanPhone = rawId.replace(/[\s\-\.]/g, '');
-        var q = rawId.toLowerCase();
+          var savedPin = String(student.pin || student.passcode || '').trim();
+          var enteredPin = String(pin).trim();
+          var sPhone = (student.phone || student.id || '').replace(/[\s\-\.]/g, '').trim();
+          var isMentor = (sPhone === '0981501865');
 
-        // 1. Tìm theo SĐT, Họ tên hoặc Email trong CSDL chính thức
-        var student = db.find(function(s) {
+          var verifyPinPromise;
+          if (isMentor && (enteredPin === savedPin || enteredPin === '123456' || enteredPin === 'admin888' || enteredPin.length >= 3)) {
+            verifyPinPromise = Promise.resolve(true);
+          } else if (window.TVS_CLOUD && typeof window.TVS_CLOUD.verifyPinAsync === 'function') {
+            verifyPinPromise = window.TVS_CLOUD.verifyPinAsync(enteredPin, savedPin);
+          } else {
+            verifyPinPromise = Promise.resolve(savedPin && enteredPin === savedPin);
+          }
+
+          verifyPinPromise.then(function(isPinValid) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>Truy Cập Khu Học Tập ↗</span>';
+
+            if (!isPinValid) {
+              if (pinInp) {
+                pinInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
+                pinInp.focus();
+              }
+              if (errBox && errText) {
+                errBox.classList.remove('hidden');
+                errText.innerHTML = 'Mật khẩu riêng không chính xác! Mỗi tài khoản học viên có mật khẩu độc lập để chống học chung. Vui lòng nhập đúng mật khẩu của bạn hoặc liên hệ Mentor Trần Nam Hà.';
+              }
+              return;
+            }
+
+            // Mật khẩu chính xác -> Đăng nhập thành công!
+            if (idInp) idInp.classList.remove('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
+            if (pinInp) pinInp.classList.remove('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
+            if (errBox) errBox.classList.add('hidden');
+
+            // Đồng bộ ngược lại CSDL local nếu học viên vừa lấy từ đám mây
+            if (window.TVS_CLOUD && typeof window.TVS_CLOUD.syncStudentToLocalCache === 'function') {
+              window.TVS_CLOUD.syncStudentToLocalCache(student);
+            }
+
+            finalizeLogin(student);
+          });
+        };
+
+        // 1. Tìm theo SĐT, Họ tên hoặc Email trong CSDL local trước
+        var localStudent = db.find(function(s) {
           var sPhone = (s.phone || s.id || '').replace(/[\s\-\.]/g, '').trim();
           var sName = (s.name || '').trim().toLowerCase();
           var sEmail = (s.email || '').trim().toLowerCase();
@@ -2664,60 +2639,31 @@
         });
 
         // Nhận diện tài khoản Mentor Trần Nam Hà theo các từ khóa đặc trưng
-        if (!student && (q.indexOf('nam hà') !== -1 || q.indexOf('nam ha') !== -1 || q.indexOf('haduka') !== -1 || cleanPhone === '0981501865')) {
-          student = db.find(function(s) { return s.id === '0981501865' || s.phone === '0981501865'; });
+        if (!localStudent && (q.indexOf('nam hà') !== -1 || q.indexOf('nam ha') !== -1 || q.indexOf('haduka') !== -1 || cleanPhone === '0981501865')) {
+          localStudent = db.find(function(s) { return s.id === '0981501865' || s.phone === '0981501865'; });
         }
 
-        // BẢO VỆ CHẶT CHẼ: Nếu tài khoản KHÔNG tồn tại trong CSDL -> Từ chối dứt khoát!
-        // Tuyệt đối không tự động tạo tài khoản rác cho người lạ để tránh lạm dụng học chung
-        if (!student) {
-          if (idInp) {
-            idInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
-            idInp.focus();
-          }
-          if (errBox && errText) {
-            errBox.classList.remove('hidden');
-            errText.innerHTML = 'Tài khoản không tồn tại trong hệ thống! Vui lòng kiểm tra lại Số điện thoại hoặc chuyển sang tab <strong>Đăng Ký Mới</strong> (kèm Mã Bản Quyền) để đăng ký tài khoản chính thức.';
-          }
-          return;
-        }
-
-        // 2. Kiểm tra Mật Khẩu Riêng của tài khoản đó (Khóa chặt, không cho dùng chung)
-        var savedPin = String(student.pin || student.passcode || '').trim();
-        var enteredPin = String(pin).trim();
-        var sPhone = (student.phone || student.id || '').replace(/[\s\-\.]/g, '').trim();
-        var isMentor = (sPhone === '0981501865');
-
-        var isPinValid = false;
-
-        // Đặc quyền Mentor Trần Nam Hà (Chủ sáng lập): Luôn mở cửa quản trị
-        if (isMentor) {
-          if (enteredPin === savedPin || enteredPin === '123456' || enteredPin === 'admin888' || enteredPin.length >= 3) {
-            isPinValid = true;
-          }
+        if (localStudent) {
+          checkAndLogin(localStudent);
+        } else if (window.TVS_CLOUD && typeof window.TVS_CLOUD.getStudentAsync === 'function') {
+          // Tra cứu trực tiếp trên Google Cloud Firestore nếu máy này chưa có dữ liệu
+          submitBtn.innerHTML = '<span>Đang tra cứu đám mây Google Cloud...</span>';
+          window.TVS_CLOUD.getStudentAsync(cleanPhone || rawId)
+            .then(function(cloudStudent) {
+              checkAndLogin(cloudStudent);
+            })
+            .catch(function() {
+              checkAndLogin(null);
+            });
         } else {
-          // Bắt buộc khớp 100% mật khẩu riêng của học viên đó
-          if (savedPin && enteredPin === savedPin) {
-            isPinValid = true;
-          }
+          checkAndLogin(null);
         }
+      }, 350);
+    };
 
-        if (!isPinValid) {
-          if (pinInp) {
-            pinInp.classList.add('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
-            pinInp.focus();
-          }
-          if (errBox && errText) {
-            errBox.classList.remove('hidden');
-            errText.innerHTML = 'Mật khẩu riêng không chính xác! Mỗi tài khoản học viên có mật khẩu độc lập để chống học chung. Vui lòng nhập đúng mật khẩu của bạn hoặc bấm <strong>[Quên mật khẩu?]</strong> để đặt lại qua OTP.';
-          }
-          return;
-        }
-
-        // 4. Mật khẩu chính xác -> Đăng nhập thành công!
-        if (idInp) idInp.classList.remove('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
-        if (pinInp) pinInp.classList.remove('border-red-500', 'ring-2', 'ring-red-500/50', 'bg-red-950/20');
-        if (errBox) errBox.classList.add('hidden');
+    var finalizeLogin = function(student) {
+      if (!student) return;
+      var msg = document.getElementById('login-status-msg');
 
         // KIỂM TRA ĐỊNH MỨC THIẾT BỊ (TỐI ĐA 1 MÁY TÍNH, 2 TABLET, 2 ĐIỆN THOẠI, 1 TAB)
         var finalizeLogin = function() {
