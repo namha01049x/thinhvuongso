@@ -1053,7 +1053,7 @@ html_content += f'''
 
       <div class="pt-6 border-t border-kem/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-mono text-yen">
         <span>© 2026 Thịnh Vượng Số. Tất cả quyền được bảo lưu.</span>
-        <span>Mentor Trần Nam Hà · Phan Trọng Quỳnh</span>
+        <span>Người đại diện pháp luật & Sáng lập: Mentor Trần Nam Hà</span>
       </div>
     </div>
   </footer>

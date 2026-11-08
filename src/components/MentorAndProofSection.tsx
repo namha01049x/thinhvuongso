@@ -69,8 +69,7 @@ export const MentorAndProofSection: React.FC = () => {
                 <strong>Aston Business School (Birmingham, UK)</strong>, ông Trần Nam Hà
                 trực tiếp sáng lập, điều hành và tham gia quản trị vốn tại nhiều doanh
                 nghiệp trong lĩnh vực đầu tư, thương mại và nông nghiệp công nghệ cao trước
-                khi sáng lập <strong>Thịnh Vượng Số</strong> cùng đồng sáng lập & CEO{' '}
-                <strong>Phan Trọng Quỳnh</strong>.
+                khi sáng lập <strong>Thịnh Vượng Số</strong> để kiến tạo giải pháp phát triển năng lực làm chủ đời sống, công việc và tài chính cho cộng đồng người học thực chiến.
               </p>
 
               {/* Credentials Grid */}

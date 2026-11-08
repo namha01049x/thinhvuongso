@@ -3,8 +3,7 @@
 ## 1. Brand Overview
 - **Brand Name:** Thịnh Vượng Số
 - **Legal Entity:** Công ty TNHH Thịnh Vượng Số (MST: `0111281148`)
-- **Founder & Mentor:** Trần Nam Hà (Aston Business School, Birmingham, UK)
-- **Co-founder & CEO:** Phan Trọng Quỳnh
+- **Legal Representative & Founder:** Mentor Trần Nam Hà (Aston Business School, Birmingham, UK)
 - **Address:** Số 28, ngõ 81 Đông Ngạc, Phường Đông Ngạc, TP Hà Nội
 - **Hotline / Zalo:** `0985.878.672` (`https://zalo.me/84985878672`)
 - **Email:** `support@thinhvuongso.vn`
