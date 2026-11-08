@@ -1222,7 +1222,7 @@
     // Lấy thông tin học viên đang hoạt động (kèm kiểm tra thời hạn phiên 1 tiếng sau khi rời đi)
     function getActiveStudent() {
       try {
-        var raw = localStorage.getItem(TVS_ACTIVE_KEY);
+        var raw = localStorage.getItem(TVS_ACTIVE_KEY) || localStorage.getItem('tvs_active_student');
         if (!raw) return null;
 
         var lastActiveStr = localStorage.getItem('tvs_last_active_time');
@@ -1233,6 +1233,7 @@
         // Nếu đã rời khỏi khu học tập quá 1 tiếng: tự động đăng xuất để bảo vệ tài khoản
         if (lastActive > 0 && (now - lastActive) > SESSION_TIMEOUT_MS) {
           localStorage.removeItem(TVS_ACTIVE_KEY);
+          localStorage.removeItem('tvs_active_student');
           localStorage.removeItem(TVS_AUTH_KEY);
           localStorage.removeItem('tvs_last_active_time');
           sessionStorage.setItem('tvs_session_expired_reason', '1hour_inactivity');
@@ -1243,7 +1244,7 @@
         localStorage.setItem('tvs_last_active_time', now.toString());
 
         var cur = JSON.parse(raw);
-        var dbRaw = localStorage.getItem(TVS_DB_KEY);
+        var dbRaw = localStorage.getItem(TVS_DB_KEY) || localStorage.getItem('tvs_students_database');
         if (dbRaw) {
           var db = JSON.parse(dbRaw);
           var found = db.find(function(s) { return s.phone === cur.phone || s.id === cur.id; });
@@ -1257,20 +1258,23 @@
     function saveActiveStudent(student) {
       if (!student) {
         localStorage.removeItem(TVS_ACTIVE_KEY);
+        localStorage.removeItem('tvs_active_student');
         localStorage.removeItem(TVS_AUTH_KEY);
         localStorage.removeItem('tvs_last_active_time');
         return;
       }
       try {
         localStorage.setItem(TVS_ACTIVE_KEY, JSON.stringify(student));
+        localStorage.setItem('tvs_active_student', JSON.stringify(student));
         localStorage.setItem('tvs_last_active_time', Date.now().toString());
-        var dbRaw = localStorage.getItem(TVS_DB_KEY);
+        var dbRaw = localStorage.getItem(TVS_DB_KEY) || localStorage.getItem('tvs_students_database');
         if (dbRaw) {
           var db = JSON.parse(dbRaw);
           var idx = db.findIndex(function(s) { return (s.phone || s.id) === (student.phone || student.id); });
           if (idx !== -1) {
             db[idx] = student;
             localStorage.setItem(TVS_DB_KEY, JSON.stringify(db));
+            localStorage.setItem('tvs_students_database', JSON.stringify(db));
           }
         }
       } catch (e) {}
@@ -1447,6 +1451,20 @@
 
     // Xem video bản ghi bài giảng
     window.playSampleVideo = function(videoTitle, duration, descList, xlsxFile) {
+      var student = getActiveStudent();
+      if (!student) {
+        alert('Vui lòng đăng nhập tài khoản học viên để truy cập video bài giảng!');
+        window.location.href = 'khuhoctap.html';
+        return;
+      }
+
+      var isMentor = (student.phone === '0981501865');
+      if (!isMentor && !student.isDemo && !student.isActivated) {
+        alert('Tài khoản của bạn chưa kích hoạt Mã Bản Quyền Khóa Học! Vui lòng kích hoạt bản quyền tại Cổng Học Viện để tiếp tục học.');
+        window.location.href = 'khuhoctap.html';
+        return;
+      }
+
       var modal = document.getElementById('video-player-modal');
       var titleEl = document.getElementById('player-video-title');
       var durEl = document.getElementById('player-video-duration');
@@ -1465,10 +1483,32 @@
         listEl.innerHTML = '<li class="flex items-start gap-1.5"><span class="text-cam font-bold">•</span><span>Bản ghi trực tiếp cùng Mentor Trần Nam Hà kèm tài liệu bài tập số thật.</span></li>';
       }
 
+      if (typeof startLopHocAntiLeakWatermark === 'function') {
+        startLopHocAntiLeakWatermark(student);
+      }
       if (modal) modal.classList.remove('hidden');
     };
 
+    var lhWatermarkTimer = null;
+    function startLopHocAntiLeakWatermark(student) {
+      var wm = document.getElementById('dynamic-lophoc-watermark');
+      var studentIdEl = document.getElementById('watermark-lophoc-student-id');
+      var active = student || getActiveStudent();
+      var label = active ? (active.name + ' · ' + (active.phone || active.id)) : '0981501865';
+      if (studentIdEl) studentIdEl.textContent = label;
+
+      if (lhWatermarkTimer) clearInterval(lhWatermarkTimer);
+      lhWatermarkTimer = setInterval(function() {
+        if (!wm) return;
+        var topPos = Math.floor(Math.random() * 65) + 10;
+        var leftPos = Math.floor(Math.random() * 55) + 10;
+        wm.style.top = topPos + '%';
+        wm.style.left = leftPos + '%';
+      }, 10000);
+    }
+
     window.closeVideoModal = function() {
+      if (lhWatermarkTimer) clearInterval(lhWatermarkTimer);
       var modal = document.getElementById('video-player-modal');
       if (modal) modal.classList.add('hidden');
     };
@@ -2141,20 +2181,27 @@
       window.initSessionTimeoutWatcher();
 
       var student = getActiveStudent();
-      renderStudentData(student);
-      if (student) {
-        window.registerCurrentDevice(student.phone || student.id);
-        window.initSingleTabCoordinator();
-        window.updateDeviceUI();
-      } else {
-        // Nếu phiên hết hạn an toàn (sau 1 tiếng không hoạt động)
+      if (!student) {
         var expiredReason = sessionStorage.getItem('tvs_session_expired_reason');
         if (expiredReason === '1hour_inactivity') {
           sessionStorage.removeItem('tvs_session_expired_reason');
-          alert('Phiên đăng nhập đã hết hạn an toàn (sau 1 tiếng rời khỏi khu học tập). Hệ thống chuyển bạn về cổng đăng nhập.');
-          window.location.href = 'khuhoctap.html';
+          alert('Phiên học tập đã hết hạn an toàn (sau 1 tiếng rời khỏi khu học tập). Vui lòng đăng nhập lại.');
         }
+        window.location.href = 'khuhoctap.html';
+        return;
       }
+
+      var isMentor = (student.phone === '0981501865');
+      if (!isMentor && !student.isDemo && !student.isActivated) {
+        alert('Tài khoản chưa được kích hoạt Mã Bản Quyền Khóa Học! Hệ thống chuyển bạn về Cổng Học Viện để kích hoạt bản quyền.');
+        window.location.href = 'khuhoctap.html';
+        return;
+      }
+
+      renderStudentData(student);
+      window.registerCurrentDevice(student.phone || student.id);
+      window.initSingleTabCoordinator();
+      window.updateDeviceUI();
     });
   </script>
 
@@ -2188,6 +2235,13 @@
         <div class="absolute inset-0 flex items-center justify-center">
           <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-cam text-abyssal flex items-center justify-center shadow-2xl animate-pulse cursor-pointer hover:scale-105 transition-transform">
             <svg class="w-8 h-8 ml-1 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+
+        <!-- Watermark Động Chống Quay Lén / Phát Tán Tài Khoản -->
+        <div id="dynamic-lophoc-watermark" class="pointer-events-none absolute z-20 select-none opacity-20 font-mono text-xs sm:text-sm text-kem font-bold uppercase tracking-wider transform -rotate-12 transition-all duration-1000" style="top: 25%; left: 20%;">
+          <div class="px-3 py-1 rounded bg-black/60 border border-white/20">
+            <span id="watermark-lophoc-student-id">Học viên Thịnh Vượng Số</span>
           </div>
         </div>
 
