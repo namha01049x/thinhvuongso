@@ -1917,15 +1917,24 @@
               <p class="text-[10px] sm:text-[11px] text-yen">Áp dụng cho 20 suất đăng ký sớm nhất đợt này</p>
             </div>
 
-            <!-- Countdown Timer -->
-            <div class="p-2 rounded-lg bg-abyssal/90 border border-kem/15 text-center space-y-1">
-              <span class="font-mono text-[9px] uppercase text-cam font-semibold tracking-wider block">Ưu đãi kết thúc sau:</span>
-              <div class="flex justify-center items-center gap-1.5 font-mono text-xs font-bold text-kem">
-                <span id="timer-days" class="px-1.5 py-0.5 rounded bg-xanh/50">03 Ngày</span>
-                <span>:</span>
-                <span id="timer-hours" class="px-1.5 py-0.5 rounded bg-xanh/50">14 Giờ</span>
-                <span>:</span>
-                <span id="timer-mins" class="px-1.5 py-0.5 rounded bg-xanh/50">28 Phút</span>
+            <!-- Countdown Timer Live Urgency Engine -->
+            <div id="countdown-timer-box" class="p-2 sm:p-2.5 rounded-xl bg-abyssal/95 border border-cam/35 text-center space-y-1.5 shadow-inner">
+              <div class="flex items-center justify-center gap-1.5 font-mono text-[10px] uppercase text-cam font-bold tracking-wider">
+                <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+                <span>Ưu đãi kết thúc sau:</span>
+              </div>
+              <div class="flex justify-center items-center gap-1 sm:gap-1.5 font-mono text-[11px] sm:text-xs font-bold text-kem">
+                <span id="timer-days" class="px-1.5 py-1 rounded-lg bg-xanh/60 border border-kem/20 text-kem min-w-[50px]">00 Ngày</span>
+                <span class="text-cam font-bold">:</span>
+                <span id="timer-hours" class="px-1.5 py-1 rounded-lg bg-xanh/60 border border-kem/20 text-kem min-w-[48px]">05 Giờ</span>
+                <span class="text-cam font-bold">:</span>
+                <span id="timer-mins" class="px-1.5 py-1 rounded-lg bg-xanh/60 border border-kem/20 text-kem min-w-[48px]">42 Phút</span>
+                <span class="text-cam font-bold">:</span>
+                <span id="timer-secs" class="px-1.5 py-1 rounded-lg bg-cam/25 border border-cam/60 text-cam font-extrabold min-w-[48px] shadow-sm">38 Giây</span>
+              </div>
+              <div class="text-[10px] font-mono text-amber-300/90 flex items-center justify-center gap-1 pt-0.5">
+                <span>⚡</span>
+                <span>Hết thời gian giá sẽ quay về: <strong class="text-white line-through text-[9px] opacity-75">9.900.000 đ</strong></span>
               </div>
             </div>
 
@@ -3672,36 +3681,72 @@
  }
  }
 
- // Real-time Countdown Timer
- function startCountdown() {
- var daysEl = document.getElementById('timer-days');
- var hoursEl = document.getElementById('timer-hours');
- var minsEl = document.getElementById('timer-mins');
- if (!daysEl || !hoursEl || !minsEl) return;
+  // Real-time Urgency Countdown Timer (Ticking every second)
+  function startCountdown() {
+    var daysEl = document.getElementById('timer-days');
+    var hoursEl = document.getElementById('timer-hours');
+    var minsEl = document.getElementById('timer-mins');
+    var secsEl = document.getElementById('timer-secs');
+    if (!hoursEl || !minsEl) return;
 
- var targetDate = new Date();
- targetDate.setDate(targetDate.getDate() + 3);
- targetDate.setHours(targetDate.getHours() + 14);
+    var STORAGE_KEY = 'tvs_course_promo_urgency_deadline_v3';
+    var now = Date.now();
+    var deadline = 0;
 
- function update() {
- var now = new Date().getTime();
- var distance = targetDate.getTime() - now;
- if (distance < 0) {
- daysEl.textContent = '00 Ngày';
- hoursEl.textContent = '00 Giờ';
- minsEl.textContent = '00 Phút';
- return;
- }
- var d = Math.floor(distance / (1000 * 60 * 60 * 24));
- var h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
- var m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
- daysEl.textContent = (d < 10 ? '0' + d : d) + ' Ngày';
- hoursEl.textContent = (h < 10 ? '0' + h : h) + ' Giờ';
- minsEl.textContent = (m < 10 ? '0' + m : m) + ' Phút';
- }
- update();
- setInterval(update, 60000);
- }
+    try {
+      var saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        deadline = parseInt(saved, 10);
+      }
+    } catch(e) {}
+
+    // Thời lượng cấp bách kích hoạt hành động mua ngay: 5 giờ 48 phút 35 giây
+    var URGENCY_DURATION = (5 * 3600 + 48 * 60 + 35) * 1000;
+    if (!deadline || isNaN(deadline) || deadline <= now) {
+      deadline = now + URGENCY_DURATION;
+      try {
+        localStorage.setItem(STORAGE_KEY, deadline.toString());
+      } catch(e) {}
+    }
+
+    function updateTimer() {
+      var current = Date.now();
+      var remaining = deadline - current;
+
+      if (remaining <= 0) {
+        // Tự động gia hạn chu kỳ suất vét chót cuối cùng (30 phút) để đồng hồ luôn chạy sống động
+        deadline = Date.now() + (30 * 60 * 1000);
+        try {
+          localStorage.setItem(STORAGE_KEY, deadline.toString());
+        } catch(e) {}
+        remaining = deadline - Date.now();
+      }
+
+      var totalSecs = Math.floor(remaining / 1000);
+      var d = Math.floor(totalSecs / 86400);
+      var h = Math.floor((totalSecs % 86400) / 3600);
+      var m = Math.floor((totalSecs % 3600) / 60);
+      var s = totalSecs % 60;
+
+      var dStr = (d < 10 ? '0' + d : d);
+      var hStr = (h < 10 ? '0' + h : h);
+      var mStr = (m < 10 ? '0' + m : m);
+      var sStr = (s < 10 ? '0' + s : s);
+
+      if (daysEl) daysEl.textContent = dStr + ' Ngày';
+      if (hoursEl) hoursEl.textContent = hStr + ' Giờ';
+      if (minsEl) minsEl.textContent = mStr + ' Phút';
+      if (secsEl) {
+        secsEl.textContent = sStr + ' Giây';
+        // Hiệu ứng nhịp đập tích tắc từng giây sống động
+        secsEl.style.transform = (s % 2 === 0) ? 'scale(1.05)' : 'scale(1)';
+        secsEl.style.transition = 'transform 0.15s ease-out';
+      }
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  }
 
  // Initialization
  
